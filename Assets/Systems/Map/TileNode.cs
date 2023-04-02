@@ -5,19 +5,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
-namespace GameJam.Grid
+namespace GameJam.Map
 {
     public class TileNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         private Tilemap _tilemap;
         public Vector3Int TilePosition {get; private set;}
         [SerializeField] private bool _evenTileNode;
-        [SerializeField] Vector3Int[] _direction;
-        [SerializeField] TileNode[] _neighbours;
+        [SerializeField] Vector3Int[] _direction = new Vector3Int[6];
 
         //hold unit data for tile
         private SpriteRenderer _spriteRenderer;
         private Color _startColour;
+        [SerializeField] private Color _evenHexColour;
         [SerializeField] private Color _hoverColour;
         [SerializeField] private Color _selectedColour;
         private bool _nodeSelected = false;
@@ -36,30 +36,43 @@ namespace GameJam.Grid
 
         private void Start()
         {
-            GetAdjacentTiles();
+            DefineHexDirections();
         }
 
-        private void GetAdjacentTiles()
+        private void DefineHexDirections()
         {
-            _direction = new Vector3Int[6];
-            if (TilePosition.y % 2 > 0)
+
+            if (TilePosition.y % 2 == 0)
             {
                 _evenTileNode = false;
-                _direction[0] = new Vector3Int( 1, -1,  0); //upleft
-                _direction[1] = new Vector3Int( 0, -1,  0); //downleft
-                _direction[2] = new Vector3Int(-1,  0,  0); //down
-                _direction[3] = new Vector3Int( 0,  1,  0); //downright
+                _direction[0] = new Vector3Int( 0,  1,  0); //Upleft
+                _direction[2] = new Vector3Int(-1,  0,  0); //Left
+                _direction[1] = new Vector3Int( 0, -1,  0); //Downleft
+                _direction[3] = new Vector3Int( 1, -1,  0); //Downright
                 _direction[4] = new Vector3Int( 1,  1,  0); //upright
-                _direction[5] = new Vector3Int( 1,  0,  0); //up
+                _direction[5] = new Vector3Int( 1,  0,  0); //Right
             } else {
                 _evenTileNode = true;
-                _direction[0] = new Vector3Int( 0, -1,  0); //upleft
-                _direction[1] = new Vector3Int(-1, -1,  0); //downleft
-                _direction[2] = new Vector3Int(-1,  0,  0); //down
-                _direction[3] = new Vector3Int(-1,  1,  0); //downright
-                _direction[4] = new Vector3Int( 0,  1,  0); //upright
-                _direction[5] = new Vector3Int( 1,  0,  0); //up
+                _direction[0] = new Vector3Int(-1,  1,  0); //Upleft
+                _direction[2] = new Vector3Int(-1,  0,  0); //Left
+                _direction[1] = new Vector3Int(-1, -1,  0); //Downleft
+                _direction[3] = new Vector3Int( 0, -1,  0); //Downright
+                _direction[5] = new Vector3Int( 1,  0,  0); //Right
+                _direction[4] = new Vector3Int( 0,  1,  0); //Upright
             }
+            
+            if (TilePosition.x % 2 != 0 && !_evenTileNode)
+            {   //offset tile colour for a nicer look
+                _spriteRenderer.color = _startColour = _evenHexColour;
+            }
+        }
+
+        public Vector3Int GetHexNeighbourCoordinatesAt(int direction)
+        {  
+            Vector3Int neighbourCoordinates = new Vector3Int();
+            neighbourCoordinates = TilePosition + _direction[direction];
+
+            return neighbourCoordinates;
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -93,18 +106,25 @@ namespace GameJam.Grid
         private void OnClickedTile()
         {
             Debug.Log("Pointer Clicked on tile: " + TilePosition );
+            GameMaster.Instance.SetSelectedTile(this);
+        }
 
-            if (_nodeSelected)
-            {
-                _spriteRenderer.color = _hoverColour;
-                _nodeSelected = false;
-                return;
-            }
-
+        public void SelectNode()
+        {
             if (!_nodeSelected)
             {   
                 _spriteRenderer.color = _selectedColour;
                 _nodeSelected = true;
+                return;
+            }
+        }
+
+        public void DeselectNode()
+        {
+            if (_nodeSelected)
+            {
+                _spriteRenderer.color = _startColour;
+                _nodeSelected = false;
                 return;
             }
         }

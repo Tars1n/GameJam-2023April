@@ -127,5 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6028570a7b32a1540b22de99e33cfb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _evenTileNode: 0
+  _direction:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  _evenHexColour: {r: 0.99770415, g: 0.9198113, b: 1, a: 1}
   _hoverColour: {r: 1, g: 0.4490609, b: 0, a: 1}
   _selectedColour: {r: 0.10734272, g: 1, b: 0, a: 1}
