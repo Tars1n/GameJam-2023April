@@ -4,8 +4,13 @@ using GameJam.Map;
 
 namespace GameJam
 {
+    [RequireComponent(typeof(ReferenceManager),typeof(EventManager))]
     public class GameMasterSingleton : MonoBehaviour
     {
+        private ReferenceManager _referenceManager;
+        public ReferenceManager ReferenceManager => _referenceManager;
+        private EventManager _eventManager;
+        public EventManager EventManager => _eventManager;
         public bool _jacobLogs = false;
         public bool _lukeLogs = false;
         [SerializeField] bool _gmLogs = false;
@@ -19,6 +24,8 @@ namespace GameJam
 
         private void Awake() {
             _fixedDeltaTime = Time.fixedDeltaTime;
+            _referenceManager = GetComponent<ReferenceManager>();
+            _eventManager = GetComponent<EventManager>();            
             DontDestroyOnLoad(this);
         }
 
