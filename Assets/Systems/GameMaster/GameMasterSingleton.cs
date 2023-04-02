@@ -14,16 +14,12 @@ namespace GameJam
         [SerializeField] private GameObject _activeUnit;
         public GameObject ActiveUnit => _activeUnit;
         [SerializeField] private TileNode _selectedTile = null;
+        public TileNode SelectedTile => _selectedTile;
         
 
         private void Awake() {
             _fixedDeltaTime = Time.fixedDeltaTime;
             DontDestroyOnLoad(this);
-        }
-
-        public TileNode GetSelectedTile()
-        {
-            return _selectedTile;
         }
 
         public void SetSelectedTile(TileNode node)

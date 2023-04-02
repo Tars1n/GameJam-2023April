@@ -105,7 +105,8 @@ namespace GameJam.Map
 
         private void OnClickedTile()
         {
-            Debug.Log("Pointer Clicked on tile: " + TilePosition );
+            if (GameMaster.Instance._jacobLogs)
+                Debug.Log("Pointer Clicked on tile: " + TilePosition );
             GameMaster.Instance.SetSelectedTile(this);
         }
 
