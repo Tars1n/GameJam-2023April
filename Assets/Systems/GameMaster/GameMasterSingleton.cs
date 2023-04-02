@@ -20,6 +20,7 @@ namespace GameJam
         public GameObject ActiveUnit => _activeUnit;
         [SerializeField] private TileNode _selectedTile = null;
         public TileNode SelectedTile => _selectedTile;
+        public bool TilemapInteractable = true;
         
 
         private void Awake() {
