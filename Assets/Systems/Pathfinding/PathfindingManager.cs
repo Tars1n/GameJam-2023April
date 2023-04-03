@@ -41,23 +41,29 @@ namespace GameJam.Pathfinding
         }
         private void CheckAdjacentTilesToThisTile(Vector3Int sourceCoords)
         {
-
-            for (int i = 0; i < 6; i++)
+            Vector3Int[] tileCoordsCheckingArray = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
+            foreach (Vector3Int tileCoordInArray in tileCoordsCheckingArray)
             {
-                Vector3Int tileCoordChecking = _mapManager.GetAdjacentHexCoordinate(sourceCoords, i);
-                tileCoordChecking += sourceCoords;
-                {
-                    if (IsTileNotExplored(tileCoordChecking))
-                    {
-                        if ((!_tilesInNextStep.Contains(tileCoordChecking)) && (CanWalkOnTile(tileCoordChecking)))
-                        {
-                            _tilesInNextStep.Add(tileCoordChecking);
-                        }
-                        _tilesExplored.Add(tileCoordChecking);
-                    }
-
-                }
+                Vector3Int coordOfAdjacentTileChecking = tileCoordInArray + sourceCoords;
+                Debug.Log($"coord of adjacent tile checking" + coordOfAdjacentTileChecking);
             }
+            // for (int i = 0; i < 6; i++)
+            // {
+            //     Vector3Int tileCoordChecking = _mapManager.GetAdjacentHexCoordinate(sourceCoords, i);
+            //     tileCoordChecking += sourceCoords;
+            //     {
+            //         if (IsTileNotExplored(tileCoordChecking))
+            //         {
+            //             if ((!_tilesInNextStep.Contains(tileCoordChecking)) && (CanWalkOnTile(tileCoordChecking)))
+            //             {
+            //                 _tilesInNextStep.Add(tileCoordChecking);
+            //                 Debug.Log($"i " + i);
+            //             }
+            //             _tilesExplored.Add(tileCoordChecking);
+            //         }
+
+            //     }
+            // }
         }
         private bool CanWalkOnTile(Vector3Int tileCoord)
         {
