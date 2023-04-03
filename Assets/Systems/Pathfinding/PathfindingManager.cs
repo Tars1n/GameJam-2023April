@@ -29,14 +29,18 @@ namespace GameJam.Pathfinding
                     {
                         _tilesInThisStep.Add(tileCoordChecking);
                     }
+                    _tilesExplored.Add(tileCoordChecking);
                 }
                 
             }
         }
-        private bool IsTileNotExplored(Vector3Int sourceCoords)
+        private bool IsTileNotExplored(Vector3Int tileCoords)
         {
-            // if (_map.)
-            return true;
+            if (_tilesExplored.Contains(tileCoords))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.InputSystem;
+using GameJam.Pathfinding;
 
 namespace GameJam.Map
 {
@@ -11,7 +12,13 @@ namespace GameJam.Map
         [SerializeField] private bool _debugLogs = true;
         [SerializeField] private Tilemap _map;
         [SerializeField] private Tilemap _overlayTilemap;
-        [SerializeField] private TileBase _selectionTileBase;
+        [SerializeField] private TileBase _selectionTileBase;        
+        private PathfindingManager _pathfinding;
+
+        private void Awake()
+        {
+            _pathfinding = GetComponent<PathfindingManager>();
+        }
 
         private void Update() {
             if (GameMaster.Instance.TilemapInteractable == false)
@@ -44,6 +51,7 @@ namespace GameJam.Map
 
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
+            _pathfinding?.FillPathInfinate(gridPosition);
         }
 
         private TileNode[] GetAdjacentHexTiles(Vector3Int gridPosition)
