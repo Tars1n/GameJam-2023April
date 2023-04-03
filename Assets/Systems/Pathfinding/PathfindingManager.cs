@@ -36,8 +36,11 @@ namespace GameJam.Pathfinding
             CheckAdjacentTilesToThisTile(sourceCoords);
             for (int moveIndex = 1; moveIndex < mp; moveIndex ++)
             {
-                if (_tilesInNextStep.Count == 0) return;
-                Debug.Log($"next tile step count " + moveIndex);
+                if (_tilesInNextStep.Count == 0) 
+                {
+                    Debug.Log($"finished step loop after " +  moveIndex + " steps");
+                    return;
+                }
                 ConvertNextStepToThis();
                 if (_tilesInThisStep.Count > 0)
                 {
