@@ -21,18 +21,22 @@ namespace GameJam.Pathfinding
         
         public void FillPathInfinate(Vector3Int sourceCoords)
         {
-            Vector3Int[] adjacentTiles = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
-            foreach (Vector3Int tileCoordChecking in adjacentTiles)
+            // Vector3Int[] adjacentTiles = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
+            // foreach (Vector3Int tileCoordChecking in adjacentTiles)
+            for (int i =0; i<6; i++)
             {
-                if (IsTileNotExplored(tileCoordChecking)) 
+                Vector3Int tileCoordChecking = _mapManager.GetAdjacentHexCoordinate(sourceCoords, i);
                 {
-                    if (!_tilesInThisStep.Contains(tileCoordChecking))
+                    if (IsTileNotExplored(tileCoordChecking)) 
                     {
-                        _tilesInThisStep.Add(tileCoordChecking);
+                        if (!_tilesInThisStep.Contains(tileCoordChecking))
+                        {
+                            _tilesInThisStep.Add(tileCoordChecking);
+                        }
+                        _tilesExplored.Add(tileCoordChecking);
                     }
-                    _tilesExplored.Add(tileCoordChecking);
+                    
                 }
-                
             }
         }
         private bool IsTileNotExplored(Vector3Int tileCoords)
