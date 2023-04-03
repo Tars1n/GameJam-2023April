@@ -69,23 +69,6 @@ namespace GameJam.Pathfinding
                     index ++;
                 }
             }
-            // for (int i = 0; i < 6; i++)
-            // {
-            //     Vector3Int tileCoordChecking = _mapManager.GetAdjacentHexCoordinate(sourceCoords, i);
-            //     tileCoordChecking += sourceCoords;
-            //     {
-            //         if (IsTileNotExplored(tileCoordChecking))
-            //         {
-            //             if ((!_tilesInNextStep.Contains(tileCoordChecking)) && (CanWalkOnTile(tileCoordChecking)))
-            //             {
-            //                 _tilesInNextStep.Add(tileCoordChecking);
-            //                 Debug.Log($"i " + i);
-            //             }
-            //             _tilesExplored.Add(tileCoordChecking);
-            //         }
-
-            //     }
-            // }
         }
         private bool CanWalkOnTile(Vector3Int tileCoord)
         {
