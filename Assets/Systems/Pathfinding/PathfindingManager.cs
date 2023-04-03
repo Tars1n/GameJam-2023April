@@ -27,8 +27,6 @@ namespace GameJam.Pathfinding
         {
             _tilesInThisStep = new List<Vector3Int>();
             _tilesInNextStep = new List<Vector3Int>();
-            // Vector3Int[] adjacentTiles = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
-            // foreach (Vector3Int tileCoordChecking in adjacentTiles)
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
             CheckAdjacentTilesToThisTile(sourceCoords);
@@ -37,7 +35,7 @@ namespace GameJam.Pathfinding
             {
                 foreach (Vector3Int tileInStep in _tilesInThisStep)
                 {
-                    // CheckAdjacentTilesToThisTile(tileInStep);
+                    CheckAdjacentTilesToThisTile(tileInStep);
                 }
             }
         }
@@ -48,13 +46,10 @@ namespace GameJam.Pathfinding
             foreach (Vector3Int tileCoordInArray in tileCoordsCheckingArray)
             {
                 Vector3Int coordOfAdjacentTileChecking = tileCoordInArray + sourceCoords;
-                // Debug.Log($"coord of adjacent tile checking" + coordOfAdjacentTileChecking);
                 if (IsTileNotExplored(coordOfAdjacentTileChecking))
                 {
-                    // Debug.Log($"tile is not explored" + index);
                     if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
                     {
-                        // Debug.Log($"can walk on tile");
                         _tilesInNextStep.Add(coordOfAdjacentTileChecking);
                         _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
                     }
