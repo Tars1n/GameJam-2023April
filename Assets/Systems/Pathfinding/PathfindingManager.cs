@@ -16,6 +16,7 @@ namespace GameJam.Pathfinding
         private void Awake()
         {
             _mapManager = GetComponent<MapManager>();
+            _map = _mapManager.Map;
         }
         
         public void FillPathInfinate(Vector3Int sourceCoords)

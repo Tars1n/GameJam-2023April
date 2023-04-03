@@ -11,6 +11,7 @@ namespace GameJam.Map
     {
         [SerializeField] private bool _debugLogs = true;
         [SerializeField] private Tilemap _map;
+        public Tilemap Map => _map;
         [SerializeField] private Tilemap _overlayTilemap;
         [SerializeField] private TileBase _selectionTileBase;        
         private PathfindingManager _pathfinding;

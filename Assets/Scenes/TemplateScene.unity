@@ -2068,6 +2068,7 @@ GameObject:
   - component: {fileID: 622301434}
   - component: {fileID: 622301433}
   - component: {fileID: 622301432}
+  - component: {fileID: 622301435}
   m_Layer: 0
   m_Name: HexGrid
   m_TagString: Untagged
@@ -2087,6 +2088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1bb7d319d8e664897bce3cb6698aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 1
   _map: {fileID: 1926293767}
   _overlayTilemap: {fileID: 887409680}
   _selectionTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
@@ -2118,6 +2120,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622301435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622301431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db4ac046d8e048a8b4f77f7f87e986d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tilesExplored: []
+  _tilesInThisStep: []
+  _map: {fileID: 0}
 --- !u!1001 &625974624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2439,6 +2456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1bb7d319d8e664897bce3cb6698aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 1
   _map: {fileID: 0}
   _overlayTilemap: {fileID: 0}
   _selectionTileBase: {fileID: 0}
