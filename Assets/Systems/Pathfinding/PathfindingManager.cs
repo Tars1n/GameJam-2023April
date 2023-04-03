@@ -11,7 +11,7 @@ namespace GameJam.Pathfinding
         [SerializeField] private List<Vector3Int> _tilesExplored;
         [SerializeField] private List<Vector3Int> _tilesInThisStep;
         private MapManager _mapManager;
-        [SerializeField] private Tilemap _map;
+        private Tilemap _map;
 
         private void Awake()
         {
@@ -37,7 +37,7 @@ namespace GameJam.Pathfinding
         }
         private bool IsTileNotExplored(Vector3Int tileCoords)
         {
-            if (_tilesExplored.Contains(tileCoords))
+            if (!_tilesExplored.Contains(tileCoords))
             {
                 return true;
             }
