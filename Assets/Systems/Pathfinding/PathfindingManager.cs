@@ -9,6 +9,8 @@ namespace GameJam.Pathfinding
     public class PathfindingManager : MonoBehaviour
     {
         [SerializeField] private Tile _tileFloor;
+        [SerializeField] private Tile _canMoveOverlay;
+        [SerializeField] private Tilemap _overlayTileMap;
         [SerializeField] private List<Vector3Int> _tilesExplored;
         [SerializeField] private List<Vector3Int> _tilesInThisStep;
         [SerializeField] private List<Vector3Int> _tilesInNextStep;
@@ -54,6 +56,7 @@ namespace GameJam.Pathfinding
                     {
                         // Debug.Log($"can walk on tile");
                         _tilesInNextStep.Add(coordOfAdjacentTileChecking);
+                        _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
                     }
                     _tilesExplored.Add(coordOfAdjacentTileChecking);
                     index ++;
