@@ -22,20 +22,31 @@ namespace GameJam.Pathfinding
             _mapManager = GetComponent<MapManager>();
             _map = _mapManager.Map;
         }
-        
         public void FillPathInfinate(Vector3Int sourceCoords)
+        {
+            FillPathMP(sourceCoords, 20);
+        }
+        
+        public void FillPathMP(Vector3Int sourceCoords, int mp)
         {
             _tilesInThisStep = new List<Vector3Int>();
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
             CheckAdjacentTilesToThisTile(sourceCoords);
-            ConvertNextStepToThis();
-            if (_tilesInThisStep.Count > 0)
+            for (int moveIndex = 1; moveIndex < mp; moveIndex ++)
             {
-                foreach (Vector3Int tileInStep in _tilesInThisStep)
+                if (_tilesInNextStep.Count > 0)
                 {
-                    CheckAdjacentTilesToThisTile(tileInStep);
+                    Debug.Log($"next tile step count " + _tilesInNextStep);
+                    ConvertNextStepToThis();
+                    if (_tilesInThisStep.Count > 0)
+                    {
+                        foreach (Vector3Int tileInStep in _tilesInThisStep)
+                        {
+                            CheckAdjacentTilesToThisTile(tileInStep);
+                        }
+                    }
                 }
             }
         }

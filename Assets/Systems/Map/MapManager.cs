@@ -52,7 +52,7 @@ namespace GameJam.Map
 
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
-            _pathfinding?.FillPathInfinate(gridPosition);
+            _pathfinding?.FillPathMP(gridPosition);
         }
 
         private TileNode[] GetAdjacentHexTiles(Vector3Int gridPosition)
