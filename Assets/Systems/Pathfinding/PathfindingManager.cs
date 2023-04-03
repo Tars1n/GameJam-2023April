@@ -36,16 +36,14 @@ namespace GameJam.Pathfinding
             CheckAdjacentTilesToThisTile(sourceCoords);
             for (int moveIndex = 1; moveIndex < mp; moveIndex ++)
             {
-                if (_tilesInNextStep.Count > 0)
+                if (_tilesInNextStep.Count == 0) return;
+                Debug.Log($"next tile step count " + moveIndex);
+                ConvertNextStepToThis();
+                if (_tilesInThisStep.Count > 0)
                 {
-                    Debug.Log($"next tile step count " + _tilesInNextStep);
-                    ConvertNextStepToThis();
-                    if (_tilesInThisStep.Count > 0)
+                    foreach (Vector3Int tileInStep in _tilesInThisStep)
                     {
-                        foreach (Vector3Int tileInStep in _tilesInThisStep)
-                        {
-                            CheckAdjacentTilesToThisTile(tileInStep);
-                        }
+                        CheckAdjacentTilesToThisTile(tileInStep);
                     }
                 }
             }
