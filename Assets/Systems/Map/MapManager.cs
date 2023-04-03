@@ -77,19 +77,19 @@ namespace GameJam.Map
             //TODO move this calculation to a HelperClass
             if (startingPosition.y % 2 == 0)
             {
-                directions[0] = new Vector3Int( 0,  1,  0); //Upleft
-                directions[2] = new Vector3Int(-1,  0,  0); //Left
-                directions[1] = new Vector3Int( 0, -1,  0); //Downleft
-                directions[3] = new Vector3Int( 1, -1,  0); //Downright
-                directions[4] = new Vector3Int( 1,  1,  0); //upright
-                directions[5] = new Vector3Int( 1,  0,  0); //Right
-            } else {
                 directions[0] = new Vector3Int(-1,  1,  0); //Upleft
                 directions[2] = new Vector3Int(-1,  0,  0); //Left
                 directions[1] = new Vector3Int(-1, -1,  0); //Downleft
                 directions[3] = new Vector3Int( 0, -1,  0); //Downright
                 directions[5] = new Vector3Int( 1,  0,  0); //Right
                 directions[4] = new Vector3Int( 0,  1,  0); //Upright
+            } else {
+                directions[0] = new Vector3Int(0, 1, 0); //Upleft
+                directions[2] = new Vector3Int(-1, 0, 0); //Left
+                directions[1] = new Vector3Int(0, -1, 0); //Downleft
+                directions[3] = new Vector3Int(1, -1, 0); //Downright
+                directions[4] = new Vector3Int(1, 1, 0); //upright
+                directions[5] = new Vector3Int(1, 0, 0); //Right
             }
 
             return directions;

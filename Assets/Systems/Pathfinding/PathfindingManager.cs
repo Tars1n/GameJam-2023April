@@ -37,7 +37,7 @@ namespace GameJam.Pathfinding
             {
                 foreach (Vector3Int tileInStep in _tilesInThisStep)
                 {
-                    CheckAdjacentTilesToThisTile(tileInStep);
+                    // CheckAdjacentTilesToThisTile(tileInStep);
                 }
             }
         }
