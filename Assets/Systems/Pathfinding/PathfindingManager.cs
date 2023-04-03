@@ -8,6 +8,7 @@ namespace GameJam.Pathfinding
 {
     public class PathfindingManager : MonoBehaviour
     {
+        [SerializeField] private Tile _tileFloor;
         [SerializeField] private List<Vector3Int> _tilesExplored;
         [SerializeField] private List<Vector3Int> _tilesInThisStep;
         [SerializeField] private List<Vector3Int> _tilesInNextStep;
@@ -48,7 +49,7 @@ namespace GameJam.Pathfinding
                 {
                     if (IsTileNotExplored(tileCoordChecking))
                     {
-                        if (!_tilesInNextStep.Contains(tileCoordChecking))
+                        if ((!_tilesInNextStep.Contains(tileCoordChecking)) && (CanWalkOnTile(tileCoordChecking)))
                         {
                             _tilesInNextStep.Add(tileCoordChecking);
                         }
@@ -58,10 +59,14 @@ namespace GameJam.Pathfinding
                 }
             }
         }
-        // private bool CanWalkOnTile(Vector3Int tileCoord)
-        // {
-        //     if (_map.GetTile == )
-        // }
+        private bool CanWalkOnTile(Vector3Int tileCoord)
+        {
+            if (_map.GetTile(tileCoord) == _tileFloor)
+            {
+                return true;
+            }
+            return false;
+        }
         private bool IsTileNotExplored(Vector3Int tileCoord)
         {
             if (!_tilesExplored.Contains(tileCoord))

@@ -2132,9 +2132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db4ac046d8e048a8b4f77f7f87e986d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tileFloor: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
   _tilesExplored: []
   _tilesInThisStep: []
-  _map: {fileID: 0}
+  _tilesInNextStep: []
 --- !u!1001 &625974624
 PrefabInstance:
   m_ObjectHideFlags: 0
