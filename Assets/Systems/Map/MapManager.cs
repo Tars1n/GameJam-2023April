@@ -8,6 +8,7 @@ namespace GameJam.Map
 {
     public class MapManager : MonoBehaviour
     {
+        [SerializeField] private bool _debugLogs = true;
         [SerializeField] private Tilemap _map;
         [SerializeField] private Tilemap _overlayTilemap;
         [SerializeField] private TileBase _selectionTileBase;
@@ -24,7 +25,8 @@ namespace GameJam.Map
                 TileBase clickedTile = _map.GetTile(gridPosition);
                 if (clickedTile == null) {return;}
 
-                Debug.Log($"Clicked on tile {clickedTile} at coordinates: {gridPosition.x}, {gridPosition.y}.");
+                if (_debugLogs)
+                    Debug.Log($"Clicked on tile {clickedTile} at coordinates: {gridPosition.x}, {gridPosition.y}.");
 
                 OnTileSelected(gridPosition);
             }
@@ -44,23 +46,26 @@ namespace GameJam.Map
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
         }
 
-        private TileBase[] GetAdjacentHexTiles(Vector3Int gridPosition)
-        {
-            TileBase[] tiles = new TileBase[6];
-            Vector3Int[] adjacentTiles = GetAdjacentHexCoordinates(gridPosition);
+        private TileNode[] GetAdjacentHexTiles(Vector3Int gridPosition)
+        {   //TODO: Change this function to fetch TileNode info from the 2DArray?
+            TileNode[] tiles = new TileNode[6]; //!should not constantly create new TileNodes. Probably better to create them on the 2DArray and reference those.
+            Vector3Int[] adjacentTiles = GetAllAdjacentHexCoordinates(gridPosition);
 
             for (int i = 0; i < 6; i++)
             {
-                tiles[i] = _map.GetTile(gridPosition + adjacentTiles[i]);
+                Vector3Int coord = gridPosition + adjacentTiles[i];
+                tiles[i].GridPosition = coord;
+                tiles[i].TileType = _map.GetTile(coord);
             }
 
             return tiles;
         }
 
-        public Vector3Int[] GetAdjacentHexCoordinates(Vector3Int startingPosition)
+        public Vector3Int[] GetAllAdjacentHexCoordinates(Vector3Int startingPosition)
         {   //Array of directions pointing from top left going counter-clockwise
             Vector3Int[] directions = new Vector3Int[6];
 
+            //TODO move this calculation to a HelperClass
             if (startingPosition.y % 2 == 0)
             {
                 directions[0] = new Vector3Int( 0,  1,  0); //Upleft
@@ -79,6 +84,16 @@ namespace GameJam.Map
             }
 
             return directions;
+        }
+
+        public Vector3Int GetAdjacentHexCoordinate(Vector3Int startingPosition, int direction)
+        {
+            if (direction > 5 || direction < 0)
+            {
+                Debug.LogError("Can only ask for directions between 0-5. Direction starts from the top left at 0 and goes around the hex counter-clockwise.");
+                return new Vector3Int(0,0,0);
+            }
+            return GetAllAdjacentHexCoordinates(startingPosition)[direction];
         }
     }
 }

@@ -18,8 +18,8 @@ namespace GameJam
         private float _fixedDeltaTime;
         [SerializeField] private GameObject _activeUnit;
         public GameObject ActiveUnit => _activeUnit;
-        [SerializeField] private TileNode _selectedTile = null;
-        public TileNode SelectedTile => _selectedTile;
+        [SerializeField] private TileGameObject _selectedTile = null;
+        public TileGameObject SelectedTile => _selectedTile;
         public bool TilemapInteractable = true;
         
 
@@ -30,7 +30,7 @@ namespace GameJam
             DontDestroyOnLoad(this);
         }
 
-        public void SetSelectedTile(TileNode node)
+        public void SetSelectedTile(TileGameObject node)
         {
             _selectedTile?.DeselectNode();
 
