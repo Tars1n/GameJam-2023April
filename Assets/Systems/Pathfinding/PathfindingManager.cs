@@ -23,13 +23,15 @@ namespace GameJam.Pathfinding
         public void FillPathInfinate(Vector3Int sourceCoords)
         {
             _tilesInThisStep = new List<Vector3Int>();
+            _tilesInNextStep = new List<Vector3Int>();
             // Vector3Int[] adjacentTiles = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
             // foreach (Vector3Int tileCoordChecking in adjacentTiles)
             _tilesExplored = new List<Vector3Int>();
+            _tilesExplored.Add(sourceCoords);
             CheckAdjacentTilesToThisTile(sourceCoords);
+            ConvertNextStepToThis();
             if (_tilesInThisStep.Count > 0)
             {
-                ConvertNextStepToThis();
                 foreach (Vector3Int tileInStep in _tilesInThisStep)
                 {
                     CheckAdjacentTilesToThisTile(tileInStep);
@@ -56,9 +58,13 @@ namespace GameJam.Pathfinding
                 }
             }
         }
-        private bool IsTileNotExplored(Vector3Int tileCoords)
+        // private bool CanWalkOnTile(Vector3Int tileCoord)
+        // {
+        //     if (_map.GetTile == )
+        // }
+        private bool IsTileNotExplored(Vector3Int tileCoord)
         {
-            if (!_tilesExplored.Contains(tileCoords))
+            if (!_tilesExplored.Contains(tileCoord))
             {
                 return true;
             }
