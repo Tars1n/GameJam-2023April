@@ -41,11 +41,23 @@ namespace GameJam.Pathfinding
         }
         private void CheckAdjacentTilesToThisTile(Vector3Int sourceCoords)
         {
+            int index = 0;
             Vector3Int[] tileCoordsCheckingArray = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
             foreach (Vector3Int tileCoordInArray in tileCoordsCheckingArray)
             {
                 Vector3Int coordOfAdjacentTileChecking = tileCoordInArray + sourceCoords;
-                Debug.Log($"coord of adjacent tile checking" + coordOfAdjacentTileChecking);
+                // Debug.Log($"coord of adjacent tile checking" + coordOfAdjacentTileChecking);
+                if (IsTileNotExplored(coordOfAdjacentTileChecking))
+                {
+                    // Debug.Log($"tile is not explored" + index);
+                    if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
+                    {
+                        // Debug.Log($"can walk on tile");
+                        _tilesInNextStep.Add(coordOfAdjacentTileChecking);
+                    }
+                    _tilesExplored.Add(coordOfAdjacentTileChecking);
+                    index ++;
+                }
             }
             // for (int i = 0; i < 6; i++)
             // {
