@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Map;
 
-namespace Assets.Scripts.Unity.Tilempas
+namespace Assets.Scripts.Unity.Tilemaps
 {
     public static class TileMapExtensionMethods
     {
