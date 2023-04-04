@@ -21,7 +21,6 @@ namespace GameJam.Pathfinding
         }
         private void StorePath(Vector3Int goalCoord, GameObject entity)
         {
-            Debug.Log($"store path");
             if (_tileClassArrayManager.GetPreviousStepCoord(goalCoord) != goalCoord)
             {
                 Vector3Int previousCoord = _tileClassArrayManager.GetPreviousStepCoord(goalCoord);

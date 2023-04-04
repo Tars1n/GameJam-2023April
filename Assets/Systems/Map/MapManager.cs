@@ -48,6 +48,7 @@ namespace GameJam.Map
             TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
             if (selectedTile == _canMoveTileBase)
             {
+                _overlayTilemap.ClearAllTiles();
                 _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition, null);
                 return;
             }
