@@ -26,7 +26,7 @@ namespace GameJam.Pathfinding
         }
         public void FillPathInfinate(Vector3Int sourceCoords)
         {
-            FillPathMP(sourceCoords, 20);
+            FillPathMP(sourceCoords, 1);
         }
         
         public void FillPathMP(Vector3Int sourceCoords, int mp)

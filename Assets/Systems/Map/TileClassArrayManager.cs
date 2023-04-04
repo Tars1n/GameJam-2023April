@@ -14,39 +14,39 @@ namespace GameJam.Map
         {
             _tileNodesArray = new TileNode[_tileXMax, _tileYMax];            
         }
-        public Vector3Int GetPreviousStepCoord(int xCoord, int yCoord)
+        public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
-            CheckIfClassAtCoord(xCoord, yCoord);
-            return _tileNodesArray[xCoord, yCoord].PreviousStepGridPosition;
+            CheckIfClassAtCoord(coord);
+            return _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition;
         }
-        public void SetPreviousStepCoord(int xCoord, int yCoord, Vector3Int previousCoord)
+        public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
-            CheckIfClassAtCoord(xCoord, yCoord);
-            _tileNodesArray[xCoord, yCoord].PreviousStepGridPosition = previousCoord;
+            CheckIfClassAtCoord(coord);
+            _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
         }
-        public void RemoveEntityAtCoord(int xCoord, int yCoord, GameObject entity)
+        public void RemoveEntityAtCoord(Vector3Int coord, GameObject entity)
         {
-            CheckIfClassAtCoord(xCoord, yCoord);
-            if (_tileNodesArray[xCoord, yCoord].Entities.Contains(entity))
+            CheckIfClassAtCoord(coord);
+            if (_tileNodesArray[coord.x, coord.y].Entities.Contains(entity))
             {
-                _tileNodesArray[xCoord, yCoord].Entities.Remove(entity);
+                _tileNodesArray[coord.x, coord.y].Entities.Remove(entity);
             }
         }
-        public void SetEndityAtCoord(int xCoord, int yCoord, GameObject entity)
+        public void SetEndityAtCoord(Vector3Int coord, GameObject entity)
         {
-            CheckIfClassAtCoord(xCoord, yCoord);
-            _tileNodesArray[xCoord, yCoord].Entities.Add(entity);
+            CheckIfClassAtCoord(coord);
+            _tileNodesArray[coord.x, coord.y].Entities.Add(entity);
         }
-        public List<GameObject> GetEntitiesAtCoord(int xCoord, int yCoord)
+        public List<GameObject> GetEntitiesAtCoord(Vector3Int coord, int yCoord)
         {
-            return _tileNodesArray[xCoord, yCoord].Entities;
+            return _tileNodesArray[coord.x, coord.y].Entities;
         }
-        public void CheckIfClassAtCoord(int xCoord, int yCoord)
+        public void CheckIfClassAtCoord(Vector3Int coord)
         {
-            if (_tileNodesArray[xCoord, yCoord] == null)
+            if (_tileNodesArray[coord.x, coord.y] == null)
             {
                 TileNode tileNode = new TileNode();
-                _tileNodesArray[xCoord, yCoord] = tileNode;
+                _tileNodesArray[coord.x, coord.y] = tileNode;
             }
         }
     }

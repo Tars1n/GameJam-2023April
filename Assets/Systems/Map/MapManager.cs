@@ -13,6 +13,7 @@ namespace GameJam.Map
         [SerializeField] private Tilemap _map;
         public Tilemap Map => _map;
         [SerializeField] private Tilemap _overlayTilemap;
+        [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;        
         private PathfindingManager _pathfinding;
 
@@ -40,10 +41,14 @@ namespace GameJam.Map
             }
         }
 
-        private void OnTileSelected(Vector3Int gridPosition)
+        public void OnTileSelected(Vector3Int gridPosition)
         {
             TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
-            if (selectedTile)
+            if (selectedTile == _canMoveTileBase)
+            {
+                // _
+            }
+            else if (selectedTile)
             {
                 //tile already selected, deselecting
                 _overlayTilemap.ClearAllTiles();
