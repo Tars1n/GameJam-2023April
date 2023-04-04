@@ -17,11 +17,13 @@ namespace GameJam.Map
         [SerializeField] private TileBase _selectionTileBase;        
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
+        private TileClassArrayManager _tileClassArrayManager;
 
         private void Awake()
         {
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
+            _tileClassArrayManager = GetComponent<TileClassArrayManager>();
         }
 
         private void Update() {

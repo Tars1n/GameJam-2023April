@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace GameJam.Map
 {
@@ -8,11 +9,18 @@ namespace GameJam.Map
     {
         private const int _tileXMax = 15;
         private const int _tileYMax = 15;
-        private TileNode[,] _tileNodesArray;        
+        private TileNode[,] _tileNodesArray;   
+        private MapManager _mapManager; 
+        private Tilemap _tileMap;
 
         private void Awake()
         {
-            _tileNodesArray = new TileNode[_tileXMax, _tileYMax];            
+            _tileNodesArray = new TileNode[_tileXMax, _tileYMax];    
+            _mapManager = GetComponent<MapManager>();    
+            _tileMap = _mapManager.Map;    
+        }
+        private void Start()
+        {   
         }
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
