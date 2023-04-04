@@ -62,16 +62,23 @@ namespace GameJam.Pathfinding
                 Vector3Int coordOfAdjacentTileChecking = tileCoordInArray + sourceCoords;
                 if (IsTileNotExplored(coordOfAdjacentTileChecking))
                 {
-                    if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
-                    {
-                        _tilesInNextStep.Add(coordOfAdjacentTileChecking);
-                        _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
-                    }
+                    CheckCanWalkOnTile(coordOfAdjacentTileChecking, sourceCoords);
                     _tilesExplored.Add(coordOfAdjacentTileChecking);
-                    index ++;
+                    index++;
                 }
             }
         }
+
+        private void CheckCanWalkOnTile(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord)
+        {
+            if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
+            {
+                _tilesInNextStep.Add(coordOfAdjacentTileChecking);
+                _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
+                _tileClassArrayManager.SetPreviousStepCoord(coordOfAdjacentTileChecking.x, coordOfAdjacentTileChecking.y, sourceCoord);
+            }
+        }
+
         private bool CanWalkOnTile(Vector3Int tileCoord)
         {
             if (_map.GetTile(tileCoord) == _tileFloor)
