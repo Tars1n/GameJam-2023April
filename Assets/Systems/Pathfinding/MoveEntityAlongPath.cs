@@ -16,11 +16,12 @@ namespace GameJam.Pathfinding
         }
         public void MoveEntityAlongPathFunc(Vector3Int goalCoord, GameObject entity)
         {
+            _PathToTake = new List<Vector3Int>();
             StorePath(goalCoord, entity);
         }
         private void StorePath(Vector3Int goalCoord, GameObject entity)
         {
-            _PathToTake = new List<Vector3Int>();
+            Debug.Log($"store path");
             if (_tileClassArrayManager.GetPreviousStepCoord(goalCoord) != goalCoord)
             {
                 Vector3Int previousCoord = _tileClassArrayManager.GetPreviousStepCoord(goalCoord);

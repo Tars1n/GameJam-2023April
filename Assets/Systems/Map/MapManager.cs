@@ -49,8 +49,9 @@ namespace GameJam.Map
             if (selectedTile == _canMoveTileBase)
             {
                 _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition, null);
+                return;
             }
-            else if (selectedTile)
+            if (selectedTile)
             {
                 //tile already selected, deselecting
                 _overlayTilemap.ClearAllTiles();
