@@ -53,6 +53,7 @@ namespace GameJam.Map
                 TileNode tileNode = new TileNode();
                 _tileNodesArray[coord.x, coord.y] = tileNode;
                 _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = coord;//set the prev step to itself
+                _tileNodesArray[coord.x, coord.y].GridPosition = coord;
             }
         }
     }
