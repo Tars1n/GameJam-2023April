@@ -17,7 +17,8 @@ namespace GameJam.Pathfinding
         }
         public void MoveEntityAlongPathFunc(Vector3Int goalCoord, GameObject entity)
         {
-            _PathToTake = new List<Vector3Int>();
+            _PathToTake = new List<Vector3Int>();   
+            _PathToTake.Add(goalCoord);         
             StorePath(goalCoord, entity);
             if (_deubLogs)
             {
@@ -30,12 +31,12 @@ namespace GameJam.Pathfinding
             {
                 Vector3Int previousCoord = _tileClassArrayManager.GetPreviousStepCoord(goalCoord);
                 _PathToTake.Add(previousCoord);
-                StorePath(previousCoord, null);
-            }
+                StorePath(previousCoord, null);                
+            }            
         }
         private Vector3Int GetNextStepInPath()
         {
-            return _PathToTake[_PathToTake.Count];
+            return _PathToTake[_PathToTake.Count - 2];
         }
     }
 }
