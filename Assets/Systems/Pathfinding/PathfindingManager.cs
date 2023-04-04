@@ -75,7 +75,7 @@ namespace GameJam.Pathfinding
             {
                 _tilesInNextStep.Add(coordOfAdjacentTileChecking);
                 _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
-                _tileClassArrayManager.SetPreviousStepCoord(coordOfAdjacentTileChecking.x, coordOfAdjacentTileChecking.y, sourceCoord);
+                _tileClassArrayManager.SetPreviousStepCoord(coordOfAdjacentTileChecking, sourceCoord);
             }
         }
 

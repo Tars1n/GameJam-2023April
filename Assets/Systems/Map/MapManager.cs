@@ -16,10 +16,12 @@ namespace GameJam.Map
         [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;        
         private PathfindingManager _pathfinding;
+        private MoveEntityAlongPath _moveEntityAlongAPath;
 
         private void Awake()
         {
             _pathfinding = GetComponent<PathfindingManager>();
+            _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
         }
 
         private void Update() {
@@ -46,7 +48,7 @@ namespace GameJam.Map
             TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
             if (selectedTile == _canMoveTileBase)
             {
-                // _
+                _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition, null);
             }
             else if (selectedTile)
             {
