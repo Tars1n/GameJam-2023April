@@ -35,6 +35,7 @@ namespace GameJam.Pathfinding
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
+            _tileClassArrayManager.SetPreviousStepCoordToItself(sourceCoords);
             CheckAdjacentTilesToThisTile(sourceCoords);
             for (int moveIndex = 1; moveIndex < mp; moveIndex ++)
             {

@@ -21,9 +21,12 @@ namespace GameJam.Pathfinding
         private void StorePath(Vector3Int goalCoord, GameObject entity)
         {
             _PathToTake = new List<Vector3Int>();
-            if (_tileClassArrayManager.GetPreviousStepCoord(goalCoord) != null)
-            _PathToTake.Add(_tileClassArrayManager.GetPreviousStepCoord(goalCoord));
-
+            if (_tileClassArrayManager.GetPreviousStepCoord(goalCoord) != goalCoord)
+            {
+                Vector3Int previousCoord = _tileClassArrayManager.GetPreviousStepCoord(goalCoord);
+                _PathToTake.Add(previousCoord);
+                StorePath(previousCoord, null);
+            }
         }
     }
 }

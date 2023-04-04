@@ -24,6 +24,11 @@ namespace GameJam.Map
             CheckIfClassAtCoord(coord);
             _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
         }
+        public void SetPreviousStepCoordToItself(Vector3Int coord)
+        {
+            CheckIfClassAtCoord(coord);
+            _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = coord;
+        }
         public void RemoveEntityAtCoord(Vector3Int coord, GameObject entity)
         {
             CheckIfClassAtCoord(coord);
@@ -47,6 +52,7 @@ namespace GameJam.Map
             {
                 TileNode tileNode = new TileNode();
                 _tileNodesArray[coord.x, coord.y] = tileNode;
+                _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = coord;//set the prev step to itself
             }
         }
     }
