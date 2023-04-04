@@ -7,6 +7,7 @@ namespace GameJam.Pathfinding
 {
     public class MoveEntityAlongPath : MonoBehaviour
     {
+        private bool _deubLogs = true;
         private TileClassArrayManager _tileClassArrayManager;
         [SerializeField] private List<Vector3Int> _PathToTake;
 
@@ -18,6 +19,10 @@ namespace GameJam.Pathfinding
         {
             _PathToTake = new List<Vector3Int>();
             StorePath(goalCoord, entity);
+            if (_deubLogs)
+            {
+                Debug.Log($"next step in path " + GetNextStepInPath());
+            }
         }
         private void StorePath(Vector3Int goalCoord, GameObject entity)
         {
@@ -27,6 +32,10 @@ namespace GameJam.Pathfinding
                 _PathToTake.Add(previousCoord);
                 StorePath(previousCoord, null);
             }
+        }
+        private Vector3Int GetNextStepInPath()
+        {
+            return _PathToTake[_PathToTake.Count];
         }
     }
 }
