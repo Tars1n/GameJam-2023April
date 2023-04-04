@@ -10,6 +10,7 @@ namespace GameJam.Map
     {
         public TileBase TileType;
         public Vector3Int GridPosition;
+        public Vector3Int PreviousStepGridPosition;
         public List<GameObject> Entities;
     }
 }

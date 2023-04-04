@@ -16,10 +16,12 @@ namespace GameJam.Pathfinding
         [SerializeField] private List<Vector3Int> _tilesInNextStep;
         private MapManager _mapManager;
         private Tilemap _map;
+        private TileClassArrayManager _tileClassArrayManager;
 
         private void Awake()
         {
             _mapManager = GetComponent<MapManager>();
+            _tileClassArrayManager = GetComponent<TileClassArrayManager>();
             _map = _mapManager.Map;
         }
         public void FillPathInfinate(Vector3Int sourceCoords)

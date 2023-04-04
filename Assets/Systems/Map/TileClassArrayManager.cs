@@ -14,6 +14,16 @@ namespace GameJam.Map
         {
             _tileNodesArray = new TileNode[_tileXMax, _tileYMax];            
         }
+        public Vector3Int GetPreviousStepCoord(int xCoord, int yCoord)
+        {
+            CheckIfClassAtCoord(xCoord, yCoord);
+            return _tileNodesArray[xCoord, yCoord].PreviousStepGridPosition;
+        }
+        public void SetPreviousStepCoord(int xCoord, int yCoord, Vector3Int previousCoord)
+        {
+            CheckIfClassAtCoord(xCoord, yCoord);
+            _tileNodesArray[xCoord, yCoord].PreviousStepGridPosition = previousCoord;
+        }
         public void RemoveEntityAtCoord(int xCoord, int yCoord, GameObject entity)
         {
             CheckIfClassAtCoord(xCoord, yCoord);
