@@ -8,6 +8,7 @@ namespace GameJam.Pathfinding
 {
     public class PathfindingManager : MonoBehaviour
     {
+        private bool _debugLogs = false;
         [SerializeField] private Tile _tileFloor;
         [SerializeField] private Tile _canMoveOverlay;
         [SerializeField] private Tilemap _overlayTileMap;
@@ -41,7 +42,10 @@ namespace GameJam.Pathfinding
             {
                 if (_tilesInNextStep.Count == 0) 
                 {
-                    Debug.Log($"finished step loop after " +  moveIndex + " steps");
+                    if (_debugLogs)
+                    {
+                        Debug.Log($"finished step loop after " +  moveIndex + " steps");
+                    }
                     return;
                 }
                 ConvertNextStepToThis();
