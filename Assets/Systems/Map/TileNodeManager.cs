@@ -23,17 +23,19 @@ namespace GameJam.Map
             //TODO set up a way to validate map origin coordinates to ensure they are in-bounds of array.
             
             if (_debugLog)
+            {
                 Debug.Log($"Created TileNode Array with a total x length of : {_tileNodesArray.GetLength(0)}, y length of : {_tileNodesArray.GetLength(1)}");
                 Debug.Log($"Minimum x bounds : {_mapBounds.xMin}, max x bounds : {_mapBounds.xMax}, min y bounds : {_mapBounds.yMin}, max y bounds : {_mapBounds.yMax}");
+            }
             GenerateAllTileNodeEntries(map);
         }
 
         private void GenerateAllTileNodeEntries(Tilemap map)
         {
             int  tCount = 0;
-            for (int x = _mapBounds.xMin; x < _mapBounds.xMax; x++)
+            for (int x = 0; x < _mapBounds.xMax - _mapBounds.xMin; x++)
             {
-                for (int y = _mapBounds.yMin; y < _mapBounds.yMax; y++)
+                for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin; y++)
                 {
                     TileBase mapTile = map.GetTile(new Vector3Int(x, y, 0));
                     if (mapTile == null)
@@ -58,8 +60,10 @@ namespace GameJam.Map
         }
         private Vector3Int ConvertCoordsToArrayIndex(Vector3Int coord)
         {
+            if (_debugLog) Debug.Log($"coord converting : {coord}");
             coord.x -= _mapBounds.xMin;
             coord.y -= _mapBounds.yMin;
+            if (_debugLog) Debug.Log($"converted to : {coord}");
             // if ((coord.x < 0) || (coord.x > _tileNodesArray.Length) || (coord.y < 0) || (coord.y > _tileNodesArray.)))
             return coord;
         }
@@ -127,8 +131,11 @@ namespace GameJam.Map
 
         private bool AreCoordinatesInBounds(Vector3Int coord)
         {
-            if (coord.x < _arrayWidth || coord.x > _arrayWidth || coord.y < _arrayHeight || coord.y > _arrayHeight)
+            if (coord.x < 0 || coord.x > _tileNodesArray.GetLength(0) || coord.y < 0 || coord.y > _tileNodesArray.GetLength(1))
+            {
+                Debug.LogError("coords out of array bounds");
                 return false; //coordinates are out of bounds
+            }
             return true;
         }
     }
