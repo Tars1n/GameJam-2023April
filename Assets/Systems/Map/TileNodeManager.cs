@@ -71,6 +71,7 @@ namespace GameJam.Map
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord))
+                Debug.LogError("tile node not found!");
                 return new Vector3Int(0,0,-1);
             
             //! this needs to be validated.
@@ -124,14 +125,15 @@ namespace GameJam.Map
 
         public TileNode GetNodeAtCoord(Vector3Int coord)
         {
-            if (AreCoordinatesInBounds(coord))
+            Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
+            if (isIndexInBounds(arrayIndex))
                 return null;
             return _tileNodesArray[coord.x, coord.y];
         }
 
-        private bool AreCoordinatesInBounds(Vector3Int coord)
+        private bool isIndexInBounds(Vector3Int arrayIndex)
         {
-            if (coord.x < 0 || coord.x > _tileNodesArray.GetLength(0) || coord.y < 0 || coord.y > _tileNodesArray.GetLength(1))
+            if (arrayIndex.x < 0 || arrayIndex.x > _tileNodesArray.GetLength(0) || arrayIndex.y < 0 || arrayIndex.y > _tileNodesArray.GetLength(1))
             {
                 Debug.LogError("coords out of array bounds");
                 return false; //coordinates are out of bounds
