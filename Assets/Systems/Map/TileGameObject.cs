@@ -11,7 +11,6 @@ namespace GameJam.Map
     {
         private Tilemap _tilemap;
         public Vector3Int TilePosition {get; private set;}
-        [SerializeField] private bool _evenTileNode;
         [SerializeField] Vector3Int[] _direction = new Vector3Int[6];
 
         //hold unit data for tile
@@ -44,7 +43,6 @@ namespace GameJam.Map
 
             if (TilePosition.y % 2 == 0)
             {
-                _evenTileNode = false;
                 _direction[0] = new Vector3Int( 0,  1,  0); //Upleft
                 _direction[2] = new Vector3Int(-1,  0,  0); //Left
                 _direction[1] = new Vector3Int( 0, -1,  0); //Downleft
@@ -52,7 +50,6 @@ namespace GameJam.Map
                 _direction[4] = new Vector3Int( 1,  1,  0); //upright
                 _direction[5] = new Vector3Int( 1,  0,  0); //Right
             } else {
-                _evenTileNode = true;
                 _direction[0] = new Vector3Int(-1,  1,  0); //Upleft
                 _direction[2] = new Vector3Int(-1,  0,  0); //Left
                 _direction[1] = new Vector3Int(-1, -1,  0); //Downleft

@@ -4,7 +4,7 @@ using GameJam.Map;
 
 namespace GameJam
 {
-    [RequireComponent(typeof(ReferenceManager),typeof(EventManager))]
+    [RequireComponent(typeof(ReferenceManager),typeof(EventManager), typeof(TurnManager))]
     public class GameMasterSingleton : MonoBehaviour
     {
         private ReferenceManager _referenceManager;
@@ -16,8 +16,8 @@ namespace GameJam
         [SerializeField] bool _gmLogs = false;
         [SerializeField] private float _currentTimeScale;
         private float _fixedDeltaTime;
-        [SerializeField] private GameObject _activeUnit;
-        public GameObject ActiveUnit => _activeUnit;
+        [SerializeField] private Entity.EntityBase _activeUnit;
+        public Entity.EntityBase ActiveUnit => _activeUnit;
         [SerializeField] private TileGameObject _selectedTile = null;
         public TileGameObject SelectedTile => _selectedTile;
         public bool TilemapInteractable = true;
