@@ -74,7 +74,6 @@ namespace GameJam.Map
                 return new Vector3Int(0,0,-1);
             }
             //! this needs to be validated.
-            Debug.Log($"getting prev step x: {coord.x}, y: {coord.y}");
             return _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
@@ -85,7 +84,6 @@ namespace GameJam.Map
                 Debug.LogError($"setting prev step, node does not exist at index {coord}");
                 return;
             }
-            Debug.Log($"setting previous step at: {coord}, for: {previousCoord}");
             _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
