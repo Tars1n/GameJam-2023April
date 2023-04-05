@@ -12,5 +12,10 @@ namespace GameJam.Map
         public Vector3Int GridPosition;
         public Vector3Int PreviousStepGridPosition;
         public List<GameObject> Entities;
+
+        public void ResetPathingInfo()
+        {
+            PreviousStepGridPosition = GridPosition;
+        }
     }
 }

@@ -7,6 +7,7 @@ using GameJam.Pathfinding;
 
 namespace GameJam.Map
 {
+    [RequireComponent(typeof(PathfindingManager), typeof(TileNodeManager))]
     public class MapManager : MonoBehaviour
     {
         [SerializeField] private bool _debugLogs = true;
@@ -17,13 +18,22 @@ namespace GameJam.Map
         [SerializeField] private TileBase _selectionTileBase;        
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
-        private TileClassArrayManager _tileClassArrayManager;
+        private TileNodeManager _tileNodeManager;
 
         private void Awake()
         {
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
-            _tileClassArrayManager = GetComponent<TileClassArrayManager>();
+            _tileNodeManager = GetComponent<TileNodeManager>();
+            InitializeTileNodeManager(_map);
+        }
+
+        private void InitializeTileNodeManager(Tilemap mapToDesignate)
+        {
+            _map.CompressBounds();
+            if (_debugLogs)
+                Debug.Log($"Tilemap generated map of {_map.size.x}x by {_map.size.y}y");
+            _tileNodeManager.InitializeTileNodeArray(_map);
         }
 
         private void Update() {
@@ -64,21 +74,6 @@ namespace GameJam.Map
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
             _pathfinding?.FillPathInfinate(gridPosition);
-        }
-
-        private TileNode[] GetAdjacentHexTiles(Vector3Int gridPosition)
-        {   //TODO: Change this function to fetch TileNode info from the 2DArray?
-            TileNode[] tiles = new TileNode[6]; //!should not constantly create new TileNodes. Probably better to create them on the 2DArray and reference those.
-            Vector3Int[] adjacentTiles = GetAllAdjacentHexCoordinates(gridPosition);
-
-            for (int i = 0; i < 6; i++)
-            {
-                Vector3Int coord = gridPosition + adjacentTiles[i];
-                tiles[i].GridPosition = coord;
-                tiles[i].TileType = _map.GetTile(coord);
-            }
-
-            return tiles;
         }
 
         public Vector3Int[] GetAllAdjacentHexCoordinates(Vector3Int startingPosition)

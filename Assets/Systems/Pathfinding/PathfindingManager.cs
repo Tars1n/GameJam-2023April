@@ -15,19 +15,20 @@ namespace GameJam.Pathfinding
         [SerializeField] private List<Vector3Int> _tilesExplored;
         [SerializeField] private List<Vector3Int> _tilesInThisStep;
         [SerializeField] private List<Vector3Int> _tilesInNextStep;
+        [SerializeField] private int _fillPathRange = 15;
         private MapManager _mapManager;
         private Tilemap _map;
-        private TileClassArrayManager _tileClassArrayManager;
+        private TileNodeManager _tileNodeManager;
 
         private void Awake()
         {
             _mapManager = GetComponent<MapManager>();
-            _tileClassArrayManager = GetComponent<TileClassArrayManager>();
+            _tileNodeManager = GetComponent<TileNodeManager>();
             _map = _mapManager.Map;
         }
         public void FillPathInfinate(Vector3Int sourceCoords)
         {            
-            FillPathMP(sourceCoords, 15);
+            FillPathMP(sourceCoords, _fillPathRange);
         }
         
         public void FillPathMP(Vector3Int sourceCoords, int mp)
@@ -36,7 +37,7 @@ namespace GameJam.Pathfinding
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
-            _tileClassArrayManager.SetPreviousStepCoordToItself(sourceCoords);
+            _tileNodeManager.SetPreviousStepCoordToItself(sourceCoords);
             CheckAdjacentTilesToThisTile(sourceCoords);
             for (int moveIndex = 1; moveIndex < mp; moveIndex ++)
             {
@@ -80,7 +81,7 @@ namespace GameJam.Pathfinding
             {
                 _tilesInNextStep.Add(coordOfAdjacentTileChecking);
                 _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
-                _tileClassArrayManager.SetPreviousStepCoord(coordOfAdjacentTileChecking, sourceCoord);
+                _tileNodeManager.SetPreviousStepCoord(coordOfAdjacentTileChecking, sourceCoord);
             }
         }
 
