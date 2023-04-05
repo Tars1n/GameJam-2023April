@@ -15,8 +15,6 @@ namespace GameJam.Map
 
         public void InitializeTileNodeArray(Tilemap map)
         {   //this is called on Awake from MapManager. Local initialization only.
-            // _arrayWidth = map.size.x;
-            // _arrayHeight = map.size.y;
             _mapBounds = map.cellBounds;
             _tileNodesArray = new TileNode[_mapBounds.xMax - _mapBounds.xMin, _mapBounds.yMax - _mapBounds.yMin];
 
@@ -44,7 +42,7 @@ namespace GameJam.Map
                     _tileNodesArray[x, y] = tileNode;
                     _tileNodesArray[x, y].PreviousStepGridPosition = new Vector3Int(x, y, 0);//set the prev step to itself
                     _tileNodesArray[x, y].GridPosition = new Vector3Int(x, y, 0);
-                    if (_debugLog) Debug.Log($"entity generated x: { x}, y: {y}, node: { tileNode}");
+                    // if (_debugLog) Debug.Log($"entity generated x: { x}, y: {y}, node: { tileNode}");
                     tCount ++;
                 }
             }
@@ -61,11 +59,10 @@ namespace GameJam.Map
         }
         private Vector3Int ConvertCoordsToArrayIndex(Vector3Int coord)
         {
-            if (_debugLog) Debug.Log($"coord converting : {coord}");
+            // if (_debugLog) Debug.Log($"coord converting : {coord}");
             coord.x -= _mapBounds.xMin;
             coord.y -= _mapBounds.yMin;
-            if (_debugLog) Debug.Log($"converted to : {coord}");
-            // if ((coord.x < 0) || (coord.x > _tileNodesArray.Length) || (coord.y < 0) || (coord.y > _tileNodesArray.)))
+            // if (_debugLog) Debug.Log($"converted to : {coord}");
             return coord;
         }
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
@@ -82,7 +79,10 @@ namespace GameJam.Map
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord))
+            {
+                Debug.LogError($"setting prev step, node does not exist at index {coord}");
                 return;
+            }
             _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
@@ -126,9 +126,8 @@ namespace GameJam.Map
 
         public TileNode GetNodeAtCoord(Vector3Int coord)
         {
-            // Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
-            if (isIndexInBounds(coord))
-                return null;
+            if (!isIndexInBounds(coord)) return null;
+            // if (_debugLog) Debug.Log($"returning node at cord x: {coord.x}, y: {coord.y}");
             return _tileNodesArray[coord.x, coord.y];
         }
 
