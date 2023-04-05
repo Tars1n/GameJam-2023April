@@ -35,13 +35,14 @@ namespace GameJam.Map
             {
                 for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin; y++)
                 {
-                    TileBase mapTile = map.GetTile(new Vector3Int(x, y, 0));
+                    Vector3Int coord = ConvertArrayIndexToCoords(new Vector3Int(x, y, 0));
+                    TileBase mapTile = map.GetTile(coord);
                     if (mapTile == null)
                         continue;
                     TileNode tileNode = new TileNode();
                     _tileNodesArray[x, y] = tileNode;
-                    _tileNodesArray[x, y].PreviousStepGridPosition = new Vector3Int(x, y, 0);//set the prev step to itself
-                    _tileNodesArray[x, y].GridPosition = new Vector3Int(x, y, 0);
+                    _tileNodesArray[x, y].PreviousStepGridPosition = coord;//set the prev step to itself
+                    _tileNodesArray[x, y].GridPosition = coord;
                     // if (_debugLog) Debug.Log($"entity generated x: { x}, y: {y}, node: { tileNode}");
                     tCount ++;
                 }
@@ -59,18 +60,18 @@ namespace GameJam.Map
         }
         private Vector3Int ConvertCoordsToArrayIndex(Vector3Int coord)
         {
-            // if (_debugLog) Debug.Log($"coord converting : {coord}");
-            coord.x -= _mapBounds.xMin;
-            coord.y -= _mapBounds.yMin;
-            // if (_debugLog) Debug.Log($"converted to : {coord}");
-            return coord;
+            return new Vector3Int(coord.x - _mapBounds.xMin, coord.y - _mapBounds.yMin, coord.z);
+        }
+        private Vector3Int ConvertArrayIndexToCoords(Vector3Int arrayIndex)
+        {
+            return new Vector3Int(arrayIndex.x + _mapBounds.xMin, arrayIndex.y + _mapBounds.yMin, arrayIndex.z);
         }
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord))
             {
-                Debug.LogError("tile node not found! coord index "+ coord);
+                Debug.LogError("getting prev step, node not found");
                 return new Vector3Int(0,0,-1);
             }
             //! this needs to be validated.
@@ -81,7 +82,7 @@ namespace GameJam.Map
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord))
             {
-                Debug.LogError($"setting prev step, node does not exist at index {coord}");
+                Debug.LogError($"setting prev step, node not found");
                 return;
             }
             _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
@@ -96,7 +97,7 @@ namespace GameJam.Map
         public List<GameObject> GetEntitiesAtCoord(Vector3Int coord)
         {
             coord = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(coord))
+            if (!DoesTileNodeExistAtArrayIndex(coord)) 
                 return null;
             return _tileNodesArray[coord.x, coord.y].Entities;
         }
@@ -104,7 +105,8 @@ namespace GameJam.Map
         public void RemoveEntityAtCoord(Vector3Int coord, GameObject entity) //TODO prob moved to entity manager
         {
             coord = ConvertCoordsToArrayIndex(coord);
-            DoesTileNodeExistAtArrayIndex(coord);
+            if (!DoesTileNodeExistAtArrayIndex(coord)) 
+                return;
             if (_tileNodesArray[coord.x, coord.y].Entities.Contains(entity))
             {
                 _tileNodesArray[coord.x, coord.y].Entities.Remove(entity);
@@ -113,22 +115,23 @@ namespace GameJam.Map
         public void SetEntityAtCoord(Vector3Int coord, GameObject entity)
         {
             coord = ConvertCoordsToArrayIndex(coord);
-            DoesTileNodeExistAtArrayIndex(coord);
+            if (!DoesTileNodeExistAtArrayIndex(coord)) 
+                return;
             _tileNodesArray[coord.x, coord.y].Entities.Add(entity); //TODO prob moved to entity manager
         }
 
         public bool DoesTileNodeExistAtArrayIndex(Vector3Int coord)
         {
-            TileNode node = GetNodeAtCoord(coord);
+            TileNode node = GetNodeAtArrayIndex(coord);
             if (node != null)
                 return true;
+            Debug.LogError($"node does not exist at index: {coord}");
             return false;
         }
 
-        public TileNode GetNodeAtCoord(Vector3Int coord)
+        public TileNode GetNodeAtArrayIndex(Vector3Int coord)
         {
             if (!isIndexInBounds(coord)) return null;
-            // if (_debugLog) Debug.Log($"returning node at cord x: {coord.x}, y: {coord.y}");
             return _tileNodesArray[coord.x, coord.y];
         }
 
