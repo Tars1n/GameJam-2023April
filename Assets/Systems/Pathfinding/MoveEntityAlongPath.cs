@@ -9,7 +9,7 @@ namespace GameJam.Pathfinding
     {
         private bool _debugLogs = true;
         private TileNodeManager _tileNodeManager;
-        [SerializeField] private List<Vector3Int> _PathToTake;
+        [SerializeField] private Stack<Vector3Int> _pathToTake;
 
         private void Awake()
         {
@@ -17,12 +17,11 @@ namespace GameJam.Pathfinding
         }
         public void MoveEntityAlongPathFunc(Vector3Int goalCoord, GameObject entity)
         {
-            _PathToTake = new List<Vector3Int>();   
-            _PathToTake.Add(goalCoord);         
+            _pathToTake = new Stack<Vector3Int>();    
             StorePath(goalCoord, entity);
             if (_debugLogs)
             {
-                Debug.Log($"next step in path " + GetNextStepInPath());
+                Debug.Log($"next step in path " + GetNextStepInPath() + " path length " + _pathToTake.Count);
             }
         }
         private void StorePath(Vector3Int goalCoord, GameObject entity)
@@ -30,13 +29,13 @@ namespace GameJam.Pathfinding
             if (_tileNodeManager.GetPreviousStepCoord(goalCoord) != goalCoord)
             {
                 Vector3Int previousCoord = _tileNodeManager.GetPreviousStepCoord(goalCoord);
-                _PathToTake.Add(previousCoord);
+                _pathToTake.Push(goalCoord);
                 StorePath(previousCoord, null);
             }            
         }
         private Vector3Int GetNextStepInPath()
         {
-            return _PathToTake[_PathToTake.Count - 2];
+            return _pathToTake.Peek();//would normally use Pop() when following a path.
         }
     }
 }
