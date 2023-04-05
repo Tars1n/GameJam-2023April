@@ -44,6 +44,7 @@ namespace GameJam.Map
                     _tileNodesArray[x, y] = tileNode;
                     _tileNodesArray[x, y].PreviousStepGridPosition = new Vector3Int(x, y, 0);//set the prev step to itself
                     _tileNodesArray[x, y].GridPosition = new Vector3Int(x, y, 0);
+                    if (_debugLog) Debug.Log($"entity generated x: { x}, y: {y}, node: { tileNode}");
                     tCount ++;
                 }
             }
@@ -71,7 +72,7 @@ namespace GameJam.Map
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord))
-                Debug.LogError("tile node not found!");
+                Debug.LogError("tile node not found! coord index "+ coord);
                 return new Vector3Int(0,0,-1);
             
             //! this needs to be validated.
@@ -125,8 +126,8 @@ namespace GameJam.Map
 
         public TileNode GetNodeAtCoord(Vector3Int coord)
         {
-            Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
-            if (isIndexInBounds(arrayIndex))
+            // Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
+            if (isIndexInBounds(coord))
                 return null;
             return _tileNodesArray[coord.x, coord.y];
         }
