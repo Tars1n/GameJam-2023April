@@ -19,6 +19,8 @@ namespace GameJam.Pathfinding
         private MapManager _mapManager;
         private Tilemap _map;
         private TileNodeManager _tileNodeManager;
+        public delegate void CanWalkOnTileDelegate(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord);
+        public CanWalkOnTileDelegate m_canWalkOnTile;
 
         private void Awake()
         {
@@ -26,27 +28,33 @@ namespace GameJam.Pathfinding
             _tileNodeManager = GetComponent<TileNodeManager>();
             _map = _mapManager.Map;
         }
-        public void FillPathInfinite(Vector3Int sourceCoords)
+        public void FillPathInfiniteBlockedByObstacles(Vector3Int sourceCoords)
         {            
             _tileNodeManager.ResetAllPathing();
-            FillPathMP(sourceCoords, _fillPathRange);
+            FillPathMPBlockedByObstacles(sourceCoords, _fillPathRange);
         }
         
-        public void FillPathMP(Vector3Int sourceCoords, int mp)
+        public void FillPathMPBlockedByObstacles(Vector3Int sourceCoords, int mp)
+        {
+            CanWalkOnTileDelegate m_canWalkOnTile = CheckCanWalkOnTileBlockedByObstacles;
+            FillPathMP(sourceCoords, mp, m_canWalkOnTile);
+        }
+
+        private void FillPathMP(Vector3Int sourceCoords, int mp, CanWalkOnTileDelegate m_canWalkOnTile)
         {
             _tilesInThisStep = new List<Vector3Int>();
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
             _tileNodeManager.SetPreviousStepCoordToItself(sourceCoords);
-            CheckAdjacentTilesToThisTile(sourceCoords);
-            for (int moveIndex = 1; moveIndex < mp; moveIndex ++)
+            CheckAdjacentTilesToThisTile(sourceCoords, m_canWalkOnTile);
+            for (int moveIndex = 1; moveIndex < mp; moveIndex++)
             {
-                if (_tilesInNextStep.Count == 0) 
+                if (_tilesInNextStep.Count == 0)
                 {
                     if (_debugLogs)
                     {
-                        Debug.Log($"finished step loop after " +  moveIndex + " steps");
+                        Debug.Log($"finished step loop after " + moveIndex + " steps");
                     }
                     return;
                 }
@@ -55,12 +63,13 @@ namespace GameJam.Pathfinding
                 {
                     foreach (Vector3Int tileInStep in _tilesInThisStep)
                     {
-                        CheckAdjacentTilesToThisTile(tileInStep);
+                        CheckAdjacentTilesToThisTile(tileInStep, m_canWalkOnTile);
                     }
                 }
             }
         }
-        private void CheckAdjacentTilesToThisTile(Vector3Int sourceCoords)
+
+        private void CheckAdjacentTilesToThisTile(Vector3Int sourceCoords, CanWalkOnTileDelegate m_canWalkOnTile)
         {
             int index = 0;
             Vector3Int[] tileCoordsCheckingArray = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
@@ -69,14 +78,15 @@ namespace GameJam.Pathfinding
                 Vector3Int coordOfAdjacentTileChecking = tileCoordInArray + sourceCoords;
                 if (IsTileNotExplored(coordOfAdjacentTileChecking))
                 {
-                    CheckCanWalkOnTile(coordOfAdjacentTileChecking, sourceCoords);
+                    // CheckCanWalkOnTileBlockedByObstacles(coordOfAdjacentTileChecking, sourceCoords);
+                    m_canWalkOnTile(coordOfAdjacentTileChecking, sourceCoords);
                     _tilesExplored.Add(coordOfAdjacentTileChecking);
                     index++;
                 }
             }
         }
 
-        private void CheckCanWalkOnTile(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord)
+        private void CheckCanWalkOnTileBlockedByObstacles(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord)
         {
             if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
             {
