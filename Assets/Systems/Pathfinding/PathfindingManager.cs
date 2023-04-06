@@ -40,23 +40,23 @@ namespace GameJam.Pathfinding
         
         public void FillPathMPBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
-            CanWalkOnTileDelegate m_canWalkOnTile = CheckCanWalkOnTileBlockedByObstacles;
-            FillPathMP(sourceCoords, mp, m_canWalkOnTile);
+            CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileBlockedByObstacles;
+            FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
         public void FillPathMPNotBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
-            CanWalkOnTileDelegate m_checkCanWalkOnTile = CheckCanWalkOnTileNotBlockedByObstacles;
-            FillPathMP(sourceCoords, mp, m_checkCanWalkOnTile);
+            CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileNotBlockedByObstacles;
+            FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
 
-        private void FillPathMP(Vector3Int sourceCoords, int mp, CanWalkOnTileDelegate m_checkCanWalkOnTile)
+        private void FillPathMP(Vector3Int sourceCoords, int mp, CanWalkOnTileDelegate checkCanWalkOnTileDelegate)
         {
             _tilesInThisStep = new List<Vector3Int>();
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
             _tileNodeManager.SetPreviousStepCoordToItself(sourceCoords);
-            CheckAdjacentTilesToThisTile(sourceCoords, m_checkCanWalkOnTile);
+            CheckAdjacentTilesToThisTile(sourceCoords, checkCanWalkOnTileDelegate);
             for (int moveIndex = 1; moveIndex < mp; moveIndex++)
             {
                 if (_tilesInNextStep.Count == 0)
@@ -72,13 +72,13 @@ namespace GameJam.Pathfinding
                 {
                     foreach (Vector3Int tileInStep in _tilesInThisStep)
                     {
-                        CheckAdjacentTilesToThisTile(tileInStep, m_checkCanWalkOnTile);
+                        CheckAdjacentTilesToThisTile(tileInStep, checkCanWalkOnTileDelegate);
                     }
                 }
             }
         }
 
-        private void CheckAdjacentTilesToThisTile(Vector3Int sourceCoords, CanWalkOnTileDelegate m_checkCanWalkOnTile)
+        private void CheckAdjacentTilesToThisTile(Vector3Int sourceCoords, CanWalkOnTileDelegate checkCanWalkOnTileDelegate)
         {
             int index = 0;
             Vector3Int[] tileCoordsCheckingArray = _mapManager.GetAllAdjacentHexCoordinates(sourceCoords);
@@ -88,7 +88,7 @@ namespace GameJam.Pathfinding
                 if (IsTileNotExplored(coordOfAdjacentTileChecking))
                 {
                     // CheckCanWalkOnTileBlockedByObstacles(coordOfAdjacentTileChecking, sourceCoords);
-                    m_checkCanWalkOnTile(coordOfAdjacentTileChecking, sourceCoords);
+                    checkCanWalkOnTileDelegate(coordOfAdjacentTileChecking, sourceCoords);
                     _tilesExplored.Add(coordOfAdjacentTileChecking);
                     index++;
                 }
