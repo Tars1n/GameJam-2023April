@@ -113,10 +113,11 @@ namespace GameJam.Map
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
         {
-            Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(arrayIndex))
-                return;
-            _tileNodesArray[arrayIndex.x, arrayIndex.y].PreviousStepGridPosition = coord;
+            // Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
+            // if (!DoesTileNodeExistAtArrayIndex(arrayIndex))
+            //     return;
+            // _tileNodesArray[arrayIndex.x, arrayIndex.y].PreviousStepGridPosition = coord;
+            GetNode(coord).ResetPathingInfo();
         }
 
         public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)
