@@ -32,9 +32,9 @@ namespace GameJam.Map
         private void GenerateAllTileNodeEntries(Tilemap map)
         {
             int  tCount = 0;
-            for (int x = 0; x < _mapBounds.xMax - _mapBounds.xMin + 1; x++)
+            for (int x = 0; x < _mapBounds.xMax - _mapBounds.xMin + 2; x++)
             {
-                for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin + 1; y++)
+                for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin + 2; y++)
                 {
                     Vector3Int coord = ConvertArrayIndexToCoords(new Vector3Int(x, y, 0));
                     TileBase mapTile = map.GetTile(coord);
@@ -148,9 +148,9 @@ namespace GameJam.Map
 
         private bool isIndexInBounds(Vector3Int arrayIndex)
         {
-            if (arrayIndex.x < 0 || arrayIndex.x >= _tileNodesArray.GetLength(0) -1 || arrayIndex.y < 0 || arrayIndex.y >= _tileNodesArray.GetLength(1) -1)
+            if (arrayIndex.x < 0 || arrayIndex.x >= _tileNodesArray.GetLength(0)  || arrayIndex.y < 0 || arrayIndex.y >= _tileNodesArray.GetLength(1) )
             {
-                Debug.LogWarning($"coords out of array bounds {arrayIndex}");
+                Debug.LogWarning($"index in array out of bounds {arrayIndex}");
                 return false; //coordinates are out of bounds
             }
             return true;
