@@ -7,7 +7,7 @@ using GameJam.Map;
 namespace GameJam
 {
     public class ReferenceManager : MonoBehaviour
-    {
+    { //so far might be able to just use LevelManager instead of reference manager?
         [SerializeField] private LevelManager _levelManager;
         public LevelManager LevelManager => _levelManager;
         [SerializeField] private MapManager _mapManager;

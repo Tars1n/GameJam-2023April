@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using GameJam.Entity;
 
 namespace GameJam.Map
 {
@@ -40,6 +41,7 @@ namespace GameJam.Map
                     _tileNodesArray[x, y] = tileNode;
                     _tileNodesArray[x, y].PreviousStepGridPosition = new Vector3Int(x, y, 0);//set the prev step to itself
                     _tileNodesArray[x, y].GridPosition = new Vector3Int(x, y, 0);
+                    //_tileNodesArray[x, y].WorldPos = mapTile.
                     tCount ++;
                 }
             }
@@ -75,14 +77,15 @@ namespace GameJam.Map
                 return;
             _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = coord;
         }
-        public List<GameObject> GetEntitiesAtCoord(Vector3Int coord)
+
+        public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)
         {
             if (!DoesTileNodeExist(coord))
                 return null;
             return _tileNodesArray[coord.x, coord.y].Entities;
         }
 
-        public void RemoveEntityAtCoord(Vector3Int coord, GameObject entity) //TODO prob moved to entity manager
+        public void RemoveEntityAtCoord(Vector3Int coord, EntityBase entity) //TODO prob moved to entity manager
         {
             DoesTileNodeExist(coord);
             if (_tileNodesArray[coord.x, coord.y].Entities.Contains(entity))
@@ -90,7 +93,7 @@ namespace GameJam.Map
                 _tileNodesArray[coord.x, coord.y].Entities.Remove(entity);
             }
         }
-        public void SetEntityAtCoord(Vector3Int coord, GameObject entity)
+        public void SetEntityAtCoord(Vector3Int coord, EntityBase entity)
         {
             DoesTileNodeExist(coord);
             _tileNodesArray[coord.x, coord.y].Entities.Add(entity); //TODO prob moved to entity manager

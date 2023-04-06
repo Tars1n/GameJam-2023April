@@ -110,5 +110,12 @@ namespace GameJam.Map
             }
             return GetAllAdjacentHexCoordinates(startingPosition)[direction];
         }
+
+        public TileNode GetTileNodeAtWorldPos(Vector3 position)
+        {
+            position.z = 0;
+            Vector3Int gridPosition = _map.WorldToCell(position);
+            return _tileNodeManager.GetNodeAtCoord(gridPosition);
+        }
     }
 }
