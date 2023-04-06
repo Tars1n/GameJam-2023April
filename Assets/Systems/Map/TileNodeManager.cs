@@ -92,25 +92,25 @@ namespace GameJam.Map
         }
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
-            return GetNode(coord).PreviousStepGridPosition;
+            return GetNodeFromCoords(coord).PreviousStepGridPosition;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
-            GetNode(coord).PreviousStepGridPosition = previousCoord;
+            GetNodeFromCoords(coord).PreviousStepGridPosition = previousCoord;
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
         {
-            GetNode(coord).ResetPathingInfo();
+            GetNodeFromCoords(coord).ResetPathingInfo();
         }
 
         public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)
         {
-            return GetNode(coord).Entities;
+            return GetNodeFromCoords(coord).Entities;
         }
 
         public void RemoveEntityAtCoord(Vector3Int coord, EntityBase entity) //TODO prob moved to entity manager
         {
-            TileNode tileNode = GetNode(coord);
+            TileNode tileNode = GetNodeFromCoords(coord);
             if (tileNode.Entities.Contains(entity))
             {
                 tileNode.Entities.Remove(entity);
@@ -118,9 +118,9 @@ namespace GameJam.Map
         }
         public void SetEntityAtCoord(Vector3Int coord, EntityBase entity)
         {
-            GetNode(coord).Entities.Add(entity);//TODO prob moved to entity manager
+            GetNodeFromCoords(coord).Entities.Add(entity);//TODO prob moved to entity manager
         }
-        public TileNode GetNode(Vector3Int coord)
+        public TileNode GetNodeFromCoords(Vector3Int coord)
         {
             Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(arrayIndex))
