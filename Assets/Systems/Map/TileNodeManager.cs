@@ -101,13 +101,14 @@ namespace GameJam.Map
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
-            coord = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(coord))
-            {
-                Debug.LogError($"setting prev step, node not found");
-                return;
-            }
-            _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
+            // coord = ConvertCoordsToArrayIndex(coord);
+            // if (!DoesTileNodeExistAtArrayIndex(coord))
+            // {
+            //     Debug.LogError($"setting prev step, node not found");
+            //     return;
+            // }
+            // _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
+            GetNode(coord).PreviousStepGridPosition = previousCoord;
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
         {
@@ -142,7 +143,13 @@ namespace GameJam.Map
                 return;
             _tileNodesArray[coord.x, coord.y].Entities.Add(entity); //TODO prob moved to entity manager
         }
-
+        public TileNode GetNode(Vector3Int coord)
+        {
+            Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
+            if (!DoesTileNodeExistAtArrayIndex(arrayIndex))
+                return null;
+            return _tileNodesArray[arrayIndex.x, arrayIndex.y];
+        }        
         public bool DoesTileNodeExistAtArrayIndex(Vector3Int coord)
         {
             TileNode node = GetNodeAtArrayIndex(coord);
