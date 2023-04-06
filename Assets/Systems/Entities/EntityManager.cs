@@ -25,9 +25,8 @@ namespace GameJam.Entity
 
             if (entity.GetType() == typeof(EntityTrap))
                 _traps.Add((EntityTrap)entity);
-
-            
-            
         }
+
+        
     }
 }

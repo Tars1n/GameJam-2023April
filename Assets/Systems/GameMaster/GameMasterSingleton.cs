@@ -4,11 +4,11 @@ using GameJam.Map;
 
 namespace GameJam
 {
-    [RequireComponent(typeof(ReferenceManager),typeof(EventManager), typeof(TurnManager))]
+    [RequireComponent(typeof(EventManager), typeof(TurnManager))]
     public class GameMasterSingleton : MonoBehaviour
     {
         private ReferenceManager _referenceManager;
-        public ReferenceManager ReferenceManager => _referenceManager;
+        public ReferenceManager ReferenceManager => GetReferenceManager();
         private EventManager _eventManager;
         public EventManager EventManager => _eventManager;
         public bool _jacobLogs = false;
@@ -25,9 +25,21 @@ namespace GameJam
 
         private void Awake() {
             _fixedDeltaTime = Time.fixedDeltaTime;
-            _referenceManager = GetComponent<ReferenceManager>();
-            _eventManager = GetComponent<EventManager>();            
+            _referenceManager = GetReferenceManager();
+            _eventManager = GetComponent<EventManager>();          
             DontDestroyOnLoad(this);
+        }
+
+        public ReferenceManager GetReferenceManager()
+        {
+            if (_referenceManager == null)
+            {
+                GameObject newRef = new GameObject("ReferenceManager");
+                newRef.AddComponent<ReferenceManager>();
+                _referenceManager = newRef.GetComponent<ReferenceManager>();
+            }
+
+            return _referenceManager;
         }
 
         public void SetSelectedTile(TileGameObject node)
