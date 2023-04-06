@@ -32,9 +32,9 @@ namespace GameJam.Map
         private void GenerateAllTileNodeEntries(Tilemap map)
         {
             int  tCount = 0;
-            for (int x = 0; x < _mapBounds.xMax - _mapBounds.xMin; x++)
+            for (int x = 0; x < _mapBounds.xMax - _mapBounds.xMin + 1; x++)
             {
-                for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin; y++)
+                for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin + 1; y++)
                 {
                     Vector3Int coord = ConvertArrayIndexToCoords(new Vector3Int(x, y, 0));
                     TileBase mapTile = map.GetTile(coord);
