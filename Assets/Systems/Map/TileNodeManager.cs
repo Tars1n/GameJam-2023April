@@ -96,7 +96,11 @@ namespace GameJam.Map
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
-            GetNodeFromCoords(coord).PreviousStepGridPosition = previousCoord;
+            TileNode tileNode = GetNodeFromCoords(coord);
+            if (tileNode != null)
+            {
+                tileNode.PreviousStepGridPosition = previousCoord;
+            }
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
         {
