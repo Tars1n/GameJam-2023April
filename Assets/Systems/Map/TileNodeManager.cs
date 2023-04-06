@@ -91,32 +91,14 @@ namespace GameJam.Map
         }
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
-            // coord = ConvertCoordsToArrayIndex(coord);
-            // if (!DoesTileNodeExistAtArrayIndex(coord))
-            // {
-            //     Debug.LogError("getting prev step, node not found");
-            //     return new Vector3Int(0,0,-1);
-            // }
-            // return _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition;
             return GetNode(coord).PreviousStepGridPosition;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
-            // coord = ConvertCoordsToArrayIndex(coord);
-            // if (!DoesTileNodeExistAtArrayIndex(coord))
-            // {
-            //     Debug.LogError($"setting prev step, node not found");
-            //     return;
-            // }
-            // _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition = previousCoord;
             GetNode(coord).PreviousStepGridPosition = previousCoord;
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
         {
-            // Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
-            // if (!DoesTileNodeExistAtArrayIndex(arrayIndex))
-            //     return;
-            // _tileNodesArray[arrayIndex.x, arrayIndex.y].PreviousStepGridPosition = coord;
             GetNode(coord).ResetPathingInfo();
         }
 
