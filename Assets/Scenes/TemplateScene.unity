@@ -2338,6 +2338,7 @@ MonoBehaviour:
     GridPosition: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PathExplored: 0
     Entities: []
   HasActedThisRound: 0
 --- !u!212 &695674487
@@ -4118,6 +4119,7 @@ MonoBehaviour:
     GridPosition: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PathExplored: 0
     Entities: []
   HasActedThisRound: 0
   _trapBlueprint: {fileID: 0}
@@ -6991,9 +6993,17 @@ MonoBehaviour:
     GridPosition: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PathExplored: 0
     Entities: []
   HasActedThisRound: 0
   _monsterBlueprint: {fileID: 0}
+  _targetNode:
+    TileType: {fileID: 0}
+    GridPosition: {x: 0, y: 0, z: 0}
+    WorldPos: {x: 0, y: 0, z: 0}
+    PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PathExplored: 0
+    Entities: []
 --- !u!212 &1801800941
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7053,7 +7063,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801800939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.3, y: -0.34, z: 0}
+  m_LocalPosition: {x: 3.47, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
