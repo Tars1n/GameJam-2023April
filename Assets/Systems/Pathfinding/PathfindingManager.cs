@@ -40,17 +40,17 @@ namespace GameJam.Pathfinding
         
         public void FillPathMPBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
-            CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileBlockedByObstacles;
+            CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileBlockedByObstacles;//the function that checks tiles that are blocked
             FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
         public void FillPathMPNotBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
-            CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileNotBlockedByObstacles;
+            CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileNotBlockedByObstacles;//the function that checks tiles that are  not blocked
             FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
 
         private void FillPathMP(Vector3Int sourceCoords, int mp, CanWalkOnTileDelegate checkCanWalkOnTileDelegate)
-        {
+        {//checkCanWalkOnTileDelegate is passed so CheckAdjacentTilesToThisTile() knows what function to use for checking blockage
             _tilesInThisStep = new List<Vector3Int>();
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
@@ -87,8 +87,7 @@ namespace GameJam.Pathfinding
                 Vector3Int coordOfAdjacentTileChecking = tileCoordInArray + sourceCoords;
                 if (IsTileNotExplored(coordOfAdjacentTileChecking))
                 {
-                    // CheckCanWalkOnTileBlockedByObstacles(coordOfAdjacentTileChecking, sourceCoords);
-                    checkCanWalkOnTileDelegate(coordOfAdjacentTileChecking, sourceCoords);
+                    checkCanWalkOnTileDelegate(coordOfAdjacentTileChecking, sourceCoords);//this is where the function to check if the tile is passable is called.
                     _tilesExplored.Add(coordOfAdjacentTileChecking);
                     index++;
                 }
