@@ -82,11 +82,11 @@ namespace GameJam.Map
             }
             return neighbourNodes;
         }
-        private Vector3Int ConvertCoordsToArrayIndex(Vector3Int coord)
+        public Vector3Int ConvertCoordsToArrayIndex(Vector3Int coord)
         {
             return new Vector3Int(coord.x - _mapBounds.xMin, coord.y - _mapBounds.yMin, coord.z);
         }
-        private Vector3Int ConvertArrayIndexToCoords(Vector3Int arrayIndex)
+        public Vector3Int ConvertArrayIndexToCoords(Vector3Int arrayIndex)
         {
             return new Vector3Int(arrayIndex.x + _mapBounds.xMin, arrayIndex.y + _mapBounds.yMin, arrayIndex.z);
         }
@@ -131,19 +131,19 @@ namespace GameJam.Map
                 return null;
             return _tileNodesArray[arrayIndex.x, arrayIndex.y];
         }        
-        public bool DoesTileNodeExistAtArrayIndex(Vector3Int coord)
+        public bool DoesTileNodeExistAtArrayIndex(Vector3Int arrayIndex)
         {
-            TileNode node = GetNodeAtArrayIndex(coord);
+            TileNode node = GetNodeAtArrayIndex(arrayIndex);
             if (node != null)
                 return true;
-            Debug.LogWarning($"node does not exist at index: {coord}");
+            Debug.LogWarning($"node does not exist at index: {arrayIndex}");
             return false;
         }
 
-        public TileNode GetNodeAtArrayIndex(Vector3Int coord)
+        public TileNode GetNodeAtArrayIndex(Vector3Int arrayIndex)
         {
-            if (!isIndexInBounds(coord)) return null;
-            return _tileNodesArray[coord.x, coord.y];
+            if (!isIndexInBounds(arrayIndex)) return null;
+            return _tileNodesArray[arrayIndex.x, arrayIndex.y];
         }
 
         private bool isIndexInBounds(Vector3Int arrayIndex)

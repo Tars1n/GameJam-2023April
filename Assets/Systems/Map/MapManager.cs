@@ -58,6 +58,13 @@ namespace GameJam.Map
 
         public void OnTileSelected(Vector3Int gridPosition)
         {
+            Vector3Int arrayPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridPosition);
+            TileNode tileNode = _tileNodeManager.GetNodeAtArrayIndex(arrayPos);
+            Debug.Log($"clicked gird pos {gridPosition}, array pos {arrayPos}, node {tileNode}");
+            if (tileNode == null)
+            {
+                Debug.Log($"node is null");
+            }
             TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
             if (selectedTile == _canMoveTileBase)
             {

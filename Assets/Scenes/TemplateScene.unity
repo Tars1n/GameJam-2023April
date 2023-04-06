@@ -2297,7 +2297,7 @@ MonoBehaviour:
   _tilesExplored: []
   _tilesInThisStep: []
   _tilesInNextStep: []
-  _fillPathRange: 4
+  _fillPathRange: 1
 --- !u!114 &622301436
 MonoBehaviour:
   m_ObjectHideFlags: 0
