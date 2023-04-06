@@ -69,14 +69,15 @@ namespace GameJam.Map
         }
 
         public List<TileNode> GetNeighbourTileNodes(Vector3Int source)
-        {
+        {//TODO currently it's assumed source is the array index, if source is coords use arrayIndex(line below) instead of source
+        // Vector3Int arrayIndex = ConvertCoordsToArrayIndex(source);
             List<TileNode> neighbourNodes = new List<TileNode>();
             Vector3Int[] neighbourCoords = _mapManager.GetAllAdjacentHexCoordinates(source);
             foreach (Vector3Int pos in neighbourCoords)
             {
-                if (DoesTileNodeExistAtArrayIndex(pos))
+                if (DoesTileNodeExistAtArrayIndex(pos + source))
                 {
-                    neighbourNodes.Add(GetNodeAtArrayIndex(pos));
+                    neighbourNodes.Add(GetNodeAtArrayIndex(pos + source));
                 }
             }
             return neighbourNodes;
@@ -104,28 +105,20 @@ namespace GameJam.Map
 
         public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)
         {
-            coord = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(coord)) 
-                return null;
-            return _tileNodesArray[coord.x, coord.y].Entities;
+            return GetNode(coord).Entities;
         }
 
         public void RemoveEntityAtCoord(Vector3Int coord, EntityBase entity) //TODO prob moved to entity manager
         {
-            coord = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(coord)) 
-                return;
-            if (_tileNodesArray[coord.x, coord.y].Entities.Contains(entity))
+            TileNode tileNode = GetNode(coord);
+            if (tileNode.Entities.Contains(entity))
             {
-                _tileNodesArray[coord.x, coord.y].Entities.Remove(entity);
+                tileNode.Entities.Remove(entity);
             }
         }
         public void SetEntityAtCoord(Vector3Int coord, EntityBase entity)
         {
-            coord = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(coord)) 
-                return;
-            _tileNodesArray[coord.x, coord.y].Entities.Add(entity); //TODO prob moved to entity manager
+            GetNode(coord).Entities.Add(entity);//TODO prob moved to entity manager
         }
         public TileNode GetNode(Vector3Int coord)
         {
