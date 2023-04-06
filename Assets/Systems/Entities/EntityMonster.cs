@@ -14,11 +14,12 @@ namespace GameJam.Entity
         public override void DoTurnAction()
         {
             TryMoveTowardsTarget();
+            HasActedThisRound = true;
         }
 
         private bool TryMoveTowardsTarget()
         {
-
+            //_ref.PlotPath. (_currentTileNode.GridPosition, _targetNode);
             return true;
         }
     }

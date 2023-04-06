@@ -6,10 +6,7 @@ namespace GameJam.Entity
 {
     public class EntityCharacter : EntityBase
     {
-        // protected override void Start()
-        // {
-            
-        // }
+        
 
         public override void DoTurnAction()
         {

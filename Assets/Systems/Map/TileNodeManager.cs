@@ -9,12 +9,14 @@ namespace GameJam.Map
     public class TileNodeManager : MonoBehaviour
     {
         [SerializeField] private bool _debugLog;
+        private MapManager _mapManager;
         private int _arrayWidth;
         private int _arrayHeight;
         private TileNode[,] _tileNodesArray;
 
         public void InitializeTileNodeArray(Tilemap map)
         {   //this is called on Awake from MapManager. Local initialization only.
+            _mapManager = GetComponent<MapManager>();
             _arrayWidth = map.size.x;
             _arrayHeight = map.size.y;
             _tileNodesArray = new TileNode[_arrayWidth, _arrayHeight];
@@ -62,6 +64,20 @@ namespace GameJam.Map
             {
                 node?.ClearEntities();
             }
+        }
+
+        public List<TileNode> GetNeighbourTileNodes(Vector3Int source)
+        {
+            List<TileNode> neighbourNodes = new List<TileNode>();
+            Vector3Int[] neighbourCoords = _mapManager.GetAllAdjacentHexCoordinates(source);
+            foreach (Vector3Int pos in neighbourCoords)
+            {
+                if (DoesTileNodeExist(pos))
+                {
+                    neighbourNodes.Add(GetNodeAtCoord(pos));
+                }
+            }
+            return neighbourNodes;
         }
 
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
