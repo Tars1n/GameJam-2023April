@@ -97,7 +97,6 @@ namespace GameJam.Map
                 Debug.LogError("getting prev step, node not found");
                 return new Vector3Int(0,0,-1);
             }
-            //! this needs to be validated.
             return _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
