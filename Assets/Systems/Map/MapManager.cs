@@ -12,6 +12,7 @@ namespace GameJam.Map
     {
         [SerializeField] private bool _debugLogs = true;
         [SerializeField] private Tilemap _map;
+        [SerializeField] private int _mp = 3;
         public Tilemap Map => _map;
         [SerializeField] private Tilemap _overlayTilemap;
         [SerializeField] private TileBase _canMoveTileBase;
@@ -58,12 +59,15 @@ namespace GameJam.Map
 
         public void OnTileSelected(Vector3Int gridPosition)
         {
-            Vector3Int arrayPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridPosition);
-            TileNode tileNode = _tileNodeManager.GetNodeAtArrayIndex(arrayPos);
-            Debug.Log($"clicked gird pos {gridPosition}, array pos {arrayPos}, node {tileNode}");
-            if (tileNode == null)
+            if (_debugLogs)
             {
-                Debug.Log($"node is null");
+                Vector3Int arrayPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridPosition);
+                TileNode tileNode = _tileNodeManager.GetNodeAtArrayIndex(arrayPos);
+                Debug.Log($"clicked gird pos {gridPosition}, array pos {arrayPos}, node {tileNode}");            
+                if (tileNode == null)
+                {
+                    Debug.Log($"node is null");
+                }
             }
             TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
             if (selectedTile == _canMoveTileBase)
@@ -81,7 +85,7 @@ namespace GameJam.Map
 
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
-            _pathfinding?.FillPathInfinateNotBlockedByObstacles(gridPosition);
+            _pathfinding?.FillPathMPNotBlockedByObstacles(gridPosition, _mp);
         }
 
         public Vector3Int[] GetAllAdjacentHexCoordinates(Vector3Int startingPosition)
