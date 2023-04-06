@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using GameJam.Entity;
 
 namespace GameJam.Map
 {
@@ -10,12 +11,41 @@ namespace GameJam.Map
     {
         public TileBase TileType;
         public Vector3Int GridPosition;
+        public Vector3 WorldPos;
         public Vector3Int PreviousStepGridPosition;
-        public List<GameObject> Entities;
+        public bool PathExplored = false;
+        public List<EntityBase> Entities = new List<EntityBase>();
 
         public void ResetPathingInfo()
         {
             PreviousStepGridPosition = GridPosition;
+            PathExplored = false;
+        }
+
+        public void RecordPathing(Vector3Int prevTile)
+        {
+            PreviousStepGridPosition = prevTile;
+            PathExplored = true;
+        }
+
+        public void AddEntity(EntityBase entity)
+        {
+            Entities.Add(entity);
+        }
+
+        public bool TryRemoveEntity(EntityBase entity)
+        {
+            if (Entities.Contains(entity))
+            {
+                Entities.Remove(entity);
+                return true;
+            }
+            return false;
+        }
+
+        public void ClearEntities()
+        {
+            Entities.Clear();
         }
     }
 }

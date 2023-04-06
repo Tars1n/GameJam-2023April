@@ -26,8 +26,9 @@ namespace GameJam.Pathfinding
             _tileNodeManager = GetComponent<TileNodeManager>();
             _map = _mapManager.Map;
         }
-        public void FillPathInfinate(Vector3Int sourceCoords)
+        public void FillPathInfinite(Vector3Int sourceCoords)
         {            
+            _tileNodeManager.ResetAllPathing();
             FillPathMP(sourceCoords, _fillPathRange);
         }
         

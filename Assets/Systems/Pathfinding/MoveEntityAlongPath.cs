@@ -15,7 +15,7 @@ namespace GameJam.Pathfinding
         {
             _tileNodeManager = GetComponent<TileNodeManager>();
         }
-        public void MoveEntityAlongPathFunc(Vector3Int goalCoord, GameObject entity)
+        public Vector3Int MoveEntityAlongPathFunc(Vector3Int goalCoord, GameObject entity)
         {
             _pathToTake = new Stack<Vector3Int>();    
             StorePath(goalCoord, entity);
@@ -23,6 +23,7 @@ namespace GameJam.Pathfinding
             {
                 Debug.Log($"next step in path " + GetNextStepInPath() + " path length " + _pathToTake.Count);
             }
+            return GetNextStepInPath();
         }
         private void StorePath(Vector3Int goalCoord, GameObject entity)
         {

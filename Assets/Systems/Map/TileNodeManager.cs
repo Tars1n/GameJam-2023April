@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using GameJam.Entity;
 
 namespace GameJam.Map
 {
     public class TileNodeManager : MonoBehaviour
     {
         [SerializeField] private bool _debugLog;
+        private MapManager _mapManager;
         private int _arrayWidth;
         private int _arrayHeight;
         private BoundsInt _mapBounds;
@@ -15,10 +17,9 @@ namespace GameJam.Map
 
         public void InitializeTileNodeArray(Tilemap map)
         {   //this is called on Awake from MapManager. Local initialization only.
+            _mapManager = GetComponent<MapManager>();
             _mapBounds = map.cellBounds;
             _tileNodesArray = new TileNode[_mapBounds.xMax - _mapBounds.xMin, _mapBounds.yMax - _mapBounds.yMin];
-
-            //TODO set up a way to validate map origin coordinates to ensure they are in-bounds of array.
             
             if (_debugLog)
             {
@@ -43,7 +44,7 @@ namespace GameJam.Map
                     _tileNodesArray[x, y] = tileNode;
                     _tileNodesArray[x, y].PreviousStepGridPosition = coord;//set the prev step to itself
                     _tileNodesArray[x, y].GridPosition = coord;
-                    // if (_debugLog) Debug.Log($"entity generated x: { x}, y: {y}, node: { tileNode}");
+                    _tileNodesArray[x, y].WorldPos = map.CellToWorld(coord);
                     tCount ++;
                 }
             }
@@ -55,8 +56,30 @@ namespace GameJam.Map
         {
             foreach (TileNode node in _tileNodesArray)
             {
-                node.ResetPathingInfo();
+                node?.ResetPathingInfo();
             }
+        }
+
+        public void ClearAllNodeEntities()
+        {
+            foreach (TileNode node in _tileNodesArray)
+            {
+                node?.ClearEntities();
+            }
+        }
+
+        public List<TileNode> GetNeighbourTileNodes(Vector3Int source)
+        {
+            List<TileNode> neighbourNodes = new List<TileNode>();
+            Vector3Int[] neighbourCoords = _mapManager.GetAllAdjacentHexCoordinates(source);
+            foreach (Vector3Int pos in neighbourCoords)
+            {
+                if (DoesTileNodeExistAtArrayIndex(pos))
+                {
+                    neighbourNodes.Add(GetNodeAtArrayIndex(pos));
+                }
+            }
+            return neighbourNodes;
         }
         private Vector3Int ConvertCoordsToArrayIndex(Vector3Int coord)
         {
@@ -94,7 +117,8 @@ namespace GameJam.Map
                 return;
             _tileNodesArray[arrayIndex.x, arrayIndex.y].PreviousStepGridPosition = coord;
         }
-        public List<GameObject> GetEntitiesAtCoord(Vector3Int coord)
+
+        public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord)) 
@@ -102,7 +126,7 @@ namespace GameJam.Map
             return _tileNodesArray[coord.x, coord.y].Entities;
         }
 
-        public void RemoveEntityAtCoord(Vector3Int coord, GameObject entity) //TODO prob moved to entity manager
+        public void RemoveEntityAtCoord(Vector3Int coord, EntityBase entity) //TODO prob moved to entity manager
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord)) 
@@ -112,7 +136,7 @@ namespace GameJam.Map
                 _tileNodesArray[coord.x, coord.y].Entities.Remove(entity);
             }
         }
-        public void SetEntityAtCoord(Vector3Int coord, GameObject entity)
+        public void SetEntityAtCoord(Vector3Int coord, EntityBase entity)
         {
             coord = ConvertCoordsToArrayIndex(coord);
             if (!DoesTileNodeExistAtArrayIndex(coord)) 
