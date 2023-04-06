@@ -148,9 +148,9 @@ namespace GameJam.Map
 
         private bool isIndexInBounds(Vector3Int arrayIndex)
         {
-            if (arrayIndex.x < 0 || arrayIndex.x > _tileNodesArray.GetLength(0) || arrayIndex.y < 0 || arrayIndex.y > _tileNodesArray.GetLength(1))
+            if (arrayIndex.x < 0 || arrayIndex.x >= _tileNodesArray.GetLength(0) -1 || arrayIndex.y < 0 || arrayIndex.y >= _tileNodesArray.GetLength(1) -1)
             {
-                Debug.LogError("coords out of array bounds");
+                Debug.LogWarning($"coords out of array bounds {arrayIndex}");
                 return false; //coordinates are out of bounds
             }
             return true;
