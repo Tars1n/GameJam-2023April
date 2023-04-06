@@ -19,8 +19,7 @@ namespace GameJam.Pathfinding
         private MapManager _mapManager;
         private Tilemap _map;
         private TileNodeManager _tileNodeManager;
-        public delegate void CanWalkOnTileDelegate(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord);
-        public CanWalkOnTileDelegate m_canWalkOnTile;
+        private delegate void CanWalkOnTileDelegate(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord);
 
         private void Awake()
         {
