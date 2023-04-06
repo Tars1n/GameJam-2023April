@@ -116,7 +116,7 @@ namespace GameJam.Map
         {
             position.z = 0;
             Vector3Int gridPosition = _map.WorldToCell(position);
-            return _tileNodeManager.GetNodeAtCoord(gridPosition);
+            return _tileNodeManager.GetNodeAtArrayIndex(gridPosition);
         }
     }
 }
