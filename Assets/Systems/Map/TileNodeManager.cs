@@ -132,7 +132,7 @@ namespace GameJam.Map
             TileNode node = GetNodeAtArrayIndex(coord);
             if (node != null)
                 return true;
-            Debug.LogError($"node does not exist at index: {coord}");
+            Debug.LogWarning($"node does not exist at index: {coord}");
             return false;
         }
 
