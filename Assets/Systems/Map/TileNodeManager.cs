@@ -32,19 +32,20 @@ namespace GameJam.Map
         private void GenerateAllTileNodeEntries(Tilemap map)
         {
             int  tCount = 0;
-            for (int x = 0; x < _mapBounds.xMax - _mapBounds.xMin + 2; x++)
+            for (int x = 0; x <= _mapBounds.xMax - _mapBounds.xMin + 1; x++)
             {
-                for (int y = 0; y < _mapBounds.yMax - _mapBounds.yMin + 2; y++)
+                for (int y = 0; y <= _mapBounds.yMax - _mapBounds.yMin + 1; y++)
                 {
                     Vector3Int coord = ConvertArrayIndexToCoords(new Vector3Int(x, y, 0));
                     TileBase mapTile = map.GetTile(coord);
                     if (mapTile == null)
                         continue;
                     TileNode tileNode = new TileNode();
+                    tileNode.PreviousStepGridPosition = coord;//set the prev step to itself
+                    tileNode.GridPosition = coord;
+                    tileNode.WorldPos = map.CellToWorld(coord);
+                    tileNode.TileType = mapTile;
                     _tileNodesArray[x, y] = tileNode;
-                    _tileNodesArray[x, y].PreviousStepGridPosition = coord;//set the prev step to itself
-                    _tileNodesArray[x, y].GridPosition = coord;
-                    _tileNodesArray[x, y].WorldPos = map.CellToWorld(coord);
                     tCount ++;
                 }
             }
@@ -69,8 +70,7 @@ namespace GameJam.Map
         }
 
         public List<TileNode> GetNeighbourTileNodes(Vector3Int source)
-        {//TODO currently it's assumed source is the array index, if source is coords use arrayIndex(line below) instead of source
-        // Vector3Int arrayIndex = ConvertCoordsToArrayIndex(source);
+        {//Assumed source is relative to the array index, if needed use ConvertCoordsToArrayIndex(source);
             List<TileNode> neighbourNodes = new List<TileNode>();
             Vector3Int[] neighbourCoords = _mapManager.GetAllAdjacentHexCoordinates(source);
             foreach (Vector3Int pos in neighbourCoords)
@@ -92,6 +92,13 @@ namespace GameJam.Map
         }
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
+            // if (RequiredNodeMissing(coord))
+            // {
+            //     Debug.LogWarning("GetPreviousStepCoord returned an empty TileNode.");
+            //      return new Vector3Int(0,0,-1); //functions that use this should check for this error response.
+            // }
+
+            //! this is a bug waiting to happen. Lack of validation is open to null errors, when validation is added, it breaks functionality.
             return GetNodeFromCoords(coord).PreviousStepGridPosition;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
@@ -104,39 +111,60 @@ namespace GameJam.Map
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)
         {
-            GetNodeFromCoords(coord).ResetPathingInfo();
+            GetNodeFromCoords(coord)?.ResetPathingInfo();
         }
 
         public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)
         {
-            return GetNodeFromCoords(coord).Entities;
+            return GetNodeFromCoords(coord)?.Entities;
         }
 
-        public void RemoveEntityAtCoord(Vector3Int coord, EntityBase entity) //TODO prob moved to entity manager
+        public int TryRemoveEntityAtCoord(Vector3Int coord, EntityBase entity)
         {
+            if (RequiredNodeMissing(coord))
+                return 1; //Failed: TileNode does not exist at coordinates.
+
             TileNode tileNode = GetNodeFromCoords(coord);
-            if (tileNode.Entities.Contains(entity))
-            {
-                tileNode.Entities.Remove(entity);
-            }
+            if (tileNode.Entities.Contains(entity) == false)
+                return 2; //Failed: Could not remove non-existent Entity from TileNode.
+            
+            tileNode.Entities.Remove(entity);
+            return 0; //Success: Entity removed from TileNode.
         }
-        public void SetEntityAtCoord(Vector3Int coord, EntityBase entity)
+
+        public int TrySetEntityAtCoord(Vector3Int coord, EntityBase entity)
         {
-            GetNodeFromCoords(coord).Entities.Add(entity);//TODO prob moved to entity manager
+            if (RequiredNodeMissing(coord))
+            {
+                return 1; //Failed: TileNode does not exist at coordinates.
+            }
+            bool addEntityResult = GetNodeFromCoords(coord).TryAddEntity(entity);
+            if (addEntityResult == false)
+                return 2; //Failed: TileNode rejected adding entity.
+            return 0; //Success: Entity successfully added to TileNode.
         }
+
         public TileNode GetNodeFromCoords(Vector3Int coord)
         {
             Vector3Int arrayIndex = ConvertCoordsToArrayIndex(coord);
-            if (!DoesTileNodeExistAtArrayIndex(arrayIndex))
+            if (DoesTileNodeExistAtArrayIndex(arrayIndex) == false)
                 return null;
             return _tileNodesArray[arrayIndex.x, arrayIndex.y];
-        }        
+        }
+
+        private bool RequiredNodeMissing(Vector3Int coord)
+        {
+            if (DoesTileNodeExistAtArrayIndex(coord))
+                {return false;}
+            //Debug.LogWarning("Tried to perform operations on a non existent TileNode.");
+            return true;
+        }
+
         public bool DoesTileNodeExistAtArrayIndex(Vector3Int arrayIndex)
         {
             TileNode node = GetNodeAtArrayIndex(arrayIndex);
             if (node != null)
                 return true;
-            Debug.LogWarning($"node does not exist at index: {arrayIndex}");
             return false;
         }
 
@@ -150,7 +178,7 @@ namespace GameJam.Map
         {
             if (arrayIndex.x < 0 || arrayIndex.x >= _tileNodesArray.GetLength(0)  || arrayIndex.y < 0 || arrayIndex.y >= _tileNodesArray.GetLength(1) )
             {
-                Debug.LogWarning($"index in array out of bounds {arrayIndex}");
+                //Debug.LogWarning($"index in array out of bounds {arrayIndex}");
                 return false; //coordinates are out of bounds
             }
             return true;

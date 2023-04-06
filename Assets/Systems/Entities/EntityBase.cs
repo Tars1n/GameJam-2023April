@@ -23,16 +23,19 @@ namespace GameJam.Entity
         public void LinkToTileNode()
         {
             _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
-            if (_currentTileNode == null) {return;}
+            if (_currentTileNode == null)
+            {
+                Debug.LogWarning($"{gameObject} failed to link to valid TileNode. Does Object in scene exist outside of valid tiles?");
+                return;
+            }
 
-            _currentTileNode?.AddEntity(this);
+            _currentTileNode?.TryAddEntity(this);
             SnapEntityPositionToTile();
         }
 
         public void SnapEntityPositionToTile()
         {
-           transform.position = _currentTileNode.WorldPos;
-           Debug.Log("snapped");       
+           transform.position = _currentTileNode.WorldPos;   
         }
 
         public abstract void DoTurnAction();

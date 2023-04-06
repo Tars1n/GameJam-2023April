@@ -28,9 +28,10 @@ namespace GameJam.Map
             PathExplored = true;
         }
 
-        public void AddEntity(EntityBase entity)
+        public bool TryAddEntity(EntityBase entity)
         {
             Entities.Add(entity);
+            return true;
         }
 
         public bool TryRemoveEntity(EntityBase entity)

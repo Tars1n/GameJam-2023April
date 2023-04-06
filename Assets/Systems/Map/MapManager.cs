@@ -73,7 +73,7 @@ namespace GameJam.Map
             if (selectedTile == _canMoveTileBase)
             {
                 _overlayTilemap.ClearAllTiles();
-                _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition, null);
+                _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition);
                 return;
             }
             if (selectedTile)
