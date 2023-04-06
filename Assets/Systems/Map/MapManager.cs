@@ -74,7 +74,7 @@ namespace GameJam.Map
 
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
-            _pathfinding?.FillPathInfiniteBlockedByObstacles(gridPosition);
+            _pathfinding?.FillPathInfinateNotBlockedByObstacles(gridPosition);
         }
 
         public Vector3Int[] GetAllAdjacentHexCoordinates(Vector3Int startingPosition)
