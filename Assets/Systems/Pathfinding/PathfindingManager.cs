@@ -106,7 +106,7 @@ namespace GameJam.Pathfinding
         private void CheckCanWalkOnTileNotBlockedByObstacles(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord)
         {
             if (!_tilesInNextStep.Contains(coordOfAdjacentTileChecking))
-            {
+            {//tile is added to step even if it is not blocked, it is only hilighted if not blocked.
                 _tilesInNextStep.Add(coordOfAdjacentTileChecking);
                 _tileNodeManager.SetPreviousStepCoord(coordOfAdjacentTileChecking, sourceCoord);
                 if (CanWalkOnTile(coordOfAdjacentTileChecking))
