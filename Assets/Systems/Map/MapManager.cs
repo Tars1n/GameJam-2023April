@@ -19,6 +19,7 @@ namespace GameJam.Map
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private TileNodeManager _tileNodeManager;
+        public TileNodeManager TileNodeManager => _tileNodeManager;
 
         private void Awake()
         {
@@ -73,7 +74,7 @@ namespace GameJam.Map
 
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
-            _pathfinding?.FillPathInfinate(gridPosition);
+            _pathfinding?.FillPathInfinite(gridPosition);
         }
 
         public Vector3Int[] GetAllAdjacentHexCoordinates(Vector3Int startingPosition)

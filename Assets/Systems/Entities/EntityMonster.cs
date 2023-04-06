@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJam.Map;
 
 namespace GameJam.Entity
 {
@@ -8,15 +9,17 @@ namespace GameJam.Entity
     {
         //monster brain
         [SerializeField] private MonsterBlueprint _monsterBlueprint;
-
-        // protected override void Start()
-        // {
-            
-        // }
+        [SerializeField] private TileNode _targetNode;
 
         public override void DoTurnAction()
         {
-            
+            TryMoveTowardsTarget();
+        }
+
+        private bool TryMoveTowardsTarget()
+        {
+
+            return true;
         }
     }
 }

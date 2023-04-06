@@ -7,8 +7,9 @@ namespace GameJam.Entity
 {
     public abstract class EntityBase : MonoBehaviour
     {
-        [SerializeField] private TileNode _currentTileNode;
-        private ReferenceManager _ref;
+        [SerializeField] protected TileNode _currentTileNode;
+        public TileNode CurrentTileNode => _currentTileNode;
+        protected ReferenceManager _ref;
         protected SpriteRenderer _spriteRenderer;
         public bool HasActedThisRound = false;
 
@@ -19,16 +20,19 @@ namespace GameJam.Entity
             LinkToTileNode();
         }
 
-        private void LinkToTileNode()
+        public void LinkToTileNode()
         {
             _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
+            if (_currentTileNode == null) {return;}
+
             _currentTileNode?.AddEntity(this);
+            SnapEntityPositionToTile();
         }
 
-        public void SnapToTile()
+        public void SnapEntityPositionToTile()
         {
-           // Vector3 pos = _ref.MapManager.
-            
+           transform.position = _currentTileNode.WorldPos;
+           Debug.Log("snapped");       
         }
 
         public abstract void DoTurnAction();

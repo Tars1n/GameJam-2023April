@@ -18,8 +18,6 @@ namespace GameJam.Map
             _arrayWidth = map.size.x;
             _arrayHeight = map.size.y;
             _tileNodesArray = new TileNode[_arrayWidth, _arrayHeight];
-
-            //TODO set up a way to validate map origin coordinates to ensure they are in-bounds of array.
             
             if (_debugLog)
                 Debug.Log($"Created TileNode Array with a total length of: {_tileNodesArray.Length}");
@@ -34,14 +32,15 @@ namespace GameJam.Map
             {
                 for (int y = 0; y < _arrayHeight; y++)
                 {
-                    TileBase mapTile = map.GetTile(new Vector3Int(x, y, 0));
+                    Vector3Int coord = new Vector3Int(x, y, 0);
+                    TileBase mapTile = map.GetTile(coord);
                     if (mapTile == null)
                         continue;
                     TileNode tileNode = new TileNode();
                     _tileNodesArray[x, y] = tileNode;
-                    _tileNodesArray[x, y].PreviousStepGridPosition = new Vector3Int(x, y, 0);//set the prev step to itself
-                    _tileNodesArray[x, y].GridPosition = new Vector3Int(x, y, 0);
-                    //_tileNodesArray[x, y].WorldPos = mapTile.
+                    _tileNodesArray[x, y].PreviousStepGridPosition = coord;//set the prev step to itself
+                    _tileNodesArray[x, y].GridPosition = coord;
+                    _tileNodesArray[x, y].WorldPos = map.CellToWorld(coord);
                     tCount ++;
                 }
             }
@@ -53,16 +52,23 @@ namespace GameJam.Map
         {
             foreach (TileNode node in _tileNodesArray)
             {
-                node.ResetPathingInfo();
+                node?.ResetPathingInfo();
+            }
+        }
+
+        public void ClearAllNodeEntities()
+        {
+            foreach (TileNode node in _tileNodesArray)
+            {
+                node?.ClearEntities();
             }
         }
 
         public Vector3Int GetPreviousStepCoord(Vector3Int coord)
         {
             if (!DoesTileNodeExist(coord))
-                return new Vector3Int(0,0,-1);
+                return new Vector3Int(0,0,-1); //this return represents an error
             
-            //! this needs to be validated.
             return _tileNodesArray[coord.x, coord.y].PreviousStepGridPosition;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)

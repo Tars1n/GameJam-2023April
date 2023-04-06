@@ -2057,6 +2057,79 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 316583508918831603, guid: 6f6dc2238c1065b4493cd3722dcc1dbd, type: 3}
   m_PrefabInstance: {fileID: 563329511}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &617119378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 617119382}
+  - component: {fileID: 617119381}
+  - component: {fileID: 617119380}
+  - component: {fileID: 617119379}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &617119379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617119378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f51dcda93f7afde4496161ea476bffd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mapManager: {fileID: 622301432}
+--- !u!114 &617119380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617119378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e7755af87b6b24e911fe472893fa94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &617119381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617119378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1ca293f1b79c24f8dbef7962b82ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerCharacters: []
+  _monsters: []
+  _traps: []
+--- !u!4 &617119382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617119378}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &622301431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2121,7 +2194,7 @@ Transform:
   - {fileID: 1926293769}
   - {fileID: 887409678}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &622301435
 MonoBehaviour:
@@ -2242,7 +2315,7 @@ GameObject:
   - component: {fileID: 695674487}
   - component: {fileID: 695674486}
   m_Layer: 0
-  m_Name: Circle (2)
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2263,6 +2336,7 @@ MonoBehaviour:
   _currentTileNode:
     TileType: {fileID: 0}
     GridPosition: {x: 0, y: 0, z: 0}
+    WorldPos: {x: 0, y: 0, z: 0}
     PreviousStepGridPosition: {x: 0, y: 0, z: 0}
     Entities: []
   HasActedThisRound: 0
@@ -2306,9 +2380,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_Sprite: {fileID: 21300000, guid: cf070baa7232c1844bc99ba85be1d08e, type: 3}
+  m_Color: {r: 0.8654176, g: 1, b: 0.08018869, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -2325,11 +2399,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695674485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.45, y: -0.94, z: 0}
+  m_LocalPosition: {x: -0.19, y: -2.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &709717865
 PrefabInstance:
@@ -2578,7 +2652,7 @@ Transform:
   - {fileID: 1007032763}
   - {fileID: 1375767297}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &818755339
 MonoBehaviour:
@@ -4021,7 +4095,7 @@ GameObject:
   - component: {fileID: 1032446867}
   - component: {fileID: 1032446866}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Trap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4042,6 +4116,7 @@ MonoBehaviour:
   _currentTileNode:
     TileType: {fileID: 0}
     GridPosition: {x: 0, y: 0, z: 0}
+    WorldPos: {x: 0, y: 0, z: 0}
     PreviousStepGridPosition: {x: 0, y: 0, z: 0}
     Entities: []
   HasActedThisRound: 0
@@ -4109,7 +4184,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1059881515
 PrefabInstance:
@@ -6879,7 +6954,7 @@ Transform:
   m_Children:
   - {fileID: 432266369}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1801800939
 GameObject:
@@ -6893,7 +6968,7 @@ GameObject:
   - component: {fileID: 1801800941}
   - component: {fileID: 1801800940}
   m_Layer: 0
-  m_Name: Circle (1)
+  m_Name: Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6914,6 +6989,7 @@ MonoBehaviour:
   _currentTileNode:
     TileType: {fileID: 0}
     GridPosition: {x: 0, y: 0, z: 0}
+    WorldPos: {x: 0, y: 0, z: 0}
     PreviousStepGridPosition: {x: 0, y: 0, z: 0}
     Entities: []
   HasActedThisRound: 0
@@ -6958,7 +7034,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf070baa7232c1844bc99ba85be1d08e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6977,11 +7053,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1801800939}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.93, y: 3.17, z: 0}
+  m_LocalPosition: {x: 3.3, y: -0.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1809154348
 PrefabInstance:

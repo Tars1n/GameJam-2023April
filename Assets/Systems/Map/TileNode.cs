@@ -13,11 +13,19 @@ namespace GameJam.Map
         public Vector3Int GridPosition;
         public Vector3 WorldPos;
         public Vector3Int PreviousStepGridPosition;
-        public List<EntityBase> Entities;
+        public bool PathExplored = false;
+        public List<EntityBase> Entities = new List<EntityBase>();
 
         public void ResetPathingInfo()
         {
             PreviousStepGridPosition = GridPosition;
+            PathExplored = false;
+        }
+
+        public void RecordPathing(Vector3Int prevTile)
+        {
+            PreviousStepGridPosition = prevTile;
+            PathExplored = true;
         }
 
         public void AddEntity(EntityBase entity)

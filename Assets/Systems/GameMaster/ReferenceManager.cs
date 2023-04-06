@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Entity;
 using GameJam.Map;
+using GameJam.Pathfinding;
 
 namespace GameJam
 {
@@ -16,6 +17,9 @@ namespace GameJam
         public TurnManager TurnManager => _turnManager;
         [SerializeField] private EntityManager _entityManager;
         public EntityManager EntityManager => _entityManager;
+        [SerializeField] private MoveEntityAlongPath _plotPath;
+        public MoveEntityAlongPath PlotPath => _plotPath;
+        
         
         private void Awake()
         {
