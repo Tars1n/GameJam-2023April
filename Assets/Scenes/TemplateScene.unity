@@ -2248,6 +2248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugLogs: 1
   _map: {fileID: 1926293767}
+  _mp: 3
   _overlayTilemap: {fileID: 887409680}
   _canMoveTileBase: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
   _selectionTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
@@ -2297,7 +2298,7 @@ MonoBehaviour:
   _tilesExplored: []
   _tilesInThisStep: []
   _tilesInNextStep: []
-  _fillPathRange: 1
+  _fillPathRange: 20
 --- !u!114 &622301436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2715,6 +2716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugLogs: 1
   _map: {fileID: 0}
+  _mp: 3
   _overlayTilemap: {fileID: 0}
   _canMoveTileBase: {fileID: 0}
   _selectionTileBase: {fileID: 0}

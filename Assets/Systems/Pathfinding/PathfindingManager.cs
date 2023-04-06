@@ -15,7 +15,7 @@ namespace GameJam.Pathfinding
         [SerializeField] private List<Vector3Int> _tilesExplored;
         [SerializeField] private List<Vector3Int> _tilesInThisStep;
         [SerializeField] private List<Vector3Int> _tilesInNextStep;
-        [SerializeField] private int _fillPathRange = 15;
+        [SerializeField] private int _infinateFillPathRange = 20;
         private MapManager _mapManager;
         private Tilemap _map;
         private TileNodeManager _tileNodeManager;
@@ -30,12 +30,12 @@ namespace GameJam.Pathfinding
         public void FillPathInfiniteBlockedByObstacles(Vector3Int sourceCoords)
         {            
             _tileNodeManager.ResetAllPathing();
-            FillPathMPBlockedByObstacles(sourceCoords, _fillPathRange);
+            FillPathMPBlockedByObstacles(sourceCoords, _infinateFillPathRange);
         }
         public void FillPathInfinateNotBlockedByObstacles(Vector3Int sourceCoords)
         {
             _tileNodeManager.ResetAllPathing();
-            FillPathMPNotBlockedByObstacles(sourceCoords, _fillPathRange);
+            FillPathMPNotBlockedByObstacles(sourceCoords, _infinateFillPathRange);
         }
         
         public void FillPathMPBlockedByObstacles(Vector3Int sourceCoords, int mp)
