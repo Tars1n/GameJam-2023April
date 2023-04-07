@@ -8,6 +8,7 @@ namespace GameJam.Entity
     {
         private ReferenceManager _ref;
         [SerializeField] private List<EntityCharacter> _playerCharacters;
+        public List<EntityCharacter> PlayerCharacters => _playerCharacters;
         [SerializeField] private List<EntityMonster> _monsters;
         [SerializeField] private List<EntityTrap> _traps;
         [SerializeField] private Queue<EntityBase> _mapEntityQueue;
@@ -113,7 +114,7 @@ namespace GameJam.Entity
                 return null;
 
             return _mapEntityQueue?.Dequeue();
-        }     
+        }    
 
         public void TEST_EndPlayerTurn()
         {
