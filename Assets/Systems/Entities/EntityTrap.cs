@@ -8,14 +8,16 @@ namespace GameJam.Entity
     {
         [SerializeField] private TrapBlueprint _trapBlueprint;
         
-        // protected override void Start()
-        // {
-            
-        // }
-        
         public override void DoTurnAction()
         {
-            
+            StartCoroutine(TickTrap());
+        }
+
+        IEnumerator TickTrap()
+        {
+            if (_turnManager.DebugLog) {Debug.Log("Trap makes ticking noises");}
+            yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
+            CompletedTurn();
         }
     }
 }

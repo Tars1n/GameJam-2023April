@@ -20,7 +20,7 @@ namespace GameJam
 
         private void Start()
         {
-
+            StartCoroutine(LateStart());
         }
 
         IEnumerator LateStart()

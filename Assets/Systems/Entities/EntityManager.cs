@@ -17,6 +17,7 @@ namespace GameJam.Entity
             _playerCharacters = new List<EntityCharacter>();
             _monsters = new List<EntityMonster>();
             _traps = new List<EntityTrap>();
+            _mapEntityQueue = new Queue<EntityBase>();
         }
 
         private void Start()
@@ -30,12 +31,31 @@ namespace GameJam.Entity
         {
             if (entity.GetType() == typeof(EntityCharacter))
                 _playerCharacters.Add((EntityCharacter)entity);
-
             if (entity.GetType() == typeof(EntityMonster))
                 _monsters.Add((EntityMonster)entity);
-
             if (entity.GetType() == typeof(EntityTrap))
                 _traps.Add((EntityTrap)entity);
+        }
+
+        public bool TryRemoveEntity(EntityBase entity)
+        {
+            bool removed = false;
+            if (entity.GetType() == typeof(EntityCharacter))
+            {
+                _playerCharacters.Remove((EntityCharacter)entity);
+                removed = true;
+            }
+            if (entity.GetType() == typeof(EntityMonster))
+            {
+                _monsters.Add((EntityMonster)entity);
+                removed = true;
+            }
+            if (entity.GetType() == typeof(EntityTrap))
+            {
+                _traps.Add((EntityTrap)entity);
+                removed = true;
+            }
+            return removed;
         }
 
         private void RemapAllEntities()
@@ -50,14 +70,21 @@ namespace GameJam.Entity
                 { entity.LinkToTileNode(); }
         }
 
-        public void SetAllEntitiesToHaveActionReady()
+        public void QueueActionForAllEntities()
         {
             foreach (EntityCharacter entity in _playerCharacters)
                 { entity.HasActionReady = true; }
+
             foreach (EntityMonster entity in _monsters)
-                { entity.HasActionReady = true; }
+            {
+                entity.HasActionReady = true;
+                _mapEntityQueue.Enqueue(entity);
+            }
             foreach (EntityTrap entity in _traps)
-                { entity.HasActionReady = true; }
+            {
+                entity.HasActionReady = true;
+                _mapEntityQueue.Enqueue(entity);
+            }
         }
 
         private void EnqueueAllMapEntities()
@@ -82,10 +109,10 @@ namespace GameJam.Entity
         public EntityBase GetNextReadyMapEntity()
         {
             //Get next Monster or Trap entity from the action queue.
-            EntityBase entity = null;
-            entity = _mapEntityQueue.Dequeue();
+            if (_mapEntityQueue.Count == 0)
+                return null;
 
-            return entity;
+            return _mapEntityQueue?.Dequeue();
         }     
 
         public void TEST_EndPlayerTurn()

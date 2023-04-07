@@ -10,7 +10,7 @@ namespace GameJam.Entity
         [SerializeField] protected TileNode _currentTileNode;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
-        private TurnManager _turnManager;
+        protected TurnManager _turnManager;
         protected SpriteRenderer _spriteRenderer;
         public bool HasActionReady = false;
 
@@ -46,6 +46,7 @@ namespace GameJam.Entity
         protected virtual void CompletedTurn()
         {
             HasActionReady = false;
+            if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
             _turnManager.ActionCompleted();
         }
     }

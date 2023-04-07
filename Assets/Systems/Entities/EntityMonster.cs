@@ -18,13 +18,12 @@ namespace GameJam.Entity
             
         }
 
-        //possibly a coroutine?
         IEnumerator TryMoveTowardsTarget()
         {
             //_ref.PlotPath. (_currentTileNode.GridPosition, _targetNode);
 
-            Debug.Log($"{this} imagines moving towards a goal.");
-            yield return new WaitForSeconds(.05f);
+            if (_turnManager.DebugLog) {Debug.Log($"{this} imagines moving towards a goal.");}
+            yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
             CompletedTurn();
         }
     }

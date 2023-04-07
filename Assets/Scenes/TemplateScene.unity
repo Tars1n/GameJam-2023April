@@ -2183,6 +2183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e7755af87b6b24e911fe472893fa94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DebugLog: 1
   _playerTurn: 0
   _round: 0
 --- !u!114 &617119381
@@ -3832,7 +3833,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 958792426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 617119381}
+        m_TargetAssemblyTypeName: GameJam.Entity.EntityManager, Assembly-CSharp
+        m_MethodName: TEST_EndPlayerTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &958792426
 MonoBehaviour:
   m_ObjectHideFlags: 0
