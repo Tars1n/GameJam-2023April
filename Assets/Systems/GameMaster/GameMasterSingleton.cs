@@ -4,7 +4,7 @@ using GameJam.Map;
 
 namespace GameJam
 {
-    [RequireComponent(typeof(EventManager), typeof(TurnManager))]
+    [RequireComponent(typeof(EventManager))]
     public class GameMasterSingleton : MonoBehaviour
     {
         private ReferenceManager _referenceManager;
@@ -14,6 +14,7 @@ namespace GameJam
         public bool _jacobLogs = false;
         public bool _lukeLogs = false;
         [SerializeField] bool _gmLogs = false;
+        public bool GameSuspended = false;
         [SerializeField] private float _currentTimeScale;
         private float _fixedDeltaTime;
         [SerializeField] private Entity.EntityBase _activeUnit;
@@ -67,6 +68,7 @@ namespace GameJam
         {
             if (_gmLogs)
                 Debug.Log("pausing timescale.");
+            GameSuspended = true;
             SetTimescale(0.0f);
         }
         
@@ -75,6 +77,7 @@ namespace GameJam
             if (_gmLogs)
                 Debug.Log("returning timescale to normal.");
             SetTimescale(1f);
+            GameSuspended = false;
         }
     }
 }

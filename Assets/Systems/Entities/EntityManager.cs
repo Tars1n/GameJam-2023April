@@ -10,6 +10,7 @@ namespace GameJam.Entity
         [SerializeField] private List<EntityCharacter> _playerCharacters;
         [SerializeField] private List<EntityMonster> _monsters;
         [SerializeField] private List<EntityTrap> _traps;
+        [SerializeField] private Queue<EntityBase> _mapEntityQueue;
         private Map.TileNodeManager _tileNodeManager;
 
         private void Awake() {
@@ -48,6 +49,51 @@ namespace GameJam.Entity
             foreach (EntityTrap entity in _traps)
                 { entity.LinkToTileNode(); }
         }
-        
+
+        public void SetAllEntitiesToHaveActionReady()
+        {
+            foreach (EntityCharacter entity in _playerCharacters)
+                { entity.HasActionReady = true; }
+            foreach (EntityMonster entity in _monsters)
+                { entity.HasActionReady = true; }
+            foreach (EntityTrap entity in _traps)
+                { entity.HasActionReady = true; }
+        }
+
+        private void EnqueueAllMapEntities()
+        {
+            foreach (EntityMonster entity in _monsters)
+                { _mapEntityQueue.Enqueue(entity); }
+            foreach (EntityTrap entity in _traps)
+                { _mapEntityQueue.Enqueue(entity); }
+        }
+
+        public bool DoesPlayerStillHaveAction()
+        {
+            bool answer = false;
+            foreach (EntityCharacter playerEntity in _playerCharacters)
+            {
+                if (playerEntity.HasActionReady)
+                    answer = true;
+            }
+            return answer;
+        }
+
+        public EntityBase GetNextReadyMapEntity()
+        {
+            //Get next Monster or Trap entity from the action queue.
+            EntityBase entity = null;
+            entity = _mapEntityQueue.Dequeue();
+
+            return entity;
+        }     
+
+        public void TEST_EndPlayerTurn()
+        {
+            //Simulated player taking their last action.
+            foreach (EntityCharacter entity in _playerCharacters)
+                { entity.HasActionReady = false; }
+            GameMaster.Instance.ReferenceManager.TurnManager.ActionCompleted();
+        }   
     }
 }

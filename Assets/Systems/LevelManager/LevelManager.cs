@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map;
+using GameJam.Entity;
 
 namespace GameJam
 {
@@ -15,6 +16,17 @@ namespace GameJam
         
         private void Awake() {
             _turnManager = GetComponent<TurnManager>();
+        }
+
+        private void Start()
+        {
+
+        }
+
+        IEnumerator LateStart()
+        {
+            yield return new WaitForSeconds(1f);
+            _turnManager.BeginPlay();
         }
         
     }

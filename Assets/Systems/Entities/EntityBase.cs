@@ -10,12 +10,15 @@ namespace GameJam.Entity
         [SerializeField] protected TileNode _currentTileNode;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
+        private TurnManager _turnManager;
         protected SpriteRenderer _spriteRenderer;
-        public bool HasActedThisRound = false;
+        public bool HasActionReady = false;
 
         protected virtual void Start()
         {
             _ref = GameMaster.Instance.ReferenceManager;
+            _turnManager = _ref.TurnManager;
+            if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
             _ref.EntityManager.AddEntity(this);
             LinkToTileNode();
         }
@@ -39,5 +42,11 @@ namespace GameJam.Entity
         }
 
         public abstract void DoTurnAction();
+
+        protected virtual void CompletedTurn()
+        {
+            HasActionReady = false;
+            _turnManager.ActionCompleted();
+        }
     }
 }

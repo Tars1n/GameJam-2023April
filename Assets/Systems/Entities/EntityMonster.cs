@@ -9,18 +9,23 @@ namespace GameJam.Entity
     {
         //monster brain
         [SerializeField] private MonsterBlueprint _monsterBlueprint;
+        // something that represents goal.
         [SerializeField] private TileNode _targetNode;
 
         public override void DoTurnAction()
         {
-            TryMoveTowardsTarget();
-            HasActedThisRound = true;
+            StartCoroutine(TryMoveTowardsTarget());
+            
         }
 
-        private bool TryMoveTowardsTarget()
+        //possibly a coroutine?
+        IEnumerator TryMoveTowardsTarget()
         {
             //_ref.PlotPath. (_currentTileNode.GridPosition, _targetNode);
-            return true;
+
+            Debug.Log($"{this} imagines moving towards a goal.");
+            yield return new WaitForSeconds(.05f);
+            CompletedTurn();
         }
     }
 }
