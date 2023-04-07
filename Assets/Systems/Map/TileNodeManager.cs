@@ -41,8 +41,8 @@ namespace GameJam.Map
                     if (mapTile == null)
                         continue;
                     TileNode tileNode = new TileNode();
-                    tileNode.PreviousStepGridPosition = coord;//set the prev step to itself
-                    tileNode.GridPosition = coord;
+                    tileNode.PreviousStepGridCoordinate = coord;//set the prev step to itself
+                    tileNode.GridCoordinate = coord;
                     tileNode.WorldPos = map.CellToWorld(coord);
                     tileNode.TileType = mapTile;
                     _tileNodesArray[x, y] = tileNode;
@@ -99,14 +99,14 @@ namespace GameJam.Map
             // }
 
             //! this is a bug waiting to happen. Lack of validation is open to null errors, when validation is added, it breaks functionality.
-            return GetNodeFromCoords(coord).PreviousStepGridPosition;
+            return GetNodeFromCoords(coord).PreviousStepGridCoordinate;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
             TileNode tileNode = GetNodeFromCoords(coord);
             if (tileNode != null)
             {
-                tileNode.PreviousStepGridPosition = previousCoord;
+                tileNode.PreviousStepGridCoordinate = previousCoord;
             }
         }
         public void SetPreviousStepCoordToItself(Vector3Int coord)

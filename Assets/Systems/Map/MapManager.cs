@@ -10,6 +10,7 @@ namespace GameJam.Map
     [RequireComponent(typeof(PathfindingManager), typeof(TileNodeManager))]
     public class MapManager : MonoBehaviour
     {
+        private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         [SerializeField] private Tilemap _map;
         [SerializeField] private int _mp = 3;
@@ -25,6 +26,7 @@ namespace GameJam.Map
 
         private void Awake()
         {
+            _gm = GameMaster.Instance;
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
             _tileNodeManager = GetComponent<TileNodeManager>();
@@ -40,44 +42,42 @@ namespace GameJam.Map
         }
 
         private void Update() {
-            if (GameMaster.Instance.TilemapInteractable == false)
+            if (_gm.TilemapInteractable == false)
                 return;
 
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                Vector3Int gridPosition = _map.WorldToCell(mousePosition);
+                Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
 
-                TileBase clickedTile = _map.GetTile(gridPosition);
+                TileBase clickedTile = _map.GetTile(gridCoordinate);
                 if (clickedTile == null) {return;}
 
                 if (_debugLogs)
-                    Debug.Log($"Clicked on tile {clickedTile} at coordinates: {gridPosition.x}, {gridPosition.y}.");
+                    Debug.Log($"Clicked on tile {clickedTile} at coordinates: {gridCoordinate.x}, {gridCoordinate.y}.");
 
-                OnTileSelected(gridPosition);
+                OnTileSelected(gridCoordinate);
             }
         }
 
-        public void OnTileSelected(Vector3Int gridPosition)
+        public void OnTileSelected(Vector3Int gridCoordinate)
         {
-            if (_debugLogs)
+            TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
+            ValidateTileSelection(gridCoordinate, tileNode);
+
+            if (SelectedPlayerCharacter(gridCoordinate))
             {
-                Vector3Int arrayPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridPosition);
-                TileNode tileNode = _tileNodeManager.GetNodeAtArrayIndex(arrayPos);
-                Debug.Log($"clicked gird pos {gridPosition}, array pos {arrayPos}, node {tileNode}");            
-                if (tileNode == null)
-                {
-                    Debug.Log($"node is null");
-                }
-            }
-            TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
-            if (selectedTile == _canMoveTileBase)
-            {
-                _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition);
                 RefreshOverlayMap();
                 return;
             }
-            if (selectedTile)
+            TileBase selectedTile = _overlayTilemap.GetTile(gridCoordinate);
+            if (selectedTile == _canMoveTileBase)
+            {
+                _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridCoordinate);
+                RefreshOverlayMap();
+                return;
+            }
+            if (selectedTile) //? does this work?
             {
                 //tile already selected, deselecting
                 RefreshOverlayMap();
@@ -85,9 +85,34 @@ namespace GameJam.Map
             }
 
             _overlayTilemap.ClearAllTiles();
-            _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
-            _pathfinding?.FillPathMPNotBlockedByObstacles(gridPosition, _mp);
+            _overlayTilemap.SetTile(gridCoordinate, _selectionTileBase);
+            _pathfinding.FillPathMPNotBlockedByObstacles(gridCoordinate, _mp);
             HighlightActiveEntityTile();
+        }
+
+        private void ValidateTileSelection(Vector3Int gridCoordinate, TileNode tileNode)
+        {
+            if (tileNode == null) { Debug.LogError($"Selected TileNode is null, this should not be possible."); return;}
+            if (gridCoordinate != tileNode.GridCoordinate) {Debug.LogError($"Something went wrong: Somehow selected TileNode {tileNode} does not match Grid Coordinates.");}
+            
+            if (_debugLogs)
+            {
+                Vector3Int indexPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridCoordinate);
+                Debug.Log($"{tileNode}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}");
+            }
+        }
+
+        private bool SelectedPlayerCharacter(Vector3Int gridCoordinate)
+        {
+            bool result = false;
+            if (_gm.MultiplePlayerCharacters == false || _gm.IsPlayerTurn == false)
+                return false;
+
+            TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
+            if (tileNode != null)
+            {}
+
+            return result;
         }
 
         public void RefreshOverlayMap()
@@ -98,11 +123,11 @@ namespace GameJam.Map
 
         private void HighlightActiveEntityTile()
         {
-            Entity.EntityBase entity = GameMaster.Instance.ActiveEntity;
+            Entity.EntityBase entity = _gm.ActiveEntity;
             TileNode tile = entity?.CurrentTileNode;
             if (tile != null)
             {
-                _overlayTilemap.SetTile(tile.GridPosition, _activeEntityTileBase);
+                _overlayTilemap.SetTile(tile.GridCoordinate, _activeEntityTileBase);
             }
         }
 
@@ -144,8 +169,8 @@ namespace GameJam.Map
         public TileNode GetTileNodeAtWorldPos(Vector3 position)
         {
             position.z = 0;
-            Vector3Int gridPosition = _map.WorldToCell(position);
-            return _tileNodeManager.GetNodeFromCoords(gridPosition);
+            Vector3Int gridCoordinate = _map.WorldToCell(position);
+            return _tileNodeManager.GetNodeFromCoords(gridCoordinate);
         }
     }
 }

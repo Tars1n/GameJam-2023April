@@ -21,6 +21,7 @@ namespace GameJam
         [SerializeField] private EntityBase _activeEntity;
         public EntityBase ActiveEntity => _activeEntity;
         public bool MultiplePlayerCharacters = false; //controls and turn system changes slightly if you need to select between characters
+        public bool IsPlayerTurn => _referenceManager.TurnManager.PlayerTurn;
         [SerializeField] private TileGameObject _selectedTile = null;
         public TileGameObject SelectedTile => _selectedTile;
         public bool TilemapInteractable = true;
