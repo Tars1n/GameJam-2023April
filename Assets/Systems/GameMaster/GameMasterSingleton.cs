@@ -18,9 +18,9 @@ namespace GameJam
         public bool GameSuspended = false;
         [SerializeField] private float _currentTimeScale;
         private float _fixedDeltaTime;
-        public bool MultiplePlayerCharacters = true; //controls and turn system changes slightly if you need to select between characters
         [SerializeField] private EntityBase _activeEntity;
         public EntityBase ActiveEntity => _activeEntity;
+        public bool MultiplePlayerCharacters = false; //controls and turn system changes slightly if you need to select between characters
         [SerializeField] private TileGameObject _selectedTile = null;
         public TileGameObject SelectedTile => _selectedTile;
         public bool TilemapInteractable = true;
@@ -62,6 +62,10 @@ namespace GameJam
         public void SetActiveEntity(EntityBase entity)
         {
             _activeEntity = entity;
+            if (_activeEntity != null)
+            {
+                ReferenceManager.MapManager.RefreshOverlayMap();
+            }
         }
 
         public void SetTimescale(float scale)

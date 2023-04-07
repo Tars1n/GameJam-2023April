@@ -16,7 +16,8 @@ namespace GameJam.Map
         public Tilemap Map => _map;
         [SerializeField] private Tilemap _overlayTilemap;
         [SerializeField] private TileBase _canMoveTileBase;
-        [SerializeField] private TileBase _selectionTileBase;        
+        [SerializeField] private TileBase _selectionTileBase;
+        [SerializeField] private TileBase _activeEntityTileBase;        
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private TileNodeManager _tileNodeManager;
@@ -72,20 +73,37 @@ namespace GameJam.Map
             TileBase selectedTile = _overlayTilemap.GetTile(gridPosition);
             if (selectedTile == _canMoveTileBase)
             {
-                _overlayTilemap.ClearAllTiles();
                 _moveEntityAlongAPath.MoveEntityAlongPathFunc(gridPosition);
+                RefreshOverlayMap();
                 return;
             }
             if (selectedTile)
             {
                 //tile already selected, deselecting
-                _overlayTilemap.ClearAllTiles();
+                RefreshOverlayMap();
                 return;
             }
 
             _overlayTilemap.ClearAllTiles();
             _overlayTilemap.SetTile(gridPosition, _selectionTileBase);
             _pathfinding?.FillPathMPNotBlockedByObstacles(gridPosition, _mp);
+            HighlightActiveEntityTile();
+        }
+
+        public void RefreshOverlayMap()
+        {
+            _overlayTilemap.ClearAllTiles();
+            HighlightActiveEntityTile();
+        }
+
+        private void HighlightActiveEntityTile()
+        {
+            Entity.EntityBase entity = GameMaster.Instance.ActiveEntity;
+            TileNode tile = entity?.CurrentTileNode;
+            if (tile != null)
+            {
+                _overlayTilemap.SetTile(tile.GridPosition, _activeEntityTileBase);
+            }
         }
 
         public Vector3Int[] GetAllAdjacentHexCoordinates(Vector3Int startingPosition)
