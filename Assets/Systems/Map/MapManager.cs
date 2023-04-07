@@ -53,9 +53,6 @@ namespace GameJam.Map
                 TileBase clickedTile = _map.GetTile(gridCoordinate);
                 if (clickedTile == null) {return;}
 
-                if (_debugLogs)
-                    Debug.Log($"Clicked on tile {clickedTile} at coordinates: {gridCoordinate.x}, {gridCoordinate.y}.");
-
                 OnTileSelected(gridCoordinate);
             }
         }
@@ -98,7 +95,7 @@ namespace GameJam.Map
             if (_debugLogs)
             {
                 Vector3Int indexPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridCoordinate);
-                Debug.Log($"{tileNode}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}");
+                Debug.Log($"{tileNode.TileType}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}. Entity Count: {tileNode.Entities.Count}");
             }
         }
 
