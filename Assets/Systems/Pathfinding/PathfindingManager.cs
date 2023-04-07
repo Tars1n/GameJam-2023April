@@ -117,10 +117,19 @@ namespace GameJam.Pathfinding
         }
         private bool CanWalkOnTile(Vector3Int tileCoord)
         {
-            if (_map.GetTile(tileCoord) == _tileFloor)
+            // The following is a potential way to ask the TileNode itself if it is walkable.
+            // This will allow pathfinding to use more that one specific tile as well as allow Entities to block Pathfinding.
+            TileNode tile = _tileNodeManager.GetNodeFromCoords(tileCoord);
+            if (tile == null)    {return false;}
+            if (_tileNodeManager.GetNodeFromCoords(tileCoord).IsWalkable())
             {
                 return true;
             }
+
+            // if (_map.GetTile(tileCoord) == _tileFloor)
+            // {
+            //     return true;
+            // }
             return false;
         }
         private bool IsTileNotExplored(Vector3Int tileCoord)

@@ -13,6 +13,8 @@ namespace GameJam
         public LevelManager LevelManager => _levelManager;
         [SerializeField] private MapManager _mapManager;
         public MapManager MapManager => _mapManager;
+        [SerializeField] private MapInteractionManager _mapInteractionManager;
+        public MapInteractionManager MapInteractionManager => _mapInteractionManager;
         [SerializeField] private TurnManager _turnManager;
         public TurnManager TurnManager => _turnManager;
         [SerializeField] private EntityManager _entityManager;
@@ -34,6 +36,7 @@ namespace GameJam
         public void GrabLevelReferences()
         {
             _mapManager = _levelManager?.MapManager;
+            _mapInteractionManager = _mapManager?.MapInteractionManager;
             _turnManager = _levelManager?.GetComponent<TurnManager>();
             _entityManager = _turnManager?.GetComponent<EntityManager>();
         }

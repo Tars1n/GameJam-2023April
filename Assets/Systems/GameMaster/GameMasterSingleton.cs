@@ -22,9 +22,7 @@ namespace GameJam
         public EntityBase ActiveEntity => _activeEntity;
         public bool MultiplePlayerCharacters = false; //controls and turn system changes slightly if you need to select between characters
         public bool IsPlayerTurn => _referenceManager.TurnManager.PlayerTurn;
-        [SerializeField] private TileGameObject _selectedTile = null;
-        public TileGameObject SelectedTile => _selectedTile;
-        public bool TilemapInteractable = true;
+        public bool TilemapInteractable = false;
         
 
         private void Awake() {
@@ -46,26 +44,12 @@ namespace GameJam
             return _referenceManager;
         }
 
-        public void SetSelectedTile(TileGameObject node)
-        {
-            _selectedTile?.DeselectNode();
-
-            if (_selectedTile == node) 
-            {   //tile already selected, deselecting
-                _selectedTile = null;
-                return;
-            }
-
-            _selectedTile = node;
-            _selectedTile?.SelectNode();
-        }
-
         public void SetActiveEntity(EntityBase entity)
         {
             _activeEntity = entity;
             if (_activeEntity != null)
             {
-                ReferenceManager.MapManager.RefreshOverlayMap();
+                ReferenceManager.MapInteractionManager.RefreshOverlayMap();
             }
         }
 
