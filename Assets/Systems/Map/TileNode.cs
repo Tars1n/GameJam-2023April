@@ -10,21 +10,21 @@ namespace GameJam.Map
     public class TileNode
     {
         public TileBase TileType;
-        public Vector3Int GridPosition;
+        public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
-        public Vector3Int PreviousStepGridPosition;
+        public Vector3Int PreviousStepGridCoordinate;
         public bool PathExplored = false;
         public List<EntityBase> Entities = new List<EntityBase>();
 
         public void ResetPathingInfo()
         {
-            PreviousStepGridPosition = GridPosition;
+            PreviousStepGridCoordinate = GridCoordinate;
             PathExplored = false;
         }
 
         public void RecordPathing(Vector3Int prevTile)
         {
-            PreviousStepGridPosition = prevTile;
+            PreviousStepGridCoordinate = prevTile;
             PathExplored = true;
         }
 

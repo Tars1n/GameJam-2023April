@@ -48,6 +48,12 @@ namespace GameJam.Entity
         private void StartPlayerTurn()
         {
             _playerTurn = true;
+            if (GameMaster.Instance.MultiplePlayerCharacters == false)
+            {
+                //If game set to single player character, select by default, otherwise start turn with no selection.
+                EntityCharacter player = _entityManager.PlayerCharacters[0];
+                GameMaster.Instance.SetActiveEntity(player);
+            }
             if (DebugLog)  Debug.Log("Player's turn begins.");
         }
 
@@ -60,6 +66,7 @@ namespace GameJam.Entity
 
         public void ActionCompleted()
         {
+            GameMaster.Instance.SetActiveEntity(null);
             //Entities call this when they've completed their action, this causes turn manager to progress to the next Actor
             if (GameMaster.Instance.GameSuspended)
             {
@@ -85,6 +92,7 @@ namespace GameJam.Entity
                 return;
             }
             //if (DebugLog) Debug.Log($"Next Actor: {nextEntity}");
+            GameMaster.Instance.SetActiveEntity(nextEntity);
             nextEntity.DoTurnAction();
         }
 

@@ -2184,6 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugLog: 1
+  _delayBetweenActions: 0.5
   _playerTurn: 0
   _round: 0
 --- !u!114 &617119381
@@ -2253,7 +2254,8 @@ MonoBehaviour:
   _mp: 3
   _overlayTilemap: {fileID: 887409680}
   _canMoveTileBase: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
-  _selectionTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
+  _selectionTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
+  _activeEntityTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
 --- !u!156049354 &622301433
 Grid:
   m_ObjectHideFlags: 0
@@ -2419,9 +2421,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentTileNode:
     TileType: {fileID: 0}
-    GridPosition: {x: 0, y: 0, z: 0}
+    GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
     PathExplored: 0
     Entities: []
   HasActionReady: 0
@@ -2807,6 +2809,7 @@ MonoBehaviour:
   _overlayTilemap: {fileID: 0}
   _canMoveTileBase: {fileID: 0}
   _selectionTileBase: {fileID: 0}
+  _activeEntityTileBase: {fileID: 0}
 --- !u!114 &818755340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4384,9 +4387,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentTileNode:
     TileType: {fileID: 0}
-    GridPosition: {x: 0, y: 0, z: 0}
+    GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
     PathExplored: 0
     Entities: []
   HasActionReady: 0
@@ -4450,8 +4453,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032446865}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.78, y: 2.73, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.33, y: 0.23, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -7258,18 +7261,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentTileNode:
     TileType: {fileID: 0}
-    GridPosition: {x: 0, y: 0, z: 0}
+    GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
     PathExplored: 0
     Entities: []
   HasActionReady: 0
   _monsterBlueprint: {fileID: 0}
   _targetNode:
     TileType: {fileID: 0}
-    GridPosition: {x: 0, y: 0, z: 0}
+    GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridPosition: {x: 0, y: 0, z: 0}
+    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
     PathExplored: 0
     Entities: []
 --- !u!212 &1801800941
