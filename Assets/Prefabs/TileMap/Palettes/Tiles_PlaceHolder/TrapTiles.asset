@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2689792263bfe40ab87d7d20744423, type: 3}
+  m_Name: TrapTiles
+  m_EditorClassIdentifier: 
+  Tiles:
+  - {fileID: 11400000, guid: a5861479c51f2c84e88c6f0b227b6c7c, type: 2}
+  IsWalkable: 0
+  IsTrapTile: 1

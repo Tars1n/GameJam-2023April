@@ -14,6 +14,9 @@ namespace GameJam.Map
         private int _arrayHeight;
         private BoundsInt _mapBounds;
         private TileNode[,] _tileNodesArray;
+        [SerializeField] private List<TileData> _tileDatas;
+        private Dictionary<TileBase, TileData> _dataFromTiles;
+        
 
         public void InitializeTileNodeArray(Tilemap map)
         {   //this is called on Awake from MapManager. Local initialization only.
@@ -31,6 +34,7 @@ namespace GameJam.Map
 
         private void GenerateAllTileNodeEntries(Tilemap map)
         {
+            SetupTileData();
             int  tCount = 0;
             for (int x = 0; x <= _mapBounds.xMax - _mapBounds.xMin + 1; x++)
             {
@@ -46,11 +50,24 @@ namespace GameJam.Map
                     tileNode.WorldPos = map.CellToWorld(coord);
                     tileNode.TileType = mapTile;
                     _tileNodesArray[x, y] = tileNode;
+                    tileNode.SetTileData(_dataFromTiles);
                     tCount ++;
                 }
             }
             if (_debugLog)
                 Debug.Log($"TileNodeManager generated {tCount} TileNodes.");
+        }
+
+        private void SetupTileData()
+        {
+            _dataFromTiles = new Dictionary<TileBase, TileData>();
+            foreach (TileData tileData in _tileDatas)
+            {
+                foreach (TileBase tile in tileData.Tiles)
+                {
+                    _dataFromTiles.Add(tile, tileData);
+                }
+            }
         }
 
         public void ResetAllPathing()
@@ -98,7 +115,7 @@ namespace GameJam.Map
             //      return new Vector3Int(0,0,-1); //functions that use this should check for this error response.
             // }
 
-            //! this is a bug waiting to happen. Lack of validation is open to null errors, when validation is added, it breaks functionality.
+            //! Is currently open to null reference exceptions. Above validation causes pathfinder to bug out due to how it flags attempting to path a non-existent tile.
             return GetNodeFromCoords(coord).PreviousStepGridCoordinate;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)

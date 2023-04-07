@@ -29,6 +29,7 @@ namespace GameJam.Entity
             if (_round == 0)
             {
                 SetupNewRound();
+                GameMaster.Instance.TilemapInteractable = true;
             }
         }
 
