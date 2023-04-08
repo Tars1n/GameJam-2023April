@@ -33,6 +33,29 @@ namespace GameJam.Map
             return result;
         }
 
+        public EntityCharacter GetPlayerCharacter()
+        {
+            if (Entities.Count == 0)
+            {
+                return null;
+            }
+            foreach (EntityBase entity in Entities)
+            {
+                EntityCharacter character = IsValidCharacterSelection(entity);
+                if (character != null)
+                    return character;
+            }
+            return null;
+        }
+
+        private EntityCharacter IsValidCharacterSelection(EntityBase entity)
+        {
+            if (entity.GetType() != typeof(EntityCharacter) || entity.HasActionReady == false)
+                { return null; }
+                
+            return (EntityCharacter)entity;
+        }
+
         public void ResetPathingInfo()
         {
             PreviousStepGridCoordinate = GridCoordinate;

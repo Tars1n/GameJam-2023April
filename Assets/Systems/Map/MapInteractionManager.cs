@@ -52,7 +52,7 @@ namespace GameJam.Map
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
             ValidateTileSelection(gridCoordinate, tileNode);
 
-            if (SelectedPlayerCharacter(gridCoordinate))
+            if (SelectedPlayerCharacter(tileNode))
             {
                 RefreshOverlayMap();
                 return;
@@ -89,15 +89,19 @@ namespace GameJam.Map
             }
         }
 
-        private bool SelectedPlayerCharacter(Vector3Int gridCoordinate)
+        private bool SelectedPlayerCharacter(TileNode tileNode)
         {
             bool result = false;
             if (_gm.MultiplePlayerCharacters == false || _gm.IsPlayerTurn == false)
                 return false;
 
-            TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
-            if (tileNode != null)
-            {}
+            
+            Entity.EntityCharacter playerCharacter = tileNode.GetPlayerCharacter();
+            if (playerCharacter != null)
+            {
+                _gm.SetActiveEntity(playerCharacter);
+                return true;
+            }  
 
             return result;
         }
