@@ -1284,7 +1284,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 420827703}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.01, y: -0.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 989405542}
@@ -1787,6 +1787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db4ac046d8e048a8b4f77f7f87e986d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 0
   _tileFloor: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
   _canMoveOverlay: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
   _overlayTileMap: {fileID: 887409680}
@@ -1836,10 +1837,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugLogs: 1
   _mouseHoverTileBase: {fileID: 11400000, guid: 14467a0048f3e09428da766a836fe016, type: 2}
+  _walkPathTileBase: {fileID: 11400000, guid: e77a2c9cbe5d71e4da9eafecf93e2176, type: 2}
   _canMoveTileBase: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
   _selectionTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _activeEntityTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
-  _mp: 3
+  _mp: 5
+  _ignoreObstacles: 0
 --- !u!1 &723708918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,8 +2350,10 @@ MonoBehaviour:
     _isTrapTile: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
-    PathExplored: 0
+    WalkingPathDirection: {x: 0, y: 0, z: 0}
+    FlyingPathDirection: {x: 0, y: 0, z: 0}
+    WalkingPathExplored: 0
+    FlyingPathExplored: 0
     Entities: []
   HasActionReady: 0
   _trapBlueprint: {fileID: 0}
@@ -4892,11 +4897,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.35
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.87
+      value: -1.44
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5107,11 +5112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.58
+      value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.95
+      value: -1.96
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_LocalPosition.z

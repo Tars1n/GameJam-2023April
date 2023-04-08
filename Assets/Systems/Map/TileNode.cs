@@ -14,8 +14,10 @@ namespace GameJam.Map
         [SerializeField] private bool _isTrapTile;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
-        public Vector3Int PreviousStepGridCoordinate;
-        public bool PathExplored = false;
+        public Vector3Int WalkingPathDirection;
+        public Vector3Int FlyingPathDirection;
+        public bool WalkingPathExplored = false;
+        public bool FlyingPathExplored = false;
         public List<EntityBase> Entities = new List<EntityBase>();
 
         public void SetTileData(Dictionary<TileBase, TileData> data)
@@ -58,14 +60,24 @@ namespace GameJam.Map
 
         public void ResetPathingInfo()
         {
-            PreviousStepGridCoordinate = GridCoordinate;
-            PathExplored = false;
+            WalkingPathDirection = GridCoordinate;
+            FlyingPathDirection = GridCoordinate;
+            FlyingPathExplored = false;
+            WalkingPathExplored = false;
         }
 
-        public void RecordPathing(Vector3Int prevTile)
+        public void RecordPathing(Vector3Int prevTile, bool ignoreObstacles)
         {
-            PreviousStepGridCoordinate = prevTile;
-            PathExplored = true;
+            if (ignoreObstacles && !FlyingPathExplored)
+            {
+                FlyingPathDirection = prevTile;
+                FlyingPathExplored = true;
+            }
+            if (!ignoreObstacles && !WalkingPathExplored)
+            {
+                WalkingPathDirection = prevTile;
+                WalkingPathExplored = true;
+            }
         }
 
         public bool TryAddEntity(EntityBase entity)

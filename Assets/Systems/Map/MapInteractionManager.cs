@@ -20,10 +20,12 @@ namespace GameJam.Map
         private Tilemap _mouseMap;
         private Vector3Int _previousTileMousedOver;
         [SerializeField] private TileBase _mouseHoverTileBase;
+        [SerializeField] private TileBase _walkPathTileBase;
         [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;
         [SerializeField] private TileBase _activeEntityTileBase;
         [SerializeField] private int _mp = 3;
+        [SerializeField] private bool _ignoreObstacles;
 
         public void Initialize(MapManager mapManager)
         {
@@ -54,14 +56,18 @@ namespace GameJam.Map
             }
             _previousTileMousedOver = gridCoordinate;
         }
-
+        
         public void CheckHighlightedTile(Vector3Int gridCoordinate)
         {
-            if (_previousTileMousedOver == gridCoordinate)
-            {
-                return;
-            }
-            _mouseMap.SetTile(_previousTileMousedOver, null);
+            if (_previousTileMousedOver == gridCoordinate) 
+                { return; }
+            _mouseMap.ClearAllTiles();
+            HighlightMouseOverTile(gridCoordinate);
+            DrawPathFromActiveEntityToMouse();
+        }
+
+        private void HighlightMouseOverTile(Vector3Int gridCoordinate)
+        {
             if (IsHighlightableTile(gridCoordinate))
             {
                 _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
@@ -74,6 +80,32 @@ namespace GameJam.Map
             if (node != null)
                 { return true; }
             return false;
+        }
+
+        private void DrawPathFromActiveEntityToMouse()
+        {
+            Entity.EntityBase activeEntity = GameMaster.Instance.ActiveEntity;
+            if (activeEntity == null)
+                { return; }
+            Vector3Int startCoord = activeEntity.CurrentTileNode.GridCoordinate;
+            if (startCoord == _previousTileMousedOver)
+                { return; }
+            
+            RenderPathTiles(_previousTileMousedOver, activeEntity.CurrentTileNode.GridCoordinate);
+            
+            HighlightActiveEntityTile();
+        }
+
+        private void RenderPathTiles(Vector3Int goal, Vector3Int current)
+        {
+            _pathfinding.MapAllTileNodesToTarget(goal);
+            List<TileNode> pathList = _pathfinding.GetPathNodes(current, _mp, _ignoreObstacles);
+
+            foreach (TileNode node in pathList)
+            {
+                if (node == null) {return;}
+                _mouseMap.SetTile(node.GridCoordinate, _walkPathTileBase);
+            }
         }
 
         public void OnTileSelected(Vector3Int gridCoordinate)
