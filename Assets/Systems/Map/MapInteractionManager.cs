@@ -17,6 +17,9 @@ namespace GameJam.Map
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
+        private Tilemap _mouseMap;
+        private Vector3Int _previousTileMousedOver;
+        [SerializeField] private TileBase _mouseHoverTileBase;
         [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;
         [SerializeField] private TileBase _activeEntityTileBase;
@@ -27,6 +30,7 @@ namespace GameJam.Map
             _gm = GameMaster.Instance;
             _map = mapManager.Map;
             _overlayTilemap = mapManager.OverlayMap;
+            _mouseMap = mapManager.MouseInteractionTilemap;
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
@@ -36,17 +40,42 @@ namespace GameJam.Map
             if (_gm.TilemapInteractable == false)
                 return;
 
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+
+            CheckHighlightedTile(gridCoordinate);
+
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
-
                 TileBase clickedTile = _map.GetTile(gridCoordinate);
                 if (clickedTile == null) {return;}
 
                 OnTileSelected(gridCoordinate);
             }
+            _previousTileMousedOver = gridCoordinate;
         }
+
+        public void CheckHighlightedTile(Vector3Int gridCoordinate)
+        {
+            if (_previousTileMousedOver == gridCoordinate)
+            {
+                return;
+            }
+            _mouseMap.SetTile(_previousTileMousedOver, null);
+            if (IsHighlightableTile(gridCoordinate))
+            {
+                _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
+            }
+        }
+
+        private bool IsHighlightableTile(Vector3Int gridCoordinate)
+        {
+            TileNode node = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
+            if (node != null)
+                { return true; }
+            return false;
+        }
+
         public void OnTileSelected(Vector3Int gridCoordinate)
         {
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);

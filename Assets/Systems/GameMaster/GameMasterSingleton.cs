@@ -47,10 +47,7 @@ namespace GameJam
         public void SetActiveEntity(EntityBase entity)
         {
             _activeEntity = entity;
-            if (_activeEntity != null)
-            {
-                ReferenceManager.MapInteractionManager.RefreshOverlayMap();
-            }
+            ReferenceManager.MapInteractionManager.RefreshOverlayMap();
         }
 
         public void SetTimescale(float scale)
