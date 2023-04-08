@@ -8,7 +8,7 @@ namespace GameJam.Pathfinding
 {
     public class PathfindingManager : MonoBehaviour
     {
-        private bool _debugLogs = false;
+        [SerializeField] private bool _debugLogs = false;
         [SerializeField] private Tile _tileFloor;
         [SerializeField] private Tile _canMoveOverlay;
         [SerializeField] private Tilemap _overlayTileMap;
@@ -20,6 +20,7 @@ namespace GameJam.Pathfinding
         private Tilemap _map;
         private TileNodeManager _tileNodeManager;
         private delegate void CanWalkOnTileDelegate(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord);
+        private bool _ignoreObstacles;
 
         private void Awake()
         {
@@ -27,24 +28,34 @@ namespace GameJam.Pathfinding
             _tileNodeManager = GetComponent<TileNodeManager>();
             _map = _mapManager.Map;
         }
+
+        public void MapAllTileNodesToTarget(Vector3Int targetCoord)
+        {
+            _tileNodeManager.ResetAllPathing();
+            FillPathInfiniteBlockedByObstacles(targetCoord);
+            FillPathInfinateNotBlockedByObstacles(targetCoord);
+
+        }
         public void FillPathInfiniteBlockedByObstacles(Vector3Int sourceCoords)
         {            
-            _tileNodeManager.ResetAllPathing();
+            //_tileNodeManager.ResetAllPathing();
             FillPathMPBlockedByObstacles(sourceCoords, _infinateFillPathRange);
         }
         public void FillPathInfinateNotBlockedByObstacles(Vector3Int sourceCoords)
         {
-            _tileNodeManager.ResetAllPathing();
+            //_tileNodeManager.ResetAllPathing();
             FillPathMPNotBlockedByObstacles(sourceCoords, _infinateFillPathRange);
         }
         
         public void FillPathMPBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
+            _ignoreObstacles = false;
             CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileBlockedByObstacles;//the function that checks tiles that are blocked
             FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
         public void FillPathMPNotBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
+            _ignoreObstacles = true;
             CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileNotBlockedByObstacles;//the function that checks tiles that are  not blocked
             FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
@@ -55,7 +66,6 @@ namespace GameJam.Pathfinding
             _tilesInNextStep = new List<Vector3Int>();
             _tilesExplored = new List<Vector3Int>();
             _tilesExplored.Add(sourceCoords);
-            _tileNodeManager.SetPreviousStepCoordToItself(sourceCoords);
             CheckAdjacentTilesToThisTile(sourceCoords, checkCanWalkOnTileDelegate);
             for (int moveIndex = 1; moveIndex < mp; moveIndex++)
             {
@@ -99,8 +109,10 @@ namespace GameJam.Pathfinding
             if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
             {
                 _tilesInNextStep.Add(coordOfAdjacentTileChecking);
-                _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
-                _tileNodeManager.SetPreviousStepCoord(coordOfAdjacentTileChecking, sourceCoord);
+                //?_overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
+                
+                TileNode node = _tileNodeManager.GetNodeFromCoords(coordOfAdjacentTileChecking);
+                node?.RecordPathing(sourceCoord, false);
             }
         }
         private void CheckCanWalkOnTileNotBlockedByObstacles(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord)
@@ -108,11 +120,14 @@ namespace GameJam.Pathfinding
             if (!_tilesInNextStep.Contains(coordOfAdjacentTileChecking))
             {//tile is added to step even if it is not blocked, it is only hilighted if not blocked.
                 _tilesInNextStep.Add(coordOfAdjacentTileChecking);
-                _tileNodeManager.SetPreviousStepCoord(coordOfAdjacentTileChecking, sourceCoord);
-                if (CanWalkOnTile(coordOfAdjacentTileChecking))
-                {
-                    _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
-                }
+                
+                TileNode node = _tileNodeManager.GetNodeFromCoords(coordOfAdjacentTileChecking);
+                node?.RecordPathing(sourceCoord, true);
+
+                //? if (CanWalkOnTile(coordOfAdjacentTileChecking))
+                //? {
+                //?     _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
+                //? }
             }
         }
         private bool CanWalkOnTile(Vector3Int tileCoord)
@@ -126,10 +141,10 @@ namespace GameJam.Pathfinding
                 return true;
             }
 
-            // if (_map.GetTile(tileCoord) == _tileFloor)
-            // {
-            //     return true;
-            // }
+            //? if (_map.GetTile(tileCoord) == _tileFloor)
+            //? {
+            //?     return true;
+            //? }
             return false;
         }
         private bool IsTileNotExplored(Vector3Int tileCoord)
@@ -145,6 +160,39 @@ namespace GameJam.Pathfinding
 
             _tilesInThisStep = _tilesInNextStep;
             _tilesInNextStep = new List<Vector3Int>();
+        }
+
+        public List<TileNode> GetPathNodes(Vector3Int startingCoord, int range, bool ignoreObstacles)
+        {
+            List<TileNode> nodeList = new List<TileNode>();
+            TileNode node = _tileNodeManager.GetNodeFromCoords(startingCoord);
+            for (int i = 0; i < range; i++)
+            {
+                TileNode nextNode = GetNextNode(node, ignoreObstacles);
+                if (node != nextNode || nextNode != null)
+                {
+                    nodeList.Add(nextNode);
+                    node = nextNode;
+                }
+            }
+
+            return nodeList;
+        }
+
+        private TileNode GetNextNode(TileNode node, bool ignoreObstacles)
+        {
+            if (node == null)   {return null;}
+            TileNode nextNode;
+            if (ignoreObstacles)
+            {
+                nextNode = _tileNodeManager.GetNodeFromCoords(node.FlyingPathDirection);
+            }
+            else
+            {
+                nextNode = _tileNodeManager.GetNodeFromCoords(node.WalkingPathDirection);
+            }
+
+            return nextNode;
         }
     }
 }

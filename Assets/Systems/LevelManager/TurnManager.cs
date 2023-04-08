@@ -37,7 +37,10 @@ namespace GameJam.Entity
         {
             //calls this at the start of game and anytime computer has no actions left to play.
             //set all entities to have an action
+            GameMaster.Instance.SetActiveEntity(null);
+
             _round ++;
+            
             _entityManager.QueueActionForAllEntities();
             _playerTurn = true;
             

@@ -14,8 +14,10 @@ namespace GameJam.Map
         [SerializeField] private bool _isTrapTile;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
-        public Vector3Int PreviousStepGridCoordinate;
-        public bool PathExplored = false;
+        public Vector3Int WalkingPathDirection;
+        public Vector3Int FlyingPathDirection;
+        public bool WalkingPathExplored = false;
+        public bool FlyingPathExplored = false;
         public List<EntityBase> Entities = new List<EntityBase>();
 
         public void SetTileData(Dictionary<TileBase, TileData> data)
@@ -33,16 +35,49 @@ namespace GameJam.Map
             return result;
         }
 
-        public void ResetPathingInfo()
+        public EntityCharacter GetPlayerCharacter()
         {
-            PreviousStepGridCoordinate = GridCoordinate;
-            PathExplored = false;
+            if (Entities.Count == 0)
+            {
+                return null;
+            }
+            foreach (EntityBase entity in Entities)
+            {
+                EntityCharacter character = IsValidCharacterSelection(entity);
+                if (character != null)
+                    return character;
+            }
+            return null;
         }
 
-        public void RecordPathing(Vector3Int prevTile)
+        private EntityCharacter IsValidCharacterSelection(EntityBase entity)
         {
-            PreviousStepGridCoordinate = prevTile;
-            PathExplored = true;
+            if (entity.GetType() != typeof(EntityCharacter) || entity.HasActionReady == false)
+                { return null; }
+                
+            return (EntityCharacter)entity;
+        }
+
+        public void ResetPathingInfo()
+        {
+            WalkingPathDirection = GridCoordinate;
+            FlyingPathDirection = GridCoordinate;
+            FlyingPathExplored = false;
+            WalkingPathExplored = false;
+        }
+
+        public void RecordPathing(Vector3Int prevTile, bool ignoreObstacles)
+        {
+            if (ignoreObstacles && !FlyingPathExplored)
+            {
+                FlyingPathDirection = prevTile;
+                FlyingPathExplored = true;
+            }
+            if (!ignoreObstacles && !WalkingPathExplored)
+            {
+                WalkingPathDirection = prevTile;
+                WalkingPathExplored = true;
+            }
         }
 
         public bool TryAddEntity(EntityBase entity)

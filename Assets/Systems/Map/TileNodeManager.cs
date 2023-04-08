@@ -45,8 +45,9 @@ namespace GameJam.Map
                     if (mapTile == null)
                         continue;
                     TileNode tileNode = new TileNode();
-                    tileNode.PreviousStepGridCoordinate = coord;//set the prev step to itself
                     tileNode.GridCoordinate = coord;
+                    tileNode.WalkingPathDirection = coord;
+                    tileNode.FlyingPathDirection = coord;
                     tileNode.WorldPos = map.CellToWorld(coord);
                     tileNode.TileType = mapTile;
                     _tileNodesArray[x, y] = tileNode;
@@ -116,19 +117,15 @@ namespace GameJam.Map
             // }
 
             //! Is currently open to null reference exceptions. Above validation causes pathfinder to bug out due to how it flags attempting to path a non-existent tile.
-            return GetNodeFromCoords(coord).PreviousStepGridCoordinate;
+            return GetNodeFromCoords(coord).WalkingPathDirection;
         }
         public void SetPreviousStepCoord(Vector3Int coord, Vector3Int previousCoord)
         {
             TileNode tileNode = GetNodeFromCoords(coord);
             if (tileNode != null)
             {
-                tileNode.PreviousStepGridCoordinate = previousCoord;
+                tileNode.WalkingPathDirection = previousCoord;
             }
-        }
-        public void SetPreviousStepCoordToItself(Vector3Int coord)
-        {
-            GetNodeFromCoords(coord)?.ResetPathingInfo();
         }
 
         public List<EntityBase> GetEntitiesAtCoord(Vector3Int coord)

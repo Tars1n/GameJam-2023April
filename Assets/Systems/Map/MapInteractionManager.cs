@@ -17,16 +17,22 @@ namespace GameJam.Map
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
+        private Tilemap _mouseMap;
+        private Vector3Int _previousTileMousedOver;
+        [SerializeField] private TileBase _mouseHoverTileBase;
+        [SerializeField] private TileBase _walkPathTileBase;
         [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;
         [SerializeField] private TileBase _activeEntityTileBase;
         [SerializeField] private int _mp = 3;
+        [SerializeField] private bool _ignoreObstacles;
 
         public void Initialize(MapManager mapManager)
         {
             _gm = GameMaster.Instance;
             _map = mapManager.Map;
             _overlayTilemap = mapManager.OverlayMap;
+            _mouseMap = mapManager.MouseInteractionTilemap;
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
@@ -36,23 +42,78 @@ namespace GameJam.Map
             if (_gm.TilemapInteractable == false)
                 return;
 
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+
+            CheckHighlightedTile(gridCoordinate);
+
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
-                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-                Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
-
                 TileBase clickedTile = _map.GetTile(gridCoordinate);
                 if (clickedTile == null) {return;}
 
                 OnTileSelected(gridCoordinate);
             }
+            _previousTileMousedOver = gridCoordinate;
         }
+        
+        public void CheckHighlightedTile(Vector3Int gridCoordinate)
+        {
+            if (_previousTileMousedOver == gridCoordinate) 
+                { return; }
+            _mouseMap.ClearAllTiles();
+            HighlightMouseOverTile(gridCoordinate);
+            DrawPathFromActiveEntityToMouse();
+        }
+
+        private void HighlightMouseOverTile(Vector3Int gridCoordinate)
+        {
+            if (IsHighlightableTile(gridCoordinate))
+            {
+                _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
+            }
+        }
+
+        private bool IsHighlightableTile(Vector3Int gridCoordinate)
+        {
+            TileNode node = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
+            if (node != null)
+                { return true; }
+            return false;
+        }
+
+        private void DrawPathFromActiveEntityToMouse()
+        {
+            Entity.EntityBase activeEntity = GameMaster.Instance.ActiveEntity;
+            if (activeEntity == null)
+                { return; }
+            Vector3Int startCoord = activeEntity.CurrentTileNode.GridCoordinate;
+            if (startCoord == _previousTileMousedOver)
+                { return; }
+            
+            RenderPathTiles(_previousTileMousedOver, activeEntity.CurrentTileNode.GridCoordinate);
+            
+            HighlightActiveEntityTile();
+        }
+
+        private void RenderPathTiles(Vector3Int goal, Vector3Int current)
+        {
+            _pathfinding.MapAllTileNodesToTarget(goal);
+            List<TileNode> pathList = _pathfinding.GetPathNodes(current, _mp, _ignoreObstacles);
+
+            foreach (TileNode node in pathList)
+            {
+                if (node == null) {return;}
+                _mouseMap.SetTile(node.GridCoordinate, _walkPathTileBase);
+            }
+        }
+
         public void OnTileSelected(Vector3Int gridCoordinate)
         {
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
             ValidateTileSelection(gridCoordinate, tileNode);
 
-            if (SelectedPlayerCharacter(gridCoordinate))
+            if (SelectedPlayerCharacter(tileNode))
             {
                 RefreshOverlayMap();
                 return;
@@ -89,15 +150,19 @@ namespace GameJam.Map
             }
         }
 
-        private bool SelectedPlayerCharacter(Vector3Int gridCoordinate)
+        private bool SelectedPlayerCharacter(TileNode tileNode)
         {
             bool result = false;
             if (_gm.MultiplePlayerCharacters == false || _gm.IsPlayerTurn == false)
                 return false;
 
-            TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
-            if (tileNode != null)
-            {}
+            
+            Entity.EntityCharacter playerCharacter = tileNode.GetPlayerCharacter();
+            if (playerCharacter != null)
+            {
+                _gm.SetActiveEntity(playerCharacter);
+                return true;
+            }  
 
             return result;
         }
