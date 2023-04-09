@@ -45,6 +45,7 @@ namespace GameJam.Map
             Vector3Int[] directions = new Vector3Int[6];
 
             //TODO move this calculation to a HelperClass
+            //This is using odd-row offset coordinates
             if (startingPosition.y % 2 == 0)
             {
                 directions[0] = new Vector3Int(-1,  1,  0); //Upleft
@@ -61,7 +62,6 @@ namespace GameJam.Map
                 directions[4] = new Vector3Int(1, 1, 0); //upright
                 directions[5] = new Vector3Int(1, 0, 0); //Right
             }
-
             return directions;
         }
 
@@ -73,6 +73,35 @@ namespace GameJam.Map
                 return new Vector3Int(0,0,0);
             }
             return GetAllAdjacentHexCoordinates(startingPosition)[direction];
+        }
+
+        public Vector3Int CastOddRowToAxial(Vector3Int oddRow)
+        {
+            //Can convert from columns and rows into axial coordinates
+            //axial cooridates are 3 axis: q(column), r(row), s(3rd axis)
+            //when all three of the axis are added together they will equal 0
+            //this means we can ignore s because it is always equal to -q-r
+            int q = oddRow.x - (oddRow.y - (oddRow.y&1)) /2;
+            int r = oddRow.y;
+            int s = -q-r;
+            return new Vector3Int(q, r, s);
+        } 
+
+        public Vector3Int CastAxialToOddRow(Vector3Int axial)
+        {
+            int column = axial.x + (axial.y - (axial.y&1)) /2;
+            int oddRow = axial.y;
+            return new Vector3Int (column, oddRow, 0);
+        }
+
+        public int CalculateRange(Vector3Int coordA, Vector3Int coordB)
+        {
+            Vector3Int a = CastOddRowToAxial(coordA);
+            Vector3Int b = CastOddRowToAxial(coordB);
+
+            Vector3Int vec = a-b;
+            int range = (Mathf.Abs(vec.x) + Mathf.Abs(vec.y) + Mathf.Abs(vec.z)) / 2;
+            return range;
         }
 
         public TileNode GetTileNodeAtWorldPos(Vector3 position)

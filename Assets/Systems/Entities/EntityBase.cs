@@ -20,12 +20,20 @@ namespace GameJam.Entity
             _turnManager = _ref.TurnManager;
             if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
             _ref.EntityManager.AddEntity(this);
-            LinkToTileNode();
+            LinkToTileNode(null);
+            SnapEntityPositionToTile();
         }
 
-        public void LinkToTileNode()
+        public void LinkToTileNode(TileNode tileNode)
         {
-            _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
+            if (tileNode == null)
+            {
+                _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
+            }
+            else
+            {
+                _currentTileNode = tileNode;
+            }
             if (_currentTileNode == null)
             {
                 Debug.LogWarning($"{gameObject} failed to link to valid TileNode. Does Object in scene exist outside of valid tiles?");
@@ -33,7 +41,6 @@ namespace GameJam.Entity
             }
 
             _currentTileNode?.TryAddEntity(this);
-            SnapEntityPositionToTile();
         }
 
         public void SnapEntityPositionToTile()

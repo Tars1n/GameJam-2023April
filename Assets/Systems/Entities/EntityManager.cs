@@ -64,11 +64,11 @@ namespace GameJam.Entity
             _tileNodeManager.ClearAllNodeEntities();
             
             foreach (EntityCharacter entity in _playerCharacters)
-                { entity.LinkToTileNode(); }
+                { entity.LinkToTileNode(null); }
             foreach (EntityMonster entity in _monsters)
-                { entity.LinkToTileNode(); }
+                { entity.LinkToTileNode(null); }
             foreach (EntityTrap entity in _traps)
-                { entity.LinkToTileNode(); }
+                { entity.LinkToTileNode(null); }
         }
 
         public void QueueActionForAllEntities()
