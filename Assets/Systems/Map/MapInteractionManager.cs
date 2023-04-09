@@ -208,18 +208,22 @@ namespace GameJam.Map
             }
         }
 
-        private void TryToTakeAction(TileNode tile)
+        private bool TryToTakeAction(TileNode tile)
         {
             EntityBase entity = GameMaster.Instance.ActiveEntity;
-            if (entity == null)
-                { return; }
+            if (entity == null || !entity.HasActionReady)
+                { return false; }
 
             if (CanMoveToTile(entity, tile, 1))
             {
                 MoveEntity(entity, tile);
                 entity.CurrentTileNode.TryRemoveEntity(entity);
                 entity.LinkToTileNode(tile);
+                entity.DoTurnAction();
+                
+                return true;
             }
+            return false;
         }
 
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
