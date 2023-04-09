@@ -10,11 +10,17 @@ namespace GameJam.Entity
         //monster brain
         [SerializeField] private MonsterBlueprint _monsterBlueprint;
         // something that represents goal.
+        [SerializeField] private EntityBase _targetEntity;
         [SerializeField] private TileNode _targetNode;
 
         public override void DoTurnAction()
         {
-            StartCoroutine(TryMoveTowardsTarget());
+            _targetNode = _targetEntity?.CurrentTileNode;
+            
+            _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
+            TileNode node = _ref.TileNodeManager.GetNodeFromCoords(CurrentTileNode.WalkingPathDirection);
+            if (_mapInteractionManager.TryToTakeAction(node) == false)
+                { StartCoroutine(TryMoveTowardsTarget()); }
             
         }
 

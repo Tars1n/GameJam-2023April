@@ -13,8 +13,12 @@ namespace GameJam
         public LevelManager LevelManager => _levelManager;
         [SerializeField] private MapManager _mapManager;
         public MapManager MapManager => _mapManager;
+        [SerializeField] private TileNodeManager _tileNodeManager;
+        public TileNodeManager TileNodeManager => _tileNodeManager;
         [SerializeField] private MapInteractionManager _mapInteractionManager;
         public MapInteractionManager MapInteractionManager => _mapInteractionManager;
+        [SerializeField] private PathfindingManager _pathfindingManager;
+        public PathfindingManager PathFindingManager => _pathfindingManager;        
         [SerializeField] private TurnManager _turnManager;
         public TurnManager TurnManager => _turnManager;
         [SerializeField] private EntityManager _entityManager;
@@ -37,6 +41,8 @@ namespace GameJam
         {
             _mapManager = _levelManager?.MapManager;
             _mapInteractionManager = _mapManager?.MapInteractionManager;
+            _tileNodeManager = _mapManager?.GetComponent<TileNodeManager>();
+            _pathfindingManager = _mapManager.GetComponent<PathfindingManager>();
             _turnManager = _levelManager?.GetComponent<TurnManager>();
             _entityManager = _turnManager?.GetComponent<EntityManager>();
         }

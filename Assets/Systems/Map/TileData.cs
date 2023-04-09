@@ -10,6 +10,7 @@ namespace GameJam.Map
     public class TileData : ScriptableObject
     {
         public TileBase[] Tiles;
+        public bool IsSelectable;
         public bool IsWalkable;
         public bool IsTrapTile;
         

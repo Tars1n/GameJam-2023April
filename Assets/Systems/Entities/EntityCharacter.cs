@@ -10,7 +10,7 @@ namespace GameJam.Entity
 
         public override void DoTurnAction()
         {
-            
+            CompletedTurn();
         }
     }
 }

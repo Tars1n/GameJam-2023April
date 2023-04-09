@@ -10,6 +10,8 @@ namespace GameJam.Map
     public class TileNode
     {
         public TileBase TileType;
+        [SerializeField] private bool _isSelectable;
+        public bool IsSelectable => _isSelectable;
         [SerializeField] private bool _isWalkable;
         [SerializeField] private bool _isTrapTile;
         public Vector3Int GridCoordinate;
@@ -24,6 +26,7 @@ namespace GameJam.Map
         {
             if (data.ContainsKey(TileType) == false)
                 {return;}
+            _isSelectable = data[TileType].IsSelectable;
             _isWalkable = data[TileType].IsWalkable;
             _isTrapTile = data[TileType].IsTrapTile;
         }
@@ -31,7 +34,10 @@ namespace GameJam.Map
         public bool IsWalkable()
         {
             bool result = _isWalkable;
-            //todo check if entities block path, Pushable?
+            if (Entities.Count > 0)
+            {
+                return false;
+            }
             return result;
         }
 
