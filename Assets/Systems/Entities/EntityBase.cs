@@ -12,8 +12,15 @@ namespace GameJam.Entity
         protected ReferenceManager _ref;
         protected TurnManager _turnManager;
         protected SpriteRenderer _spriteRenderer;
-        public bool HasActionReady = false;
+        [SerializeField] private Color _readyState;
+        [SerializeField] private Color _turnOverState;
+        [SerializeField] private bool _hasActionReady;
+        public bool HasActionReady => _hasActionReady;
 
+        private void Awake()
+        {
+            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
         protected virtual void Start()
         {
             _ref = GameMaster.Instance.ReferenceManager;
@@ -48,11 +55,23 @@ namespace GameJam.Entity
            transform.position = _currentTileNode.WorldPos;   
         }
 
+        public void RefreshAction()
+        {
+            _hasActionReady = true;
+            _spriteRenderer.color = _readyState;
+        }
+
         public abstract void DoTurnAction();
+
+        public virtual void ActionCompleted()
+        {
+            CompletedTurn();
+        }
 
         protected virtual void CompletedTurn()
         {
-            HasActionReady = false;
+            _hasActionReady = false;
+            _spriteRenderer.color = _turnOverState;
             if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
             _turnManager.ActionCompleted();
         }

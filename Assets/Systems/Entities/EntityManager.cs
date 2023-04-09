@@ -74,16 +74,16 @@ namespace GameJam.Entity
         public void QueueActionForAllEntities()
         {
             foreach (EntityCharacter entity in _playerCharacters)
-                { entity.HasActionReady = true; }
+                { entity.RefreshAction(); }
 
             foreach (EntityMonster entity in _monsters)
             {
-                entity.HasActionReady = true;
+                entity.RefreshAction();
                 _mapEntityQueue.Enqueue(entity);
             }
             foreach (EntityTrap entity in _traps)
             {
-                entity.HasActionReady = true;
+                entity.RefreshAction();
                 _mapEntityQueue.Enqueue(entity);
             }
         }
@@ -120,7 +120,7 @@ namespace GameJam.Entity
         {
             //Simulated player taking their last action.
             foreach (EntityCharacter entity in _playerCharacters)
-                { entity.HasActionReady = false; }
+                { entity.DoTurnAction(); }
             GameMaster.Instance.ReferenceManager.TurnManager.ActionCompleted();
         }   
     }

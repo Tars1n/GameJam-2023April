@@ -214,12 +214,11 @@ namespace GameJam.Map
             if (entity == null || !entity.HasActionReady)
                 { return false; }
 
-            if (CanMoveToTile(entity, tile, 1))
+            if (CanMoveToTile(entity, tile, 2))
             {
                 MoveEntity(entity, tile);
                 entity.CurrentTileNode.TryRemoveEntity(entity);
                 entity.LinkToTileNode(tile);
-                entity.DoTurnAction();
                 
                 return true;
             }
@@ -255,9 +254,15 @@ namespace GameJam.Map
             {
                 float t = timeElapsed / duration;
                 t = t * t * (3f - 2f *t);
+                float g = timeElapsed/duration;
+                g = 1 - ((1 - g)*(1 - g));
 
-                float x = Mathf.Lerp(startPos.x, targetPosition.x, t);
-                float y = Mathf.Lerp(startPos.y, targetPosition.y, t);
+
+                float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
+                float hopHeight = ((startPos.y + targetPosition.y) * 0.5f) +1;
+                float launch = Mathf.Lerp(startPos.y, hopHeight, g);
+                float land = Mathf.Lerp(hopHeight, targetPosition.y, g);
+                float y = Mathf.Lerp(launch, land, t);
 
                 entityGO.transform.position = new Vector3(x, y, 0);
                 timeElapsed += Time.deltaTime;
@@ -266,6 +271,7 @@ namespace GameJam.Map
             }
             
             entityGO.transform.position = targetPosition;
+            entityGO.GetComponent<EntityBase>().ActionCompleted();
         }
     }
     

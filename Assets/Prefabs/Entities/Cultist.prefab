@@ -128,21 +128,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentTileNode:
     TileType: {fileID: 0}
+    _isSelectable: 0
     _isWalkable: 0
     _isTrapTile: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
-    PathExplored: 0
+    WalkingPathDirection: {x: 0, y: 0, z: 0}
+    FlyingPathDirection: {x: 0, y: 0, z: 0}
+    WalkingPathExplored: 0
+    FlyingPathExplored: 0
     Entities: []
+  _readyState: {r: 1, g: 1, b: 1, a: 1}
+  _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   HasActionReady: 0
   _monsterBlueprint: {fileID: 0}
   _targetNode:
     TileType: {fileID: 0}
+    _isSelectable: 0
     _isWalkable: 0
     _isTrapTile: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
-    PreviousStepGridCoordinate: {x: 0, y: 0, z: 0}
-    PathExplored: 0
+    WalkingPathDirection: {x: 0, y: 0, z: 0}
+    FlyingPathDirection: {x: 0, y: 0, z: 0}
+    WalkingPathExplored: 0
+    FlyingPathExplored: 0
     Entities: []

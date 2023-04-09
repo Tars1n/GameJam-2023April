@@ -138,5 +138,7 @@ MonoBehaviour:
     WalkingPathExplored: 0
     FlyingPathExplored: 0
     Entities: []
+  _readyState: {r: 1, g: 1, b: 1, a: 1}
+  _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   HasActionReady: 0
   _trapBlueprint: {fileID: 0}
