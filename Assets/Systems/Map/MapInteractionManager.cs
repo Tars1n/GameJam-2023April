@@ -208,7 +208,7 @@ namespace GameJam.Map
             }
         }
 
-        private bool TryToTakeAction(TileNode tile)
+        public bool TryToTakeAction(TileNode tile)
         {
             EntityBase entity = GameMaster.Instance.ActiveEntity;
             if (entity == null || !entity.HasActionReady)

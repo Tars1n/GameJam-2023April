@@ -11,6 +11,7 @@ namespace GameJam.Entity
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
         protected TurnManager _turnManager;
+        protected MapInteractionManager _mapInteractionManager;
         protected SpriteRenderer _spriteRenderer;
         [SerializeField] private Color _readyState;
         [SerializeField] private Color _turnOverState;
@@ -25,6 +26,7 @@ namespace GameJam.Entity
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _turnManager = _ref.TurnManager;
+            _mapInteractionManager = _ref.MapInteractionManager;
             if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
             _ref.EntityManager.AddEntity(this);
             LinkToTileNode(null);
