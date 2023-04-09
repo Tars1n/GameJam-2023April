@@ -34,7 +34,10 @@ namespace GameJam.Map
         public bool IsWalkable()
         {
             bool result = _isWalkable;
-            //todo check if entities block path, Pushable?
+            if (Entities.Count > 0)
+            {
+                return false;
+            }
             return result;
         }
 
