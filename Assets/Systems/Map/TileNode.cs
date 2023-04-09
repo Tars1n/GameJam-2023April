@@ -34,10 +34,11 @@ namespace GameJam.Map
         public bool IsWalkable()
         {
             bool result = _isWalkable;
+            if (GameMaster.Instance.ActiveEntity.CurrentTileNode == this)
+                { return true; }
             if (Entities.Count > 0)
             {
-                //? currently having an error where entity can't path out of their own tile when on
-                //return false;
+                return false;
             }
             return result;
         }
