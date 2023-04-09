@@ -36,7 +36,8 @@ namespace GameJam.Map
             bool result = _isWalkable;
             if (Entities.Count > 0)
             {
-                return false;
+                //? currently having an error where entity can't path out of their own tile when on
+                //return false;
             }
             return result;
         }

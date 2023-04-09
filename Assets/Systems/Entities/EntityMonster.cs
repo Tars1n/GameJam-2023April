@@ -18,7 +18,9 @@ namespace GameJam.Entity
             _targetNode = _targetEntity?.CurrentTileNode;
             
             _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
-            TileNode node = _ref.TileNodeManager.GetNodeFromCoords(CurrentTileNode.WalkingPathDirection);
+            //Debug.Log($"targeting {_targetEntity} at coordinate {_targetNode.GridCoordinate}");
+            TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
+            //Debug.Log($"standing on {_currentTileNode.GridCoordinate} trying to move to {_currentTileNode.WalkingPathDirection}.");
             if (_mapInteractionManager.TryToTakeAction(node) == false)
                 { StartCoroutine(TryMoveTowardsTarget()); }
             

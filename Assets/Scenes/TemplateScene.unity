@@ -1717,7 +1717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db4ac046d8e048a8b4f77f7f87e986d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLogs: 0
+  _debugLogs: 1
   _tileFloor: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
   _canMoveOverlay: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
   _overlayTileMap: {fileID: 887409680}
