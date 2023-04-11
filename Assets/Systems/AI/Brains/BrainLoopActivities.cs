@@ -11,6 +11,13 @@ namespace GameJam.Entity.Brain
     {
         [SerializeField] private List<Activity> _activitiesToLoop;
         public List<Activity> ActivitiesToLoop => _activitiesToLoop;
+        //Axial inputs to move one step
+        //Up left: -1, 1, 0
+        //left: -1, 0, 1
+        //down left: 0, -1, 1
+        //down right: 1, -1, 0
+        //right: 1, 0, -1
+        //up right: 0, 1, -1
         [SerializeField] private int _stepInActivityLoop;
         private MapManager _mapManager;
         private ReferenceManager _ref;
@@ -33,7 +40,6 @@ namespace GameJam.Entity.Brain
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
             Debug.Log($"move to coords " + axialToMoveTo);
-            // _mapInteractionManager.MoveEntity(_entityBase, _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
             _mapInteractionManager.TryToTakeAction(_tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
             IncreaseStep();
         }
