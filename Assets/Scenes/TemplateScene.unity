@@ -2210,11 +2210,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.63
+      value: -4.26
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.76
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2269,9 +2269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activitiesToLoop:
   - _activityType: {fileID: 11400000, guid: 87cb00fc430db45ae89b7a0bd91caa8e, type: 2}
-    GridCoord: {x: 1, y: 1, z: 1}
-  - _activityType: {fileID: 11400000, guid: 87cb00fc430db45ae89b7a0bd91caa8e, type: 2}
-    GridCoord: {x: 2, y: 2, z: 2}
+    GridCoord: {x: 0, y: -1, z: 1}
   _stepInActivityLoop: 0
 --- !u!1 &1757677031
 GameObject:

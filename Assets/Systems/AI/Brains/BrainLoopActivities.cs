@@ -33,7 +33,8 @@ namespace GameJam.Entity.Brain
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
             Debug.Log($"move to coords " + axialToMoveTo);
-            _mapInteractionManager.MoveEntity(_entityBase, _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
+            // _mapInteractionManager.MoveEntity(_entityBase, _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
+            _mapInteractionManager.TryToTakeAction(_tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
             IncreaseStep();
         }
         private void IncreaseStep()
