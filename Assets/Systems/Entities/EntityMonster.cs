@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map;
+using GameJam.Entity.Brain;
 
 namespace GameJam.Entity
 {
@@ -12,6 +13,7 @@ namespace GameJam.Entity
         // something that represents goal.
         [SerializeField] private EntityBase _targetEntity;
         [SerializeField] private TileNode _targetNode;
+        [SerializeField] private Brain _brain;
 
         public override void DoTurnAction()
         {
