@@ -15,21 +15,25 @@ namespace GameJam.Entity.Brain
         private MapManager _mapManager;
         private ReferenceManager _ref;
         private EntityBase _entityBase;
+        private MapInteractionManager _mapInteractionManager;
+        private TileNodeManager _tileNodeManager;
         private void Awake()
-        {
-            _activitiesToLoop = new List<Activity>();     
+        {  
             _entityBase = GetComponent<EntityBase>();      
         }
         private void Start() 
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _mapManager = _ref.MapManager;
+            _mapInteractionManager = _ref.MapInteractionManager;
+            _tileNodeManager = _ref.TileNodeManager;
         }
         public override void Think()
         {
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
             Debug.Log($"move to coords " + axialToMoveTo);
+            _mapInteractionManager.MoveEntity(_entityBase, _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
             IncreaseStep();
         }
         private void IncreaseStep()
