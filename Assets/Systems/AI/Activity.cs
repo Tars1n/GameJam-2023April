@@ -5,8 +5,8 @@ using UnityEngine;
 namespace GameJam.Entity.Brain
 {
     [System.Serializable]
-    public class Activity
+    public abstract class Activity
     {
-        
+        public Vector3Int GridCoord;
     }
 }
