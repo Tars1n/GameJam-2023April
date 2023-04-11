@@ -13,6 +13,7 @@ namespace GameJam.Entity.Brain
         [SerializeField] private TileNode _targetNode;
         private ReferenceManager _ref;
         private MapInteractionManager _mapInteractionManager;
+        private TurnManager _turnManager;
 
         private void Awake()
         {
@@ -22,6 +23,7 @@ namespace GameJam.Entity.Brain
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _mapInteractionManager = _ref.MapInteractionManager;
+            _turnManager = _ref.TurnManager;
         }
         public override void Think()
         {
@@ -42,7 +44,7 @@ namespace GameJam.Entity.Brain
 
             if (_turnManager.DebugLog) { Debug.Log($"{this} imagines moving towards a goal."); }
             yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
-            CompletedTurn();
+            _entityMonster.ActionCompleted();
         }
     }
 }
