@@ -13,8 +13,9 @@ namespace GameJam.Entity
         // something that represents goal.
         [SerializeField] private EntityBase _targetEntity;
         [SerializeField] private TileNode _targetNode;
-        [SerializeField] private BrainBase _brain;
-
+        [SerializeField] public BrainBase _brain;
+        [SerializeField] private BrainLoopActivities _brainLoopActivities;
+        [SerializeField] private List<BrainBase> _listBrainBase;
         public override void DoTurnAction()
         {
             _targetNode = _targetEntity?.CurrentTileNode;
