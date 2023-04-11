@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameJam
+namespace GameJam.Entity.Brain
 {
-    public class BrainLoopActivities : MonoBehaviour
+    public class BrainLoopActivities : BrainBase
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        [SerializeField] private List<Activity> _activitiesToLoop;
+        public List<Activity> ActivitiesToLoop => _activitiesToLoop;
     }
 }
