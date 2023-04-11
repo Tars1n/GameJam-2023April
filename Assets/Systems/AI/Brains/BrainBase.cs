@@ -8,5 +8,7 @@ namespace GameJam.Entity.Brain
     public abstract class BrainBase : MonoBehaviour
     {
         // public Vector3Int _vector3Int;
+        public abstract void Think();
+        
     }
 }

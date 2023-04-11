@@ -13,5 +13,9 @@ namespace GameJam.Entity.Brain
         {
             _activitiesToLoop = new List<Activity>();
         }
+        public override void Think()
+        {
+
+        }
     }
 }

@@ -2,20 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameJam
+namespace GameJam.Entity.Brain
 {
-    public class BrainReflectActivities : MonoBehaviour
+    public class BrainReflectActivities : BrainBase
     {
-        // Start is called before the first frame update
-        void Start()
+        public override void Think()
         {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
+            
         }
     }
 }
