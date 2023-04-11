@@ -9,5 +9,10 @@ namespace GameJam.Entity.Brain
     {
         [SerializeField] private List<Activity> _activitiesToLoop;
         public List<Activity> ActivitiesToLoop => _activitiesToLoop;
+        public List<ActivityWalk> _activityWalk;
+        private void Awake()
+        {
+            _activitiesToLoop = new List<Activity>();
+        }
     }
 }
