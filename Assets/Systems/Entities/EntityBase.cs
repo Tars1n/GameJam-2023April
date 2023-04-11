@@ -18,7 +18,7 @@ namespace GameJam.Entity
         [SerializeField] private bool _hasActionReady;
         public bool HasActionReady => _hasActionReady;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         }

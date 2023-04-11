@@ -15,9 +15,11 @@ namespace GameJam.Entity
         // [SerializeField] public BrainBase _brain;
         // [SerializeField] private BrainLoopActivities _brainLoopActivities;
         // [SerializeField] private List<BrainBase> _listBrainBase;
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _brain = GetComponent<BrainBase>();
+            
         }
         public override void DoTurnAction()
         {
