@@ -6,6 +6,6 @@ namespace GameJam.Entity.Brain
 {
     public class ActivityWalk : Activity
     {
-
+        
     }
 }
