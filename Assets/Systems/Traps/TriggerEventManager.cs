@@ -23,7 +23,7 @@ namespace GameJam.Entity.Trap
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
                 TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
-
+                tileNode.SetUpTrigger(this);
             }
         }
     }
