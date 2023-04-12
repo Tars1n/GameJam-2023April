@@ -19,6 +19,7 @@ namespace GameJam.Map
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
+        private Tilemap _triggerTileMap;
         private Tilemap _mouseMap;
         private Vector3Int _previousTileMousedOver;
         [SerializeField] private TileBase _mouseHoverTileBase;
@@ -37,6 +38,7 @@ namespace GameJam.Map
             _gm = GameMaster.Instance;
             _map = mapManager.Map;
             _overlayTilemap = mapManager.OverlayMap;
+            _triggerTileMap = mapManager.TriggerTilemap;
             _mouseMap = mapManager.MouseInteractionTilemap;
             _mapManager = GetComponent<MapManager>();
             _tileNodeManager = GetComponent<TileNodeManager>();
@@ -276,11 +278,11 @@ namespace GameJam.Map
         }
         public void RenderTriggerHilight(Vector3Int tileCoords)
         {
-            _overlayTilemap.SetTile(tileCoords, _triggerTileHilight);
+            _triggerTileMap.SetTile(tileCoords, _triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {
-            _overlayTilemap.SetTile(tileCoords, null);
+            _triggerTileMap.SetTile(tileCoords, null);
         }
     }
     

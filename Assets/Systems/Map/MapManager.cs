@@ -15,6 +15,8 @@ namespace GameJam.Map
         public Tilemap Map => _map;
         [SerializeField] private Tilemap _overlayTilemap;
         public Tilemap OverlayMap => _overlayTilemap;
+        [SerializeField] private Tilemap _triggerTilemap;
+        public Tilemap TriggerTilemap => _triggerTilemap;
         [SerializeField] private Tilemap _mouseInteractionTilemap;
         public Tilemap MouseInteractionTilemap => _mouseInteractionTilemap;
         private MapInteractionManager _mapInteractionManager;
