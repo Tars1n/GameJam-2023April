@@ -10,11 +10,13 @@ namespace GameJam.Entity.Trap
         private TileNodeManager _tileNodeManager;
         private ReferenceManager _ref;
         [SerializeField] private List<Vector3Int> _triggerLocationTiles;
+        private EntityManager _entityManager;
 
         private void Start()
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _tileNodeManager = _ref.TileNodeManager;
+            _entityManager = _ref.EntityManager;
             SetUpTrap();
         }
         public void SetUpTrap()
@@ -40,8 +42,9 @@ namespace GameJam.Entity.Trap
             if (entityBase != null)
             {
                 ClearTriggerTiles();
-                entityBase.gameObject.SetActive(false);
-                gameObject.SetActive(false);
+                _entityManager.TryRemoveEntity(entityBase);
+                _entityManager.TryRemoveEntity(GetComponent<EntityBase>());
+
             }
         }
     }
