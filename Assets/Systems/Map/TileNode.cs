@@ -119,8 +119,15 @@ namespace GameJam.Map
         }
         public void SetUpTrigger(TriggerEventManager triggerEventManager)
         {
+            SetUpMapInteractionManager();
             _triggerEventManager = triggerEventManager;
-            _mapInteractionManager.RenderTriggerHilight(GridCoordinate);
+            _mapInteractionManager?.RenderTriggerHilight(GridCoordinate);
         }
+        private void SetUpMapInteractionManager()
+        {
+            if (_mapInteractionManager != null) return;
+            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;        
+        }
+
     }
 }
