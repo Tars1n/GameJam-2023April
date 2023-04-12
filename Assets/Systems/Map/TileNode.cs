@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
+using GameJam.Entity.Trap;
 
 namespace GameJam.Map
 {
@@ -20,6 +21,9 @@ namespace GameJam.Map
         public Vector3Int FlyingPathDirection;
         public bool WalkingPathExplored = false;
         public bool FlyingPathExplored = false;
+        [SerializeField] private TriggerEventManager _triggerEventManager;
+        public TriggerEventManager TriggerEventManager { get => _triggerEventManager; set => _triggerEventManager = value; }
+        
         public List<EntityBase> Entities = new List<EntityBase>();
 
         public void SetTileData(Dictionary<TileBase, TileData> data)
@@ -107,6 +111,10 @@ namespace GameJam.Map
         public void ClearEntities()
         {
             Entities.Clear();
+        }
+        public void SetUpTrigger(TriggerEventManager triggerEventManager)
+        {
+            _triggerEventManager = triggerEventManager;
         }
     }
 }

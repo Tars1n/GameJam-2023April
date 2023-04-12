@@ -5,7 +5,7 @@ using GameJam.Map;
 
 namespace GameJam.Entity.Trap
 {
-    public class TrapManager : MonoBehaviour
+    public class TriggerEventManager : MonoBehaviour
     {
         private TileNodeManager _tileNodeManager;
         private ReferenceManager _ref;
@@ -23,7 +23,7 @@ namespace GameJam.Entity.Trap
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
                 TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
-                
+
             }
         }
     }
