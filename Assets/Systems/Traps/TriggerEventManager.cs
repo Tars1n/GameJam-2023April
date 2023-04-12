@@ -10,6 +10,7 @@ namespace GameJam.Entity.Trap
         private TileNodeManager _tileNodeManager;
         private ReferenceManager _ref;
         [SerializeField] private List<Vector3Int> _triggerLocationTiles;
+        //this list creates tiles that the entity can trigger the trap by steppin on.
         private EntityManager _entityManager;
 
         private void Start()
