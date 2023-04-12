@@ -99,6 +99,7 @@ namespace GameJam.Map
 
         public bool TryAddEntity(EntityBase entity)
         {
+            _triggerEventManager?.EntityEnteredTrigger(entity, this);
             Entities.Add(entity);
             return true;
         }
@@ -122,6 +123,10 @@ namespace GameJam.Map
             SetUpMapInteractionManager();
             _triggerEventManager = triggerEventManager;
             _mapInteractionManager?.RenderTriggerHilight(GridCoordinate);
+        }
+        public void ClearTrigger()
+        {
+            _mapInteractionManager?.ClearTriggerHilight(GridCoordinate);
         }
         private void SetUpMapInteractionManager()
         {

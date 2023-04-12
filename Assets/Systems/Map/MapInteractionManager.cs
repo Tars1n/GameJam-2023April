@@ -273,7 +273,7 @@ namespace GameJam.Map
                 yield return null;
             }
             
-            entityGO.transform.position = targetPosition;
+            entityGO.transform.position = targetPosition;            
             entityGO.GetComponent<EntityBase>().ActionCompleted();
         }
         public void RenderTriggerHilight(Vector3Int tileCoords)

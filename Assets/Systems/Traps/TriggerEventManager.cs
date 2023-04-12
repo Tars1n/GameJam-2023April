@@ -26,5 +26,23 @@ namespace GameJam.Entity.Trap
                 tileNode.SetUpTrigger(this);
             }
         }
+        private void ClearTriggerTiles()
+        {
+            if (_triggerLocationTiles == null) return;
+            foreach (Vector3Int tile in _triggerLocationTiles)
+            {
+                TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
+                tileNode.ClearTrigger();
+            }
+        }
+        public void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
+        {
+            if (entityBase != null)
+            {
+                ClearTriggerTiles();
+                entityBase.gameObject.SetActive(false);
+                gameObject.SetActive(false);
+            }
+        }
     }
 }
