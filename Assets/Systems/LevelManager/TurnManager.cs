@@ -65,6 +65,7 @@ namespace GameJam.Entity
         {
             if (DebugLog)  Debug.Log("Player has completed their turn. Evil begins to stir.");
             _playerTurn = false;
+            _entityManager.EnqueueAllMapEntities();
             TickNext();
         }
 

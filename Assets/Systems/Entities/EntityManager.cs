@@ -48,14 +48,16 @@ namespace GameJam.Entity
             }
             if (entity.GetType() == typeof(EntityMonster))
             {
-                _monsters.Add((EntityMonster)entity);
+                _monsters.Remove((EntityMonster)entity);
                 removed = true;
             }
             if (entity.GetType() == typeof(EntityTrap))
             {
-                _traps.Add((EntityTrap)entity);
+                _traps.Remove((EntityTrap)entity);
                 removed = true;
             }
+            // _mapEntityQueue.Dequeue(entity);
+            entity.gameObject.SetActive(false);            
             return removed;
         }
 
@@ -79,16 +81,14 @@ namespace GameJam.Entity
             foreach (EntityMonster entity in _monsters)
             {
                 entity.RefreshAction();
-                _mapEntityQueue.Enqueue(entity);
             }
             foreach (EntityTrap entity in _traps)
             {
                 entity.RefreshAction();
-                _mapEntityQueue.Enqueue(entity);
             }
         }
 
-        private void EnqueueAllMapEntities()
+        public void EnqueueAllMapEntities()
         {
             foreach (EntityMonster entity in _monsters)
                 { _mapEntityQueue.Enqueue(entity); }

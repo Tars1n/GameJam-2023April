@@ -92,6 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7461289205275857559}
   - component: {fileID: 7461289205275857556}
+  - component: {fileID: 8345146158338383452}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -137,8 +138,22 @@ MonoBehaviour:
     FlyingPathDirection: {x: 0, y: 0, z: 0}
     WalkingPathExplored: 0
     FlyingPathExplored: 0
+    _triggerEventManager: {fileID: 0}
     Entities: []
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
-  HasActionReady: 0
+  _hasActionReady: 0
   _trapBlueprint: {fileID: 0}
+--- !u!114 &8345146158338383452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461289205275857557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a11f59a366be451e86b15ce2ec111d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerLocationTiles: []

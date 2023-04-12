@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
+using GameJam.Entity.Trap;
 
 namespace GameJam.Map
 {
@@ -20,8 +21,16 @@ namespace GameJam.Map
         public Vector3Int FlyingPathDirection;
         public bool WalkingPathExplored = false;
         public bool FlyingPathExplored = false;
+        private MapInteractionManager _mapInteractionManager;
+        [SerializeField] private TriggerEventManager _triggerEventManager;
+        public TriggerEventManager TriggerEventManager { get => _triggerEventManager; set => _triggerEventManager = value; }
+        
         public List<EntityBase> Entities = new List<EntityBase>();
 
+        private void Start()
+        {
+            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
+        }
         public void SetTileData(Dictionary<TileBase, TileData> data)
         {
             if (data.ContainsKey(TileType) == false)
@@ -90,6 +99,7 @@ namespace GameJam.Map
 
         public bool TryAddEntity(EntityBase entity)
         {
+            _triggerEventManager?.EntityEnteredTrigger(entity, this);
             Entities.Add(entity);
             return true;
         }
@@ -108,5 +118,21 @@ namespace GameJam.Map
         {
             Entities.Clear();
         }
+        public void SetUpTrigger(TriggerEventManager triggerEventManager)
+        {
+            SetUpMapInteractionManager();
+            _triggerEventManager = triggerEventManager;
+            _mapInteractionManager?.RenderTriggerHilight(GridCoordinate);
+        }
+        public void ClearTrigger()
+        {
+            _mapInteractionManager?.ClearTriggerHilight(GridCoordinate);
+        }
+        private void SetUpMapInteractionManager()
+        {
+            if (_mapInteractionManager != null) return;
+            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;        
+        }
+
     }
 }
