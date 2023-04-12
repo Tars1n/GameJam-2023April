@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map;
+using GameJam.Entity.Brain;
 
 namespace GameJam.Entity
 {
@@ -10,29 +11,37 @@ namespace GameJam.Entity
         //monster brain
         [SerializeField] private MonsterBlueprint _monsterBlueprint;
         // something that represents goal.
-        [SerializeField] private EntityBase _targetEntity;
-        [SerializeField] private TileNode _targetNode;
-
+        private BrainBase _brain;
+        // [SerializeField] public BrainBase _brain;
+        // [SerializeField] private BrainLoopActivities _brainLoopActivities;
+        // [SerializeField] private List<BrainBase> _listBrainBase;
+        protected override void Awake()
+        {
+            base.Awake();
+            _brain = GetComponent<BrainBase>();
+            
+        }
         public override void DoTurnAction()
         {
-            _targetNode = _targetEntity?.CurrentTileNode;
+            _brain?.Think();
+            // _targetNode = _targetEntity?.CurrentTileNode;
             
-            _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
-            //Debug.Log($"targeting {_targetEntity} at coordinate {_targetNode.GridCoordinate}");
-            TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
-            //Debug.Log($"standing on {_currentTileNode.GridCoordinate} trying to move to {_currentTileNode.WalkingPathDirection}.");
-            if (_mapInteractionManager.TryToTakeAction(node) == false)
-                { StartCoroutine(TryMoveTowardsTarget()); }
+            // _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
+            // //Debug.Log($"targeting {_targetEntity} at coordinate {_targetNode.GridCoordinate}");
+            // TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
+            // //Debug.Log($"standing on {_currentTileNode.GridCoordinate} trying to move to {_currentTileNode.WalkingPathDirection}.");
+            // if (_mapInteractionManager.TryToTakeAction(node) == false)
+            //     { StartCoroutine(TryMoveTowardsTarget()); }
             
         }
 
-        IEnumerator TryMoveTowardsTarget()
-        {
-            //_ref.PlotPath. (_currentTileNode.GridPosition, _targetNode);
+        // IEnumerator TryMoveTowardsTarget()
+        // {
+        //     //_ref.PlotPath. (_currentTileNode.GridPosition, _targetNode);
 
-            if (_turnManager.DebugLog) {Debug.Log($"{this} imagines moving towards a goal.");}
-            yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
-            CompletedTurn();
-        }
+        //     if (_turnManager.DebugLog) {Debug.Log($"{this} imagines moving towards a goal.");}
+        //     yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
+        //     CompletedTurn();
+        // }
     }
 }
