@@ -21,11 +21,16 @@ namespace GameJam.Map
         public Vector3Int FlyingPathDirection;
         public bool WalkingPathExplored = false;
         public bool FlyingPathExplored = false;
+        private MapInteractionManager _mapInteractionManager;
         [SerializeField] private TriggerEventManager _triggerEventManager;
         public TriggerEventManager TriggerEventManager { get => _triggerEventManager; set => _triggerEventManager = value; }
         
         public List<EntityBase> Entities = new List<EntityBase>();
 
+        private void Start()
+        {
+            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
+        }
         public void SetTileData(Dictionary<TileBase, TileData> data)
         {
             if (data.ContainsKey(TileType) == false)
@@ -115,6 +120,7 @@ namespace GameJam.Map
         public void SetUpTrigger(TriggerEventManager triggerEventManager)
         {
             _triggerEventManager = triggerEventManager;
+            _mapInteractionManager.RenderTriggerHilight(GridCoordinate);
         }
     }
 }

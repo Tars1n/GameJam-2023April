@@ -26,6 +26,7 @@ namespace GameJam.Map
         [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;
         [SerializeField] private TileBase _activeEntityTileBase;
+        [SerializeField] private TileBase _triggerTileHilight;
         [SerializeField] private bool _renderPathToTarget = true;
         [SerializeField] private int _mp = 3;
         [SerializeField] private float slideSpeed = 0.5f;
@@ -272,6 +273,14 @@ namespace GameJam.Map
             
             entityGO.transform.position = targetPosition;
             entityGO.GetComponent<EntityBase>().ActionCompleted();
+        }
+        public void RenderTriggerHilight(Vector3Int tileCoords)
+        {
+            _overlayTilemap.SetTile(tileCoords, _triggerTileHilight);
+        }
+        public void ClearTriggerHilight(Vector3Int tileCoords)
+        {
+            _overlayTilemap.SetTile(tileCoords, null);
         }
     }
     
