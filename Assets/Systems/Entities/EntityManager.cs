@@ -112,6 +112,12 @@ namespace GameJam.Entity
             //Get next Monster or Trap entity from the action queue.
             if (_mapEntityQueue.Count == 0)
                 return null;
+            
+            if (_mapEntityQueue.Peek() == null || !_mapEntityQueue.Peek().enabled)
+            {
+                _mapEntityQueue.Dequeue();
+                return GetNextReadyMapEntity(); //?Is this okay to do? So far no issues.
+            }
 
             return _mapEntityQueue?.Dequeue();
         }    
