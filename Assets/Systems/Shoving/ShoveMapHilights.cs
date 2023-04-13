@@ -72,10 +72,5 @@ namespace GameJam.Map
                 shovable.TryShoveDir(shoveDir);
             }
         }
-        // private void ShoveThisEntity(Shovable shovable, Vector3Int axialDir)
-        // {
-        //     if (shovable == null) return;
-        //     shovable.TryShoveDir(axialDir);
-        // }
     }
 }

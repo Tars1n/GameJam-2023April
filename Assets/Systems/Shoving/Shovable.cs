@@ -26,7 +26,7 @@ namespace GameJam.Entity.Shoving
         {
             Vector3Int currentAxialCoords = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             Vector3Int newAxialCoords = currentAxialCoords + axialDir;
-            TileNode tileMovingTo = _tileNodeManager.GetNodeAtArrayIndex(_mapManager.CastAxialToOddRow(newAxialCoords));
+            TileNode tileMovingTo = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(newAxialCoords));
             if (tileMovingTo.IsWalkable())
             {
                 _mapInteractionManager.MoveEntity(_entityBase, tileMovingTo);
