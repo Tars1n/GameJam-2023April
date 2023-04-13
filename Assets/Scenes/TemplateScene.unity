@@ -1623,6 +1623,7 @@ GameObject:
   - component: {fileID: 622301436}
   - component: {fileID: 622301437}
   - component: {fileID: 622301438}
+  - component: {fileID: 622301439}
   m_Layer: 0
   m_Name: HexGrid
   m_TagString: Untagged
@@ -1749,6 +1750,20 @@ MonoBehaviour:
   _mp: 5
   slideSpeed: 0.5
   _ignoreObstacles: 0
+--- !u!114 &622301439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622301431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4593e8f80071c425fa2462c43a11cc54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shoveTileHilight:
+  - {fileID: 11400000, guid: 9cc8699bda6f74c7287869ea5b5552a5, type: 2}
 --- !u!1 &622531582 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8677799316811170015, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
 using GameJam.Entity;
+using GameJam.Entity.Shoving;
 
 namespace GameJam.Map
 {
@@ -17,6 +18,7 @@ namespace GameJam.Map
         private TileNodeManager _tileNodeManager;
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
+        private ShoveMapHilights _shoveMapHilights;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;
@@ -44,6 +46,7 @@ namespace GameJam.Map
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
+            _shoveMapHilights = GetComponent<ShoveMapHilights>();
         }
 
         private void Update() {
@@ -102,7 +105,11 @@ namespace GameJam.Map
             if ( range == 1)
             {
                 if (tile.IsWalkable())
-                { _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); }
+                {
+                     _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
+                    return;
+                }
+                _shoveMapHilights.TryRenderShoveEntity(tile);
             }
             
             if ( range == 2)
