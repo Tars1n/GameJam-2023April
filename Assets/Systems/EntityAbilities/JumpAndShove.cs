@@ -10,14 +10,29 @@ namespace GameJam.Entity.Abilities
         private MapManager _mapManager;
         private TileNodeManager _tileNodeManager;
         private MapShoveInteraction _mapShoveInteraction;
+        private EntityBase _entityBase;
+
+        private void Awake()
+        {
+            _entityBase = GetComponent<EntityBase>();
+        }
         private void Start() 
         {
             _mapManager = GameMaster.Instance.ReferenceManager.MapManager;
             _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
             _mapShoveInteraction = _mapManager.GetComponent<MapShoveInteraction>();
         }
-        public void ActivateJumpPushback(TileNode targetNode)
+        public void SubscribeToEntityActionCompleted(TileNode targetNode)
         {
+            _entityBase._nextAction += ActivateJumpPushback;
+        }
+        private void OnEnable()
+        {
+            _entityBase._nextAction -= ActivateJumpPushback;
+        }
+        public void ActivateJumpPushback()
+        {
+            TileNode targetNode = _entityBase.CurrentTileNode;
             Vector3Int targetCoord = targetNode.GridCoordinate;
             Vector3Int[] adjacentTileOffsets = _mapManager.GetAllAdjacentHexCoordinates(targetCoord);
             foreach (Vector3Int tileOffset in adjacentTileOffsets)
@@ -29,6 +44,7 @@ namespace GameJam.Entity.Abilities
                     _mapShoveInteraction.ShoveThisTile(targetNode , tileNode);
                 }
             }
+            _entityBase._nextAction -= ActivateJumpPushback;
         }
     }
 }

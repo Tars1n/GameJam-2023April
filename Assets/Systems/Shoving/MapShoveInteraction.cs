@@ -63,9 +63,14 @@ namespace GameJam.Map
         public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove)
         {
             if (_debugLogs) Debug.Log($"shoving from {sourceOfShove} to " + targetOfShove);
-            if (targetOfShove.Entities.Count == 0) return;
+            if ((targetOfShove.Entities == null) || (targetOfShove.Entities.Count == 0)) return;
             Vector3Int shoveDir = GetAxialDifference(sourceOfShove.GridCoordinate, targetOfShove.GridCoordinate);
+            List<EntityBase> copiedEntityList = new List<EntityBase>();
             foreach (EntityBase entity in targetOfShove.Entities)
+            {
+                copiedEntityList.Add(entity);
+            }
+            foreach (EntityBase entity in copiedEntityList)
             {
                 Shovable shovable = entity.GetComponent<Shovable>();
                 if (shovable == null) continue;

@@ -234,9 +234,11 @@ namespace GameJam.Map
                 return true;
             }
             if ((entity.GetComponent<JumpAndShove>() != null) && (CanMoveToTile(entity, tile, 2)))
-            {
+            {                //jump and shove
+                // entity.AdditionalActions = true;
+                entity.GetComponent<JumpAndShove>().SubscribeToEntityActionCompleted(tile);
                 MoveEntityUpdateTileNodes(entity, tile);
-                entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
+                // entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
                 
             }
             return false;
