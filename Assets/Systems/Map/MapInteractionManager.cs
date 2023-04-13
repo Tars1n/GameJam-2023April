@@ -223,7 +223,11 @@ namespace GameJam.Map
             EntityBase entity = GameMaster.Instance.ActiveEntity;
             if (entity == null || !entity.HasActionReady)
                 { return false; }
-
+            if (CanPushTile(entity, tile))
+            {                
+                _shoveMapHilights.ShoveThisTile(entity.CurrentTileNode, tile);
+                return true;
+            }
             if (CanMoveToTile(entity, tile, 2))
             {
                 MoveEntity(entity, tile);
@@ -234,7 +238,15 @@ namespace GameJam.Map
             }
             return false;
         }
-
+        public bool CanPushTile(EntityBase entity, TileNode tile)
+        {
+            Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
+            if ((_shoveMapHilights.CanShoveThisTile(tile)) && (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) == 1))
+            {
+                return true;
+            }
+            return false;
+        }
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
         {
             if (tile.IsWalkable() == false)

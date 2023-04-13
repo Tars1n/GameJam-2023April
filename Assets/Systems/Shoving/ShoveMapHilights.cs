@@ -23,14 +23,22 @@ namespace GameJam.Map
 
         public void TryRenderShoveEntity(TileNode sourceTile, TileNode tileBeingPushed)
         {
-            if (tileBeingPushed.Entities.Count == 0) return;
+            if (CanShoveThisTile(tileBeingPushed))
+            {
+                _mouseMap.SetTile(tileBeingPushed.GridCoordinate, GetPushTile(sourceTile.GridCoordinate, tileBeingPushed.GridCoordinate));
+            }
+        }
+        public bool CanShoveThisTile(TileNode tileBeingPushed)
+        {
+            if (tileBeingPushed.Entities.Count == 0) return false;
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {
                 if (entity.GetComponent<Shovable>() != null)
                 {
-                    _mouseMap.SetTile(tileBeingPushed.GridCoordinate, GetPushTile(sourceTile.GridCoordinate, tileBeingPushed.GridCoordinate));
+                    return true;
                 }
             }
+            return false;
         }
         private TileBase GetPushTile(Vector3Int sourceCoords, Vector3Int targetCoords)
         {
@@ -46,6 +54,10 @@ namespace GameJam.Map
             if ((axialDifference.x == 0) && (axialDifference.y == 1)) indexOfTileBase = 5;
             Debug.Log($"shoving in direction " + indexOfTileBase);
             return (_shoveTileHilight[indexOfTileBase]);
+        }
+        public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove)
+        {
+            Debug.Log($"shoving from {sourceOfShove} to " + targetOfShove);
         }
     }
 }
