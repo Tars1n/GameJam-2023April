@@ -7,7 +7,7 @@ using GameJam.Entity.Shoving;
 
 namespace GameJam.Map
 {
-    public class ShoveMapHilights : MonoBehaviour
+    public class MapShoveInteraction : MonoBehaviour
     {
         private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -31,7 +31,7 @@ namespace GameJam.Map
         }
         public bool EntityOnThisTileThatCanBeShoved(TileNode tileBeingPushed)
         {
-            if (tileBeingPushed.Entities.Count == 0) return false;
+            if ((tileBeingPushed.Entities == null) || (tileBeingPushed.Entities.Count == 0)) return false;
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {
                 if (entity.GetComponent<Shovable>() != null)

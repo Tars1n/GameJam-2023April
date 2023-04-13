@@ -18,7 +18,7 @@ namespace GameJam.Map
         private TileNodeManager _tileNodeManager;
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
-        private ShoveMapHilights _shoveMapHilights;
+        private MapShoveInteraction _shoveMapHilights;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;
@@ -46,7 +46,7 @@ namespace GameJam.Map
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
-            _shoveMapHilights = GetComponent<ShoveMapHilights>();
+            _shoveMapHilights = GetComponent<MapShoveInteraction>();
         }
 
         private void Update() {
@@ -235,8 +235,9 @@ namespace GameJam.Map
             }
             if ((entity.GetComponent<JumpAndShove>() != null) && (CanMoveToTile(entity, tile, 2)))
             {
-                entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
                 MoveEntityUpdateTileNodes(entity, tile);
+                entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
+                
             }
             return false;
         }
