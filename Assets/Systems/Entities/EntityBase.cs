@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using GameJam.Map;
 
 namespace GameJam.Entity
 {
     public abstract class EntityBase : MonoBehaviour
     {
+        private bool _debugLog = true;
         [SerializeField] protected TileNode _currentTileNode;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
@@ -17,6 +19,13 @@ namespace GameJam.Entity
         [SerializeField] private Color _turnOverState;
         [SerializeField] private bool _hasActionReady;
         public bool HasActionReady => _hasActionReady;
+        [SerializeField] private bool _additionalActions;
+        public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
+        public Action _nextAction;
+        
+        
+        public delegate void NextActionDelegate(TileNode tileNode);
+        
 
         protected virtual void Awake()
         {
@@ -67,6 +76,11 @@ namespace GameJam.Entity
 
         public virtual void ActionCompleted()
         {
+            if (_nextAction != null)
+            {
+                if (_debugLog) Debug.Log($"next action != null");
+                _nextAction();
+            }
             CompletedTurn();
         }
 

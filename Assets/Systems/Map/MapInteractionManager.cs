@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
 using GameJam.Entity;
+using GameJam.Entity.Abilities;
 
 namespace GameJam.Map
 {
@@ -17,6 +18,7 @@ namespace GameJam.Map
         private TileNodeManager _tileNodeManager;
         private PathfindingManager _pathfinding;
         private MoveEntityAlongPath _moveEntityAlongAPath;
+        private MapShoveInteraction _shoveMapHilights;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;
@@ -44,6 +46,7 @@ namespace GameJam.Map
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
+            _shoveMapHilights = GetComponent<MapShoveInteraction>();
         }
 
         private void Update() {
@@ -102,7 +105,11 @@ namespace GameJam.Map
             if ( range == 1)
             {
                 if (tile.IsWalkable())
-                { _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); }
+                {
+                     _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
+                    return;
+                }
+                _shoveMapHilights.TryRenderShoveHilight(activeEntity.CurrentTileNode, tile);
             }
             
             if ( range == 2)
@@ -216,18 +223,42 @@ namespace GameJam.Map
             EntityBase entity = GameMaster.Instance.ActiveEntity;
             if (entity == null || !entity.HasActionReady)
                 { return false; }
-
-            if (CanMoveToTile(entity, tile, 2))
+            if (CanShoveTile(entity, tile))
+            {                
+                _shoveMapHilights.ShoveThisTile(entity.CurrentTileNode, tile);
+                return true;
+            }
+            if (CanMoveToTile(entity, tile, 1))
             {
-                MoveEntity(entity, tile);
-                entity.CurrentTileNode.TryRemoveEntity(entity);
-                entity.LinkToTileNode(tile);
+                MoveEntityUpdateTileNodes(entity, tile);
+                return true;
+            }
+            if ((entity.GetComponent<JumpAndShove>() != null) && (CanMoveToTile(entity, tile, 2)))
+            {                //jump and shove
+                // entity.AdditionalActions = true;
+                entity.GetComponent<JumpAndShove>().SubscribeToEntityActionCompleted(tile);
+                MoveEntityUpdateTileNodes(entity, tile);
+                // entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
                 
+            }
+            return false;
+        }
+        public void MoveEntityUpdateTileNodes(EntityBase entity, TileNode tile)
+        {
+            MoveEntity(entity, tile);
+            entity.CurrentTileNode.TryRemoveEntity(entity);
+            entity.LinkToTileNode(tile);
+        }
+
+        public bool CanShoveTile(EntityBase entity, TileNode tile)
+        {
+            Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
+            if ((_shoveMapHilights.EntityOnThisTileThatCanBeShoved(tile)) && (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) == 1))
+            {
                 return true;
             }
             return false;
         }
-
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
         {
             if (tile.IsWalkable() == false)
