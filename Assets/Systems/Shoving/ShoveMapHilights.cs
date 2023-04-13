@@ -9,6 +9,7 @@ namespace GameJam.Map
 {
     public class ShoveMapHilights : MonoBehaviour
     {
+        private bool _debugLogs = true;
         private MapManager _mapManager;
         // private MapInteractionManager _mapInteractionManager;
         private Tilemap _mouseMap;
@@ -21,11 +22,11 @@ namespace GameJam.Map
             _mouseMap = _mapManager.MouseInteractionTilemap;
         }
 
-        public void TryRenderShoveEntity(TileNode sourceTile, TileNode tileBeingPushed)
+        public void TryRenderShoveHilight(TileNode sourceTile, TileNode tileBeingPushed)
         {
             if (CanShoveThisTile(tileBeingPushed))
             {
-                _mouseMap.SetTile(tileBeingPushed.GridCoordinate, GetPushTile(sourceTile.GridCoordinate, tileBeingPushed.GridCoordinate));
+                _mouseMap.SetTile(tileBeingPushed.GridCoordinate, GetPushHilight(sourceTile.GridCoordinate, tileBeingPushed.GridCoordinate));
             }
         }
         public bool CanShoveThisTile(TileNode tileBeingPushed)
@@ -40,11 +41,9 @@ namespace GameJam.Map
             }
             return false;
         }
-        private TileBase GetPushTile(Vector3Int sourceCoords, Vector3Int targetCoords)
+        private TileBase GetPushHilight(Vector3Int sourceCoords, Vector3Int targetCoords)
         {
-            Vector3Int axialSourceCoords = _mapManager.CastOddRowToAxial(sourceCoords);
-            Vector3Int axialTargetCoords = _mapManager.CastOddRowToAxial(targetCoords);
-            Vector3Int axialDifference = axialTargetCoords - axialSourceCoords;
+            Vector3Int axialDifference = GetAxialDifference(sourceCoords, targetCoords);
             int indexOfTileBase = 0;
             if ((axialDifference.x == -1) && (axialDifference.y == 1)) indexOfTileBase = 0;
             if ((axialDifference.x == -1) && (axialDifference.y == 0)) indexOfTileBase = 1;
@@ -55,9 +54,28 @@ namespace GameJam.Map
             Debug.Log($"shoving in direction " + indexOfTileBase);
             return (_shoveTileHilight[indexOfTileBase]);
         }
+        private Vector3Int GetAxialDifference(Vector3Int sourceCoords, Vector3Int targetCoords)
+        {
+            Vector3Int axialSourceCoords = _mapManager.CastOddRowToAxial(sourceCoords);
+            Vector3Int axialTargetCoords = _mapManager.CastOddRowToAxial(targetCoords);
+            return axialTargetCoords - axialSourceCoords;
+        }
         public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove)
         {
-            Debug.Log($"shoving from {sourceOfShove} to " + targetOfShove);
+            if (_debugLogs) Debug.Log($"shoving from {sourceOfShove} to " + targetOfShove);
+            if (targetOfShove.Entities.Count == 0) return;
+            Vector3Int shoveDir = GetAxialDifference(sourceOfShove.GridCoordinate, targetOfShove.GridCoordinate);
+            foreach (EntityBase entity in targetOfShove.Entities)
+            {
+                Shovable shovable = entity.GetComponent<Shovable>();
+                if (shovable == null) continue;
+                shovable.TryShoveDir(shoveDir);
+            }
         }
+        // private void ShoveThisEntity(Shovable shovable, Vector3Int axialDir)
+        // {
+        //     if (shovable == null) return;
+        //     shovable.TryShoveDir(axialDir);
+        // }
     }
 }
