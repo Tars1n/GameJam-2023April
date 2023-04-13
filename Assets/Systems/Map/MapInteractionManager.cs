@@ -9,7 +9,7 @@ using GameJam.PlayerInput;
 
 namespace GameJam.Map
 {
-    [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorPlayerAction))]
+    [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
     {
         private GameMasterSingleton _gm;
@@ -17,7 +17,7 @@ namespace GameJam.Map
         private MapManager _mapManager;
         private TileNodeManager _tileNodeManager;
         private PathfindingManager _pathfinding;
-        private MirrorPlayerAction _mirrorPlayerAction;
+        private MirrorManager _mirrorManager;
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
@@ -41,7 +41,7 @@ namespace GameJam.Map
             _mapManager = GetComponent<MapManager>();
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
-            _mirrorPlayerAction = GetComponent<MirrorPlayerAction>();
+            _mirrorManager = GetComponent<MirrorManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
             _map = _mapManager.Map;
             _overlayTilemap = _mapManager.OverlayMap;
@@ -79,9 +79,9 @@ namespace GameJam.Map
                 { return; }
             _mouseMap.ClearAllTiles();
             HighlightMouseOverTile(gridCoordinate);
-            if (_mirrorPlayerAction.IsReflecting())
+            if (_mirrorManager.IsReflecting())
             {
-                Vector3Int reflectedCoordinate = _mirrorPlayerAction.ReflectGridCoordinate(gridCoordinate);
+                Vector3Int reflectedCoordinate = _mirrorManager.ReflectGridCoordinate(gridCoordinate);
                 HighlightMouseOverTile(reflectedCoordinate);
             }
         }

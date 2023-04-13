@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameJam.Map;
-using GameJam.Entity;
 
-namespace GameJam.PlayerInput
+namespace GameJam.Map
 {
-    public class MirrorPlayerAction : MonoBehaviour
+    public class MirrorManager : MonoBehaviour
     {
         private MapManager _mapManager;
         private TileNodeManager _tileNodeManager;
