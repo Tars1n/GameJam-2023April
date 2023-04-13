@@ -5,10 +5,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
 using GameJam.Entity;
+using GameJam.PlayerInput;
 
 namespace GameJam.Map
 {
-    [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath))]
+    [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorPlayerAction))]
     public class MapInteractionManager : MonoBehaviour
     {
         private GameMasterSingleton _gm;
@@ -16,6 +17,7 @@ namespace GameJam.Map
         private MapManager _mapManager;
         private TileNodeManager _tileNodeManager;
         private PathfindingManager _pathfinding;
+        private MirrorPlayerAction _mirrorPlayerAction;
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
@@ -36,14 +38,15 @@ namespace GameJam.Map
         public void Initialize(MapManager mapManager)
         {
             _gm = GameMaster.Instance;
-            _map = mapManager.Map;
-            _overlayTilemap = mapManager.OverlayMap;
-            _triggerTileMap = mapManager.TriggerTilemap;
-            _mouseMap = mapManager.MouseInteractionTilemap;
             _mapManager = GetComponent<MapManager>();
             _tileNodeManager = GetComponent<TileNodeManager>();
             _pathfinding = GetComponent<PathfindingManager>();
+            _mirrorPlayerAction = GetComponent<MirrorPlayerAction>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
+            _map = _mapManager.Map;
+            _overlayTilemap = _mapManager.OverlayMap;
+            _triggerTileMap = _mapManager.TriggerTilemap;
+            _mouseMap = _mapManager.MouseInteractionTilemap;
         }
 
         private void Update() {
@@ -76,6 +79,11 @@ namespace GameJam.Map
                 { return; }
             _mouseMap.ClearAllTiles();
             HighlightMouseOverTile(gridCoordinate);
+            if (_mirrorPlayerAction.IsReflecting())
+            {
+                Vector3Int reflectedCoordinate = _mirrorPlayerAction.ReflectGridCoordinate(gridCoordinate);
+                HighlightMouseOverTile(reflectedCoordinate);
+            }
         }
 
         private void HighlightMouseOverTile(Vector3Int gridCoordinate)
@@ -89,6 +97,7 @@ namespace GameJam.Map
             
             _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
             RenderPlayerActionTile(tile);
+            
         }
 
         private void RenderPlayerActionTile(TileNode tile)
