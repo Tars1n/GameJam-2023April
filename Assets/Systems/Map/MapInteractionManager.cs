@@ -109,7 +109,7 @@ namespace GameJam.Map
                      _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
                     return;
                 }
-                _shoveMapHilights.TryRenderShoveEntity(tile);
+                _shoveMapHilights.TryRenderShoveEntity(activeEntity.CurrentTileNode, tile);
             }
             
             if ( range == 2)

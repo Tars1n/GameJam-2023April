@@ -1764,6 +1764,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shoveTileHilight:
   - {fileID: 11400000, guid: 9cc8699bda6f74c7287869ea5b5552a5, type: 2}
+  - {fileID: 11400000, guid: 1de134708bfec446cafad76800b4f210, type: 2}
+  - {fileID: 11400000, guid: 5cf850a6b3b3b43f699cacf2ca6591da, type: 2}
+  - {fileID: 11400000, guid: 3b823fb4f4017449d9435f4cbe4074db, type: 2}
+  - {fileID: 11400000, guid: 199c6859f053e454f904ca2eeca45853, type: 2}
+  - {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
 --- !u!1 &622531582 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8677799316811170015, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
