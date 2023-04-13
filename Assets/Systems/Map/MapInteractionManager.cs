@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
 using GameJam.Entity;
-using GameJam.Entity.Shoving;
+using GameJam.Entity.Abilities;
 
 namespace GameJam.Map
 {
@@ -223,25 +223,34 @@ namespace GameJam.Map
             EntityBase entity = GameMaster.Instance.ActiveEntity;
             if (entity == null || !entity.HasActionReady)
                 { return false; }
-            if (CanPushTile(entity, tile))
+            if (CanShoveTile(entity, tile))
             {                
                 _shoveMapHilights.ShoveThisTile(entity.CurrentTileNode, tile);
                 return true;
             }
-            if (CanMoveToTile(entity, tile, 2))
+            if (CanMoveToTile(entity, tile, 1))
             {
-                MoveEntity(entity, tile);
-                entity.CurrentTileNode.TryRemoveEntity(entity);
-                entity.LinkToTileNode(tile);
-                
+                MoveEntityUpdateTileNodes(entity, tile);
                 return true;
+            }
+            if ((entity.GetComponent<JumpAndShove>() != null) && (CanMoveToTile(entity, tile, 2)))
+            {
+                entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
+                MoveEntityUpdateTileNodes(entity, tile);
             }
             return false;
         }
-        public bool CanPushTile(EntityBase entity, TileNode tile)
+        public void MoveEntityUpdateTileNodes(EntityBase entity, TileNode tile)
+        {
+            MoveEntity(entity, tile);
+            entity.CurrentTileNode.TryRemoveEntity(entity);
+            entity.LinkToTileNode(tile);
+        }
+
+        public bool CanShoveTile(EntityBase entity, TileNode tile)
         {
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
-            if ((_shoveMapHilights.CanShoveThisTile(tile)) && (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) == 1))
+            if ((_shoveMapHilights.EntityOnThisTileThatCanBeShoved(tile)) && (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) == 1))
             {
                 return true;
             }

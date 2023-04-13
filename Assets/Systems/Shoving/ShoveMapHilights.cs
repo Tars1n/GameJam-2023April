@@ -24,12 +24,12 @@ namespace GameJam.Map
 
         public void TryRenderShoveHilight(TileNode sourceTile, TileNode tileBeingPushed)
         {
-            if (CanShoveThisTile(tileBeingPushed))
+            if (EntityOnThisTileThatCanBeShoved(tileBeingPushed))
             {
                 _mouseMap.SetTile(tileBeingPushed.GridCoordinate, GetPushHilight(sourceTile.GridCoordinate, tileBeingPushed.GridCoordinate));
             }
         }
-        public bool CanShoveThisTile(TileNode tileBeingPushed)
+        public bool EntityOnThisTileThatCanBeShoved(TileNode tileBeingPushed)
         {
             if (tileBeingPushed.Entities.Count == 0) return false;
             foreach (EntityBase entity in tileBeingPushed.Entities)

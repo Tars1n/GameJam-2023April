@@ -29,7 +29,7 @@ namespace GameJam.Entity.Shoving
             TileNode tileMovingTo = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(newAxialCoords));
             if (tileMovingTo.IsWalkable())
             {
-                _mapInteractionManager.MoveEntity(_entityBase, tileMovingTo);
+                _mapInteractionManager.MoveEntityUpdateTileNodes(_entityBase, tileMovingTo);
             }
 
         }
