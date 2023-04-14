@@ -46,6 +46,7 @@ namespace GameJam.Map
             bool result = _isWalkable;
             if (GameMaster.Instance.ActiveEntity.CurrentTileNode == this)
                 { return true; }
+            Entities.RemoveAll(entity => entity == null);
             if (Entities.Count > 0)
             {
                 return false;
@@ -109,13 +110,16 @@ namespace GameJam.Map
         {
             if (Entities.Contains(entity))
             {
+                Debug.Log($"Successfully removed {entity} from TileNode.");
                 Entities.Remove(entity);
+                Entities.RemoveAll(entity => entity == null);
                 return true;
             }
+            Entities.RemoveAll(entity => entity == null);
             return false;
         }
 
-        public void ClearEntities()
+        public void ClearEntityList()
         {
             Entities.Clear();
         }

@@ -62,7 +62,7 @@ namespace GameJam.Entity
 
         private void RemapAllEntities()
         {
-            _tileNodeManager.ClearAllNodeEntities();
+            _tileNodeManager.ClearAllNodeEntityLists();
             
             foreach (EntityCharacter entity in _playerCharacters)
                 { entity.LinkToTileNode(null); }

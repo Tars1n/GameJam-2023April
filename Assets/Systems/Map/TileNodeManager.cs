@@ -79,11 +79,11 @@ namespace GameJam.Map
             }
         }
 
-        public void ClearAllNodeEntities()
+        public void ClearAllNodeEntityLists()
         {
             foreach (TileNode node in _tileNodesArray)
             {
-                node?.ClearEntities();
+                node?.ClearEntityList();
             }
         }
 

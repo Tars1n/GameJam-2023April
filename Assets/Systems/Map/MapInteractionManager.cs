@@ -186,6 +186,13 @@ namespace GameJam.Map
             {
                 Vector3Int indexPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridCoordinate);
                 Debug.Log($"{tileNode.TileType}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}. Entity Count: {tileNode.Entities.Count}.");
+                if (tileNode.Entities.Count > 0)
+                {   
+                    foreach (EntityBase entity in tileNode.Entities)
+                    {
+                        Debug.Log($"  - {entity}");
+                    }
+                }
                 TileNode tile = GameMaster.Instance.ActiveEntity?.CurrentTileNode;
                 if (tile != null)
                 Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
@@ -282,8 +289,8 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
 
-            StartCoroutine(DoHopEntityToPos(entityGO, position, slideSpeed));
             entity.CurrentTileNode.TryRemoveEntity(entity);
+            StartCoroutine(DoHopEntityToPos(entityGO, position, slideSpeed));
         }
 
         IEnumerator DoHopEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
@@ -326,8 +333,8 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
             
-            StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
             entity.CurrentTileNode.TryRemoveEntity(entity);
+            StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
         }
 
         IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
