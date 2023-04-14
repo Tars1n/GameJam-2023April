@@ -110,14 +110,11 @@ namespace GameJam.Map
         {
             if (Entities.Contains(entity))
             {
-                Debug.Log($"Successfully removed {entity} from TileNode.");
                 Entities.Remove(entity);
                 Entities.TrimExcess();
-                // Entities.RemoveAll(entity => entity == null);
                 return true;
             }
             Entities.TrimExcess();
-            // Entities.RemoveAll(entity => entity == null);
             return false;
         }
 

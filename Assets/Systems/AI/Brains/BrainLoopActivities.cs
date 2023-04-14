@@ -41,7 +41,7 @@ namespace GameJam.Entity.Brain
         {
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
-            Debug.Log($"move to coords " + axialToMoveTo);
+            // Debug.Log($"move to coords " + axialToMoveTo);
             TileNode tile = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo));
             _mapInteractionManager.TryToTakeAction(_entityBase, tile);
             IncreaseStep();

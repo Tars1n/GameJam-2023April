@@ -97,7 +97,6 @@ namespace GameJam.Entity
                 SetupNewRound();
                 return;
             }
-            //if (DebugLog) Debug.Log($"Next Actor: {nextEntity}");
             GameMaster.Instance.SetActiveEntity(nextEntity);
             nextEntity.DoTurnAction();
         }

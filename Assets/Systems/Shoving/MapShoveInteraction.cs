@@ -9,7 +9,7 @@ namespace GameJam.Map
 {
     public class MapShoveInteraction : MonoBehaviour
     {
-        private bool _debugLogs = true;
+        private bool _debugLogs = false;
         private MapManager _mapManager;
         // private MapInteractionManager _mapInteractionManager;
         private Tilemap _mouseMap;
@@ -52,7 +52,7 @@ namespace GameJam.Map
             if ((axialDifference.x == 1) && (axialDifference.y == -1)) indexOfTileBase = 3;
             if ((axialDifference.x == 1) && (axialDifference.y == 0)) indexOfTileBase = 4;
             if ((axialDifference.x == 0) && (axialDifference.y == 1)) indexOfTileBase = 5;
-            Debug.Log($"shoving in direction " + indexOfTileBase);
+            if (_debugLogs) Debug.Log($"shoving in direction " + indexOfTileBase);
             return (_shoveTileHilight[indexOfTileBase]);
         }
         private Vector3Int GetAxialDifference(Vector3Int sourceCoords, Vector3Int targetCoords)

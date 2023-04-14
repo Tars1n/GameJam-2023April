@@ -123,15 +123,6 @@ namespace GameJam.Map
             }
         }
 
-        // public TileNode GetReflectedTileNode(EntityBase mirroredEntity, Vector3Int mirroredPointer)
-        // {
-        //     Vector3Int entityPos = _mapManager.CastOddRowToAxial(mirroredEntity.CurrentTileNode.GridCoordinate);
-        //     mirroredPointer += entityPos;
-        //     Vector3Int targetCoord = _mapManager.CastAxialToOddRow(mirroredPointer);
-        //     TileNode tileNode = _tileNodeManager.GetNodeFromCoords(mirroredPointer);
-        //     return tileNode;
-        // }
-
         private void DoActionOnMirroredEntity(EntityBase mirroredEntity, Vector3Int mirroredPointer)
         {
             TileNode tileNode = GetReflectedTileOfEntity(mirroredEntity, mirroredPointer);

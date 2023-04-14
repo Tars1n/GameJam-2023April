@@ -31,7 +31,7 @@ namespace GameJam.Entity.Brain
             _targetNode = _targetEntity?.CurrentTileNode;
             if (_targetEntity == null || _targetNode == null)
             {
-                Debug.Log($"{this.gameObject} has no valid target to seek. Ending turn.");
+                // Debug.Log($"{this.gameObject} has no valid target to seek. Ending turn.");
                 { StartCoroutine(TakeNoAction()); }
                 return;
             }
