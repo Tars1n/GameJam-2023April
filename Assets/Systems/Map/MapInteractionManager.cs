@@ -332,7 +332,7 @@ namespace GameJam.Map
 
         IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
         {
-             float timeElapsed = 0;
+            float timeElapsed = 0;
             Vector3 startPos = entityGO.transform.position;
             while (timeElapsed < duration)
             {

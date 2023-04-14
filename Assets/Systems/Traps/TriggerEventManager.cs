@@ -44,7 +44,7 @@ namespace GameJam.Entity.Trap
             {
                 ClearTriggerTiles();
                 _entityManager.TryRemoveEntity(entityBase);
-                _entityManager.TryRemoveEntity(GetComponent<EntityBase>());
+                _entityManager.TryRemoveEntity(this.GetComponent<EntityBase>());
 
             }
         }
