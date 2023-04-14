@@ -166,6 +166,12 @@ namespace GameJam.Map
             return _tileNodesArray[arrayIndex.x, arrayIndex.y];
         }
 
+        public TileNode GetTileFromAxial(Vector3Int axialPos)
+        {
+            Vector3Int coord = _mapManager.CastAxialToOddRow(axialPos);
+            return GetNodeFromCoords(coord);
+        }
+
         private bool RequiredNodeMissing(Vector3Int coord)
         {
             if (DoesTileNodeExistAtArrayIndex(coord))

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Entity.Abilities;
 
@@ -47,29 +48,63 @@ namespace GameJam.Map
             if (_mirrorX)
                 { outgoingAxial = ReflectAxialX(outgoingAxial); }
             if (_mirrorY)
-                { ReflectAxialY(outgoingAxial); }
+                { outgoingAxial = ReflectAxialY(outgoingAxial); }
 
-            outgoingAxial += _mirrorOriginAxial; //add relative mirror origin back into equation since it had been removed.
+            outgoingAxial += incomingAxial;
 
             return _mapManager.CastAxialToOddRow(outgoingAxial);
         }
 
-        public Vector3Int ReflectAxialX(Vector3Int axialCoord)
+        public Vector3Int ReflectAxialX(Vector3Int axialPointer)
         {
-            return new Vector3Int(axialCoord.z, axialCoord.y, axialCoord.x); //swap axis ignoring y
+            axialPointer = new Vector3Int(axialPointer.z, axialPointer.y, axialPointer.x); //swap axis ignoring y
+            return axialPointer;
         }
 
-        public Vector3Int ReflectAxialY(Vector3Int axialCoord)
+        public Vector3Int ReflectAxialY(Vector3Int axialPointer)
         {
-            axialCoord = ReflectAxialX(axialCoord);
-            axialCoord *= -1; //invert coordinate
-            return axialCoord;
+            axialPointer = new Vector3Int(axialPointer.z, axialPointer.y, axialPointer.x);
+            axialPointer *= -1; //invert coordinate
+            return axialPointer;
+        }
+
+        public void RenderMirroredSelection(EntityBase originalEntity, TileNode selectedTile)
+        {
+            Mirrored mirrored = originalEntity?.GetComponent<Mirrored>();
+            if (mirrored == null) { return; }
+
+            Vector3Int originalPointingVector = _mapManager.CalculateAxialPointerBetweenTiles(originalEntity?.CurrentTileNode, selectedTile);
+
+            if (mirrored.MirrorEntityX != null)
+            {
+                Vector3Int targetAxial = ReflectAxialX(originalPointingVector);
+                Vector3Int entityAxial = mirrored.MirrorEntityX.GetAxialPos();
+                targetAxial += entityAxial;
+                TileNode targetTile = _tileNodeManager.GetTileFromAxial(targetAxial);
+                _mapInteractionManager.RenderPlayerActionTile(mirrored.MirrorEntityX, targetTile);
+            }
+            
+            if (mirrored.MirrorEntityY != null)
+            {
+                Vector3Int targetAxial = ReflectAxialY(originalPointingVector);
+                Vector3Int entityAxial = mirrored.MirrorEntityY.GetAxialPos();
+                targetAxial += entityAxial;
+                TileNode targetTile = _tileNodeManager.GetTileFromAxial(targetAxial);
+                _mapInteractionManager.RenderPlayerActionTile(mirrored.MirrorEntityY, targetTile);
+            }
+        }
+
+        private TileNode GetReflectedTileOfEntity(EntityBase entity, Vector3Int targetAxial)
+        {
+            Vector3Int entityAxial = entity.GetAxialPos();
+            targetAxial += entityAxial;
+            return _tileNodeManager.GetTileFromAxial(targetAxial);
         }
 
         //if the system mirrors character action instead, coordinate isn't as critical, just mirroring the axial direction and distance amount.
         public void TryMirrorEntityAction(EntityBase originalEntity, TileNode selectedTile)
         {
-            Mirrored mirrored = originalEntity.GetComponent<Mirrored>();
+            Mirrored mirrored = originalEntity?.GetComponent<Mirrored>();
             if (mirrored == null) { return; }
 
             TileNode originTile = originalEntity.CurrentTileNode;
@@ -88,14 +123,24 @@ namespace GameJam.Map
             }
         }
 
+        // public TileNode GetReflectedTileNode(EntityBase mirroredEntity, Vector3Int mirroredPointer)
+        // {
+        //     Vector3Int entityPos = _mapManager.CastOddRowToAxial(mirroredEntity.CurrentTileNode.GridCoordinate);
+        //     mirroredPointer += entityPos;
+        //     Vector3Int targetCoord = _mapManager.CastAxialToOddRow(mirroredPointer);
+        //     TileNode tileNode = _tileNodeManager.GetNodeFromCoords(mirroredPointer);
+        //     return tileNode;
+        // }
+
         private void DoActionOnMirroredEntity(EntityBase mirroredEntity, Vector3Int mirroredPointer)
         {
-            Vector3Int entityPos = _mapManager.CastOddRowToAxial(mirroredEntity.CurrentTileNode.GridCoordinate);
-                mirroredPointer += entityPos;
-                Vector3Int targetCoord = _mapManager.CastAxialToOddRow(mirroredPointer);
-                TileNode tileNode = _tileNodeManager.GetNodeFromCoords(mirroredPointer);
-                _mapInteractionManager.TryToTakeAction(mirroredEntity, tileNode);
+            TileNode tileNode = GetReflectedTileOfEntity(mirroredEntity, mirroredPointer);
+            _mapInteractionManager.TryToTakeAction(mirroredEntity, tileNode);
         }
+
+        
+
+        
     }
 
 }

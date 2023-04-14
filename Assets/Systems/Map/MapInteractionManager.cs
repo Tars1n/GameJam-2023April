@@ -99,17 +99,18 @@ namespace GameJam.Map
                 { return; }
             
             _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
-            RenderPlayerActionTile(tile);
+            RenderPlayerActionTile(null, tile);
             
         }
 
-        private void RenderPlayerActionTile(TileNode tile)
+        public void RenderPlayerActionTile(EntityBase entity, TileNode tile)
         {
-            EntityBase activeEntity = GameMaster.Instance.ActiveEntity;
-            if (!GameMaster.Instance.IsPlayerTurn || activeEntity == null)
+            if (entity == null)
+                { entity = GameMaster.Instance.ActiveEntity; }
+            if (!GameMaster.Instance.IsPlayerTurn || entity == null)
                 { return; }
             //check range from active EntityCharacter
-            int range = _mapManager.CalculateRange(tile.GridCoordinate, activeEntity.CurrentTileNode.GridCoordinate);
+            int range = _mapManager.CalculateRange(tile.GridCoordinate, entity.CurrentTileNode.GridCoordinate);
             if ( range == 1)
             {
                 if (tile.IsWalkable())
@@ -117,7 +118,7 @@ namespace GameJam.Map
                      _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
                     return;
                 }
-                _shoveMapHilights.TryRenderShoveHilight(activeEntity.CurrentTileNode, tile);
+                _shoveMapHilights.TryRenderShoveHilight(entity.CurrentTileNode, tile);
             }
             if ( range == 2)
             {

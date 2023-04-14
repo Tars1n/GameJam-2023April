@@ -44,7 +44,7 @@ namespace GameJam.Map
         public bool IsWalkable()
         {
             bool result = _isWalkable;
-            if (GameMaster.Instance.ActiveEntity.CurrentTileNode == this)
+            if (GameMaster.Instance.ActiveEntity?.CurrentTileNode == this)
                 { return true; }
             Entities.RemoveAll(entity => entity == null);
             if (Entities.Count > 0)
