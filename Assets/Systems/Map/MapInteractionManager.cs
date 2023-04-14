@@ -84,8 +84,7 @@ namespace GameJam.Map
             HighlightMouseOverTile(gridCoordinate);
             if (_mirrorManager.IsReflecting())
             {
-                Vector3Int reflectedCoordinate = _mirrorManager.ReflectGridCoordinate(gridCoordinate);
-                HighlightMouseOverTile(reflectedCoordinate);
+
             }
         }
 
@@ -100,6 +99,7 @@ namespace GameJam.Map
             
             _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
             RenderPlayerActionTile(null, tile);
+            _mirrorManager.RenderMirroredSelection(_gm.ActiveEntity, tile);
             
         }
 
