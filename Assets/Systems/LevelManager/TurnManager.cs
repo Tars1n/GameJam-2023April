@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameJam.Entity
 {
@@ -96,7 +97,6 @@ namespace GameJam.Entity
                 SetupNewRound();
                 return;
             }
-            //if (DebugLog) Debug.Log($"Next Actor: {nextEntity}");
             GameMaster.Instance.SetActiveEntity(nextEntity);
             nextEntity.DoTurnAction();
         }
@@ -106,6 +106,12 @@ namespace GameJam.Entity
             if (_entityManager.DoesPlayerStillHaveAction())
                 return;
             
+            StartCoroutine("DelayedComputerTurnStart");
+        }
+
+        IEnumerator DelayedComputerTurnStart()
+        {
+            yield return new WaitForSeconds(_delayBetweenActions);
             StartComputerTurn();
         }
     }

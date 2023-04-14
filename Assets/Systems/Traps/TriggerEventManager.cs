@@ -9,6 +9,9 @@ namespace GameJam.Entity.Trap
     {
         private TileNodeManager _tileNodeManager;
         private ReferenceManager _ref;
+        [SerializeField] private Color _gizmoColour = Color.red;
+        private MapManager _mapManager;
+        private MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         [SerializeField] private List<Vector3Int> _triggerLocationTiles;
         //this list creates tiles that the entity can trigger the trap by steppin on.
         private EntityManager _entityManager;
@@ -18,15 +21,30 @@ namespace GameJam.Entity.Trap
             _ref = GameMaster.Instance.ReferenceManager;
             _tileNodeManager = _ref.TileNodeManager;
             _entityManager = _ref.EntityManager;
-            SetUpTrap();
+            SetupTriggers();
         }
-        public void SetUpTrap()
+        public void SetupTriggers()
         {
             if (_triggerLocationTiles == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
                 TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
+                if (tileNode == null)
+                {
+                    Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
+                    continue;
+                }
                 tileNode.SetUpTrigger(this);
+            }
+        }
+        void OnDrawGizmos()
+        {
+            // Draw a yellow sphere at the transform's position
+            Gizmos.color = _gizmoColour;
+            foreach (Vector3Int tilePos in _triggerLocationTiles)
+            {
+                Vector3 position = Map.GetWorldPosFromGridCoord(tilePos);
+                Gizmos.DrawSphere(position, .2f);
             }
         }
         private void ClearTriggerTiles()
@@ -38,15 +56,18 @@ namespace GameJam.Entity.Trap
                 tileNode.ClearTrigger();
             }
         }
-        public void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
+        public virtual void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
+            //TODO: derive scripts that can customize how they react to this function. Oneshot traps, permanent traps, pressure plates, key to door.
             if (entityBase != null)
             {
                 ClearTriggerTiles();
-                _entityManager.TryRemoveEntity(entityBase);
-                _entityManager.TryRemoveEntity(GetComponent<EntityBase>());
+                _entityManager.TryRemoveEntity(entityBase); //remove entity that entered trigger tile
+                _entityManager.TryRemoveEntity(this.GetComponent<EntityBase>()); //remove trap
 
             }
         }
+
+        
     }
 }

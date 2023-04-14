@@ -44,26 +44,23 @@ namespace GameJam.Entity
             if (entity.GetType() == typeof(EntityCharacter))
             {
                 _playerCharacters.Remove((EntityCharacter)entity);
-                removed = true;
             }
             if (entity.GetType() == typeof(EntityMonster))
             {
                 _monsters.Remove((EntityMonster)entity);
-                removed = true;
             }
             if (entity.GetType() == typeof(EntityTrap))
             {
                 _traps.Remove((EntityTrap)entity);
-                removed = true;
             }
-            // _mapEntityQueue.Dequeue(entity);
-            entity.gameObject.SetActive(false);            
+            entity.CurrentTileNode?.TryRemoveEntity(entity);
+            entity.DoDestroy();
             return removed;
         }
 
         private void RemapAllEntities()
         {
-            _tileNodeManager.ClearAllNodeEntities();
+            _tileNodeManager.ClearAllNodeEntityLists();
             
             foreach (EntityCharacter entity in _playerCharacters)
                 { entity.LinkToTileNode(null); }
@@ -112,6 +109,12 @@ namespace GameJam.Entity
             //Get next Monster or Trap entity from the action queue.
             if (_mapEntityQueue.Count == 0)
                 return null;
+            
+            if (_mapEntityQueue.Peek() == null || !_mapEntityQueue.Peek().enabled)
+            {
+                _mapEntityQueue.Dequeue();
+                return GetNextReadyMapEntity(); //?Is this okay to do? So far no issues.
+            }
 
             return _mapEntityQueue?.Dequeue();
         }    

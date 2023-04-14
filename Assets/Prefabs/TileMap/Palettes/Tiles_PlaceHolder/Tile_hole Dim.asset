@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: Tile_walkPath
+  m_Name: Tile_hole Dim
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 0637d1097bbaa754c82acc51e89b04c8, type: 3}
-  m_Color: {r: 0.2901961, g: 1, b: 1, a: 0.53333336}
+  m_Sprite: {fileID: 21300000, guid: d5314d6299770da49b55034034c9dee2, type: 3}
+  m_Color: {r: 0.38431373, g: 0.34509805, b: 0.4627451, a: 1}
   m_Transform:
     e00: 1
     e01: 0

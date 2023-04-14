@@ -19,7 +19,9 @@ namespace GameJam.Entity.Brain
         //right: 1, 0, -1
         //up right: 0, 1, -1
         [SerializeField] private int _stepInActivityLoop;
+        [SerializeField] private Color _gizmoColour;
         private MapManager _mapManager;
+        private MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         private ReferenceManager _ref;
         private EntityBase _entityBase;
         private MapInteractionManager _mapInteractionManager;
@@ -39,8 +41,9 @@ namespace GameJam.Entity.Brain
         {
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
-            Debug.Log($"move to coords " + axialToMoveTo);
-            _mapInteractionManager.TryToTakeAction(_tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo)));
+            // Debug.Log($"move to coords " + axialToMoveTo);
+            TileNode tile = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo));
+            _mapInteractionManager.TryToTakeAction(_entityBase, tile);
             IncreaseStep();
         }
         private void IncreaseStep()
@@ -49,6 +52,21 @@ namespace GameJam.Entity.Brain
             if (_stepInActivityLoop >= _activitiesToLoop.Count)
             {
                 _stepInActivityLoop = 0;
+            }
+        }
+
+        void OnDrawGizmos()
+        {
+            // Draw a yellow sphere at the transform's position
+            Gizmos.color = _gizmoColour;
+            Vector3 previousPoint = this.transform.position;
+            foreach (Activity activity in _activitiesToLoop)
+            {
+                Vector3Int coord = activity.GridCoord + Map.Map.WorldToCell(transform.position);
+                Vector3 position = Map.GetWorldPosFromGridCoord(coord);
+                
+                Gizmos.DrawLine(previousPoint, position);
+                previousPoint = position;
             }
         }
     }

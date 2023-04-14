@@ -13,6 +13,7 @@ namespace GameJam.Entity
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
         protected TurnManager _turnManager;
+        protected MapManager _mapManager;
         protected MapInteractionManager _mapInteractionManager;
         protected SpriteRenderer _spriteRenderer;
         [SerializeField] private Color _readyState;
@@ -35,6 +36,7 @@ namespace GameJam.Entity
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _turnManager = _ref.TurnManager;
+            _mapManager = _ref.MapManager;
             _mapInteractionManager = _ref.MapInteractionManager;
             if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
             _ref.EntityManager.AddEntity(this);
@@ -59,6 +61,12 @@ namespace GameJam.Entity
             }
 
             _currentTileNode?.TryAddEntity(this);
+            
+            if (_currentTileNode.IsPitTile)
+            {
+                _ref.EntityManager.TryRemoveEntity(this);
+                DoDestroy();
+            }
         }
 
         public void SnapEntityPositionToTile()
@@ -84,12 +92,28 @@ namespace GameJam.Entity
             CompletedTurn();
         }
 
+        public Vector3Int GetAxialPos()
+        {
+            if (_currentTileNode == null)
+            {
+                Debug.LogWarning($"Requested Axial Position failed, {this} does not have a valid TileNode.");
+                return new Vector3Int(0, 0, 0);
+            }
+            return _mapManager.CastOddRowToAxial(_currentTileNode.GridCoordinate);
+        }
+
         protected virtual void CompletedTurn()
         {
             _hasActionReady = false;
             _spriteRenderer.color = _turnOverState;
             if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
             _turnManager.ActionCompleted();
+        }
+
+        public virtual void DoDestroy()
+        {
+            //probably want to have entities do some of their own things when being destroyed.
+            Destroy(this.gameObject);
         }
     }
 }

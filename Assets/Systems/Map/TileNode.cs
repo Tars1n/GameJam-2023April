@@ -14,7 +14,8 @@ namespace GameJam.Map
         [SerializeField] private bool _isSelectable;
         public bool IsSelectable => _isSelectable;
         [SerializeField] private bool _isWalkable;
-        [SerializeField] private bool _isTrapTile;
+        [SerializeField] private bool _isPitTile;
+        public bool IsPitTile => _isPitTile;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
         public Vector3Int WalkingPathDirection;
@@ -23,7 +24,7 @@ namespace GameJam.Map
         public bool FlyingPathExplored = false;
         private MapInteractionManager _mapInteractionManager;
         [SerializeField] private TriggerEventManager _triggerEventManager;
-        public TriggerEventManager TriggerEventManager { get => _triggerEventManager; set => _triggerEventManager = value; }
+        public TriggerEventManager TriggerEventManager => _triggerEventManager;
         
         public List<EntityBase> Entities = new List<EntityBase>();
 
@@ -37,14 +38,15 @@ namespace GameJam.Map
                 {return;}
             _isSelectable = data[TileType].IsSelectable;
             _isWalkable = data[TileType].IsWalkable;
-            _isTrapTile = data[TileType].IsTrapTile;
+            _isPitTile = data[TileType].IsPitTile;
         }
 
         public bool IsWalkable()
         {
             bool result = _isWalkable;
-            if (GameMaster.Instance.ActiveEntity.CurrentTileNode == this)
+            if (GameMaster.Instance.ActiveEntity?.CurrentTileNode == this)
                 { return true; }
+            Entities.RemoveAll(entity => entity == null);
             if (Entities.Count > 0)
             {
                 return false;
@@ -99,8 +101,8 @@ namespace GameJam.Map
 
         public bool TryAddEntity(EntityBase entity)
         {
-            _triggerEventManager?.EntityEnteredTrigger(entity, this);
             Entities.Add(entity);
+            _triggerEventManager?.EntityEnteredTrigger(entity, this);
             return true;
         }
 
@@ -109,14 +111,16 @@ namespace GameJam.Map
             if (Entities.Contains(entity))
             {
                 Entities.Remove(entity);
+                Entities.TrimExcess();
                 return true;
             }
+            Entities.TrimExcess();
             return false;
         }
 
-        public void ClearEntities()
+        public void ClearEntityList()
         {
-            Entities.Clear();
+            Entities = new List<EntityBase>();
         }
         public void SetUpTrigger(TriggerEventManager triggerEventManager)
         {
@@ -127,6 +131,7 @@ namespace GameJam.Map
         public void ClearTrigger()
         {
             _mapInteractionManager?.ClearTriggerHilight(GridCoordinate);
+            _triggerEventManager = null;
         }
         private void SetUpMapInteractionManager()
         {

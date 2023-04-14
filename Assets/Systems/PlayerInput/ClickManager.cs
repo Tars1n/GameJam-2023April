@@ -16,6 +16,7 @@ namespace GameJam.PlayerInput
         {
             _mapManager = GetComponent<MapManager>();
             _map = _mapManager.Map;
+            if (_debugLogs){}
         }
         // private void Update()
         // {

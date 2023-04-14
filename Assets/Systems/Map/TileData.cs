@@ -12,7 +12,7 @@ namespace GameJam.Map
         public TileBase[] Tiles;
         public bool IsSelectable;
         public bool IsWalkable;
-        public bool IsTrapTile;
+        public bool IsPitTile;
         
     }
 }

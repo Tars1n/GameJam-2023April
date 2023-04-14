@@ -5,9 +5,7 @@ using UnityEngine;
 namespace GameJam.Entity
 {
     public class EntityCharacter : EntityBase
-    {
-        
-
+    {    
         public override void DoTurnAction()
         {
             CompletedTurn();

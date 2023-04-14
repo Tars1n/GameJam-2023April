@@ -79,11 +79,11 @@ namespace GameJam.Map
             }
         }
 
-        public void ClearAllNodeEntities()
+        public void ClearAllNodeEntityLists()
         {
             foreach (TileNode node in _tileNodesArray)
             {
-                node?.ClearEntities();
+                node?.ClearEntityList();
             }
         }
 
@@ -164,6 +164,12 @@ namespace GameJam.Map
             if (DoesTileNodeExistAtArrayIndex(arrayIndex) == false)
                 return null;
             return _tileNodesArray[arrayIndex.x, arrayIndex.y];
+        }
+
+        public TileNode GetTileFromAxial(Vector3Int axialPos)
+        {
+            Vector3Int coord = _mapManager.CastAxialToOddRow(axialPos);
+            return GetNodeFromCoords(coord);
         }
 
         private bool RequiredNodeMissing(Vector3Int coord)
