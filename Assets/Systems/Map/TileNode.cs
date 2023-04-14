@@ -101,8 +101,8 @@ namespace GameJam.Map
 
         public bool TryAddEntity(EntityBase entity)
         {
-            _triggerEventManager?.EntityEnteredTrigger(entity, this);
             Entities.Add(entity);
+            _triggerEventManager?.EntityEnteredTrigger(entity, this);
             return true;
         }
 
@@ -112,16 +112,18 @@ namespace GameJam.Map
             {
                 Debug.Log($"Successfully removed {entity} from TileNode.");
                 Entities.Remove(entity);
-                Entities.RemoveAll(entity => entity == null);
+                Entities.TrimExcess();
+                // Entities.RemoveAll(entity => entity == null);
                 return true;
             }
-            Entities.RemoveAll(entity => entity == null);
+            Entities.TrimExcess();
+            // Entities.RemoveAll(entity => entity == null);
             return false;
         }
 
         public void ClearEntityList()
         {
-            Entities.Clear();
+            Entities = new List<EntityBase>();
         }
         public void SetUpTrigger(TriggerEventManager triggerEventManager)
         {

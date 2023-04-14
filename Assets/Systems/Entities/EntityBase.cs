@@ -60,12 +60,13 @@ namespace GameJam.Entity
                 return;
             }
 
+            _currentTileNode?.TryAddEntity(this);
+            
             if (_currentTileNode.IsPitTile)
             {
+                _ref.EntityManager.TryRemoveEntity(this);
                 DoDestroy();
             }
-
-            _currentTileNode?.TryAddEntity(this);
         }
 
         public void SnapEntityPositionToTile()
@@ -111,8 +112,8 @@ namespace GameJam.Entity
 
         public virtual void DoDestroy()
         {
-            _ref.EntityManager.TryRemoveEntity(this);
             //probably want to have entities do some of their own things when being destroyed.
+            Destroy(this.gameObject);
         }
     }
 }

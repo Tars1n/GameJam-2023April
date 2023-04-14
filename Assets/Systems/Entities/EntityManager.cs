@@ -53,15 +53,8 @@ namespace GameJam.Entity
             {
                 _traps.Remove((EntityTrap)entity);
             }
-            // _mapEntityQueue.Dequeue(entity);
-            //entity.gameObject.SetActive(false);
-            removed = entity.CurrentTileNode.TryRemoveEntity(entity);
-            if (!removed)
-            {
-                Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}. Remapping all entities to tiles.");
-                RemapAllEntities();
-            }
-            Destroy(entity.gameObject);
+            entity.CurrentTileNode?.TryRemoveEntity(entity);
+            entity.DoDestroy();
             return removed;
         }
 
