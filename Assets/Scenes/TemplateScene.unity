@@ -1864,7 +1864,7 @@ MonoBehaviour:
     TileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
-    _isTrapTile: 0
+    _isPitTile: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     WalkingPathDirection: {x: 0, y: 0, z: 0}

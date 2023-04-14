@@ -110,7 +110,6 @@ namespace GameJam.Map
                 { return; }
             //check range from active EntityCharacter
             int range = _mapManager.CalculateRange(tile.GridCoordinate, activeEntity.CurrentTileNode.GridCoordinate);
-            //if range of 1
             if ( range == 1)
             {
                 if (tile.IsWalkable())
@@ -120,7 +119,6 @@ namespace GameJam.Map
                 }
                 _shoveMapHilights.TryRenderShoveHilight(activeEntity.CurrentTileNode, tile);
             }
-            
             if ( range == 2)
             {
                 if (tile.IsWalkable())
@@ -128,7 +126,6 @@ namespace GameJam.Map
                     _mouseMap.SetTile(tile.GridCoordinate, _selectionTileBase);
                 }
             }
-            //is tile empty and walkable?
         }
 
         private void DrawPathFromActiveEntityToMouse()
@@ -285,16 +282,19 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
 
-            StartCoroutine(LerpObjectToPos(entityGO, position, slideSpeed));
-
+            StartCoroutine(DoHopEntityToPos(entityGO, position, slideSpeed));
+            entity.CurrentTileNode.TryRemoveEntity(entity);
         }
 
-        IEnumerator LerpObjectToPos(GameObject entityGO, Vector3 targetPosition, float duration)
+        IEnumerator DoHopEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
         {
             float timeElapsed = 0;
             Vector3 startPos = entityGO.transform.position;
             while (timeElapsed < duration)
             {
+                if (entityGO == null)
+                    { yield break; }
+
                 float t = timeElapsed / duration;
                 t = t * t * (3f - 2f *t);
                 float g = timeElapsed/duration;
@@ -313,9 +313,47 @@ namespace GameJam.Map
                 yield return null;
             }
             
-            entityGO.transform.position = targetPosition;            
-            entityGO.GetComponent<EntityBase>().ActionCompleted();
+            entityGO.transform.position = targetPosition; 
+            EntityBase entity = entityGO.GetComponent<EntityBase>();
+            entity.LinkToTileNode(null);
+            entity.ActionCompleted();
         }
+
+        public void ShoveEntity(EntityBase entity, TileNode targetTile)
+        {
+            if (entity?.CurrentTileNode == null || targetTile == null)
+                { return; }
+            GameObject entityGO = entity.gameObject;
+            Vector3 position = targetTile.WorldPos;
+
+            StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
+        }
+
+        IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
+        {
+             float timeElapsed = 0;
+            Vector3 startPos = entityGO.transform.position;
+            while (timeElapsed < duration)
+            {
+                // float t = timeElapsed / duration;
+                // t = t * t * (3f - 2f *t);
+                float g = timeElapsed/duration;
+                g = 1 - ((1 - g)*(1 - g));
+
+
+                float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
+                float y = Mathf.Lerp(startPos.y, targetPosition.y, g);
+
+                entityGO.transform.position = new Vector3(x, y, 0);
+                timeElapsed += Time.deltaTime;
+
+                yield return null;
+            }
+            entityGO.transform.position = targetPosition; 
+            EntityBase entity = entityGO.GetComponent<EntityBase>();
+            entity.LinkToTileNode(null);
+        }
+        
         public void RenderTriggerHilight(Vector3Int tileCoords)
         {
             _triggerTileMap.SetTile(tileCoords, _triggerTileHilight);

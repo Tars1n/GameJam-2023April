@@ -106,7 +106,7 @@ namespace GameJam.Pathfinding
 
         private void CheckCanWalkOnTileBlockedByObstacles(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord)
         {
-            if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (CanWalkOnTile(coordOfAdjacentTileChecking)))
+            if ((!_tilesInNextStep.Contains(coordOfAdjacentTileChecking)) && (IsSafeWalkingTile(coordOfAdjacentTileChecking)))
             {
                 _tilesInNextStep.Add(coordOfAdjacentTileChecking);
                 //?_overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
@@ -130,21 +130,22 @@ namespace GameJam.Pathfinding
                 //? }
             }
         }
+        private bool IsSafeWalkingTile(Vector3Int tileCoord)
+        {
+            TileNode tile = _tileNodeManager.GetNodeFromCoords(tileCoord);
+            if (tile == null) { return false; }
+            if (tile.IsPitTile)
+                { return false; }
+            return (CanWalkOnTile(tileCoord));
+        }
         private bool CanWalkOnTile(Vector3Int tileCoord)
         {
-            // The following is a potential way to ask the TileNode itself if it is walkable.
-            // This will allow pathfinding to use more that one specific tile as well as allow Entities to block Pathfinding.
             TileNode tile = _tileNodeManager.GetNodeFromCoords(tileCoord);
             if (tile == null)    {return false;}
             if (_tileNodeManager.GetNodeFromCoords(tileCoord).IsWalkable())
             {
                 return true;
             }
-
-            //? if (_map.GetTile(tileCoord) == _tileFloor)
-            //? {
-            //?     return true;
-            //? }
             return false;
         }
         private bool IsTileNotExplored(Vector3Int tileCoord)

@@ -14,7 +14,8 @@ namespace GameJam.Map
         [SerializeField] private bool _isSelectable;
         public bool IsSelectable => _isSelectable;
         [SerializeField] private bool _isWalkable;
-        [SerializeField] private bool _isTrapTile;
+        [SerializeField] private bool _isPitTile;
+        public bool IsPitTile => _isPitTile;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
         public Vector3Int WalkingPathDirection;
@@ -37,7 +38,7 @@ namespace GameJam.Map
                 {return;}
             _isSelectable = data[TileType].IsSelectable;
             _isWalkable = data[TileType].IsWalkable;
-            _isTrapTile = data[TileType].IsTrapTile;
+            _isPitTile = data[TileType].IsPitTile;
         }
 
         public bool IsWalkable()

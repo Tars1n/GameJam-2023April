@@ -34,7 +34,8 @@ namespace GameJam.Map
             if ((tileBeingPushed.Entities == null) || (tileBeingPushed.Entities.Count == 0)) return false;
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {
-                if (entity.GetComponent<Shovable>() != null)
+                if (entity == null) { continue; }
+                if (entity?.GetComponent<Shovable>() != null)
                 {
                     return true;
                 }
