@@ -422,6 +422,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8677799315022626820, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cf070baa7232c1844bc99ba85be1d08e, type: 3}
     - target: {fileID: 8677799316811170015, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_Name
       value: CultistPattern
@@ -550,6 +554,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2819779886868964727, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _monsterTelegraphTileBase
+      value: 
+      objectReference: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
+    - target: {fileID: 2819779887823293942, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: orthographic size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2819779888040164411, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_MoveAction
       value: 

@@ -9,6 +9,8 @@ namespace GameJam.Entity.Brain
     {
         // public Vector3Int _vector3Int;
         public abstract void Think();
+
+        public abstract void TelegraphNextTurn();
         
     }
 }

@@ -26,6 +26,7 @@ namespace GameJam.Entity.Brain
         private EntityBase _entityBase;
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
+        private Vector3Int _telegraphingCoord;
         private void Awake()
         {  
             _entityBase = GetComponent<EntityBase>();      
@@ -39,13 +40,30 @@ namespace GameJam.Entity.Brain
         }
         public override void Think()
         {
+            _mapManager.TriggerTilemap.SetTile(_telegraphingCoord, null);
+            TileNode tile = NextStepTile();
+            _mapInteractionManager.TryToTakeAction(_entityBase, tile);
+            IncreaseStep();
+        }
+
+        private TileNode NextStepTile()
+        {
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
             // Debug.Log($"move to coords " + axialToMoveTo);
             TileNode tile = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo));
-            _mapInteractionManager.TryToTakeAction(_entityBase, tile);
-            IncreaseStep();
+            return tile;
         }
+
+        public override void TelegraphNextTurn()
+        {
+            _mapManager.TriggerTilemap.SetTile(_telegraphingCoord, null);
+            TileNode tile = NextStepTile();
+            if (tile == null) { return; }
+            _telegraphingCoord = tile.GridCoordinate;
+            _mapManager.TriggerTilemap.SetTile(_telegraphingCoord, _mapInteractionManager?.MonsterTelegraph);
+        }
+
         private void IncreaseStep()
         {
             _stepInActivityLoop ++;

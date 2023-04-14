@@ -74,10 +74,11 @@ namespace GameJam.Entity
            transform.position = _currentTileNode.WorldPos;   
         }
 
-        public void RefreshAction()
+        public virtual void RefreshAction()
         {
             _hasActionReady = true;
             _spriteRenderer.color = _readyState;
+
         }
 
         public abstract void DoTurnAction();

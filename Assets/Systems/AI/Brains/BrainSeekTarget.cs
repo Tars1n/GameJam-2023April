@@ -43,6 +43,11 @@ namespace GameJam.Entity.Brain
             { StartCoroutine(TakeNoAction()); }
         }
 
+        public override void TelegraphNextTurn()
+        {
+
+        }
+
         IEnumerator TakeNoAction()
         {
             if (_turnManager.DebugLog) { Debug.Log($"{this} stands in place."); }
