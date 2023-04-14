@@ -20,7 +20,6 @@ namespace GameJam.Pathfinding
         private Tilemap _map;
         private TileNodeManager _tileNodeManager;
         private delegate void CanWalkOnTileDelegate(Vector3Int coordOfAdjacentTileChecking, Vector3Int sourceCoord);
-        private bool _ignoreObstacles;
 
         private void Awake()
         {
@@ -49,13 +48,11 @@ namespace GameJam.Pathfinding
         
         public void FillPathMPBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
-            _ignoreObstacles = false;
             CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileBlockedByObstacles;//the function that checks tiles that are blocked
             FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }
         public void FillPathMPNotBlockedByObstacles(Vector3Int sourceCoords, int mp)
         {
-            _ignoreObstacles = true;
             CanWalkOnTileDelegate checkCanWalkOnTileDelegate = CheckCanWalkOnTileNotBlockedByObstacles;//the function that checks tiles that are  not blocked
             FillPathMP(sourceCoords, mp, checkCanWalkOnTileDelegate);
         }

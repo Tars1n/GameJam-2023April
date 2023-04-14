@@ -20,7 +20,7 @@ namespace GameJam.Map
         private PathfindingManager _pathfinding;
         private MirrorManager _mirrorManager;
         private MoveEntityAlongPath _moveEntityAlongAPath;
-        private MapShoveInteraction _shoveMapHilights;
+        private MapShoveInteraction _shoveInteraction;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;
@@ -45,7 +45,7 @@ namespace GameJam.Map
             _pathfinding = GetComponent<PathfindingManager>();
             _mirrorManager = GetComponent<MirrorManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
-            _shoveMapHilights = GetComponent<MapShoveInteraction>();
+            _shoveInteraction = GetComponent<MapShoveInteraction>();
             _map = _mapManager.Map;
             _overlayTilemap = _mapManager.OverlayMap;
             _triggerTileMap = _mapManager.TriggerTilemap;
@@ -82,10 +82,6 @@ namespace GameJam.Map
                 { return; }
             _mouseMap.ClearAllTiles();
             HighlightMouseOverTile(gridCoordinate);
-            if (_mirrorManager.IsReflecting())
-            {
-
-            }
         }
 
         private void HighlightMouseOverTile(Vector3Int gridCoordinate)
@@ -118,7 +114,7 @@ namespace GameJam.Map
                      _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
                     return;
                 }
-                _shoveMapHilights.TryRenderShoveHilight(entity.CurrentTileNode, tile);
+                _shoveInteraction.TryRenderShoveHilight(entity.CurrentTileNode, tile);
             }
             if ( range == 2)
             {
@@ -246,7 +242,8 @@ namespace GameJam.Map
                 { return false; }
             if (CanShoveTile(entity, tile))
             {                
-                _shoveMapHilights.ShoveThisTile(entity.CurrentTileNode, tile);
+                _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile);
+                entity.ActionCompleted();
                 return true;
             }
             if (CanMoveToTile(entity, tile, 1))
@@ -274,7 +271,7 @@ namespace GameJam.Map
         public bool CanShoveTile(EntityBase entity, TileNode tile)
         {
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
-            if ((_shoveMapHilights.EntityOnThisTileThatCanBeShoved(tile)) && (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) == 1))
+            if ((_shoveInteraction.EntityOnThisTileThatCanBeShoved(tile)) && (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) == 1))
             {
                 return true;
             }
