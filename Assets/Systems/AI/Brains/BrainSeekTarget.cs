@@ -39,7 +39,7 @@ namespace GameJam.Entity.Brain
             _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
             TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
 
-            if (_mapInteractionManager.TryToTakeAction(node) == false) //Entity attempts to do action
+            if (_mapInteractionManager.TryToTakeAction(null, node) == false) //Entity attempts to do action
             { StartCoroutine(TakeNoAction()); }
         }
 

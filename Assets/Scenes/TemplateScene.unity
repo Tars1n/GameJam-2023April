@@ -1124,9 +1124,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8037607451894567858, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
+      propertyPath: _mirrorEntityY
+      value: 
+      objectReference: {fileID: 1648904243}
     - target: {fileID: 8407479944982123146, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1871,7 +1875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 142b2fcde38634bab925db41d761d73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetEntity: {fileID: 1155921717}
+  _targetEntity: {fileID: 1648904243}
   _targetNode:
     TileType: {fileID: 0}
     _isSelectable: 0
@@ -2378,11 +2382,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.42
+      value: 1.94
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.17
+      value: -3.14
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2435,11 +2439,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.89
+      value: 3.03
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.98
+      value: 2.11
       objectReference: {fileID: 0}
     - target: {fileID: 8677799316811170593, guid: f1fcff952f92ddf468ea1ef1b67dbbd7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5632,9 +5636,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1466467849690277501, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
+      propertyPath: _mirrorEntityY
+      value: 
+      objectReference: {fileID: 1155921717}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_LocalPosition.x

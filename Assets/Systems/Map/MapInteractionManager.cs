@@ -173,7 +173,13 @@ namespace GameJam.Map
                 return;
             }
 
-            TryToTakeAction(tileNode);
+            //mirror player input
+            //get origin and action Coordinates
+            //send mirrored version of that interaction to mirrored chars.
+            EntityBase entity = GameMaster.Instance.ActiveEntity;
+            _mirrorManager.TryMirrorEntityAction(entity, tileNode);
+
+            TryToTakeAction(null, tileNode);
             RefreshOverlayMap();            
         }
 
@@ -231,9 +237,10 @@ namespace GameJam.Map
             }
         }
 
-        public bool TryToTakeAction(TileNode tile)
+        public bool TryToTakeAction(EntityBase entity, TileNode tile)
         {
-            EntityBase entity = GameMaster.Instance.ActiveEntity;
+            if (entity == null)
+                { entity = GameMaster.Instance.ActiveEntity; }
             if (entity == null || !entity.HasActionReady)
                 { return false; }
             if (CanShoveTile(entity, tile))

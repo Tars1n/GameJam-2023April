@@ -111,5 +111,15 @@ namespace GameJam.Map
             Vector3Int gridCoordinate = _map.WorldToCell(position);
             return _tileNodeManager.GetNodeFromCoords(gridCoordinate);
         }
+
+        public Vector3Int CalculateAxialPointerBetweenTiles(TileNode originTile, TileNode targetTile)
+        {
+            Vector3Int originPos = CastOddRowToAxial(originTile.GridCoordinate);
+            Vector3Int targetPos = CastOddRowToAxial(targetTile.GridCoordinate);
+
+            Vector3Int pointingVector = targetPos - originPos;
+
+            return pointingVector;
+        }
     }
 }

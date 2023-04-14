@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8407479944982123149}
   - component: {fileID: 2036365219769794091}
   - component: {fileID: 694517987159947115}
+  - component: {fileID: 1466467849690277501}
   m_Layer: 0
   m_Name: Detective
   m_TagString: Untagged
@@ -50,7 +51,7 @@ MonoBehaviour:
     TileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
-    _isTrapTile: 0
+    _isPitTile: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     WalkingPathDirection: {x: 0, y: 0, z: 0}
@@ -62,6 +63,7 @@ MonoBehaviour:
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
+  _additionalActions: 0
 --- !u!114 &2036365219769794091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +88,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9508a27ab42fe4bd7a66ff08794e6b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1466467849690277501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8407479944982123148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ed35cf9c9bf4d14b819be24418d1625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mirrorEntityX: {fileID: 0}
+  _mirrorEntityY: {fileID: 0}
 --- !u!1 &8407479945147233377
 GameObject:
   m_ObjectHideFlags: 0
