@@ -9,6 +9,8 @@ namespace GameJam.Entity.Trap
     {
         private TileNodeManager _tileNodeManager;
         private ReferenceManager _ref;
+        private MapManager _mapManager;
+        private MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
         [SerializeField] private List<Vector3Int> _triggerLocationTiles;
         //this list creates tiles that the entity can trigger the trap by steppin on.
         private EntityManager _entityManager;
@@ -34,6 +36,16 @@ namespace GameJam.Entity.Trap
                 tileNode.SetUpTrigger(this);
             }
         }
+        void OnDrawGizmos()
+        {
+            // Draw a yellow sphere at the transform's position
+            Gizmos.color = Color.yellow;
+            foreach (Vector3Int tilePos in _triggerLocationTiles)
+            {
+                Vector3 position = Map.GetWorldPosFromGridCoord(tilePos);
+                Gizmos.DrawSphere(position, .2f);
+            }
+        }
         private void ClearTriggerTiles()
         {
             if (_triggerLocationTiles == null) return;
@@ -54,5 +66,7 @@ namespace GameJam.Entity.Trap
 
             }
         }
+
+        
     }
 }

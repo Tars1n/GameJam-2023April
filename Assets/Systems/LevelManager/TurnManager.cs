@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameJam.Entity
 {
@@ -106,6 +107,12 @@ namespace GameJam.Entity
             if (_entityManager.DoesPlayerStillHaveAction())
                 return;
             
+            StartCoroutine("DelayedComputerTurnStart");
+        }
+
+        IEnumerator DelayedComputerTurnStart()
+        {
+            yield return new WaitForSeconds(_delayBetweenActions);
             StartComputerTurn();
         }
     }

@@ -60,6 +60,11 @@ namespace GameJam.Entity
                 return;
             }
 
+            if (_currentTileNode.IsPitTile)
+            {
+                DoDestroy();
+            }
+
             _currentTileNode?.TryAddEntity(this);
         }
 
@@ -102,6 +107,12 @@ namespace GameJam.Entity
             _spriteRenderer.color = _turnOverState;
             if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
             _turnManager.ActionCompleted();
+        }
+
+        public virtual void DoDestroy()
+        {
+            _ref.EntityManager.TryRemoveEntity(this);
+            //probably want to have entities do some of their own things when being destroyed.
         }
     }
 }

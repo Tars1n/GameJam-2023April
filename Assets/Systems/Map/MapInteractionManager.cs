@@ -297,7 +297,8 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
 
-            entity.CurrentTileNode.TryRemoveEntity(entity);
+            bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
+            if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
             StartCoroutine(DoHopEntityToPos(entityGO, position, slideSpeed));
         }
 
@@ -341,7 +342,8 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
             
-            entity.CurrentTileNode.TryRemoveEntity(entity);
+            bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
+            if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
             StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
         }
 

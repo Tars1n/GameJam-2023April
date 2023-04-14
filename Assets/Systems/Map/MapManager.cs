@@ -18,6 +18,8 @@ namespace GameJam.Map
         public Tilemap TriggerTilemap => _triggerTilemap;
         [SerializeField] private Tilemap _mouseInteractionTilemap;
         public Tilemap MouseInteractionTilemap => _mouseInteractionTilemap;
+        [SerializeField] private Tilemap _occlusionTilemap;
+        public Tilemap OcclusionTilemap => _occlusionTilemap;
         private MapInteractionManager _mapInteractionManager;
         public MapInteractionManager MapInteractionManager => _mapInteractionManager;
         private MoveEntityAlongPath _moveEntityAlongAPath;
@@ -26,11 +28,20 @@ namespace GameJam.Map
 
         private void Awake()
         {
+            ActivateTilemaps();
             _mapInteractionManager = GetComponent<MapInteractionManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
             _tileNodeManager = GetComponent<TileNodeManager>();
             _mapInteractionManager.Initialize(this);
             InitializeTileNodeManager(_map);
+        }
+
+        private void ActivateTilemaps()
+        {
+            _overlayTilemap?.gameObject.SetActive(true);
+            _triggerTilemap?.gameObject.SetActive(true);
+            _mouseInteractionTilemap?.gameObject.SetActive(true);
+            _occlusionTilemap?.gameObject.SetActive(true);
         }
 
         private void InitializeTileNodeManager(Tilemap mapToDesignate)
@@ -110,6 +121,11 @@ namespace GameJam.Map
             position.z = 0;
             Vector3Int gridCoordinate = _map.WorldToCell(position);
             return _tileNodeManager.GetNodeFromCoords(gridCoordinate);
+        }
+
+        public Vector3 GetWorldPosFromGridCoord(Vector3Int gridCoord)
+        {
+            return _map.CellToWorld(gridCoord);
         }
 
         public Vector3Int CalculateAxialPointerBetweenTiles(TileNode originTile, TileNode targetTile)

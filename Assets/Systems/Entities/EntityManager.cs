@@ -56,6 +56,11 @@ namespace GameJam.Entity
             // _mapEntityQueue.Dequeue(entity);
             //entity.gameObject.SetActive(false);
             removed = entity.CurrentTileNode.TryRemoveEntity(entity);
+            if (!removed)
+            {
+                Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}. Remapping all entities to tiles.");
+                RemapAllEntities();
+            }
             Destroy(entity.gameObject);
             return removed;
         }
