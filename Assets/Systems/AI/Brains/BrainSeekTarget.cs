@@ -29,20 +29,23 @@ namespace GameJam.Entity.Brain
         {
             TileNode _currentTileNode = _entityMonster.CurrentTileNode;
             _targetNode = _targetEntity?.CurrentTileNode;
+            if (_targetEntity == null || _targetNode == null)
+            {
+                Debug.Log($"{this.gameObject} has no valid target to seek. Ending turn.");
+                { StartCoroutine(TakeNoAction()); }
+                return;
+            }
 
             _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
-            //Debug.Log($"targeting {_targetEntity} at coordinate {_targetNode.GridCoordinate}");
             TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
-            //Debug.Log($"standing on {_currentTileNode.GridCoordinate} trying to move to {_currentTileNode.WalkingPathDirection}.");
-            if (_mapInteractionManager.TryToTakeAction(node) == false)
-            { StartCoroutine(TryMoveTowardsTarget()); }
+
+            if (_mapInteractionManager.TryToTakeAction(node) == false) //Entity attempts to do action
+            { StartCoroutine(TakeNoAction()); }
         }
 
-        IEnumerator TryMoveTowardsTarget()
+        IEnumerator TakeNoAction()
         {
-            //_ref.PlotPath. (_currentTileNode.GridPosition, _targetNode);
-
-            if (_turnManager.DebugLog) { Debug.Log($"{this} imagines moving towards a goal."); }
+            if (_turnManager.DebugLog) { Debug.Log($"{this} stands in place."); }
             yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
             _entityMonster.ActionCompleted();
         }
