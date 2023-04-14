@@ -252,8 +252,8 @@ namespace GameJam.Map
         public void MoveEntityUpdateTileNodes(EntityBase entity, TileNode tile)
         {
             MoveEntity(entity, tile);
-            entity.CurrentTileNode.TryRemoveEntity(entity);
-            entity.LinkToTileNode(tile);
+            // entity.CurrentTileNode.TryRemoveEntity(entity);
+            // entity.LinkToTileNode(tile);
         }
 
         public bool CanShoveTile(EntityBase entity, TileNode tile)
@@ -325,7 +325,8 @@ namespace GameJam.Map
                 { return; }
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
-
+            
+            entity.CurrentTileNode.TryRemoveEntity(entity);
             StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
         }
 
