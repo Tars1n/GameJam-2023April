@@ -326,8 +326,8 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
             
-            entity.CurrentTileNode.TryRemoveEntity(entity);
             StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
+            entity.CurrentTileNode.TryRemoveEntity(entity);
         }
 
         IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)

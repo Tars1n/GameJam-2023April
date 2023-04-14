@@ -24,7 +24,7 @@ namespace GameJam.Map
         public bool FlyingPathExplored = false;
         private MapInteractionManager _mapInteractionManager;
         [SerializeField] private TriggerEventManager _triggerEventManager;
-        public TriggerEventManager TriggerEventManager { get => _triggerEventManager; set => _triggerEventManager = value; }
+        public TriggerEventManager TriggerEventManager => _triggerEventManager;
         
         public List<EntityBase> Entities = new List<EntityBase>();
 
@@ -128,6 +128,7 @@ namespace GameJam.Map
         public void ClearTrigger()
         {
             _mapInteractionManager?.ClearTriggerHilight(GridCoordinate);
+            _triggerEventManager = null;
         }
         private void SetUpMapInteractionManager()
         {

@@ -18,9 +18,9 @@ namespace GameJam.Entity.Trap
             _ref = GameMaster.Instance.ReferenceManager;
             _tileNodeManager = _ref.TileNodeManager;
             _entityManager = _ref.EntityManager;
-            SetUpTrap();
+            SetupTriggers();
         }
-        public void SetUpTrap()
+        public void SetupTriggers()
         {
             if (_triggerLocationTiles == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
@@ -38,8 +38,9 @@ namespace GameJam.Entity.Trap
                 tileNode.ClearTrigger();
             }
         }
-        public void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
+        public virtual void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
+            //TODO: derive scripts that can customize how they react to this function. Oneshot traps, permanent traps, pressure plates, key to door.
             if (entityBase != null)
             {
                 ClearTriggerTiles();
