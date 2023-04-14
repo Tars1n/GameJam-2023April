@@ -26,6 +26,11 @@ namespace GameJam.Entity.Trap
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
                 TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
+                if (tileNode == null)
+                {
+                    Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
+                    continue;
+                }
                 tileNode.SetUpTrigger(this);
             }
         }
