@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tiles:
   - {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
+  - {fileID: 11400000, guid: 8f67285bd8bc0fc43b58df35a85f964b, type: 2}
   IsSelectable: 1
   IsWalkable: 1
-  IsTrapTile: 0
+  IsPitTile: 0

@@ -9,6 +9,7 @@ namespace GameJam.Entity.Trap
     {
         private TileNodeManager _tileNodeManager;
         private ReferenceManager _ref;
+        [SerializeField] private Color _gizmoColour = Color.red;
         private MapManager _mapManager;
         private MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         [SerializeField] private List<Vector3Int> _triggerLocationTiles;
@@ -39,7 +40,7 @@ namespace GameJam.Entity.Trap
         void OnDrawGizmos()
         {
             // Draw a yellow sphere at the transform's position
-            Gizmos.color = Color.yellow;
+            Gizmos.color = _gizmoColour;
             foreach (Vector3Int tilePos in _triggerLocationTiles)
             {
                 Vector3 position = Map.GetWorldPosFromGridCoord(tilePos);

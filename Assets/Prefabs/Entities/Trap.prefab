@@ -131,7 +131,7 @@ MonoBehaviour:
     TileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
-    _isTrapTile: 0
+    _isPitTile: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     WalkingPathDirection: {x: 0, y: 0, z: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
+  _additionalActions: 0
   _trapBlueprint: {fileID: 0}
 --- !u!114 &8345146158338383452
 MonoBehaviour:
@@ -156,4 +157,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a11f59a366be451e86b15ce2ec111d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gizmoColour: {r: 1, g: 0.015686274, b: 0.024508314, a: 0.5372549}
   _triggerLocationTiles: []
