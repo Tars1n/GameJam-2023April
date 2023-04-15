@@ -31,6 +31,7 @@ namespace GameJam.Map
         }
         public bool EntityOnThisTileThatCanBeShoved(TileNode tileBeingPushed)
         {
+            if (tileBeingPushed == null) { return false; }
             if ((tileBeingPushed.Entities == null) || (tileBeingPushed.Entities.Count == 0)) return false;
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {

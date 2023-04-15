@@ -70,6 +70,7 @@ namespace GameJam.Map
 
         public void RenderMirroredSelection(EntityBase originalEntity, TileNode selectedTile)
         {
+            if (originalEntity == null) { return; }
             Mirrored mirrored = originalEntity?.GetComponent<Mirrored>();
             if (mirrored == null) { return; }
 
@@ -77,20 +78,26 @@ namespace GameJam.Map
 
             if (mirrored.MirrorEntityX != null)
             {
-                Vector3Int targetAxial = ReflectAxialX(originalPointingVector);
-                Vector3Int entityAxial = mirrored.MirrorEntityX.GetAxialPos();
-                targetAxial += entityAxial;
-                TileNode targetTile = _tileNodeManager.GetTileFromAxial(targetAxial);
-                _mapInteractionManager.RenderPlayerActionTile(mirrored.MirrorEntityX, targetTile);
+                if (mirrored.MirrorEntityX.HasActionReady)
+                {
+                    Vector3Int targetAxial = ReflectAxialX(originalPointingVector);
+                    Vector3Int entityAxial = mirrored.MirrorEntityX.GetAxialPos();
+                    targetAxial += entityAxial;
+                    TileNode targetTile = _tileNodeManager.GetTileFromAxial(targetAxial);
+                    _mapInteractionManager.RenderPlayerActionTile(mirrored.MirrorEntityX, targetTile);
+                }
             }
             
             if (mirrored.MirrorEntityY != null)
             {
-                Vector3Int targetAxial = ReflectAxialY(originalPointingVector);
-                Vector3Int entityAxial = mirrored.MirrorEntityY.GetAxialPos();
-                targetAxial += entityAxial;
-                TileNode targetTile = _tileNodeManager.GetTileFromAxial(targetAxial);
-                _mapInteractionManager.RenderPlayerActionTile(mirrored.MirrorEntityY, targetTile);
+                if (mirrored.MirrorEntityY.HasActionReady)
+                {
+                    Vector3Int targetAxial = ReflectAxialY(originalPointingVector);
+                    Vector3Int entityAxial = mirrored.MirrorEntityY.GetAxialPos();
+                    targetAxial += entityAxial;
+                    TileNode targetTile = _tileNodeManager.GetTileFromAxial(targetAxial);
+                    _mapInteractionManager.RenderPlayerActionTile(mirrored.MirrorEntityY, targetTile);
+                }
             }
         }
 

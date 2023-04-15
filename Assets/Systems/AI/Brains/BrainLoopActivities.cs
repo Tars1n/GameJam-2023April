@@ -26,6 +26,7 @@ namespace GameJam.Entity.Brain
         private EntityBase _entityBase;
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
+        [SerializeField] private GameObject _telegraphGO;
         private void Awake()
         {  
             _entityBase = GetComponent<EntityBase>();      
@@ -39,13 +40,29 @@ namespace GameJam.Entity.Brain
         }
         public override void Think()
         {
+            _telegraphGO.SetActive(false);
+            TileNode tile = NextStepTile();
+            _mapInteractionManager.TryToTakeAction(_entityBase, tile);
+            IncreaseStep();
+        }
+
+        private TileNode NextStepTile()
+        {
             Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
             // Debug.Log($"move to coords " + axialToMoveTo);
             TileNode tile = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo));
-            _mapInteractionManager.TryToTakeAction(_entityBase, tile);
-            IncreaseStep();
+            return tile;
         }
+
+        public override void TelegraphNextTurn()
+        {
+            TileNode tile = NextStepTile();
+            if (tile == null) { return; }
+            _telegraphGO.transform.position = tile.WorldPos;
+            _telegraphGO.SetActive(true);
+        }
+
         private void IncreaseStep()
         {
             _stepInActivityLoop ++;
@@ -57,15 +74,18 @@ namespace GameJam.Entity.Brain
 
         void OnDrawGizmos()
         {
-            // Draw a yellow sphere at the transform's position
             Gizmos.color = _gizmoColour;
-            Vector3 previousPoint = this.transform.position;
+            Vector3Int previousCoord = Map.Map.WorldToCell(transform.position);
+            Vector3 previousPoint = Map.Map.CellToWorld(previousCoord);
+            Vector3Int previousAxial = Map.CastOddRowToAxial(previousCoord);
             foreach (Activity activity in _activitiesToLoop)
             {
-                Vector3Int coord = activity.GridCoord + Map.Map.WorldToCell(transform.position);
-                Vector3 position = Map.GetWorldPosFromGridCoord(coord);
+                Vector3Int axialCoord = activity.GridCoord + previousAxial;
+                previousCoord = Map.CastAxialToOddRow(axialCoord);
+                Vector3 position = Map.GetWorldPosFromGridCoord(previousCoord);
                 
                 Gizmos.DrawLine(previousPoint, position);
+                previousAxial = axialCoord;
                 previousPoint = position;
             }
         }

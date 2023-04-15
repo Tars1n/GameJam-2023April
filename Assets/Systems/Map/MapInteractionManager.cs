@@ -30,6 +30,8 @@ namespace GameJam.Map
         [SerializeField] private TileBase _walkPathTileBase;
         [SerializeField] private TileBase _canMoveTileBase;
         [SerializeField] private TileBase _selectionTileBase;
+        [SerializeField] private TileBase _monsterTelegraphTileBase;
+        public TileBase MonsterTelegraph => _monsterTelegraphTileBase;
         [SerializeField] private TileBase _activeEntityTileBase;
         [SerializeField] private TileBase _triggerTileHilight;
         [SerializeField] private bool _renderPathToTarget = true;
@@ -103,7 +105,7 @@ namespace GameJam.Map
         {
             if (entity == null)
                 { entity = GameMaster.Instance.ActiveEntity; }
-            if (!GameMaster.Instance.IsPlayerTurn || entity == null)
+            if (!GameMaster.Instance.IsPlayerTurn || entity == null || tile == null)
                 { return; }
             //check range from active EntityCharacter
             int range = _mapManager.CalculateRange(tile.GridCoordinate, entity.CurrentTileNode.GridCoordinate);

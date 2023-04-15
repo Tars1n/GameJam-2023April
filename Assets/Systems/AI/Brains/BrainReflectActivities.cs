@@ -10,5 +10,10 @@ namespace GameJam.Entity.Brain
         {
             
         }
+
+        public override void TelegraphNextTurn()
+        {
+            
+        }
     }
 }

@@ -47,7 +47,12 @@ namespace GameJam.Entity.Trap
                 Gizmos.DrawSphere(position, .2f);
             }
         }
-        private void ClearTriggerTiles()
+
+        private void OnDestroy()
+        {
+            ClearTriggerTiles();    
+        }
+        public void ClearTriggerTiles()
         {
             if (_triggerLocationTiles == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
@@ -58,12 +63,12 @@ namespace GameJam.Entity.Trap
         }
         public virtual void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
-            //TODO: derive scripts that can customize how they react to this function. Oneshot traps, permanent traps, pressure plates, key to door.
+            //TODO: derive scripts that can customize how they react to this function. Oneshot traps, permanent traps, pressure plates, key to door, etc.
             if (entityBase != null)
             {
                 ClearTriggerTiles();
                 _entityManager.TryRemoveEntity(entityBase); //remove entity that entered trigger tile
-                _entityManager.TryRemoveEntity(this.GetComponent<EntityBase>()); //remove trap
+                _entityManager.TryRemoveEntity(this?.GetComponent<EntityBase>()); //remove trap
 
             }
         }
