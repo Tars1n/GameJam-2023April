@@ -158,4 +158,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gizmoColour: {r: 1, g: 0.015686274, b: 0.024508314, a: 0.5372549}
-  _triggerLocationTiles: []
+  _triggerLocationTiles:
+  - {x: 0, y: 0, z: 0}
