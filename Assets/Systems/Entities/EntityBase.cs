@@ -8,7 +8,7 @@ namespace GameJam.Entity
 {
     public abstract class EntityBase : MonoBehaviour
     {
-        private bool _debugLog = true;
+        [SerializeField] private bool _debugLog = true;
         [SerializeField] protected TileNode _currentTileNode;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
@@ -30,7 +30,7 @@ namespace GameJam.Entity
 
         protected virtual void Awake()
         {
-            _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
         protected virtual void Start()
         {
@@ -87,7 +87,7 @@ namespace GameJam.Entity
         {
             if (_nextAction != null)
             {
-                if (_debugLog) Debug.Log($"next action != null");
+                // if (_debugLog) Debug.Log($"next action != null");
                 _nextAction();
             }
             CompletedTurn();
@@ -107,12 +107,13 @@ namespace GameJam.Entity
         {
             _hasActionReady = false;
             _spriteRenderer.color = _turnOverState;
-            if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
+            // if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
             _turnManager.ActionCompleted();
         }
 
         public virtual void DoDestroy()
         {
+            if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
             //probably want to have entities do some of their own things when being destroyed.
             Destroy(this.gameObject);
         }

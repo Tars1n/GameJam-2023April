@@ -6,6 +6,7 @@ namespace GameJam.Entity
 {
     public class EntityManager : MonoBehaviour
     {
+        [SerializeField] private bool _debugLogs = false;
         private ReferenceManager _ref;
         [SerializeField] private List<EntityCharacter> _playerCharacters;
         public List<EntityCharacter> PlayerCharacters => _playerCharacters;
@@ -60,6 +61,7 @@ namespace GameJam.Entity
 
         private void RemapAllEntities()
         {
+            if (_debugLogs) {Debug.Log("Remapping all entities.");}
             _tileNodeManager.ClearAllNodeEntityLists();
             
             foreach (EntityCharacter entity in _playerCharacters)

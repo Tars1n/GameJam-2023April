@@ -70,6 +70,7 @@ namespace GameJam.Map
 
         public void RenderMirroredSelection(EntityBase originalEntity, TileNode selectedTile)
         {
+            if (originalEntity == null) { return; }
             Mirrored mirrored = originalEntity?.GetComponent<Mirrored>();
             if (mirrored == null) { return; }
 
