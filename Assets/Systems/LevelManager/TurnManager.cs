@@ -17,7 +17,7 @@ namespace GameJam.Entity
         public bool PlayerTurn => _playerTurn;
         [SerializeField] private int _round = 0;
         public int Round => _round;
-        [SerializeField] private bool _holdingNextTick;
+        [SerializeField] private bool _holdingNextTick = false;
         public bool HoldingNextTick => _holdingNextTick;
         
         
@@ -88,7 +88,7 @@ namespace GameJam.Entity
 
         public void TickNext()
         {
-            if (GameMaster.Instance.ActionInProgress)
+            if (GameMaster.Instance.EntitiesInMotion.Count > 0)
             {
                 _holdingNextTick = true;
                 return;

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using System;
 using GameJam.Map;
 using GameJam.Entity;
@@ -23,7 +24,9 @@ namespace GameJam
         public bool MultipleUniquePlayerCharacters = false; //controls and turn system changes slightly if you need to select between completely unique squad members
         public bool IsPlayerTurn => _referenceManager.TurnManager.PlayerTurn;
         public bool TilemapInteractable = false;
-        [SerializeField] private bool _actionInProgress = false;        
+        [SerializeField] private List<EntityBase> _entitiesInMotion = new List<EntityBase>();
+        public List<EntityBase> EntitiesInMotion => _entitiesInMotion;
+            
 
         private void Awake() {
             _fixedDeltaTime = Time.fixedDeltaTime;
@@ -73,14 +76,20 @@ namespace GameJam
             GameSuspended = false;
         }
 
-        public bool ActionInProgress
+        public void AddEntityInMotion(EntityBase entity)
         {
-            get { return _actionInProgress;}
-            set
+            _entitiesInMotion.Add(entity);
+        }
+
+        public void RemoveEntityInMotion(EntityBase entity)
+        {
+            if (entity == null)
+                { _entitiesInMotion.Clear();}
+            _entitiesInMotion.Remove(entity);
+            _entitiesInMotion.TrimExcess();
+            if (_entitiesInMotion.Count == 0 && _referenceManager.TurnManager.HoldingNextTick)
             {
-                _actionInProgress = value;
-                if (_actionInProgress == false && _referenceManager.TurnManager.HoldingNextTick)
-                    { _referenceManager.TurnManager.TickNext(); }
+                _referenceManager.TurnManager.TickNext();
             }
         }
     }

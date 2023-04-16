@@ -40,10 +40,7 @@ namespace GameJam.Map
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {
                 if (entity == null) { continue; }
-                if (entity?.GetComponent<Shovable>() != null)
-                {
-                    return true;
-                }
+                return entity.IsShovable;
             }
             return false;
         }
@@ -78,110 +75,16 @@ namespace GameJam.Map
             }
             foreach (EntityBase entity in copiedEntityList)
             {
-                Shovable shovable = entity.GetComponent<Shovable>();
-                if (shovable == null) continue;
-                TryShoveDir(entity, shoveDir, distance);
+                if (entity == null) { continue; }
+                if (entity.IsShovable)
+                    { StartCoroutine(DoShoveEntity(entity, shoveDir, distance)); }
             }
-        }
-
-        public void TryShoveDir(EntityBase entity, Vector3Int axialDir, int distance)
-        {
-            Vector3Int currentAxialCoords = _mapManager.CastOddRowToAxial(entity.CurrentTileNode.GridCoordinate);
-            Vector3Int projectedCoord = _mapManager.CastAxialToOddRow(currentAxialCoords);
-            TileNode tileMovingTo = entity.CurrentTileNode;
-            TileNode projectedTile = null;
-            TileNode collisionTile = null;
-            float journeyCompleted = 0f;
-            float stepsTaken = 0f;
-            for (int i = distance; i > 0; i--)
-            {   //keep projecting the shove by one axial unit until distance reached or hit obstacle
-                journeyCompleted = stepsTaken/distance;
-                stepsTaken++;
-                currentAxialCoords += axialDir;
-                projectedCoord = _mapManager.CastAxialToOddRow(currentAxialCoords);
-                projectedTile = _tileNodeManager.GetNodeFromCoords(projectedCoord);
-                if (projectedTile == null)
-                {
-                    Debug.LogError($"invalid tilenode being shoved into. {currentAxialCoords} with current range value of {i}");
-                    projectedTile = tileMovingTo;
-                    collisionTile = tileMovingTo;
-                    continue;
-                }
-                if (projectedTile.IsWalkable())
-                {
-                    journeyCompleted = stepsTaken/distance;
-                    tileMovingTo = projectedTile;
-                    // Debug.LogWarning($"valid walkable tile: {tileMovingTo.GridCoordinate}");
-                }
-                else
-                { 
-                        collisionTile = projectedTile;
-                }
-            }
-            if (tileMovingTo != null)
-            {   //valid tile to be shoved to, move entity
-                ShoveEntity(entity, projectedCoord, journeyCompleted, collisionTile);
-            }
-            // if (tileMovingTo != projectedTile)
-            // {   //if tileMovingTo is different from Projected tile, that means an obstacle was in the way, cause all entities at projected tile to be hit
-            //     projectedTile.CollidedWith();
-            // }
-            //can't move anywhere so hops in place and loses turn.
-            //_mapInteractionManager.MoveEntityUpdateTileNodes(_entityBase, _entityBase.CurrentTileNode);
-        }
-
-        public void ShoveEntity(EntityBase entity, Vector3Int targetCoord, float journeyCompleted, TileNode collisionTile)
-        {
-            if (entity?.CurrentTileNode == null)
-                { return; }
-            GameObject entityGO = entity.gameObject;
-            Vector3 position = _mapManager.GetWorldPosFromGridCoord(targetCoord);
-            
-            StartCoroutine(DoShoveEntityToPos(entityGO, position, _slideSpeed, journeyCompleted, collisionTile));
-        }
-
-        IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration, float journeyCompleted, TileNode collisionTile)
-        {
-            Debug.LogWarning($"journey Completed: {journeyCompleted}");
-            float timeElapsed = 0;
-            EntityBase entity = entityGO.GetComponent<EntityBase>();
-            Vector3 startPos = entityGO.transform.position;
-            while (timeElapsed < duration)
-            {
-                // float t = timeElapsed / duration;
-                // t = t * t * (3f - 2f *t);
-                float g = timeElapsed/duration;
-                g = 1 - ((1 - g)*(1 - g));
-
-                float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
-                float y = Mathf.Lerp(startPos.y, targetPosition.y, g);
-
-                entityGO.transform.position = new Vector3(x, y, 0);
-                timeElapsed += Time.deltaTime;
-                
-                if (g >= journeyCompleted)
-                {
-                    if (collisionTile != null)
-                    {
-                        collisionTile.CollidedWith();
-                    }
-                    entity.LinkToTileNode(null);
-                    entity.CurrentTileNode.CollidedWith();                    
-                    entity.SnapEntityPositionToTile();
-                    yield break;
-                }
-
-                yield return null;
-            }
-            entityGO.transform.position = targetPosition; 
-            entity.LinkToTileNode(null);
-            // entity.SnapEntityPositionToTile();
         }
 
         IEnumerator DoShoveEntity(EntityBase entity, Vector3Int axialDir, int distance)
         {
             GameMaster.Instance.TilemapInteractable = false;
-            GameMaster.Instance.ActionInProgress = true;
+            GameMaster.Instance.AddEntityInMotion(entity);
 
             Vector3 startPos = entity.transform.position;
             //calculate the final target position.
@@ -194,13 +97,19 @@ namespace GameJam.Map
             TileNode projectedTile = currentTile;
             bool collisionHappened = false;
 
-            entity.LeaveTileNode();
+            //entity.LeaveTileNode();
             
             float timeElapsed = 0;
             int j = 0;
 
             while (timeElapsed < _slideSpeed)
             {
+                if (entity == null)
+                {
+                    GameMaster.Instance.TilemapInteractable = true;
+                    GameMaster.Instance.RemoveEntityInMotion(entity);
+                    yield break;
+                }
                 // float t = timeElapsed / duration;
                 // t = t * t * (3f - 2f *t);
                 float g = timeElapsed/_slideSpeed;
@@ -222,7 +131,11 @@ namespace GameJam.Map
                     projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
                     TryShoveIntoTile(projectedTile);
                     if (collisionHappened)
-                        { yield break; }
+                    {
+                        GameMaster.Instance.TilemapInteractable = true;
+                        GameMaster.Instance.RemoveEntityInMotion(entity);
+                        yield break;
+                    }
                 }
 
                 yield return null;
@@ -240,8 +153,8 @@ namespace GameJam.Map
                 if (tileToCheck == null)
                 {
                     entity.LinkToTileNode(currentTile);
-                    currentTile.CollidedWith();
                     collisionHappened = true;
+                    currentTile.CollidedWith();
                     return false;
                 }
                 if (tileToCheck.IsWalkable())
@@ -253,13 +166,13 @@ namespace GameJam.Map
                 }
                 
                 entity.LinkToTileNode(currentTile);
+                collisionHappened = true;
                 currentTile.CollidedWith();
                 tileToCheck.CollidedWith();
-                collisionHappened = true;
                 return false;
             }      
             GameMaster.Instance.TilemapInteractable = true;
-            GameMaster.Instance.ActionInProgress = false;
+            GameMaster.Instance.RemoveEntityInMotion(entity);
         }
 
     }

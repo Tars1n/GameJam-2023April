@@ -49,7 +49,7 @@ namespace GameJam.Map
             bool result = _isWalkable;
             if (GameMaster.Instance.ActiveEntity?.CurrentTileNode == this)
                 { return true; }
-            Entities.RemoveAll(entity => entity == null);
+            Entities.TrimExcess();
             if (Entities.Count > 0)
             {
                 return false;
