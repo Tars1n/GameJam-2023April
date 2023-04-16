@@ -23,7 +23,7 @@ namespace GameJam
         public bool MultipleUniquePlayerCharacters = false; //controls and turn system changes slightly if you need to select between completely unique squad members
         public bool IsPlayerTurn => _referenceManager.TurnManager.PlayerTurn;
         public bool TilemapInteractable = false;
-        
+        [SerializeField] private bool _actionInProgress = false;        
 
         private void Awake() {
             _fixedDeltaTime = Time.fixedDeltaTime;
@@ -71,6 +71,17 @@ namespace GameJam
                 Debug.Log("returning timescale to normal.");
             SetTimescale(1f);
             GameSuspended = false;
+        }
+
+        public bool ActionInProgress
+        {
+            get { return _actionInProgress;}
+            set
+            {
+                _actionInProgress = value;
+                if (_actionInProgress == false && _referenceManager.TurnManager.HoldingNextTick)
+                    { _referenceManager.TurnManager.TickNext(); }
+            }
         }
     }
 }

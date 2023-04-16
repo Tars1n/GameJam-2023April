@@ -334,6 +334,7 @@ namespace GameJam.Map
         IEnumerator DoHopEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
         {
             GameMaster.Instance.TilemapInteractable = false;
+            GameMaster.Instance.ActionInProgress = true;
 
             float timeElapsed = 0;
             Vector3 startPos = entityGO.transform.position;
@@ -366,6 +367,7 @@ namespace GameJam.Map
             entity.ActionCompleted();
 
             GameMaster.Instance.TilemapInteractable = true;
+            GameMaster.Instance.ActionInProgress = false;
         }
         
         public void RenderTriggerHilight(Vector3Int tileCoords)

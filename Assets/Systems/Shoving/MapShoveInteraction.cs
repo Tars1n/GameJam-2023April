@@ -181,6 +181,7 @@ namespace GameJam.Map
         IEnumerator DoShoveEntity(EntityBase entity, Vector3Int axialDir, int distance)
         {
             GameMaster.Instance.TilemapInteractable = false;
+            GameMaster.Instance.ActionInProgress = true;
 
             Vector3 startPos = entity.transform.position;
             //calculate the final target position.
@@ -258,6 +259,7 @@ namespace GameJam.Map
                 return false;
             }      
             GameMaster.Instance.TilemapInteractable = true;
+            GameMaster.Instance.ActionInProgress = false;
         }
 
     }
