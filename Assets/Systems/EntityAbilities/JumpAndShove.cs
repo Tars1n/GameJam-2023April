@@ -22,17 +22,22 @@ namespace GameJam.Entity.Abilities
             _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
             _mapShoveInteraction = _mapManager.GetComponent<MapShoveInteraction>();
         }
-        public void SubscribeToEntityActionCompleted(TileNode targetNode)
-        {
-            _entityBase._nextAction += ActivateJumpPushback;
-        }
-        private void OnEnable()
-        {
-            _entityBase._nextAction -= ActivateJumpPushback;
-        }
+        // public void SubscribeToEntityActionCompleted(TileNode targetNode)
+        // {
+        //     _entityBase._nextAction += ActivateJumpPushback;
+        // }
+        // private void OnEnable()
+        // {
+        //     _entityBase._nextAction -= ActivateJumpPushback;
+        // }
         public void ActivateJumpPushback()
         {
+            //Debug.LogWarning("ActivateJumpPushback called!");
             TileNode targetNode = _entityBase.CurrentTileNode;
+            if (targetNode == null)
+            {
+                return;
+            }
             Vector3Int targetCoord = targetNode.GridCoordinate;
             Vector3Int[] adjacentTileOffsets = _mapManager.GetAllAdjacentHexCoordinates(targetCoord);
             foreach (Vector3Int tileOffset in adjacentTileOffsets)
@@ -41,10 +46,10 @@ namespace GameJam.Entity.Abilities
                 if (tileNode == null) continue;
                 if (_mapShoveInteraction.EntityOnThisTileThatCanBeShoved(tileNode))
                 {
-                    _mapShoveInteraction.ShoveThisTile(targetNode , tileNode);
+                    _mapShoveInteraction.ShoveThisTile(targetNode , tileNode, 1);
                 }
             }
-            _entityBase._nextAction -= ActivateJumpPushback;
+            // _entityBase._nextAction -= ActivateJumpPushback;
         }
     }
 }

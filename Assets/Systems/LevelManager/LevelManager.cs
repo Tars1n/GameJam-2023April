@@ -13,6 +13,11 @@ namespace GameJam
         public MapManager MapManager => _mapManager;
         private TurnManager _turnManager;
         public TurnManager TurnManager => _turnManager;
+        [SerializeField] private GameObject _slimeDrop;
+        public GameObject SlimeDrop => _slimeDrop;
+        [SerializeField] private bool _recordSlimeTrails;
+        public bool RecordSlimeTrails => _recordSlimeTrails;
+        
         
         private void Awake() {
             _turnManager = GetComponent<TurnManager>();

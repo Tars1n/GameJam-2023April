@@ -27,8 +27,6 @@ namespace GameJam.Entity
         public override void DoTurnAction()
         {
             _brain?.Think();
-        }
-
-        
+        }        
     }
 }

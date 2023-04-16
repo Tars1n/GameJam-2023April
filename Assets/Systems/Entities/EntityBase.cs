@@ -9,7 +9,9 @@ namespace GameJam.Entity
     public abstract class EntityBase : MonoBehaviour
     {
         [SerializeField] private bool _debugLog = true;
-        [SerializeField] protected TileNode _currentTileNode;
+        [SerializeField] private bool _isShovable = true;
+        public bool IsShovable => _isShovable;
+        [SerializeField] protected TileNode _currentTileNode = null;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;
         protected TurnManager _turnManager;
@@ -20,12 +22,14 @@ namespace GameJam.Entity
         [SerializeField] private Color _turnOverState;
         [SerializeField] private bool _hasActionReady;
         public bool HasActionReady => _hasActionReady;
-        [SerializeField] private bool _additionalActions;
-        public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
-        public Action _nextAction;
+        // [SerializeField] private bool _additionalActions;
+        // public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
+        // public Action _nextAction;
+        [SerializeField] private bool _isCurrentlyProcessingTurnAction = false;
+        public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;
         
         
-        public delegate void NextActionDelegate(TileNode tileNode);
+        // public delegate void NextActionDelegate(TileNode tileNode);
         
 
         protected virtual void Awake()
@@ -46,6 +50,7 @@ namespace GameJam.Entity
 
         public void LinkToTileNode(TileNode tileNode)
         {
+            LeaveTileNode();
             if (tileNode == null)
             {
                 _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
@@ -69,9 +74,25 @@ namespace GameJam.Entity
             }
         }
 
+        public void LeaveTileNode()
+        {
+            if (_currentTileNode == null) 
+                {return;}
+            _currentTileNode.TryRemoveEntity(this);
+            _currentTileNode = null;
+        }
+
+        public void ClearTileNode()
+        {
+            _currentTileNode = null;
+        }
+
         public void SnapEntityPositionToTile()
         {
-           transform.position = _currentTileNode.WorldPos;   
+            if (_currentTileNode != null)
+            {
+                transform.position = _currentTileNode.WorldPos;
+            }
         }
 
         public virtual void RefreshAction()
@@ -85,11 +106,11 @@ namespace GameJam.Entity
 
         public virtual void ActionCompleted()
         {
-            if (_nextAction != null)
-            {
-                // if (_debugLog) Debug.Log($"next action != null");
-                _nextAction();
-            }
+            // if (_nextAction != null)
+            // {
+            //     // if (_debugLog) Debug.Log($"next action != null");
+            //     _nextAction();
+            // }
             CompletedTurn();
         }
 
@@ -101,6 +122,12 @@ namespace GameJam.Entity
                 return new Vector3Int(0, 0, 0);
             }
             return _mapManager.CastOddRowToAxial(_currentTileNode.GridCoordinate);
+        }
+
+        public virtual void CollidedWithObject()
+        {
+            _mapInteractionManager.HopEntity(this, this?._currentTileNode, 1);
+            _hasActionReady = false;
         }
 
         protected virtual void CompletedTurn()

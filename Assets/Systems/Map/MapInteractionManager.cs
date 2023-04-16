@@ -7,6 +7,7 @@ using GameJam.Pathfinding;
 using GameJam.Entity;
 using GameJam.PlayerInput;
 using GameJam.Entity.Abilities;
+using GameJam.Entity.Shoving;
 
 namespace GameJam.Map
 {
@@ -36,7 +37,7 @@ namespace GameJam.Map
         [SerializeField] private TileBase _triggerTileHilight;
         [SerializeField] private bool _renderPathToTarget = true;
         [SerializeField] private int _mp = 3;
-        [SerializeField] private float slideSpeed = 0.5f;
+        [SerializeField] private float _slideSpeed = 0.5f;
         [SerializeField] private bool _ignoreObstacles;
 
         public void Initialize(MapManager mapManager)
@@ -65,6 +66,9 @@ namespace GameJam.Map
 
             if (!GameMaster.Instance.IsPlayerTurn)
                 { return; }
+
+            //try to select appropriate player character depending on mouse position
+            TrySelectingMirroredPlayerCharacter(gridCoordinate);
             
             //DrawPathFromActiveEntityToMouse();
 
@@ -76,6 +80,33 @@ namespace GameJam.Map
                 OnTileSelected(gridCoordinate);
             }
             _previousTileMousedOver = gridCoordinate;
+        }
+
+        private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
+        {
+            if (GameMaster.Instance.MultipleUniquePlayerCharacters) {return;}
+            if (_mirrorManager.MirrorX)
+            {
+                if (mouseCoordinate.x < _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityLeft != null)
+                {
+                    _gm.SetActiveEntity(_mirrorManager.EntityLeft);
+                }
+                if (mouseCoordinate.x > _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityRight != null)
+                {
+                    _gm.SetActiveEntity(_mirrorManager.EntityRight);
+                }
+            }
+            if (_mirrorManager.MirrorY)
+            {
+                if (mouseCoordinate.y < _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityBottom != null)
+                {
+                    _gm.SetActiveEntity(_mirrorManager.EntityBottom);
+                }
+                if (mouseCoordinate.y > _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityTop != null)
+                {
+                    _gm.SetActiveEntity(_mirrorManager.EntityTop);
+                }
+            }
         }
         
         public void CheckHighlightedTile(Vector3Int gridCoordinate)
@@ -105,13 +136,13 @@ namespace GameJam.Map
         {
             if (entity == null)
                 { entity = GameMaster.Instance.ActiveEntity; }
-            if (!GameMaster.Instance.IsPlayerTurn || entity == null || tile == null)
+            if (!GameMaster.Instance.IsPlayerTurn || entity == null || entity?.CurrentTileNode == null || tile == null)
                 { return; }
             //check range from active EntityCharacter
             int range = _mapManager.CalculateRange(tile.GridCoordinate, entity.CurrentTileNode.GridCoordinate);
             if ( range == 1)
             {
-                if (tile.IsWalkable())
+                if (tile.IsWalkable(entity))
                 {
                      _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
                     return;
@@ -120,7 +151,7 @@ namespace GameJam.Map
             }
             if ( range == 2)
             {
-                if (tile.IsWalkable())
+                if (tile.IsWalkable(entity))
                 {
                     _mouseMap.SetTile(tile.GridCoordinate, _selectionTileBase);
                 }
@@ -198,20 +229,20 @@ namespace GameJam.Map
                         Debug.Log($"  - {entity}");
                     }
                 }
-                TileNode tile = GameMaster.Instance.ActiveEntity?.CurrentTileNode;
-                if (tile != null)
-                Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
+                // TileNode tile = GameMaster.Instance.ActiveEntity?.CurrentTileNode;
+                // if (tile != null)
+                // Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
             }
         }
 
         private bool SelectedPlayerCharacter(TileNode tileNode)
         {
             bool result = false;
-            if (_gm.MultiplePlayerCharacters == false || _gm.IsPlayerTurn == false)
+            if (_gm.IsPlayerTurn == false || _gm.MultipleUniquePlayerCharacters == false) //used to include _gm.MultipleUniquePlayerCharacters == false, before mirror selection
                 return false;
 
             
-            EntityCharacter playerCharacter = tileNode.GetPlayerCharacter();
+            EntityCharacter playerCharacter = tileNode?.GetPlayerCharacter();
             if (playerCharacter != null)
             {
                 _gm.SetActiveEntity(playerCharacter);
@@ -244,30 +275,25 @@ namespace GameJam.Map
                 { return false; }
             if (CanShoveTile(entity, tile))
             {                
-                _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile);
+                _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile, 2);
                 entity.ActionCompleted();
                 return true;
             }
             if (CanMoveToTile(entity, tile, 1))
             {
-                MoveEntityUpdateTileNodes(entity, tile);
+                HopEntity(entity, tile, 1);
                 return true;
             }
-            if ((entity.GetComponent<JumpAndShove>() != null) && (CanMoveToTile(entity, tile, 2)))
+            if (CanMoveToTile(entity, tile, 2))
             {                //jump and shove
                 // entity.AdditionalActions = true;
-                entity.GetComponent<JumpAndShove>().SubscribeToEntityActionCompleted(tile);
-                MoveEntityUpdateTileNodes(entity, tile);
+                // entity.GetComponent<JumpAndShove>().SubscribeToEntityActionCompleted(tile);
+                HopEntity(entity, tile, 2);
                 // entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
+                return true;
                 
             }
             return false;
-        }
-        public void MoveEntityUpdateTileNodes(EntityBase entity, TileNode tile)
-        {
-            MoveEntity(entity, tile);
-            // entity.CurrentTileNode.TryRemoveEntity(entity);
-            // entity.LinkToTileNode(tile);
         }
 
         public bool CanShoveTile(EntityBase entity, TileNode tile)
@@ -281,7 +307,7 @@ namespace GameJam.Map
         }
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
         {
-            if (tile.IsWalkable() == false)
+            if (tile.IsWalkable(entity) == false)
                 { return false; }
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
             if (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) > range)
@@ -289,26 +315,37 @@ namespace GameJam.Map
             return true;
         }
 
-        public void MoveEntity(EntityBase entity, TileNode targetTile)
+        public void HopEntity(EntityBase entity, TileNode targetTile, int range)
         {
+            bool slamLanding = false;
             if (entity?.CurrentTileNode == null || targetTile == null)
                 { return; }
-            GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
 
-            bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
-            if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
-            StartCoroutine(DoHopEntityToPos(entityGO, position, slideSpeed));
+            if (range > 1)
+                { slamLanding = true; }
+
+            // entity.LeaveTileNode();
+            StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
         }
 
-        IEnumerator DoHopEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
+        IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
         {
+            Vector3 targetPosition = targetTile.WorldPos;
+            if (entity == null) { yield break; }
+            GameMaster.Instance.TilemapInteractable = false;
+            GameMaster.Instance.AddEntityInMotion(entity);
+
             float timeElapsed = 0;
-            Vector3 startPos = entityGO.transform.position;
+            Vector3 startPos = entity.transform.position;
             while (timeElapsed < duration)
             {
-                if (entityGO == null)
-                    { yield break; }
+                if (entity == null)
+                {
+                    GameMaster.Instance.TilemapInteractable = true;
+                    GameMaster.Instance.RemoveEntityInMotion(entity);
+                    yield break;
+                }
 
                 float t = timeElapsed / duration;
                 t = t * t * (3f - 2f *t);
@@ -322,53 +359,23 @@ namespace GameJam.Map
                 float land = Mathf.Lerp(hopHeight, targetPosition.y, g);
                 float y = Mathf.Lerp(launch, land, t);
 
-                entityGO.transform.position = new Vector3(x, y, 0);
+                entity.transform.position = new Vector3(x, y, 0);
                 timeElapsed += Time.deltaTime;
 
                 yield return null;
             }
             
-            entityGO.transform.position = targetPosition; 
-            EntityBase entity = entityGO.GetComponent<EntityBase>();
+            entity.transform.position = targetPosition; 
             entity.LinkToTileNode(null);
-            entity.ActionCompleted();
-        }
+            entity.SnapEntityPositionToTile();
 
-        public void ShoveEntity(EntityBase entity, TileNode targetTile)
-        {
-            if (entity?.CurrentTileNode == null || targetTile == null)
-                { return; }
-            GameObject entityGO = entity.gameObject;
-            Vector3 position = targetTile.WorldPos;
-            
-            bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
-            if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
-            StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
-        }
-
-        IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
-        {
-            float timeElapsed = 0;
-            Vector3 startPos = entityGO.transform.position;
-            while (timeElapsed < duration)
+            if (slamAtEnd)
             {
-                // float t = timeElapsed / duration;
-                // t = t * t * (3f - 2f *t);
-                float g = timeElapsed/duration;
-                g = 1 - ((1 - g)*(1 - g));
-
-
-                float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
-                float y = Mathf.Lerp(startPos.y, targetPosition.y, g);
-
-                entityGO.transform.position = new Vector3(x, y, 0);
-                timeElapsed += Time.deltaTime;
-
-                yield return null;
+                entity.GetComponent<JumpAndShove>()?.ActivateJumpPushback();
             }
-            entityGO.transform.position = targetPosition; 
-            EntityBase entity = entityGO.GetComponent<EntityBase>();
-            entity.LinkToTileNode(null);
+            GameMaster.Instance.TilemapInteractable = true;
+            GameMaster.Instance.RemoveEntityInMotion(entity);
+            entity.ActionCompleted();
         }
         
         public void RenderTriggerHilight(Vector3Int tileCoords)

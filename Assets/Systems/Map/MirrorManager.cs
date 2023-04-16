@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Entity.Abilities;
+using Sirenix.OdinInspector;
 
 namespace GameJam.Map
 {
@@ -13,9 +14,25 @@ namespace GameJam.Map
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
         [SerializeField] private Vector3Int _mirrorOrigin;
+        public Vector3Int MirrorOrigin => _mirrorOrigin;
         private Vector3Int _mirrorOriginAxial;
         [SerializeField] private bool _mirrorX = true;
+        public bool MirrorX => _mirrorX;
+        [ShowIf("_mirrorX")]
+        [SerializeField] private EntityBase _entityLeft;
+        public EntityBase EntityLeft => _entityLeft;
+        [ShowIf("_mirrorX")]
+        [SerializeField] private EntityBase _entityRight;
+        public EntityBase EntityRight => _entityRight;
         [SerializeField] private bool _mirrorY = false;
+        public bool MirrorY => _mirrorY;
+        [ShowIf("_mirrorY")]
+        [SerializeField] private EntityBase _entityTop;
+        public EntityBase EntityTop => _entityTop;
+        [ShowIf("_mirrorY")]
+        [SerializeField] private EntityBase _entityBottom;
+        public EntityBase EntityBottom => _entityBottom;
+        
 
         private void Awake()
         {

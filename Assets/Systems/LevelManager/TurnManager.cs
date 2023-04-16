@@ -17,6 +17,9 @@ namespace GameJam.Entity
         public bool PlayerTurn => _playerTurn;
         [SerializeField] private int _round = 0;
         public int Round => _round;
+        [SerializeField] private bool _holdingNextTick = false;
+        public bool HoldingNextTick => _holdingNextTick;
+        
         
         
 
@@ -53,12 +56,12 @@ namespace GameJam.Entity
         private void StartPlayerTurn()
         {
             _playerTurn = true;
-            if (GameMaster.Instance.MultiplePlayerCharacters == false)
-            {
-                //If game set to single player character, select by default, otherwise start turn with no selection.
-                EntityCharacter player = _entityManager.PlayerCharacters[0];
-                GameMaster.Instance.SetActiveEntity(player);
-            }
+            // if (GameMaster.Instance.MultipleUniquePlayerCharacters == false)
+            // {
+            //     //If game set to single player character, select by default, otherwise start turn with no selection.
+            //     EntityCharacter player = _entityManager.PlayerCharacters[0];
+            //     GameMaster.Instance.SetActiveEntity(player);
+            // }
             if (DebugLog)  Debug.Log("Player's turn begins.");
         }
 
@@ -85,6 +88,14 @@ namespace GameJam.Entity
 
         public void TickNext()
         {
+            if (GameMaster.Instance.EntitiesInMotion.Count > 0)
+            {
+                _holdingNextTick = true;
+                return;
+            } else {
+                _holdingNextTick = false;
+            }
+            
             if (_playerTurn)
             {
                 TryEndPlayerTurn();

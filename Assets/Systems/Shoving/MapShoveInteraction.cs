@@ -9,15 +9,19 @@ namespace GameJam.Map
 {
     public class MapShoveInteraction : MonoBehaviour
     {
-        private bool _debugLogs = false;
+        [SerializeField] private bool _debugLogs = false;
         private MapManager _mapManager;
+        private TileNodeManager _tileNodeManager;
         // private MapInteractionManager _mapInteractionManager;
         private Tilemap _mouseMap;
+        [SerializeField] private bool _shoveInteractWithEveryTile = true;
         [SerializeField] private TileBase[] _shoveTileHilight;
+        [SerializeField] private float _slideSpeed = 0.5f;
 
         private void Awake()
         {
             _mapManager = GetComponent<MapManager>();
+            _tileNodeManager = GetComponent<TileNodeManager>();
             // _mapInteractionManager = GetComponent<MapInteractionManager>();
             _mouseMap = _mapManager.MouseInteractionTilemap;
         }
@@ -36,10 +40,7 @@ namespace GameJam.Map
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {
                 if (entity == null) { continue; }
-                if (entity?.GetComponent<Shovable>() != null)
-                {
-                    return true;
-                }
+                return entity.IsShovable;
             }
             return false;
         }
@@ -62,9 +63,9 @@ namespace GameJam.Map
             Vector3Int axialTargetCoords = _mapManager.CastOddRowToAxial(targetCoords);
             return axialTargetCoords - axialSourceCoords;
         }
-        public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove)
+        public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove, int distance)
         {
-            if (_debugLogs) Debug.Log($"shoving from {sourceOfShove} to " + targetOfShove);
+            if (_debugLogs) Debug.Log($"shoving from {sourceOfShove.GridCoordinate} to " + targetOfShove.GridCoordinate);
             if ((targetOfShove.Entities == null) || (targetOfShove.Entities.Count == 0)) return;
             Vector3Int shoveDir = GetAxialDifference(sourceOfShove.GridCoordinate, targetOfShove.GridCoordinate);
             List<EntityBase> copiedEntityList = new List<EntityBase>();
@@ -74,10 +75,106 @@ namespace GameJam.Map
             }
             foreach (EntityBase entity in copiedEntityList)
             {
-                Shovable shovable = entity.GetComponent<Shovable>();
-                if (shovable == null) continue;
-                shovable.TryShoveDir(shoveDir);
+                if (entity == null) { continue; }
+                if (entity.IsShovable)
+                    { StartCoroutine(DoShoveEntity(entity, shoveDir, distance)); }
             }
         }
+
+        IEnumerator DoShoveEntity(EntityBase entity, Vector3Int axialDir, int distance)
+        {
+            GameMaster.Instance.TilemapInteractable = false;
+            GameMaster.Instance.AddEntityInMotion(entity);
+
+            Vector3 startPos = entity.transform.position;
+            //calculate the final target position.
+            Vector3Int currentCoord = entity.CurrentTileNode.GridCoordinate;
+            Vector3Int axialTarget = _mapManager.CastOddRowToAxial(currentCoord);
+            Vector3Int finalCoord = _mapManager.CastAxialToOddRow(axialTarget + (axialDir * distance));
+            Vector3 targetWorldPos = _mapManager.GetWorldPosFromGridCoord(finalCoord);
+
+            TileNode currentTile = entity.CurrentTileNode;
+            TileNode projectedTile = currentTile;
+            bool collisionHappened = false;
+
+            //entity.LeaveTileNode();
+            
+            float timeElapsed = 0;
+            int j = 0;
+
+            while (timeElapsed < _slideSpeed)
+            {
+                if (entity == null)
+                {
+                    GameMaster.Instance.TilemapInteractable = true;
+                    GameMaster.Instance.RemoveEntityInMotion(entity);
+                    yield break;
+                }
+                // float t = timeElapsed / duration;
+                // t = t * t * (3f - 2f *t);
+                float g = timeElapsed/_slideSpeed;
+                g = 1 - ((1 - g)*(1 - g));
+
+                float x = Mathf.Lerp(startPos.x, targetWorldPos.x, g);
+                float y = Mathf.Lerp(startPos.y, targetWorldPos.y, g);
+
+                entity.transform.position = new Vector3(x, y, 0);
+                timeElapsed += Time.deltaTime;
+
+                float journey = g*distance;
+                
+                if (journey >= j && collisionHappened == false)
+                {
+                    j++;
+                    //get projected tile.
+                    axialTarget += axialDir;
+                    projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
+                    TryShoveIntoTile(projectedTile);
+                    if (collisionHappened)
+                    {
+                        GameMaster.Instance.TilemapInteractable = true;
+                        GameMaster.Instance.RemoveEntityInMotion(entity);
+                        yield break;
+                    }
+                }
+
+                yield return null;
+            }
+
+            // final attempt after while, because lerp never actually reaches 100%
+            if (collisionHappened == false)
+            {
+                projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
+                if (TryShoveIntoTile(projectedTile))
+                        Debug.LogWarning("entity shoved whole way, no collision.");
+            }
+
+            bool TryShoveIntoTile(TileNode tileToCheck)
+            {
+                if (tileToCheck == null)
+                {
+                    entity.LinkToTileNode(currentTile);
+                    collisionHappened = true;
+                    currentTile.CollidedWith();
+                    return false;
+                }
+                if (tileToCheck.IsWalkable(entity))
+                {
+                    currentTile = tileToCheck;
+                    if (_shoveInteractWithEveryTile)
+                        { entity.LinkToTileNode(currentTile); }
+                    return true;
+                }
+                
+                entity.LinkToTileNode(currentTile);
+                collisionHappened = true;
+                currentTile.CollidedWith();
+                tileToCheck.CollidedWith();
+                return false;
+            }      
+            GameMaster.Instance.TilemapInteractable = true;
+            GameMaster.Instance.RemoveEntityInMotion(entity);
+        }
+
     }
 }

@@ -23,6 +23,8 @@ namespace GameJam.Map
         public bool WalkingPathExplored = false;
         public bool FlyingPathExplored = false;
         private MapInteractionManager _mapInteractionManager;
+        private LevelManager _levelManager;
+        public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         [SerializeField] private TriggerEventManager _triggerEventManager;
         public TriggerEventManager TriggerEventManager => _triggerEventManager;
         
@@ -31,6 +33,7 @@ namespace GameJam.Map
         private void Start()
         {
             _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
+            _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         }
         public void SetTileData(Dictionary<TileBase, TileData> data)
         {
@@ -41,12 +44,12 @@ namespace GameJam.Map
             _isPitTile = data[TileType].IsPitTile;
         }
 
-        public bool IsWalkable()
+        public bool IsWalkable(EntityBase entity)
         {
             bool result = _isWalkable;
-            if (GameMaster.Instance.ActiveEntity?.CurrentTileNode == this)
+            Entities.TrimExcess();
+            if (Entities.Contains(entity)) //used to contain: GameMaster.Instance.ActiveEntity?.CurrentTileNode == this || 
                 { return true; }
-            Entities.RemoveAll(entity => entity == null);
             if (Entities.Count > 0)
             {
                 return false;
@@ -101,8 +104,13 @@ namespace GameJam.Map
 
         public bool TryAddEntity(EntityBase entity)
         {
-            Entities.Add(entity);
+            if (Entities.Contains(entity) == false)
+                {Entities.Add(entity);}
             _triggerEventManager?.EntityEnteredTrigger(entity, this);
+            if (LevelManager.RecordSlimeTrails)
+            {
+                GameObject slime = GameObject.Instantiate(LevelManager.SlimeDrop, WorldPos, Quaternion.identity);
+            }
             return true;
         }
 
@@ -137,6 +145,20 @@ namespace GameJam.Map
         {
             if (_mapInteractionManager != null) return;
             _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;        
+        }
+
+        public void CollidedWith()
+        {
+            List<EntityBase> entitiesToBump = new List<EntityBase>();
+            foreach (EntityBase entity in Entities)
+            {
+                entitiesToBump.Add(entity);
+            }
+            //had to cast to a new list as they would get removed from TileNode.Entities while enumeration was happening.
+            foreach (EntityBase entity in entitiesToBump)
+            {
+                entity.CollidedWithObject();
+            }
         }
 
     }

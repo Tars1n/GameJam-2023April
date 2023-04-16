@@ -26,7 +26,7 @@ namespace GameJam.Entity
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _tileNodeManager = _ref.MapManager.TileNodeManager;
-            RemapAllEntities(); 
+            // RemapAllEntities(); 
         }
 
         public void AddEntity(EntityBase entity)
@@ -54,7 +54,7 @@ namespace GameJam.Entity
             {
                 _traps.Remove((EntityTrap)entity);
             }
-            entity.CurrentTileNode?.TryRemoveEntity(entity);
+            entity.LeaveTileNode();
             entity.DoDestroy();
             return removed;
         }
@@ -62,6 +62,13 @@ namespace GameJam.Entity
         private void RemapAllEntities()
         {
             if (_debugLogs) {Debug.Log("Remapping all entities.");}
+            foreach (EntityCharacter entity in _playerCharacters)
+                { entity.ClearTileNode(); }
+            foreach (EntityMonster entity in _monsters)
+                { entity.ClearTileNode(); }
+            foreach (EntityTrap entity in _traps)
+                { entity.ClearTileNode(); }
+
             _tileNodeManager.ClearAllNodeEntityLists();
             
             foreach (EntityCharacter entity in _playerCharacters)
@@ -124,6 +131,7 @@ namespace GameJam.Entity
         public void TEST_EndPlayerTurn()
         {
             //Simulated player taking their last action.
+            Debug.Log("Forcing end of turn.");
             foreach (EntityCharacter entity in _playerCharacters)
                 { entity.DoTurnAction(); }
             GameMaster.Instance.ReferenceManager.TurnManager.ActionCompleted();
