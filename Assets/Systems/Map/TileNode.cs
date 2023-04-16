@@ -23,6 +23,8 @@ namespace GameJam.Map
         public bool WalkingPathExplored = false;
         public bool FlyingPathExplored = false;
         private MapInteractionManager _mapInteractionManager;
+        private LevelManager _levelManager;
+        public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         [SerializeField] private TriggerEventManager _triggerEventManager;
         public TriggerEventManager TriggerEventManager => _triggerEventManager;
         
@@ -31,6 +33,7 @@ namespace GameJam.Map
         private void Start()
         {
             _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
+            _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         }
         public void SetTileData(Dictionary<TileBase, TileData> data)
         {
@@ -103,6 +106,10 @@ namespace GameJam.Map
         {
             Entities.Add(entity);
             _triggerEventManager?.EntityEnteredTrigger(entity, this);
+            if (LevelManager.RecordSlimeTrails)
+            {
+                GameObject slime = GameObject.Instantiate(LevelManager.SlimeDrop, WorldPos, Quaternion.identity);
+            }
             return true;
         }
 

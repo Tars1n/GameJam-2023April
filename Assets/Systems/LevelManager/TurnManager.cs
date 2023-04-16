@@ -53,7 +53,7 @@ namespace GameJam.Entity
         private void StartPlayerTurn()
         {
             _playerTurn = true;
-            if (GameMaster.Instance.MultiplePlayerCharacters == false)
+            if (GameMaster.Instance.MultipleUniquePlayerCharacters == false)
             {
                 //If game set to single player character, select by default, otherwise start turn with no selection.
                 EntityCharacter player = _entityManager.PlayerCharacters[0];

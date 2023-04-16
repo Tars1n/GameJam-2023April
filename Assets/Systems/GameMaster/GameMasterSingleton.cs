@@ -20,7 +20,7 @@ namespace GameJam
         private float _fixedDeltaTime;
         [SerializeField] private EntityBase _activeEntity;
         public EntityBase ActiveEntity => _activeEntity;
-        public bool MultiplePlayerCharacters = true; //controls and turn system changes slightly if you need to select between characters
+        public bool MultipleUniquePlayerCharacters = false; //controls and turn system changes slightly if you need to select between completely unique squad members
         public bool IsPlayerTurn => _referenceManager.TurnManager.PlayerTurn;
         public bool TilemapInteractable = false;
         

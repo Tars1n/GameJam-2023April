@@ -83,6 +83,7 @@ namespace GameJam.Map
 
         private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
         {
+            if (GameMaster.Instance.MultipleUniquePlayerCharacters) {return;}
             if (_mirrorManager.MirrorX)
             {
                 if (mouseCoordinate.x < _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityLeft != null)
@@ -236,7 +237,7 @@ namespace GameJam.Map
         private bool SelectedPlayerCharacter(TileNode tileNode)
         {
             bool result = false;
-            if (_gm.MultiplePlayerCharacters == false || _gm.IsPlayerTurn == false)
+            if (_gm.IsPlayerTurn == false) //used to include _gm.MultipleUniquePlayerCharacters == false, before mirror selection
                 return false;
 
             
