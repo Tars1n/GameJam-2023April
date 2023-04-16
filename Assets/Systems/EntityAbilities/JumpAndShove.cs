@@ -32,11 +32,10 @@ namespace GameJam.Entity.Abilities
         // }
         public void ActivateJumpPushback()
         {
-            Debug.LogWarning("ActivateJumpPushback called!");
+            //Debug.LogWarning("ActivateJumpPushback called!");
             TileNode targetNode = _entityBase.CurrentTileNode;
             if (targetNode == null)
             {
-                Debug.LogWarning($"Jump and Shove failed because {_entityBase} has no CurrentTileNode.");
                 return;
             }
             Vector3Int targetCoord = targetNode.GridCoordinate;

@@ -78,8 +78,12 @@ namespace GameJam.Entity
         {
             if (_currentTileNode == null) 
                 {return;}
-            if (_currentTileNode.TryRemoveEntity(this) == false)
-                { Debug.LogWarning($"{this} failed to disconnect from TileNode {_currentTileNode.GridCoordinate} cleanly."); }
+            _currentTileNode.TryRemoveEntity(this);
+            _currentTileNode = null;
+        }
+
+        public void ClearTileNode()
+        {
             _currentTileNode = null;
         }
 
