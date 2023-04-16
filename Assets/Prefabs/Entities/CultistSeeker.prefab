@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7065358791319654614}
   - component: {fileID: 7065358791319656233}
   m_Layer: 0
-  m_Name: CultistSeek
+  m_Name: CultistSeeker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

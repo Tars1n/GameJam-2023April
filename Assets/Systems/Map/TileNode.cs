@@ -146,5 +146,19 @@ namespace GameJam.Map
             _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;        
         }
 
+        public void CollidedWith()
+        {
+            List<EntityBase> entitiesToBump = new List<EntityBase>();
+            foreach (EntityBase entity in Entities)
+            {
+                entitiesToBump.Add(entity);
+            }
+            //had to cast to a new list as they would get removed from TileNode.Entities while enumeration was happening.
+            foreach (EntityBase entity in entitiesToBump)
+            {
+                entity.CollidedWithObject();
+            }
+        }
+
     }
 }

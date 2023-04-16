@@ -22,21 +22,49 @@ namespace GameJam.Entity.Shoving
             _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
             _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
         }
-        public void TryShoveDir(Vector3Int axialDir)
+        public void TryShoveDir(Vector3Int axialDir, int distance)
         {
             Vector3Int currentAxialCoords = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
-            Vector3Int newAxialCoords = currentAxialCoords + axialDir;
-            TileNode tileMovingTo = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(newAxialCoords));
-            if (tileMovingTo.IsWalkable())
-            {
-                _mapInteractionManager.ShoveEntity(_entityBase, tileMovingTo);
+            TileNode tileMovingTo = null;
+            TileNode projectedTile = null;
+            TileNode collisionTile = null;
+            float journeyCompleted = 0f;
+            float stepsTaken = 0f;
+            for (int i = distance; i > 0; i--)
+            {   //keep projecting the shove by one axial unit until distance reached or hit obstacle
+                journeyCompleted = stepsTaken/distance;
+                stepsTaken++;
+                currentAxialCoords += axialDir;
+                Vector3Int coords = _mapManager.CastAxialToOddRow(currentAxialCoords);
+                projectedTile = _tileNodeManager.GetTileFromAxial(currentAxialCoords);
+                if (projectedTile == null)
+                {
+                    Debug.LogError($"invalid tilenode being shoved into. {currentAxialCoords} with current range value of {i}");
+                    projectedTile = tileMovingTo;
+                    collisionTile = tileMovingTo;
+                    break;
+                }
+                if (projectedTile.IsWalkable())
+                {
+                    journeyCompleted = stepsTaken/distance;
+                    tileMovingTo = projectedTile;
+                    Debug.LogWarning($"valid walkable tile: {tileMovingTo.GridCoordinate}");
+                }
+                else
+                { 
+                        // collisionTile = projectedTile;
+                }
             }
-            else
-            {
-                //can't move anywhere so hops in place and loses turn.
-                _mapInteractionManager.MoveEntityUpdateTileNodes(_entityBase, _entityBase.CurrentTileNode);
+            if (tileMovingTo != null)
+            {   //valid tile to be shoved to, move entity
+                _mapInteractionManager.ShoveEntity(_entityBase, tileMovingTo, journeyCompleted, collisionTile);
             }
-
+            if (tileMovingTo != projectedTile)
+            {   //if tileMovingTo is different from Projected tile, that means an obstacle was in the way, cause all entities at projected tile to be hit
+                projectedTile.CollidedWith();
+            }
+            //can't move anywhere so hops in place and loses turn.
+            //_mapInteractionManager.MoveEntityUpdateTileNodes(_entityBase, _entityBase.CurrentTileNode);
         }
     }
 }

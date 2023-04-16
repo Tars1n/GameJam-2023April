@@ -103,6 +103,12 @@ namespace GameJam.Entity
             return _mapManager.CastOddRowToAxial(_currentTileNode.GridCoordinate);
         }
 
+        public virtual void CollidedWithObject()
+        {
+            _mapInteractionManager.MoveEntity(this, this._currentTileNode);
+            _hasActionReady = false;
+        }
+
         protected virtual void CompletedTurn()
         {
             _hasActionReady = false;

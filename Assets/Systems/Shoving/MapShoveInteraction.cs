@@ -9,7 +9,7 @@ namespace GameJam.Map
 {
     public class MapShoveInteraction : MonoBehaviour
     {
-        private bool _debugLogs = false;
+        [SerializeField] private bool _debugLogs = false;
         private MapManager _mapManager;
         // private MapInteractionManager _mapInteractionManager;
         private Tilemap _mouseMap;
@@ -60,11 +60,12 @@ namespace GameJam.Map
         {
             Vector3Int axialSourceCoords = _mapManager.CastOddRowToAxial(sourceCoords);
             Vector3Int axialTargetCoords = _mapManager.CastOddRowToAxial(targetCoords);
+            Debug.LogWarning($"{axialTargetCoords - axialSourceCoords} axial direction.");
             return axialTargetCoords - axialSourceCoords;
         }
-        public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove)
+        public void ShoveThisTile(TileNode sourceOfShove, TileNode targetOfShove, int distance)
         {
-            if (_debugLogs) Debug.Log($"shoving from {sourceOfShove} to " + targetOfShove);
+            if (_debugLogs) Debug.Log($"shoving from {sourceOfShove.GridCoordinate} to " + targetOfShove.GridCoordinate);
             if ((targetOfShove.Entities == null) || (targetOfShove.Entities.Count == 0)) return;
             Vector3Int shoveDir = GetAxialDifference(sourceOfShove.GridCoordinate, targetOfShove.GridCoordinate);
             List<EntityBase> copiedEntityList = new List<EntityBase>();
@@ -76,7 +77,7 @@ namespace GameJam.Map
             {
                 Shovable shovable = entity.GetComponent<Shovable>();
                 if (shovable == null) continue;
-                shovable.TryShoveDir(shoveDir);
+                shovable.TryShoveDir(shoveDir, distance);
             }
         }
     }

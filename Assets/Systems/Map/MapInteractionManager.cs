@@ -7,6 +7,7 @@ using GameJam.Pathfinding;
 using GameJam.Entity;
 using GameJam.PlayerInput;
 using GameJam.Entity.Abilities;
+using GameJam.Entity.Shoving;
 
 namespace GameJam.Map
 {
@@ -36,7 +37,7 @@ namespace GameJam.Map
         [SerializeField] private TileBase _triggerTileHilight;
         [SerializeField] private bool _renderPathToTarget = true;
         [SerializeField] private int _mp = 3;
-        [SerializeField] private float slideSpeed = 0.5f;
+        [SerializeField] private float _slideSpeed = 0.5f;
         [SerializeField] private bool _ignoreObstacles;
 
         public void Initialize(MapManager mapManager)
@@ -274,7 +275,7 @@ namespace GameJam.Map
                 { return false; }
             if (CanShoveTile(entity, tile))
             {                
-                _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile);
+                _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile, 2);
                 entity.ActionCompleted();
                 return true;
             }
@@ -328,7 +329,7 @@ namespace GameJam.Map
 
             bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
             if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
-            StartCoroutine(DoHopEntityToPos(entityGO, position, slideSpeed));
+            StartCoroutine(DoHopEntityToPos(entityGO, position, _slideSpeed));
         }
 
         IEnumerator DoHopEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
@@ -364,7 +365,7 @@ namespace GameJam.Map
             entity.ActionCompleted();
         }
 
-        public void ShoveEntity(EntityBase entity, TileNode targetTile)
+        public void ShoveEntity(EntityBase entity, TileNode targetTile, float journeyCompleted, TileNode collisionTile)
         {
             if (entity?.CurrentTileNode == null || targetTile == null)
                 { return; }
@@ -373,12 +374,14 @@ namespace GameJam.Map
             
             bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
             if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
-            StartCoroutine(DoShoveEntityToPos(entityGO, position, slideSpeed));
+            StartCoroutine(DoShoveEntityToPos(entityGO, position, _slideSpeed, journeyCompleted, collisionTile));
         }
 
-        IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
+        IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration, float journeyCompleted, TileNode collisionTile)
         {
+            Debug.LogWarning($"journey Completed: {journeyCompleted}");
             float timeElapsed = 0;
+            EntityBase entity = entityGO.GetComponent<EntityBase>();
             Vector3 startPos = entityGO.transform.position;
             while (timeElapsed < duration)
             {
@@ -386,6 +389,19 @@ namespace GameJam.Map
                 // t = t * t * (3f - 2f *t);
                 float g = timeElapsed/duration;
                 g = 1 - ((1 - g)*(1 - g));
+
+                if (g >= journeyCompleted)
+                {
+                    if (collisionTile != null)
+                    {
+                        collisionTile.CollidedWith();
+                    }
+                    entity.CurrentTileNode.CollidedWith();                    
+                    entityGO.transform.position = targetPosition; 
+                    entity.LinkToTileNode(null);
+                    yield break;
+                }
+
 
 
                 float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
@@ -397,8 +413,12 @@ namespace GameJam.Map
                 yield return null;
             }
             entityGO.transform.position = targetPosition; 
-            EntityBase entity = entityGO.GetComponent<EntityBase>();
             entity.LinkToTileNode(null);
+
+            // if (collisionTile != null)
+            // {
+            //     collisionTile.CollidedWith();
+            // }
         }
         
         public void RenderTriggerHilight(Vector3Int tileCoords)

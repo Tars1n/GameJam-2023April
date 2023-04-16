@@ -41,7 +41,7 @@ namespace GameJam.Entity.Abilities
                 if (tileNode == null) continue;
                 if (_mapShoveInteraction.EntityOnThisTileThatCanBeShoved(tileNode))
                 {
-                    _mapShoveInteraction.ShoveThisTile(targetNode , tileNode);
+                    _mapShoveInteraction.ShoveThisTile(targetNode , tileNode, 1);
                 }
             }
             _entityBase._nextAction -= ActivateJumpPushback;
