@@ -564,8 +564,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mirrorOrigin: {x: 0, y: 0, z: 0}
-  _mirrorX: 0
-  _mirrorY: 1
+  _mirrorX: 1
+  _entityLeft: {fileID: 1805371981880587377}
+  _entityRight: {fileID: 7899496504253533784}
+  _mirrorY: 0
+  _entityTop: {fileID: 0}
+  _entityBottom: {fileID: 0}
 --- !u!1 &1805371982019811448
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1ca293f1b79c24f8dbef7962b82ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 0
   _playerCharacters: []
   _monsters: []
   _traps: []

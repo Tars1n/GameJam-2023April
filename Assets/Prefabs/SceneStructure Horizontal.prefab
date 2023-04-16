@@ -256,7 +256,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mirrorOrigin: {x: 0, y: 0, z: 0}
   _mirrorX: 0
+  _entityLeft: {fileID: 0}
+  _entityRight: {fileID: 0}
   _mirrorY: 1
+  _entityTop: {fileID: 6020328266290781499}
+  _entityBottom: {fileID: 2819779886985963282}
 --- !u!1 &2819779886970363519
 GameObject:
   m_ObjectHideFlags: 0
@@ -4799,8 +4803,8 @@ Transform:
   - {fileID: 2819779887823293705}
   - {fileID: 2819779886868964723}
   - {fileID: 2819779886970363507}
-  - {fileID: 2819779886985963285}
   - {fileID: 6020328266290781500}
+  - {fileID: 2819779886985963285}
   - {fileID: 4520991720036384081}
   - {fileID: 2819779887218496751}
   - {fileID: 2819779886868144523}
@@ -4825,7 +4829,7 @@ PrefabInstance:
       objectReference: {fileID: 2819779886985963282}
     - target: {fileID: 8407479944982123146, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5168,7 +5172,7 @@ PrefabInstance:
       objectReference: {fileID: 6020328266290781499}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8407479944982123146, guid: 09e3726400d2c344cb422a57adf066a0, type: 3}
       propertyPath: m_LocalPosition.x

@@ -124,6 +124,7 @@ namespace GameJam.Entity
         public void TEST_EndPlayerTurn()
         {
             //Simulated player taking their last action.
+            Debug.Log("Forcing end of turn.");
             foreach (EntityCharacter entity in _playerCharacters)
                 { entity.DoTurnAction(); }
             GameMaster.Instance.ReferenceManager.TurnManager.ActionCompleted();
