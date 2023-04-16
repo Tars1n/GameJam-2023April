@@ -89,22 +89,22 @@ namespace GameJam.Map
             {
                 if (mouseCoordinate.x < _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityLeft != null)
                 {
-                    SelectedPlayerCharacter(_mirrorManager.EntityLeft.CurrentTileNode);
+                    _gm.SetActiveEntity(_mirrorManager.EntityLeft);
                 }
                 if (mouseCoordinate.x > _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityRight != null)
                 {
-                    SelectedPlayerCharacter(_mirrorManager.EntityRight.CurrentTileNode);
+                    _gm.SetActiveEntity(_mirrorManager.EntityRight);
                 }
             }
             if (_mirrorManager.MirrorY)
             {
                 if (mouseCoordinate.y < _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityBottom != null)
                 {
-                    SelectedPlayerCharacter(_mirrorManager.EntityBottom.CurrentTileNode);
+                    _gm.SetActiveEntity(_mirrorManager.EntityBottom);
                 }
                 if (mouseCoordinate.y > _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityTop != null)
                 {
-                    SelectedPlayerCharacter(_mirrorManager.EntityTop.CurrentTileNode);
+                    _gm.SetActiveEntity(_mirrorManager.EntityTop);
                 }
             }
         }
@@ -136,7 +136,7 @@ namespace GameJam.Map
         {
             if (entity == null)
                 { entity = GameMaster.Instance.ActiveEntity; }
-            if (!GameMaster.Instance.IsPlayerTurn || entity == null || tile == null)
+            if (!GameMaster.Instance.IsPlayerTurn || entity == null || entity?.CurrentTileNode == null || tile == null)
                 { return; }
             //check range from active EntityCharacter
             int range = _mapManager.CalculateRange(tile.GridCoordinate, entity.CurrentTileNode.GridCoordinate);
@@ -238,11 +238,11 @@ namespace GameJam.Map
         private bool SelectedPlayerCharacter(TileNode tileNode)
         {
             bool result = false;
-            if (_gm.IsPlayerTurn == false) //used to include _gm.MultipleUniquePlayerCharacters == false, before mirror selection
+            if (_gm.IsPlayerTurn == false || _gm.MultipleUniquePlayerCharacters == false) //used to include _gm.MultipleUniquePlayerCharacters == false, before mirror selection
                 return false;
 
             
-            EntityCharacter playerCharacter = tileNode.GetPlayerCharacter();
+            EntityCharacter playerCharacter = tileNode?.GetPlayerCharacter();
             if (playerCharacter != null)
             {
                 _gm.SetActiveEntity(playerCharacter);
@@ -327,13 +327,14 @@ namespace GameJam.Map
             GameObject entityGO = entity.gameObject;
             Vector3 position = targetTile.WorldPos;
 
-            bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
-            if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
+            entity.LeaveTileNode();
             StartCoroutine(DoHopEntityToPos(entityGO, position, _slideSpeed));
         }
 
         IEnumerator DoHopEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration)
         {
+            GameMaster.Instance.TilemapInteractable = false;
+
             float timeElapsed = 0;
             Vector3 startPos = entityGO.transform.position;
             while (timeElapsed < duration)
@@ -363,62 +364,8 @@ namespace GameJam.Map
             EntityBase entity = entityGO.GetComponent<EntityBase>();
             entity.LinkToTileNode(null);
             entity.ActionCompleted();
-        }
 
-        public void ShoveEntity(EntityBase entity, TileNode targetTile, float journeyCompleted, TileNode collisionTile)
-        {
-            if (entity?.CurrentTileNode == null || targetTile == null)
-                { return; }
-            GameObject entityGO = entity.gameObject;
-            Vector3 position = targetTile.WorldPos;
-            
-            bool removed = entity.CurrentTileNode.TryRemoveEntity(entity);
-            if (!removed) { Debug.LogWarning($"{entity.CurrentTileNode} failed to remove {entity}.");}
-            StartCoroutine(DoShoveEntityToPos(entityGO, position, _slideSpeed, journeyCompleted, collisionTile));
-        }
-
-        IEnumerator DoShoveEntityToPos(GameObject entityGO, Vector3 targetPosition, float duration, float journeyCompleted, TileNode collisionTile)
-        {
-            Debug.LogWarning($"journey Completed: {journeyCompleted}");
-            float timeElapsed = 0;
-            EntityBase entity = entityGO.GetComponent<EntityBase>();
-            Vector3 startPos = entityGO.transform.position;
-            while (timeElapsed < duration)
-            {
-                // float t = timeElapsed / duration;
-                // t = t * t * (3f - 2f *t);
-                float g = timeElapsed/duration;
-                g = 1 - ((1 - g)*(1 - g));
-
-                if (g >= journeyCompleted)
-                {
-                    if (collisionTile != null)
-                    {
-                        collisionTile.CollidedWith();
-                    }
-                    entity.CurrentTileNode.CollidedWith();                    
-                    entityGO.transform.position = targetPosition; 
-                    entity.LinkToTileNode(null);
-                    yield break;
-                }
-
-
-
-                float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
-                float y = Mathf.Lerp(startPos.y, targetPosition.y, g);
-
-                entityGO.transform.position = new Vector3(x, y, 0);
-                timeElapsed += Time.deltaTime;
-
-                yield return null;
-            }
-            entityGO.transform.position = targetPosition; 
-            entity.LinkToTileNode(null);
-
-            // if (collisionTile != null)
-            // {
-            //     collisionTile.CollidedWith();
-            // }
+            GameMaster.Instance.TilemapInteractable = true;
         }
         
         public void RenderTriggerHilight(Vector3Int tileCoords)

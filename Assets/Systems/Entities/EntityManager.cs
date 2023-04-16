@@ -54,7 +54,7 @@ namespace GameJam.Entity
             {
                 _traps.Remove((EntityTrap)entity);
             }
-            entity.CurrentTileNode?.TryRemoveEntity(entity);
+            entity.LeaveTileNode();
             entity.DoDestroy();
             return removed;
         }

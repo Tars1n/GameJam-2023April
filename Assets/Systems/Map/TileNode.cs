@@ -104,7 +104,8 @@ namespace GameJam.Map
 
         public bool TryAddEntity(EntityBase entity)
         {
-            Entities.Add(entity);
+            if (Entities.Contains(entity) == false)
+                {Entities.Add(entity);}
             _triggerEventManager?.EntityEnteredTrigger(entity, this);
             if (LevelManager.RecordSlimeTrails)
             {

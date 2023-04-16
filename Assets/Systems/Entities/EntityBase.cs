@@ -46,6 +46,7 @@ namespace GameJam.Entity
 
         public void LinkToTileNode(TileNode tileNode)
         {
+            LeaveTileNode();
             if (tileNode == null)
             {
                 _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
@@ -69,9 +70,21 @@ namespace GameJam.Entity
             }
         }
 
+        public void LeaveTileNode()
+        {
+            if (_currentTileNode == null) 
+                {return;}
+            if (_currentTileNode.TryRemoveEntity(this) == false)
+                { Debug.LogWarning($"{this} failed to disconnect from TileNode {_currentTileNode.GridCoordinate} cleanly."); }
+            _currentTileNode = null;
+        }
+
         public void SnapEntityPositionToTile()
         {
-           transform.position = _currentTileNode.WorldPos;   
+            if (_currentTileNode != null)
+            {
+                transform.position = _currentTileNode.WorldPos;
+            }
         }
 
         public virtual void RefreshAction()
