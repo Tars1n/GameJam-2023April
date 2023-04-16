@@ -65,6 +65,9 @@ namespace GameJam.Map
 
             if (!GameMaster.Instance.IsPlayerTurn)
                 { return; }
+
+            //try to select appropriate player character depending on mouse position
+            TrySelectingMirroredPlayerCharacter(gridCoordinate);
             
             //DrawPathFromActiveEntityToMouse();
 
@@ -76,6 +79,32 @@ namespace GameJam.Map
                 OnTileSelected(gridCoordinate);
             }
             _previousTileMousedOver = gridCoordinate;
+        }
+
+        private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
+        {
+            if (_mirrorManager.MirrorX)
+            {
+                if (mouseCoordinate.x < _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityLeft != null)
+                {
+                    SelectedPlayerCharacter(_mirrorManager.EntityLeft.CurrentTileNode);
+                }
+                if (mouseCoordinate.x > _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityRight != null)
+                {
+                    SelectedPlayerCharacter(_mirrorManager.EntityRight.CurrentTileNode);
+                }
+            }
+            if (_mirrorManager.MirrorY)
+            {
+                if (mouseCoordinate.y < _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityBottom != null)
+                {
+                    SelectedPlayerCharacter(_mirrorManager.EntityBottom.CurrentTileNode);
+                }
+                if (mouseCoordinate.y > _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityTop != null)
+                {
+                    SelectedPlayerCharacter(_mirrorManager.EntityTop.CurrentTileNode);
+                }
+            }
         }
         
         public void CheckHighlightedTile(Vector3Int gridCoordinate)

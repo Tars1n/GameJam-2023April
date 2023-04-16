@@ -14,6 +14,7 @@ namespace GameJam.Map
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
         [SerializeField] private Vector3Int _mirrorOrigin;
+        public Vector3Int MirrorOrigin => _mirrorOrigin;
         private Vector3Int _mirrorOriginAxial;
         [SerializeField] private bool _mirrorX = true;
         public bool MirrorX => _mirrorX;
