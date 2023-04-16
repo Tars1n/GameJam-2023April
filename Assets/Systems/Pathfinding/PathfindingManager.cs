@@ -139,7 +139,7 @@ namespace GameJam.Pathfinding
         {
             TileNode tile = _tileNodeManager.GetNodeFromCoords(tileCoord);
             if (tile == null)    {return false;}
-            return _tileNodeManager.GetNodeFromCoords(tileCoord).IsWalkable();
+            return _tileNodeManager.GetNodeFromCoords(tileCoord).IsWalkable(GameMaster.Instance.ActiveEntity);
         }
         private bool IsTileNotExplored(Vector3Int tileCoord)
         {

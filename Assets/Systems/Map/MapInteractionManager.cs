@@ -142,7 +142,7 @@ namespace GameJam.Map
             int range = _mapManager.CalculateRange(tile.GridCoordinate, entity.CurrentTileNode.GridCoordinate);
             if ( range == 1)
             {
-                if (tile.IsWalkable())
+                if (tile.IsWalkable(entity))
                 {
                      _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
                     return;
@@ -151,7 +151,7 @@ namespace GameJam.Map
             }
             if ( range == 2)
             {
-                if (tile.IsWalkable())
+                if (tile.IsWalkable(entity))
                 {
                     _mouseMap.SetTile(tile.GridCoordinate, _selectionTileBase);
                 }
@@ -307,7 +307,7 @@ namespace GameJam.Map
         }
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
         {
-            if (tile.IsWalkable() == false)
+            if (tile.IsWalkable(entity) == false)
                 { return false; }
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
             if (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) > range)

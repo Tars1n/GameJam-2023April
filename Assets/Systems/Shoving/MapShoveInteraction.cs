@@ -145,7 +145,8 @@ namespace GameJam.Map
             if (collisionHappened == false)
             {
                 projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
-                TryShoveIntoTile(projectedTile);
+                if (TryShoveIntoTile(projectedTile))
+                        Debug.LogWarning("entity shoved whole way, no collision.");
             }
 
             bool TryShoveIntoTile(TileNode tileToCheck)
@@ -157,7 +158,7 @@ namespace GameJam.Map
                     currentTile.CollidedWith();
                     return false;
                 }
-                if (tileToCheck.IsWalkable())
+                if (tileToCheck.IsWalkable(entity))
                 {
                     currentTile = tileToCheck;
                     if (_shoveInteractWithEveryTile)

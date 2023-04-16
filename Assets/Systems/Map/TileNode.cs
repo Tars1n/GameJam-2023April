@@ -44,12 +44,12 @@ namespace GameJam.Map
             _isPitTile = data[TileType].IsPitTile;
         }
 
-        public bool IsWalkable()
+        public bool IsWalkable(EntityBase entity)
         {
             bool result = _isWalkable;
-            if (GameMaster.Instance.ActiveEntity?.CurrentTileNode == this)
-                { return true; }
             Entities.TrimExcess();
+            if (Entities.Contains(entity)) //used to contain: GameMaster.Instance.ActiveEntity?.CurrentTileNode == this || 
+                { return true; }
             if (Entities.Count > 0)
             {
                 return false;
