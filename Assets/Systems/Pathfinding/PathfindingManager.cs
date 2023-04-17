@@ -120,11 +120,6 @@ namespace GameJam.Pathfinding
                 
                 TileNode node = _tileNodeManager.GetNodeFromCoords(coordOfAdjacentTileChecking);
                 node?.RecordPathing(sourceCoord, true);
-
-                //? if (CanWalkOnTile(coordOfAdjacentTileChecking))
-                //? {
-                //?     _overlayTileMap.SetTile(coordOfAdjacentTileChecking, _canMoveOverlay);
-                //? }
             }
         }
         private bool IsSafeWalkingTile(Vector3Int tileCoord)

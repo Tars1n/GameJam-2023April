@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1bb7d319d8e664897bce3cb6698aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLogs: 1
+  _debugLogs: 0
   _map: {fileID: 1805371982857064429}
   _overlayTilemap: {fileID: 1805371981748988666}
   _triggerTilemap: {fileID: 1805371982216622861}
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db4ac046d8e048a8b4f77f7f87e986d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLogs: 1
+  _debugLogs: 0
   _tileFloor: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
   _canMoveOverlay: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
   _overlayTileMap: {fileID: 1805371981748988666}
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5fdee4a4b4c4ce1b1464686bab3b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLog: 1
+  _debugLog: 0
   _tileDatas:
   - {fileID: 11400000, guid: 36031bc8000efa842a37564319fc8198, type: 2}
   - {fileID: 11400000, guid: 18ab20c4fb840ef45a542324d63bea32, type: 2}
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d233bc898814b8446b5ec5aecc5af121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLogs: 1
+  _debugLogs: 0
   _mouseHoverTileBase: {fileID: 11400000, guid: 14467a0048f3e09428da766a836fe016, type: 2}
   _walkPathTileBase: {fileID: 11400000, guid: e77a2c9cbe5d71e4da9eafecf93e2176, type: 2}
   _canMoveTileBase: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
@@ -530,7 +530,7 @@ MonoBehaviour:
   _triggerTileHilight: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _renderPathToTarget: 1
   _mp: 5
-  slideSpeed: 0.5
+  _slideSpeed: 0.5
   _ignoreObstacles: 0
 --- !u!114 &1805371981997291029
 MonoBehaviour:
@@ -544,6 +544,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4593e8f80071c425fa2462c43a11cc54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLogs: 0
+  _shoveInteractWithEveryTile: 1
   _shoveTileHilight:
   - {fileID: 11400000, guid: 9cc8699bda6f74c7287869ea5b5552a5, type: 2}
   - {fileID: 11400000, guid: 1de134708bfec446cafad76800b4f210, type: 2}
@@ -551,6 +553,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b823fb4f4017449d9435f4cbe4074db, type: 2}
   - {fileID: 11400000, guid: 199c6859f053e454f904ca2eeca45853, type: 2}
   - {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
+  _slideSpeed: 0.5
 --- !u!114 &1805371981997291498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +638,7 @@ MonoBehaviour:
   _delayBetweenActions: 0.5
   _playerTurn: 0
   _round: 0
+  _holdingNextTick: 0
 --- !u!114 &1805371982019811449
 MonoBehaviour:
   m_ObjectHideFlags: 0
