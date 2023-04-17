@@ -97,7 +97,6 @@ namespace GameJam.Map
             TileNode projectedTile = currentTile;
             bool collisionHappened = false;
 
-            //entity.LeaveTileNode();
             
             float timeElapsed = 0;
             int j = 0;
@@ -145,8 +144,7 @@ namespace GameJam.Map
             if (collisionHappened == false)
             {
                 projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
-                if (TryShoveIntoTile(projectedTile))
-                        Debug.LogWarning("entity shoved whole way, no collision.");
+                TryShoveIntoTile(projectedTile);
             }
 
             bool TryShoveIntoTile(TileNode tileToCheck)
