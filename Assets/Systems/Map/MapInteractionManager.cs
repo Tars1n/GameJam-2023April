@@ -197,19 +197,18 @@ namespace GameJam.Map
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
             ValidateTileSelection(gridCoordinate, tileNode);
 
+            if (tileNode.IsSelectable == false) 
+                { return; }
             if (SelectedPlayerCharacter(tileNode))
             {
                 RefreshOverlayMap();
                 return;
             }
-
-            //mirror player input
-            //get origin and action Coordinates
-            //send mirrored version of that interaction to mirrored chars.
             EntityBase entity = GameMaster.Instance.ActiveEntity;
-            _mirrorManager.TryMirrorEntityAction(entity, tileNode);
-
-            TryToTakeAction(null, tileNode);
+            if (TryToTakeAction(entity, tileNode))
+            {   //if player successfully causes selected character to take action, force mirrored entity to also act.
+                _mirrorManager.TryMirrorEntityAction(entity, tileNode);
+            }
             RefreshOverlayMap();            
         }
 
@@ -286,13 +285,19 @@ namespace GameJam.Map
             }
             if (CanMoveToTile(entity, tile, 2))
             {                //jump and shove
-                // entity.AdditionalActions = true;
-                // entity.GetComponent<JumpAndShove>().SubscribeToEntityActionCompleted(tile);
                 HopEntity(entity, tile, 2);
-                // entity.GetComponent<JumpAndShove>().ActivateJumpPushback(tile);
-                return true;
-                
+                return true;                
             }
+
+            if (_mapManager.CalculateRange(entity.CurrentTileNode.GridCoordinate, tile.GridCoordinate) <= 2)
+            {
+                //Requested action was within range but not on an appropriate tile (often requested as a mirrored action)
+                //Entity ends turn not having done anything, but hops in place as feedback of spending their action.
+                HopEntity(entity, entity?.CurrentTileNode, 0);
+                return true;
+            }
+
+            //Entity could not do action, hop in place and end turn regardless.
             return false;
         }
 
