@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
-using GameJam.TriggerEvents;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Map
 {
@@ -25,8 +25,8 @@ namespace GameJam.Map
         private MapInteractionManager _mapInteractionManager;
         private LevelManager _levelManager;
         public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
-        [SerializeField] private TriggerEventManager _triggerEventManager;
-        public TriggerEventManager TriggerEventManager => _triggerEventManager;
+        [SerializeField] private TriggerTileManager _triggerTileManager;
+        public TriggerTileManager TriggerTileManager => _triggerTileManager;
         
         public List<EntityBase> Entities = new List<EntityBase>();
 
@@ -111,7 +111,7 @@ namespace GameJam.Map
                 GameMaster.Instance.ReferenceManager.EntityManager.TryRemoveEntity(entity);
                 return false;
             }
-            _triggerEventManager?.EntityEnteredTrigger(entity, this);
+            _triggerTileManager?.EntityEnteredTrigger(entity, this);
             if (LevelManager.RecordSlimeTrails)
             {
                 GameObject slime = GameObject.Instantiate(LevelManager.SlimeDrop, WorldPos, Quaternion.identity);
@@ -135,16 +135,16 @@ namespace GameJam.Map
         {
             Entities = new List<EntityBase>();
         }
-        public void SetUpTrigger(TriggerEventManager triggerEventManager)
+        public void SetUpTrigger(TriggerTileManager triggerTileManager)
         {
             SetUpMapInteractionManager();
-            _triggerEventManager = triggerEventManager;
+            _triggerTileManager = triggerTileManager;
             _mapInteractionManager?.RenderTriggerHilight(GridCoordinate);
         }
         public void ClearTrigger()
         {
             _mapInteractionManager?.ClearTriggerHilight(GridCoordinate);
-            _triggerEventManager = null;
+            _triggerTileManager = null;
         }
         private void SetUpMapInteractionManager()
         {

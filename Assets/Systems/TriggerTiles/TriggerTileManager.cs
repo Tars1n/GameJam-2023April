@@ -4,9 +4,9 @@ using UnityEngine;
 using GameJam.Entity;
 using GameJam.Map;
 
-namespace GameJam.TriggerEvents
+namespace GameJam.Map.TriggerTiles
 {
-    public abstract class TriggerEventManager : MonoBehaviour
+    public abstract class TriggerTileManager : MonoBehaviour
     {
         protected TileNodeManager _tileNodeManager;
         protected ReferenceManager _ref;
