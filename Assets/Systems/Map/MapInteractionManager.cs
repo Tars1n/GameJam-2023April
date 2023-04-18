@@ -312,7 +312,7 @@ namespace GameJam.Map
         }
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
         {
-            if (tile.IsWalkable(entity) == false)
+            if (tile == null || tile?.IsWalkable(entity) == false)
                 { return false; }
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
             if (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) > range)
