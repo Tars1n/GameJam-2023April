@@ -45,14 +45,17 @@ namespace GameJam.Entity
             if (entity.GetType() == typeof(EntityCharacter))
             {
                 _playerCharacters.Remove((EntityCharacter)entity);
+                removed = true;
             }
             if (entity.GetType() == typeof(EntityMonster))
             {
                 _monsters.Remove((EntityMonster)entity);
+                removed = true;
             }
             if (entity.GetType() == typeof(EntityTrap))
             {
                 _traps.Remove((EntityTrap)entity);
+                removed = true;
             }
             entity.LeaveTileNode();
             entity.DoDestroy();

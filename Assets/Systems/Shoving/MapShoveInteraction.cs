@@ -126,7 +126,6 @@ namespace GameJam.Map
                 if (journey >= j && collisionHappened == false)
                 {
                     j++;
-                    Debug.Log($"test shove into {projectedTile.GridCoordinate}.");
                     //get projected tile.
                     axialTarget += axialDir;
                     projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
@@ -135,7 +134,6 @@ namespace GameJam.Map
                     if (projectedTile == null) {continue;}
                     if (projectedTile.IsWalkable(entity))
                     {
-                        Debug.Log($"is walkable.");
                         shortenSlideDistance = 0.1f;
                     }
                 }
