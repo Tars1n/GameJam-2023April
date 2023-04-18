@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7461289205275857559}
   - component: {fileID: 3500984144548721668}
   - component: {fileID: 7461289205275857556}
-  - component: {fileID: 8345146158338383452}
+  - component: {fileID: 6187505163592311578}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57140d8f23cdd7f4d8621814b71fc7ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLog: 1
+  _isShovable: 0
   _currentTileNode:
     TileType: {fileID: 0}
     _isSelectable: 0
@@ -112,9 +114,9 @@ MonoBehaviour:
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
-  _additionalActions: 0
+  _isCurrentlyProcessingTurnAction: 0
   _trapBlueprint: {fileID: 0}
---- !u!114 &8345146158338383452
+--- !u!114 &6187505163592311578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,9 +125,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7461289205275857557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a11f59a366be451e86b15ce2ec111d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 73d7643e46e0fc948a5586e7ffc0fc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gizmoColour: {r: 1, g: 0.015686274, b: 0.024508314, a: 0.5372549}
+  _gizmoColour: {r: 1, g: 0, b: 0, a: 0.5019608}
   _triggerLocationTiles:
   - {x: 0, y: 0, z: 0}

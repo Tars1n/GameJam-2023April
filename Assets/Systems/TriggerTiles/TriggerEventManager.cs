@@ -1,29 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJam.Entity;
 using GameJam.Map;
 
-namespace GameJam.Entity.Trap
+namespace GameJam.TriggerEvents
 {
-    public class TriggerEventManager : MonoBehaviour
+    public abstract class TriggerEventManager : MonoBehaviour
     {
-        private TileNodeManager _tileNodeManager;
-        private ReferenceManager _ref;
-        [SerializeField] private Color _gizmoColour = Color.red;
-        private MapManager _mapManager;
-        private MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
-        [SerializeField] private List<Vector3Int> _triggerLocationTiles;
+        protected TileNodeManager _tileNodeManager;
+        protected ReferenceManager _ref;
+        [SerializeField] protected Color _gizmoColour = Color.red;
+        protected MapManager _mapManager;
+        protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
+        [SerializeField] protected List<Vector3Int> _triggerLocationTiles;
         //this list creates tiles that the entity can trigger the trap by steppin on.
-        private EntityManager _entityManager;
+        protected EntityManager _entityManager;
 
-        private void Start()
+        protected virtual void Start()
         {
             _ref = GameMaster.Instance.ReferenceManager;
             _tileNodeManager = _ref.TileNodeManager;
             _entityManager = _ref.EntityManager;
             SetupTriggers();
         }
-        public void SetupTriggers()
+        protected virtual void SetupTriggers()
         {
             if (_triggerLocationTiles == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
@@ -37,7 +38,7 @@ namespace GameJam.Entity.Trap
                 tileNode.SetUpTrigger(this);
             }
         }
-        void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
             // Draw a yellow sphere at the transform's position
             Gizmos.color = _gizmoColour;
@@ -48,7 +49,7 @@ namespace GameJam.Entity.Trap
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             ClearTriggerTiles();    
         }
@@ -61,18 +62,6 @@ namespace GameJam.Entity.Trap
                 tileNode.ClearTrigger();
             }
         }
-        public virtual void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
-        {
-            //TODO: derive scripts that can customize how they react to this function. Oneshot traps, permanent traps, pressure plates, key to door, etc.
-            if (entityBase != null)
-            {
-                ClearTriggerTiles();
-                _entityManager.TryRemoveEntity(entityBase); //remove entity that entered trigger tile
-                _entityManager.TryRemoveEntity(this?.GetComponent<EntityBase>()); //remove trap
-
-            }
-        }
-
-        
+        public abstract void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode);
     }
 }

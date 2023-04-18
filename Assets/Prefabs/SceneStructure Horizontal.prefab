@@ -4984,6 +4984,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6395715848295395616}
     m_Modifications:
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _gizmoColour.b
+      value: 0.022335052
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _gizmoColour.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 7461289205275857557, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
       propertyPath: m_Name
       value: Trap
@@ -5265,6 +5277,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6395715848295395616}
     m_Modifications:
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _gizmoColour.b
+      value: 0.36335707
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7461289204706763209, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

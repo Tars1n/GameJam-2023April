@@ -381,6 +381,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _gizmoColour.b
+      value: 0.110836506
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[1].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[2].x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[2].y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[3].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[3].y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 930123262430285020, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[4].y
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2819779886846200602, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _slimeDrop
       value: 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
-using GameJam.Entity.Trap;
+using GameJam.TriggerEvents;
 
 namespace GameJam.Map
 {

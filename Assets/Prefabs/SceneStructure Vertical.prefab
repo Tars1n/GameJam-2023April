@@ -5186,6 +5186,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7416869154071913027}
     m_Modifications:
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[1].x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[1].y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[2].x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[2].y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[3].x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[3].y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[4].x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6187505163592311578, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[4].y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 7461289205275857557, guid: 9cb116760e748884f9f3544e8ca410c8, type: 3}
       propertyPath: m_Name
       value: Trap
