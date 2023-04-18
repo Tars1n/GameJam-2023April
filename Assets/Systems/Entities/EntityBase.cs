@@ -51,13 +51,10 @@ namespace GameJam.Entity
         public void LinkToTileNode(TileNode tileNode)
         {
             LeaveTileNode();
-            if (tileNode == null)
+            _currentTileNode = tileNode;
+            if (_currentTileNode == null)
             {
                 _currentTileNode = _ref.MapManager.GetTileNodeAtWorldPos(transform.position);
-            }
-            else
-            {
-                _currentTileNode = tileNode;
             }
             if (_currentTileNode == null)
             {
@@ -66,12 +63,6 @@ namespace GameJam.Entity
             }
 
             _currentTileNode?.TryAddEntity(this);
-            
-            if (_currentTileNode.IsPitTile)
-            {
-                _ref.EntityManager.TryRemoveEntity(this);
-                DoDestroy();
-            }
         }
 
         public void LeaveTileNode()

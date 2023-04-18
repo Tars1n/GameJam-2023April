@@ -99,7 +99,8 @@ namespace GameJam.Map
 
             
             float timeElapsed = 0;
-            int j = 0;
+            float j = 0f;
+            float shortenSlideDistance = 0.1f;
 
             while (timeElapsed < _slideSpeed)
             {
@@ -128,6 +129,16 @@ namespace GameJam.Map
                     //get projected tile.
                     axialTarget += axialDir;
                     projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
+                    //Determine slide distance based on if entity can slide into upcoming tile.
+                    shortenSlideDistance = 0.5f;
+                    if (projectedTile == null) {continue;}
+                    if (projectedTile.IsWalkable(entity))
+                    {
+                        shortenSlideDistance = 0.1f;
+                    }
+                }
+                if (journey >= (j - shortenSlideDistance) && collisionHappened == false)
+                {
                     TryShoveIntoTile(projectedTile);
                     if (collisionHappened)
                     {

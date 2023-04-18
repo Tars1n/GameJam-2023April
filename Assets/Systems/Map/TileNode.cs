@@ -11,10 +11,10 @@ namespace GameJam.Map
     public class TileNode
     {
         public TileBase TileType;
-        [SerializeField] private bool _isSelectable;
+        [SerializeField] private bool _isSelectable = false;
         public bool IsSelectable => _isSelectable;
-        [SerializeField] private bool _isWalkable;
-        [SerializeField] private bool _isPitTile;
+        [SerializeField] private bool _isWalkable = false;
+        [SerializeField] private bool _isPitTile = false;
         public bool IsPitTile => _isPitTile;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
@@ -106,6 +106,11 @@ namespace GameJam.Map
         {
             if (Entities.Contains(entity) == false)
                 {Entities.Add(entity);}
+            if (_isPitTile)
+            {
+                GameMaster.Instance.ReferenceManager.EntityManager.TryRemoveEntity(entity);
+                return false;
+            }
             _triggerEventManager?.EntityEnteredTrigger(entity, this);
             if (LevelManager.RecordSlimeTrails)
             {
