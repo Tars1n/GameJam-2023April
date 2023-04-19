@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GameJam
 {
     public class GameMaster
-    {
+    {     
         private static GameMasterSingleton _instance;
         public static GameMasterSingleton Instance { get { return GetSingleton(); }}
 

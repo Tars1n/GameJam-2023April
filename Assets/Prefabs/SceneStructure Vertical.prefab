@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 1805371982019811449}
   - component: {fileID: 5680795748293629978}
   - component: {fileID: 5038486035045394039}
+  - component: {fileID: 3631122234873527844}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -687,6 +688,18 @@ MonoBehaviour:
   _triggerTile: {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
   _gizmoColour: {r: 0.09451604, g: 1, b: 0, a: 1}
   _triggerLocationTiles: []
+--- !u!114 &3631122234873527844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805371982019811448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164906cc952f04e848b2c1d60ae3825a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1805371982116953750
 GameObject:
   m_ObjectHideFlags: 0

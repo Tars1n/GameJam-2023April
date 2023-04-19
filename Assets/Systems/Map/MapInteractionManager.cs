@@ -13,7 +13,7 @@ namespace GameJam.Map
 {
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
-    {
+    {        
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -58,6 +58,11 @@ namespace GameJam.Map
         private void Update() {
             if (_gm.TilemapInteractable == false)
                 return;
+            if (GameMaster.GetSingleton().GameSuspended == true)
+            {
+                RefreshOverlayMap();
+                return;
+            }
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
