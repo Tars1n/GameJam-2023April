@@ -14,12 +14,14 @@ namespace GameJam.Entity
         [SerializeField] private List<EntityTrap> _traps;
         [SerializeField] private Queue<EntityBase> _mapEntityQueue;
         private Map.TileNodeManager _tileNodeManager;
+        private LevelManager _levelManager;
 
         private void Awake() {
             _playerCharacters = new List<EntityCharacter>();
             _monsters = new List<EntityMonster>();
             _traps = new List<EntityTrap>();
             _mapEntityQueue = new Queue<EntityBase>();
+            _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         }
 
         private void Start()
@@ -46,6 +48,7 @@ namespace GameJam.Entity
             {
                 _playerCharacters.Remove((EntityCharacter)entity);
                 removed = true;
+                _levelManager.LevelFailed();
             }
             if (entity.GetType() == typeof(EntityMonster))
             {
