@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2819779886846200604}
   - component: {fileID: 2819779886846200605}
   - component: {fileID: 2819779886846200602}
+  - component: {fileID: 4699089326615194988}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -81,6 +82,22 @@ MonoBehaviour:
   _mapManager: {fileID: 2819779886868964721}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
   _recordSlimeTrails: 1
+--- !u!114 &4699089326615194988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819779886846200603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66490327715a247189028cfcbb6c0f4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gizmoColour: {r: 0, g: 0.023826122, b: 1, a: 1}
+  _triggerLocationTiles:
+  - {x: -3, y: -6, z: 1}
+  _relicsGathered: 0
 --- !u!1 &2819779886868964734
 GameObject:
   m_ObjectHideFlags: 0
