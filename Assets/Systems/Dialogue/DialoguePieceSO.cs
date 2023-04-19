@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameJam
+namespace GameJam.Dialogue
 {
     [System.Serializable]
     [CreateAssetMenu (fileName = "DialoguePieceSO" , menuName = "Dialogue/Piece")]

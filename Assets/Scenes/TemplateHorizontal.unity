@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[0]
@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: _startDialogue.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: e50fe23fdfdb54f5ab7145fc70e2aec0, type: 2}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 87ea195be00344f04a8f7226c3151d5d, type: 2}
     - target: {fileID: 2819779886846200604, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _debugLogs
       value: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
+using GameJam.Entity;
 
 namespace GameJam.Dialogue
 {
@@ -12,12 +13,14 @@ namespace GameJam.Dialogue
         [SerializeField] private List<DialoguePieceSO> _currentDialogue;
 
         private GameMasterSingleton _gameMasterSingleton;
+        private EntityManager _entityManager;
         public Action _continueDialogue;
         public Action _dialgueComplete;
         private int _dialogueIndex;
 
         private void Start() {
             {
+                _entityManager = GameMaster.Instance.ReferenceManager.EntityManager;
                 _gameMasterSingleton = GameMaster.GetSingleton();
                 _currentDialogue = _startDialogue; 
                 BeginDialogue();               
@@ -46,12 +49,25 @@ namespace GameJam.Dialogue
                 _dialgueComplete?.Invoke();
                 return;
             }
-            DialogueText dialogueText = (DialogueText)_currentDialogue[_dialogueIndex];
-            if (dialogueText != null)
+            
+            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueText))
             {
+                DialogueText dialogueText = (DialogueText)_currentDialogue[_dialogueIndex];
                 Debug.Log(dialogueText.DialogueTextStr);
                 _dialogueIndex ++;  
-                _continueDialogue += NextDialoguePiece;          
+                _continueDialogue += NextDialoguePiece; 
+                return;         
+            }
+            
+            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueSpawnEntity))            
+            {
+                DialogueSpawnEntity dialogueSpawnEntity = (DialogueSpawnEntity)_currentDialogue[_dialogueIndex];
+                GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
+                EntityBase eb = go.GetComponent<EntityBase>();
+                _entityManager.AddEntity(eb);
+                _dialogueIndex ++;
+                NextDialoguePiece();
+                return;
             }
         }
         private void OnDisable()
