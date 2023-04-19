@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 8677799316811170592}
   - component: {fileID: 3770672836162275649}
   - component: {fileID: 1570969359}
+  - component: {fileID: 5163277418668489963}
   m_Layer: 0
   m_Name: CultistPattern
   m_TagString: Untagged
@@ -180,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7f974b3b2352747b23fb2777ebc22b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLog: 1
+  _isShovable: 1
   _currentTileNode:
     TileType: {fileID: 0}
     _isSelectable: 0
@@ -191,12 +194,12 @@ MonoBehaviour:
     FlyingPathDirection: {x: 0, y: 0, z: 0}
     WalkingPathExplored: 0
     FlyingPathExplored: 0
-    _triggerEventManager: {fileID: 0}
+    _triggerTileManager: {fileID: 0}
     Entities: []
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
-  _additionalActions: 0
+  _isCurrentlyProcessingTurnAction: 0
   _monsterBlueprint: {fileID: 0}
 --- !u!114 &3770672836162275649
 MonoBehaviour:
@@ -238,3 +241,15 @@ MonoBehaviour:
   _stepInActivityLoop: 0
   _gizmoColour: {r: 0.6273585, g: 1, b: 0.9555194, a: 0.5019608}
   _telegraphGO: {fileID: 7152181908430932315}
+--- !u!114 &5163277418668489963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677799316811170015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9db2caf12aa3b4894b20cf008e79eb6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
