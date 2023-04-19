@@ -134,6 +134,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b5a30b7f3328f41a1f9b724b0453f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &213524357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2819779886846200603, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+  m_PrefabInstance: {fileID: 1033022794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &213524358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213524357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 769d6afa481fa492db8667cb8be446da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerTile: {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
+  _gizmoColour: {r: 0.1573993, g: 1, b: 0, a: 1}
+  _triggerLocationTiles:
+  - {x: -4, y: 6, z: 0}
 --- !u!1001 &1033022794
 PrefabInstance:
   m_ObjectHideFlags: 0
