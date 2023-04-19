@@ -1,21 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJam.Map;
 
-namespace GameJam
+namespace GameJam.Entity.Brain
 {
-    public class BrainDoNothing : MonoBehaviour
+    [System.Serializable]
+    public class BrainDoNothing : BrainBase
     {
-        // Start is called before the first frame update
-        void Start()
+        private MapInteractionManager _mapInteractionManager;
+        private EntityBase _entityBase;
+        private void Awake()
         {
-        
+            _entityBase = GetComponent<EntityBase>();
         }
-
-        // Update is called once per frame
-        void Update()
+        private void Start() {
+            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
+        }
+        public override void Think()
         {
-        
+            _entityBase.ActionCompleted();
+        }
+        public override void TelegraphNextTurn()
+        {
         }
     }
 }
