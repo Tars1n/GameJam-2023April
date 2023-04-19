@@ -10,6 +10,7 @@ namespace GameJam.Entity
     {
         //monster brain
         [SerializeField] private MonsterBlueprint _monsterBlueprint;
+        private KillAdjacentPlayer _killAdjacentPlayer;
         // something that represents goal.
         private BrainBase _brain;
         
@@ -17,6 +18,7 @@ namespace GameJam.Entity
         {
             base.Awake();
             _brain = GetComponent<BrainBase>();
+            _killAdjacentPlayer = GetComponent<KillAdjacentPlayer>();
         }
 
         public override void RefreshAction()
@@ -26,6 +28,7 @@ namespace GameJam.Entity
         }
         public override void DoTurnAction()
         {
+            _killAdjacentPlayer?.KillIfCan();
             _brain?.Think();
         }        
     }
