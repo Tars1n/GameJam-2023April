@@ -141,6 +141,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2819779886846200602, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _scoreSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 40af083b746654f5cbd202a98cd2a64d, type: 2}
     - target: {fileID: 2819779888156433550, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_TileAssetArray.Array.data[0].m_RefCount
       value: 110

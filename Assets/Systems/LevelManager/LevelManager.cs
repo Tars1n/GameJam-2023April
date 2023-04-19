@@ -17,6 +17,8 @@ namespace GameJam
         public GameObject SlimeDrop => _slimeDrop;
         [SerializeField] private bool _recordSlimeTrails;
         public bool RecordSlimeTrails => _recordSlimeTrails;
+        [SerializeField] private ScoreSO _scoreSO;
+        public ScoreSO ScoreSO => _scoreSO;        
         
         
         private void Awake() {

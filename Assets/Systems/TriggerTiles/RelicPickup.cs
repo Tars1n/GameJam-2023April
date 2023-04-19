@@ -9,6 +9,12 @@ namespace GameJam.Map.TriggerTiles
     {
         [SerializeField] private int _relicsGathered;
 
+        private LevelManager _levelManager;
+
+        private void Awake()
+        {
+            _levelManager = GetComponent<LevelManager>();
+        }
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
             if (_triggerLocationTiles == null) return;
@@ -18,6 +24,7 @@ namespace GameJam.Map.TriggerTiles
                 }
                 tileNode.ClearTrigger();
                 _relicsGathered ++;
+                _levelManager.ScoreSO.AddRelics(1);
         }
     }
 }
