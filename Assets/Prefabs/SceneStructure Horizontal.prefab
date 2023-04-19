@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66490327715a247189028cfcbb6c0f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _triggerTile: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
   _gizmoColour: {r: 0, g: 0.023826122, b: 1, a: 1}
   _triggerLocationTiles:
   - {x: -3, y: -6, z: 1}
@@ -238,7 +239,6 @@ MonoBehaviour:
   _selectionTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _monsterTelegraphTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _activeEntityTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
-  _triggerTileHilight: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _renderPathToTarget: 1
   _mp: 5
   _slideSpeed: 0.5

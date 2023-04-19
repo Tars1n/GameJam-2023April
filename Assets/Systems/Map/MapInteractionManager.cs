@@ -34,7 +34,7 @@ namespace GameJam.Map
         [SerializeField] private TileBase _monsterTelegraphTileBase;
         public TileBase MonsterTelegraph => _monsterTelegraphTileBase;
         [SerializeField] private TileBase _activeEntityTileBase;
-        [SerializeField] private TileBase _triggerTileHilight;
+        // [SerializeField] private TileBase _triggerTileHilight;
         [SerializeField] private bool _renderPathToTarget = true;
         [SerializeField] private int _mp = 3;
         [SerializeField] private float _slideSpeed = 0.5f;
@@ -383,9 +383,9 @@ namespace GameJam.Map
             entity.ActionCompleted();
         }
         
-        public void RenderTriggerHilight(Vector3Int tileCoords)
+        public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
         {
-            _triggerTileMap.SetTile(tileCoords, _triggerTileHilight);
+            _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {

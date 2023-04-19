@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Entity;
 using GameJam.Map;
+using UnityEngine.Tilemaps;
 
 namespace GameJam.Map.TriggerTiles
 {
     public abstract class TriggerTileManager : MonoBehaviour
     {
+        [SerializeField] private TileBase _triggerTile;
         protected TileNodeManager _tileNodeManager;
         protected ReferenceManager _ref;
         [SerializeField] protected Color _gizmoColour = Color.red;
@@ -35,7 +37,7 @@ namespace GameJam.Map.TriggerTiles
                     Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
                     continue;
                 }
-                tileNode.SetUpTrigger(this);
+                tileNode.SetUpTrigger(this, _triggerTile);
             }
         }
         protected virtual void OnDrawGizmos()

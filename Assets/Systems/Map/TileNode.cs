@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Map.TriggerTiles;
+using UnityEngine.Tilemaps;
 
 namespace GameJam.Map
 {
@@ -135,11 +136,11 @@ namespace GameJam.Map
         {
             Entities = new List<EntityBase>();
         }
-        public void SetUpTrigger(TriggerTileManager triggerTileManager)
+        public void SetUpTrigger(TriggerTileManager triggerTileManager, TileBase triggerTile)
         {
             SetUpMapInteractionManager();
             _triggerTileManager = triggerTileManager;
-            _mapInteractionManager?.RenderTriggerHilight(GridCoordinate);
+            _mapInteractionManager?.RenderTriggerHilight(GridCoordinate, triggerTile);
         }
         public void ClearTrigger()
         {
