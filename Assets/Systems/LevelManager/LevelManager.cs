@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map;
 using GameJam.Entity;
+using UnityEngine.SceneManagement;
 
 namespace GameJam
 {
@@ -28,12 +29,29 @@ namespace GameJam
         private void Start()
         {
             StartCoroutine(LateStart());
+            IfFirstSceneResetScore();
         }
-
+        private void IfFirstSceneResetScore()
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                _scoreSO.GameStartResetScore();
+            }
+        }
         IEnumerator LateStart()
         {
             yield return new WaitForSeconds(1f);
             _turnManager.BeginPlay();
+        }
+        public void LevelComplete()
+        {
+            _scoreSO.LevelCompleteSetScore();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        public void LevelFailed()
+        {
+            _scoreSO.RestartLevelScore();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         
     }

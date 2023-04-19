@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2819779886846200605}
   - component: {fileID: 2819779886846200602}
   - component: {fileID: 4699089326615194988}
+  - component: {fileID: 978476151701178699}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -79,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f51dcda93f7afde4496161ea476bffd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _relicsRequiredForCompletion: 0
   _mapManager: {fileID: 2819779886868964721}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
   _recordSlimeTrails: 1
@@ -100,6 +102,22 @@ MonoBehaviour:
   _triggerLocationTiles:
   - {x: -3, y: -6, z: 1}
   _relicsGathered: 0
+--- !u!114 &978476151701178699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819779886846200603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 769d6afa481fa492db8667cb8be446da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerTile: {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
+  _gizmoColour: {r: 0.10617697, g: 1, b: 0, a: 1}
+  _triggerLocationTiles:
+  - {x: -4, y: -4, z: 0}
 --- !u!1 &2819779886868964734
 GameObject:
   m_ObjectHideFlags: 0

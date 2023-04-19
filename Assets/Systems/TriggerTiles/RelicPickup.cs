@@ -8,6 +8,7 @@ namespace GameJam.Map.TriggerTiles
     public class RelicPickup : TriggerTileManager
     {
         [SerializeField] private int _relicsGathered;
+        public int RelicsGathered => _relicsGathered;
 
         private LevelManager _levelManager;
 

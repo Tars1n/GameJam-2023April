@@ -421,6 +421,14 @@ PrefabInstance:
       propertyPath: _triggerLocationTiles.Array.data[4].y
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 978476151701178699, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 978476151701178699, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2819779886846200602, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _slimeDrop
       value: 
@@ -7988,6 +7996,14 @@ PrefabInstance:
     - target: {fileID: 2819779888156433550, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_Tiles.Array.data[318].second.m_TileObjectToInstantiateIndex
       value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699089326615194988, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4699089326615194988, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6395715848295395616, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_RootOrder
