@@ -123,6 +123,12 @@ namespace GameJam.Entity
 
         protected virtual void CompletedTurn()
         {
+            if (_hasActionReady == false)
+            {
+                //this has already been called by something else, preventing multiple requests to the TurnManager.
+                return;
+            }
+
             _hasActionReady = false;
             _spriteRenderer.color = _turnOverState;
             // if (_turnManager.DebugLog) Debug.Log($"{this} has completed it's turn.");
@@ -132,8 +138,8 @@ namespace GameJam.Entity
         public virtual void DoDestroy()
         {
             if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
-            //probably want to have entities do some of their own things when being destroyed.
-            Destroy(this.gameObject);
+
+            this.gameObject.SetActive(false);
         }
     }
 }

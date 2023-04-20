@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
-using GameJam.Entity.Shoving;
 
 namespace GameJam.Map
 {
@@ -122,10 +121,12 @@ namespace GameJam.Map
                 timeElapsed += Time.deltaTime;
 
                 float journey = g*distance;
+                bool shoveOneTile = false;
                 
                 if (journey >= j && collisionHappened == false)
                 {
                     j++;
+                    shoveOneTile = true;
                     //get projected tile.
                     axialTarget += axialDir;
                     projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
@@ -137,8 +138,9 @@ namespace GameJam.Map
                         shortenSlideDistance = 0.1f;
                     }
                 }
-                if (journey >= (j - shortenSlideDistance) && collisionHappened == false)
+                if (shoveOneTile && journey >= (j - shortenSlideDistance) && collisionHappened == false)
                 {
+                    shoveOneTile = false;
                     TryShoveIntoTile(projectedTile);
                     if (collisionHappened)
                     {
@@ -180,7 +182,9 @@ namespace GameJam.Map
                 currentTile.CollidedWith();
                 tileToCheck.CollidedWith();
                 return false;
-            }      
+            }
+
+            entity.ActionCompleted();
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);
         }

@@ -13,6 +13,7 @@ namespace GameJam.Entity
         [SerializeField] private List<EntityMonster> _monsters;
         [SerializeField] private List<EntityTrap> _traps;
         [SerializeField] private Queue<EntityBase> _mapEntityQueue;
+        [SerializeField] private Queue<EntityBase> _entitiesToDestroy;
         private Map.TileNodeManager _tileNodeManager;
         private LevelManager _levelManager;
 
@@ -21,6 +22,7 @@ namespace GameJam.Entity
             _monsters = new List<EntityMonster>();
             _traps = new List<EntityTrap>();
             _mapEntityQueue = new Queue<EntityBase>();
+            _entitiesToDestroy = new Queue<EntityBase>();
             _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         }
 
@@ -41,7 +43,7 @@ namespace GameJam.Entity
                 _traps.Add((EntityTrap)entity);
         }
 
-        public bool TryRemoveEntity(EntityBase entity)
+        public bool TryDestroyEntity(EntityBase entity)
         {
             bool removed = false;
             if (entity.GetType() == typeof(EntityCharacter))
@@ -61,8 +63,18 @@ namespace GameJam.Entity
                 removed = true;
             }
             entity.LeaveTileNode();
+            _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();
             return removed;
+        }
+
+        public void DestroyRemovedEntities()
+        {
+            while (_entitiesToDestroy.Count > 0)
+            {
+                EntityBase entity = _entitiesToDestroy.Dequeue();
+                Destroy(entity.gameObject);
+            }
         }
 
         private void RemapAllEntities()

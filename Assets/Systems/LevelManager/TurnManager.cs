@@ -95,6 +95,8 @@ namespace GameJam.Entity
             } else {
                 _holdingNextTick = false;
             }
+
+            _entityManager.DestroyRemovedEntities();
             
             if (_playerTurn)
             {

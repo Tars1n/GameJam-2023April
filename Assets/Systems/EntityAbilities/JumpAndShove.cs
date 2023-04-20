@@ -22,17 +22,9 @@ namespace GameJam.Entity.Abilities
             _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
             _mapShoveInteraction = _mapManager.GetComponent<MapShoveInteraction>();
         }
-        // public void SubscribeToEntityActionCompleted(TileNode targetNode)
-        // {
-        //     _entityBase._nextAction += ActivateJumpPushback;
-        // }
-        // private void OnEnable()
-        // {
-        //     _entityBase._nextAction -= ActivateJumpPushback;
-        // }
+
         public void ActivateJumpPushback()
         {
-            //Debug.LogWarning("ActivateJumpPushback called!");
             TileNode targetNode = _entityBase.CurrentTileNode;
             if (targetNode == null)
             {
@@ -49,7 +41,6 @@ namespace GameJam.Entity.Abilities
                     _mapShoveInteraction.ShoveThisTile(targetNode , tileNode, 1);
                 }
             }
-            // _entityBase._nextAction -= ActivateJumpPushback;
         }
     }
 }
