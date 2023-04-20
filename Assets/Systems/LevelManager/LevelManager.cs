@@ -46,6 +46,12 @@ namespace GameJam
         public void LevelComplete()
         {
             _scoreSO.LevelCompleteSetScore();
+            int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCountInBuildSettings >= nextLevel)
+            {
+                Debug.LogWarning($"There are no more Scenes to load beyond this one: {SceneManager.GetActiveScene().buildIndex}. Make sure to add new levels to the Build Settings.");
+                return;
+            }
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         public void LevelFailed()
