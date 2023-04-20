@@ -7,7 +7,6 @@ using GameJam.Pathfinding;
 using GameJam.Entity;
 using GameJam.PlayerInput;
 using GameJam.Entity.Abilities;
-using GameJam.Entity.Shoving;
 
 namespace GameJam.Map
 {
@@ -280,7 +279,6 @@ namespace GameJam.Map
             if (CanShoveTile(entity, tile))
             {                
                 _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile, 2);
-                entity.ActionCompleted();
                 return true;
             }
             if (CanMoveToTile(entity, tile, 1))
@@ -383,9 +381,10 @@ namespace GameJam.Map
             {
                 entity.GetComponent<JumpAndShove>()?.ActivateJumpPushback();
             }
+
+            entity.ActionCompleted();
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);
-            entity.ActionCompleted();
         }
         
         public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)

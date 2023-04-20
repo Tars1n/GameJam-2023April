@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8407479944982123146}
   - component: {fileID: 2719753275400756106}
   - component: {fileID: 8407479944982123149}
-  - component: {fileID: 2036365219769794091}
   - component: {fileID: 694517987159947115}
   - component: {fileID: 1466467849690277501}
   m_Layer: 0
@@ -98,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b5a30b7f3328f41a1f9b724b0453f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugLog: 1
+  _isShovable: 1
   _currentTileNode:
     TileType: {fileID: 0}
     _isSelectable: 0
@@ -109,24 +110,12 @@ MonoBehaviour:
     FlyingPathDirection: {x: 0, y: 0, z: 0}
     WalkingPathExplored: 0
     FlyingPathExplored: 0
-    _triggerEventManager: {fileID: 0}
+    _triggerTileManager: {fileID: 0}
     Entities: []
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
-  _additionalActions: 0
---- !u!114 &2036365219769794091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8407479944982123148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec7bd61fe5fa417886712f887977b13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _isCurrentlyProcessingTurnAction: 0
 --- !u!114 &694517987159947115
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,10 +30,10 @@ namespace GameJam.Entity
                 {
                     foreach (EntityBase entity in tileNode.Entities)
                     {
-                        EntityCharacter entityCharacter = (EntityCharacter)entity;
-                        if (entityCharacter != null)
+                        if (entity?.GetType() == typeof(EntityCharacter))
                         {
-                            _entityManager.TryRemoveEntity(entityCharacter);
+                            EntityCharacter entityCharacter = (EntityCharacter)entity;
+                            _entityManager.TryDestroyEntity(entityCharacter);
                         }
                     }
                 }

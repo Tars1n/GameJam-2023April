@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Map.TriggerTiles;
-using UnityEngine.Tilemaps;
 
 namespace GameJam.Map
 {
@@ -109,7 +108,7 @@ namespace GameJam.Map
                 {Entities.Add(entity);}
             if (_isPitTile)
             {
-                GameMaster.Instance.ReferenceManager.EntityManager.TryRemoveEntity(entity);
+                GameMaster.Instance.ReferenceManager.EntityManager.TryDestroyEntity(entity);
                 return false;
             }
             _triggerTileManager?.EntityEnteredTrigger(entity, this);

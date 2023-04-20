@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7065358791319654612}
   - component: {fileID: 5705324762713465617}
   - component: {fileID: 7065358791319654615}
-  - component: {fileID: 7065358791319654614}
   - component: {fileID: 7065358791319656233}
   - component: {fileID: 3462866597817886221}
   m_Layer: 0
@@ -118,18 +117,6 @@ MonoBehaviour:
   _hasActionReady: 0
   _isCurrentlyProcessingTurnAction: 0
   _monsterBlueprint: {fileID: 0}
---- !u!114 &7065358791319654614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7065358791319656232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ec7bd61fe5fa417886712f887977b13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7065358791319656233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,22 +155,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db2caf12aa3b4894b20cf008e79eb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugLog: 1
-  _isShovable: 1
-  _currentTileNode:
-    TileType: {fileID: 0}
-    _isSelectable: 0
-    _isWalkable: 0
-    _isPitTile: 0
-    GridCoordinate: {x: 0, y: 0, z: 0}
-    WorldPos: {x: 0, y: 0, z: 0}
-    WalkingPathDirection: {x: 0, y: 0, z: 0}
-    FlyingPathDirection: {x: 0, y: 0, z: 0}
-    WalkingPathExplored: 0
-    FlyingPathExplored: 0
-    _triggerTileManager: {fileID: 0}
-    Entities: []
-  _readyState: {r: 0, g: 0, b: 0, a: 0}
-  _turnOverState: {r: 0, g: 0, b: 0, a: 0}
-  _hasActionReady: 0
-  _isCurrentlyProcessingTurnAction: 0
