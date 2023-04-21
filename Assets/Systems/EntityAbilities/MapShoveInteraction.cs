@@ -100,6 +100,7 @@ namespace GameJam.Map
             float timeElapsed = 0;
             float j = 0f;
             float shortenSlideDistance = 0.1f;
+            bool shoveOneTile = false;
 
             while (timeElapsed < _slideSpeed)
             {
@@ -121,7 +122,7 @@ namespace GameJam.Map
                 timeElapsed += Time.deltaTime;
 
                 float journey = g*distance;
-                bool shoveOneTile = false;
+                shortenSlideDistance = .38f;
                 
                 if (journey >= j && collisionHappened == false)
                 {
@@ -131,29 +132,28 @@ namespace GameJam.Map
                     axialTarget += axialDir;
                     projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
                     //Determine slide distance based on if entity can slide into upcoming tile.
-                    shortenSlideDistance = 0.5f;
                     if (projectedTile == null) {continue;}
                     if (projectedTile.IsWalkable(entity))
                     {
                         shortenSlideDistance = 0.1f;
                     }
                 }
-                if (shoveOneTile && journey >= (j - shortenSlideDistance) && collisionHappened == false)
+                if (shoveOneTile == true && journey >= (j - shortenSlideDistance) && collisionHappened == false)
                 {
                     shoveOneTile = false;
                     TryShoveIntoTile(projectedTile);
-                    if (collisionHappened)
-                    {
-                        GameMaster.Instance.TilemapInteractable = true;
-                        GameMaster.Instance.RemoveEntityInMotion(entity);
-                        yield break;
-                    }
+                }
+                if (collisionHappened)
+                {
+                    GameMaster.Instance.TilemapInteractable = true;
+                    GameMaster.Instance.RemoveEntityInMotion(entity);
+                    yield break;
                 }
 
                 yield return null;
             }
 
-            // final attempt after while, because lerp never actually reaches 100%
+            // final attempt after while loop, because lerp never actually reaches 100%
             if (collisionHappened == false)
             {
                 projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
@@ -177,6 +177,7 @@ namespace GameJam.Map
                     return true;
                 }
                 
+                Debug.Log("entity slammed into object");
                 entity.LinkToTileNode(currentTile);
                 collisionHappened = true;
                 currentTile.CollidedWith();

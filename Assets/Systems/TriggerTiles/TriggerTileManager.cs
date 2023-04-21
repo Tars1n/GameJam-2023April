@@ -61,7 +61,8 @@ namespace GameJam.Map.TriggerTiles
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
                 TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
-                tileNode.ClearTrigger();
+                if (tileNode != null)
+                    tileNode.ClearTrigger();
             }
         }
         public abstract void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode);

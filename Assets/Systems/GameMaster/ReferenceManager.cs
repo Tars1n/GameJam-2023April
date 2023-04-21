@@ -4,6 +4,7 @@ using UnityEngine;
 using GameJam.Entity;
 using GameJam.Map;
 using GameJam.Pathfinding;
+using GameJam.Level;
 
 namespace GameJam
 {
@@ -45,6 +46,13 @@ namespace GameJam
             _pathfindingManager = _mapManager.GetComponent<PathfindingManager>();
             _turnManager = _levelManager?.GetComponent<TurnManager>();
             _entityManager = _turnManager?.GetComponent<EntityManager>();
+        }
+
+        public void StopAllCoroutinesEverywhere()
+        {
+            LevelManager?.StopAllCoroutines();
+            _mapInteractionManager.StopAllCoroutines();
+            _mapInteractionManager.MapShoveInteraction.StopAllCoroutines();
         }
         
     }

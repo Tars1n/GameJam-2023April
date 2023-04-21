@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Map.TriggerTiles;
+using GameJam.Level;
 
 namespace GameJam.Map
 {
@@ -48,11 +49,17 @@ namespace GameJam.Map
         {
             bool result = _isWalkable;
             Entities.TrimExcess();
-            if (Entities.Contains(entity)) //used to contain: GameMaster.Instance.ActiveEntity?.CurrentTileNode == this || 
+            if (Entities.Contains(entity)) //walking into a tile it already occupies. 
                 { return true; }
+
             if (Entities.Count > 0)
             {
-                return false;
+                // return false;
+                foreach (EntityBase tileEntity in Entities)
+                {
+                    if (tileEntity.BlocksMovement)
+                        return false;
+                }
             }
             return result;
         }
@@ -162,6 +169,7 @@ namespace GameJam.Map
             //had to cast to a new list as they would get removed from TileNode.Entities while enumeration was happening.
             foreach (EntityBase entity in entitiesToBump)
             {
+                Debug.Log($"{entity} bumped.");
                 entity.CollidedWithObject();
             }
         }

@@ -21,6 +21,7 @@ namespace GameJam.Map
         private MirrorManager _mirrorManager;
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private MapShoveInteraction _shoveInteraction;
+        public MapShoveInteraction MapShoveInteraction => _shoveInteraction;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;
@@ -276,9 +277,15 @@ namespace GameJam.Map
                 { entity = GameMaster.Instance.ActiveEntity; }
             if (entity == null || !entity.HasActionReady)
                 { return false; }
+            if (tile == null)
+            {   //Invalid tile cast for mirror char, end their turn.
+                HopEntity(entity, entity?.CurrentTileNode, 0);
+                return true;
+            }
             if (CanShoveTile(entity, tile))
             {                
                 _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile, 2);
+                entity.ActionCompleted();
                 return true;
             }
             if (CanMoveToTile(entity, tile, 1))
@@ -389,11 +396,11 @@ namespace GameJam.Map
         
         public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
         {
-            _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
+            _triggerTileMap?.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {
-            _triggerTileMap.SetTile(tileCoords, null);
+            _triggerTileMap?.SetTile(tileCoords, null);
         }
     }
     

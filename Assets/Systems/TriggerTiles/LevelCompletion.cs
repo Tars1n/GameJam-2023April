@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Entity;
+using GameJam.Level;
 
 namespace GameJam.Map.TriggerTiles
 {

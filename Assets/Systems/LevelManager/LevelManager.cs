@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map;
 using GameJam.Entity;
+using GameJam.Level.Scene;
 using UnityEngine.SceneManagement;
 
-namespace GameJam
+namespace GameJam.Level
 {
-    [RequireComponent(typeof(TurnManager))]
+    [RequireComponent(typeof(TurnManager), typeof(SceneHandler))]
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private MapManager _mapManager;
@@ -19,11 +20,13 @@ namespace GameJam
         [SerializeField] private bool _recordSlimeTrails;
         public bool RecordSlimeTrails => _recordSlimeTrails;
         [SerializeField] private ScoreSO _scoreSO;
-        public ScoreSO ScoreSO => _scoreSO;        
+        public ScoreSO ScoreSO => _scoreSO;
+        private SceneHandler _sceneHandler;
         
         
         private void Awake() {
             _turnManager = GetComponent<TurnManager>();
+            _sceneHandler = GetComponent<SceneHandler>();
         }
 
         private void Start()
@@ -46,18 +49,12 @@ namespace GameJam
         public void LevelComplete()
         {
             _scoreSO.LevelCompleteSetScore();
-            int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
-            if (SceneManager.sceneCountInBuildSettings >= nextLevel)
-            {
-                Debug.LogWarning($"There are no more Scenes to load beyond this one: {SceneManager.GetActiveScene().buildIndex}. Make sure to add new levels to the Build Settings.");
-                return;
-            }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            _sceneHandler.LoadNextLevel();
         }
         public void LevelFailed()
         {
             _scoreSO.RestartLevelScore();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            _sceneHandler.RestartLevel();
         }
         
     }
