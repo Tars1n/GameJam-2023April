@@ -67,7 +67,7 @@ namespace GameJam.Entity
             _currentTileNode?.TryAddEntity(this);
         }
 
-        public void LeaveTileNode()
+        private void LeaveTileNode()
         {
             if (_currentTileNode == null) 
                 {return;}
@@ -99,11 +99,6 @@ namespace GameJam.Entity
 
         public virtual void ActionCompleted()
         {
-            // if (_nextAction != null)
-            // {
-            //     // if (_debugLog) Debug.Log($"next action != null");
-            //     _nextAction();
-            // }
             CompletedTurn();
         }
 
@@ -120,7 +115,6 @@ namespace GameJam.Entity
         public virtual void CollidedWithObject()
         {
             _mapInteractionManager.HopEntity(this, this?._currentTileNode, 1);
-            _hasActionReady = false;
         }
 
         protected virtual void CompletedTurn()
@@ -139,6 +133,7 @@ namespace GameJam.Entity
 
         public virtual void DoDestroy()
         {
+            LeaveTileNode();
             if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
 
             this.gameObject.SetActive(false);

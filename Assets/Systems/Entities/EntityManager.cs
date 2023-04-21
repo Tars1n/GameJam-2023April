@@ -15,7 +15,7 @@ namespace GameJam.Entity
         [SerializeField] private Queue<EntityBase> _mapEntityQueue;
         [SerializeField] private Queue<EntityBase> _entitiesToDestroy;
         private Map.TileNodeManager _tileNodeManager;
-        private LevelManager _levelManager;
+        private Level.LevelManager _levelManager;
 
         private void Awake() {
             _playerCharacters = new List<EntityCharacter>();
@@ -62,7 +62,6 @@ namespace GameJam.Entity
                 _traps.Remove((EntityTrap)entity);
                 removed = true;
             }
-            entity.LeaveTileNode();
             _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();
             return removed;
@@ -137,10 +136,11 @@ namespace GameJam.Entity
             if (_mapEntityQueue.Count == 0)
                 return null;
             
-            if (_mapEntityQueue.Peek() == null || !_mapEntityQueue.Peek().enabled)
+            if (_mapEntityQueue.Peek() == null || _mapEntityQueue.Peek().enabled == false || _mapEntityQueue.Peek().HasActionReady == false)
             {
+                //entity was not valid, remove from list and get next.
                 _mapEntityQueue.Dequeue();
-                return GetNextReadyMapEntity(); //?Is this okay to do? So far no issues.
+                return GetNextReadyMapEntity();
             }
 
             return _mapEntityQueue?.Dequeue();

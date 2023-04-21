@@ -22,6 +22,8 @@ namespace GameJam.Entity
         }
         public void KillIfCan()
         {
+            if (_entityBase.HasActionReady == false)
+                { return; }
             Vector3Int[] adjacentTiles = _mapManager.GetAllAdjacentHexCoordinates(_entityBase.CurrentTileNode.GridCoordinate);
             EntityCharacter targetToKill = null;
             foreach (Vector3Int vector3Int in adjacentTiles)

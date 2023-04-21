@@ -4,6 +4,7 @@ using UnityEngine;
 using GameJam.Entity;
 using GameJam.Map;
 using GameJam.Pathfinding;
+using GameJam.Level;
 
 namespace GameJam
 {

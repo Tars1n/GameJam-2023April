@@ -26,6 +26,7 @@ namespace GameJam
         public bool TilemapInteractable = false;
         [SerializeField] private List<EntityBase> _entitiesInMotion = new List<EntityBase>();
         public List<EntityBase> EntitiesInMotion => _entitiesInMotion;
+        private GameObject _pauseIcon; //temp bug fix thingie
             
 
         private void Awake() {
@@ -33,6 +34,8 @@ namespace GameJam
             _referenceManager = GetReferenceManager();
             _eventManager = GetComponent<EventManager>();          
             DontDestroyOnLoad(this);
+            _pauseIcon = GameObject.Find("PauseIcon");
+            _pauseIcon?.SetActive(false);
         }
 
         public ReferenceManager GetReferenceManager()
@@ -79,6 +82,7 @@ namespace GameJam
         public void AddEntityInMotion(EntityBase entity)
         {
             _entitiesInMotion.Add(entity);
+            _pauseIcon?.SetActive(true);
         }
 
         public void RemoveEntityInMotion(EntityBase entity)
@@ -89,6 +93,7 @@ namespace GameJam
             _entitiesInMotion.TrimExcess();
             if (_entitiesInMotion.Count == 0 && _referenceManager.TurnManager.HoldingNextTick)
             {
+                _pauseIcon?.SetActive(false);
                 _referenceManager.TurnManager.TickNext();
             }
         }
