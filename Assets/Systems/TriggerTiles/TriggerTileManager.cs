@@ -60,7 +60,7 @@ namespace GameJam.Map.TriggerTiles
             if (_triggerLocationTiles == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
-                TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
+                TileNode tileNode = _tileNodeManager?.GetNodeFromCoords(tile);
                 if (tileNode != null)
                     tileNode.ClearTrigger();
             }

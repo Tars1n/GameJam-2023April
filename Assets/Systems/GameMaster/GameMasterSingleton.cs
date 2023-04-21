@@ -43,15 +43,18 @@ namespace GameJam
         {
             TilemapInteractable = false;
             _entitiesInMotion = new List<EntityBase>();
-            PauseIcon?.SetActive(false);
+            _activeEntity = null;
+            _pauseIcon = null;
         }
 
         public void EndScene()
         {
             Initialize();
             ReferenceManager.LevelManager.transform.root.BroadcastMessage("StopAllCoroutines");
-            // ReferenceManager.StopAllCoroutinesEverywhere();
-            _referenceManager = null;
+            ReferenceManager.StopAllCoroutinesEverywhere();
+            ReferenceManager.TileNodeManager.DeleteAllTileNodes();
+            Destroy(_referenceManager);
+            // _referenceManager = null;
             // GameSuspended = true;
         }
 

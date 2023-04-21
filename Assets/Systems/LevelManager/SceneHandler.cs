@@ -18,9 +18,9 @@ namespace GameJam.Level.Scene
         public void LoadNextLevel()
         {
             int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
-            if (SceneManager.sceneCountInBuildSettings >= nextLevel)
+            if (SceneManager.sceneCountInBuildSettings < nextLevel)
             {
-                Debug.LogWarning($"There are no more Scenes to load beyond this one: {SceneManager.GetActiveScene().buildIndex}. Make sure to add new levels to the Build Settings.");
+                Debug.LogWarning($"There are no more Scenes to load beyond this one: {SceneManager.GetActiveScene().buildIndex}. There are currently {SceneManager.sceneCountInBuildSettings} scenes in Build settings, make sure to add new levels to the Build Settings.");
                 return;
             }
             
