@@ -32,6 +32,11 @@ namespace GameJam.Map
             GenerateAllTileNodeEntries(map);
         }
 
+        public void DeleteAllTileNodes()
+        {
+            _tileNodesArray = new TileNode[1,1];
+        }
+
         private void GenerateAllTileNodeEntries(Tilemap map)
         {
             SetupTileData();

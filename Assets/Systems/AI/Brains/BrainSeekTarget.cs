@@ -13,6 +13,7 @@ namespace GameJam.Entity.Brain
         [SerializeField] private TileNode _targetNode;
         private ReferenceManager _ref;
         private MapInteractionManager _mapInteractionManager;
+        private MapInteractionManager Interaction => _mapInteractionManager ? _mapInteractionManager : _mapInteractionManager = _ref.MapInteractionManager;
         private TurnManager _turnManager;
 
         private void Awake()
@@ -38,8 +39,13 @@ namespace GameJam.Entity.Brain
 
             _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
             TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
+            if (node == null)
+            {
+                Debug.LogWarning($"{this} was seeking invalid TileNode.");
+                return;
+            }
 
-            if (_mapInteractionManager.TryToTakeAction(null, node) == false) //Entity attempts to do action
+            if (Interaction.TryToTakeAction(null, node) == false) //Entity attempts to do action
             { StartCoroutine(TakeNoAction()); }
         }
 
