@@ -53,7 +53,7 @@ namespace GameJam.Map.TriggerTiles
 
         protected virtual void OnDestroy()
         {
-            // ClearTriggerTiles();    
+            ClearTriggerTiles();    
         }
         public void ClearTriggerTiles()
         {
