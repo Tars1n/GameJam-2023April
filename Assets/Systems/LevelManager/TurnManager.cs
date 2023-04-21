@@ -88,7 +88,7 @@ namespace GameJam.Entity
 
         public void TickNext()
         {
-            if (GameMaster.Instance.EntitiesInMotion.Count > 0)
+            if (GameMaster.Instance.EntitiesInMotion.Count > 0 || GameMaster.Instance.GameSuspended)
             {
                 _holdingNextTick = true;
                 return;

@@ -21,6 +21,7 @@ namespace GameJam.Map
         private MirrorManager _mirrorManager;
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private MapShoveInteraction _shoveInteraction;
+        public MapShoveInteraction MapShoveInteraction => _shoveInteraction;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;

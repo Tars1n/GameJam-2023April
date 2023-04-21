@@ -47,6 +47,13 @@ namespace GameJam
             _turnManager = _levelManager?.GetComponent<TurnManager>();
             _entityManager = _turnManager?.GetComponent<EntityManager>();
         }
+
+        public void StopAllCoroutinesEverywhere()
+        {
+            LevelManager?.StopAllCoroutines();
+            _mapInteractionManager.StopAllCoroutines();
+            _mapInteractionManager.MapShoveInteraction.StopAllCoroutines();
+        }
         
     }
 }

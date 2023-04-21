@@ -10,9 +10,9 @@ namespace GameJam.Level.Scene
         public void RestartLevel()
         {
             int thisLevel = SceneManager.GetActiveScene().buildIndex;
-            
-            StopAllCoroutines();
-            StartCoroutine(LoadScene(thisLevel));
+
+            GameMaster.Instance.EndScene();
+            LoadScene(thisLevel);
         }
 
         public void LoadNextLevel()
@@ -23,15 +23,14 @@ namespace GameJam.Level.Scene
                 Debug.LogWarning($"There are no more Scenes to load beyond this one: {SceneManager.GetActiveScene().buildIndex}. Make sure to add new levels to the Build Settings.");
                 return;
             }
-            StopAllCoroutines();
-            StartCoroutine(LoadScene(nextLevel));
+            
+            GameMaster.Instance.EndScene();
+            LoadScene(nextLevel);
         }
 
-        IEnumerator LoadScene(int sceneIndex)
+        private void LoadScene(int sceneIndex)
         {
             GameMaster.Instance.Initialize();
-            yield return null;
-
             SceneManager.LoadScene(sceneIndex);
         }
     }
