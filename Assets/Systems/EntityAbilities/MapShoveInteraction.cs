@@ -131,7 +131,7 @@ namespace GameJam.Map
                     axialTarget += axialDir;
                     projectedTile = _tileNodeManager.GetTileFromAxial(axialTarget);
                     //Determine slide distance based on if entity can slide into upcoming tile.
-                    shortenSlideDistance = 0.5f;
+                    shortenSlideDistance = 0.8f;
                     if (projectedTile == null) {continue;}
                     if (projectedTile.IsWalkable(entity))
                     {

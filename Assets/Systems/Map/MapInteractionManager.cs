@@ -389,11 +389,11 @@ namespace GameJam.Map
         
         public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
         {
-            _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
+            _triggerTileMap?.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {
-            _triggerTileMap.SetTile(tileCoords, null);
+            _triggerTileMap?.SetTile(tileCoords, null);
         }
     }
     

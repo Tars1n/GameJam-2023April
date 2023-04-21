@@ -11,6 +11,8 @@ namespace GameJam.Entity
         [SerializeField] private bool _debugLog = true;
         [SerializeField] private bool _isShovable = true;
         public bool IsShovable => _isShovable;
+        [SerializeField] private bool _blocksMovement = true;
+        public bool BlocksMovement => _blocksMovement;
         [SerializeField] protected TileNode _currentTileNode = null;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref;

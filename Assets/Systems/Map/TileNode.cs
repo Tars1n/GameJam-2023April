@@ -48,11 +48,17 @@ namespace GameJam.Map
         {
             bool result = _isWalkable;
             Entities.TrimExcess();
-            if (Entities.Contains(entity)) //used to contain: GameMaster.Instance.ActiveEntity?.CurrentTileNode == this || 
+            if (Entities.Contains(entity)) //walking into a tile it already occupies. 
                 { return true; }
+
             if (Entities.Count > 0)
             {
                 return false;
+                // foreach (EntityBase tileEntity in Entities)
+                // {
+                //     if (tileEntity.BlocksMovement)
+                //         return false;
+                // }
             }
             return result;
         }

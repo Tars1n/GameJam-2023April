@@ -23,20 +23,24 @@ namespace GameJam.Entity
         public void KillIfCan()
         {
             Vector3Int[] adjacentTiles = _mapManager.GetAllAdjacentHexCoordinates(_entityBase.CurrentTileNode.GridCoordinate);
+            EntityCharacter targetToKill = null;
             foreach (Vector3Int vector3Int in adjacentTiles)
             {
                 TileNode tileNode = _tileNodeManager.GetNodeFromCoords(vector3Int + _entityBase.CurrentTileNode.GridCoordinate);
                 if ((tileNode != null) && (tileNode.Entities != null) && (tileNode.Entities.Count > 0))
                 {
-                    foreach (EntityBase entity in tileNode.Entities)
+                    foreach (EntityBase entity in tileNode?.Entities)
                     {
                         if (entity?.GetType() == typeof(EntityCharacter))
                         {
-                            EntityCharacter entityCharacter = (EntityCharacter)entity;
-                            _entityManager.TryDestroyEntity(entityCharacter);
+                            targetToKill = (EntityCharacter)entity;
                         }
                     }
                 }
+            }
+            if (targetToKill != null)
+            {
+                _entityManager.TryDestroyEntity(targetToKill);
             }
         }
     }
