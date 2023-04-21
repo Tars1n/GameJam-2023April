@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using GameJam.Map;
 using GameJam.Entity;
+using GameJam.Level.Scene;
 
 namespace GameJam
 {
@@ -27,6 +28,7 @@ namespace GameJam
         [SerializeField] private List<EntityBase> _entitiesInMotion = new List<EntityBase>();
         public List<EntityBase> EntitiesInMotion => _entitiesInMotion;
         private GameObject _pauseIcon; //temp bug fix thingie
+        private GameObject PauseIcon => _pauseIcon ? _pauseIcon : _pauseIcon = GameObject.Find("PauseIcon");
             
 
         private void Awake() {
@@ -34,8 +36,13 @@ namespace GameJam
             _referenceManager = GetReferenceManager();
             _eventManager = GetComponent<EventManager>();          
             DontDestroyOnLoad(this);
-            _pauseIcon = GameObject.Find("PauseIcon");
-            _pauseIcon?.SetActive(false);
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            _entitiesInMotion = new List<EntityBase>();
+            PauseIcon?.SetActive(false);
         }
 
         public ReferenceManager GetReferenceManager()
@@ -53,7 +60,7 @@ namespace GameJam
         public void SetActiveEntity(EntityBase entity)
         {
             _activeEntity = entity;
-            ReferenceManager.MapInteractionManager.RefreshOverlayMap();
+            ReferenceManager.MapInteractionManager?.RefreshOverlayMap();
         }
 
         public void SetTimescale(float scale)
@@ -82,7 +89,7 @@ namespace GameJam
         public void AddEntityInMotion(EntityBase entity)
         {
             _entitiesInMotion.Add(entity);
-            _pauseIcon?.SetActive(true);
+            PauseIcon?.SetActive(true);
         }
 
         public void RemoveEntityInMotion(EntityBase entity)
@@ -93,7 +100,7 @@ namespace GameJam
             _entitiesInMotion.TrimExcess();
             if (_entitiesInMotion.Count == 0 && _referenceManager.TurnManager.HoldingNextTick)
             {
-                _pauseIcon?.SetActive(false);
+                PauseIcon?.SetActive(false);
                 _referenceManager.TurnManager.TickNext();
             }
         }

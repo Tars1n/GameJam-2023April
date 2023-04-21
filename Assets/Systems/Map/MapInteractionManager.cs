@@ -276,9 +276,15 @@ namespace GameJam.Map
                 { entity = GameMaster.Instance.ActiveEntity; }
             if (entity == null || !entity.HasActionReady)
                 { return false; }
+            if (tile == null)
+            {   //Invalid tile cast for mirror char, end their turn.
+                HopEntity(entity, entity?.CurrentTileNode, 0);
+                return true;
+            }
             if (CanShoveTile(entity, tile))
             {                
                 _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile, 2);
+                entity.ActionCompleted();
                 return true;
             }
             if (CanMoveToTile(entity, tile, 1))

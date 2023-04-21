@@ -9,8 +9,10 @@ namespace GameJam.Level.Scene
     {
         public void RestartLevel()
         {
+            int thisLevel = SceneManager.GetActiveScene().buildIndex;
+            
             StopAllCoroutines();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(LoadScene(thisLevel));
         }
 
         public void LoadNextLevel()
@@ -22,7 +24,15 @@ namespace GameJam.Level.Scene
                 return;
             }
             StopAllCoroutines();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            StartCoroutine(LoadScene(nextLevel));
+        }
+
+        IEnumerator LoadScene(int sceneIndex)
+        {
+            GameMaster.Instance.Initialize();
+            yield return null;
+
+            SceneManager.LoadScene(sceneIndex);
         }
     }
 }

@@ -100,6 +100,7 @@ namespace GameJam.Map
             float timeElapsed = 0;
             float j = 0f;
             float shortenSlideDistance = 0.1f;
+            bool shoveOneTile = false;
 
             while (timeElapsed < _slideSpeed)
             {
@@ -121,8 +122,7 @@ namespace GameJam.Map
                 timeElapsed += Time.deltaTime;
 
                 float journey = g*distance;
-                bool shoveOneTile = false;
-                shortenSlideDistance = 0.9f;
+                shortenSlideDistance = .38f;
                 
                 if (journey >= j && collisionHappened == false)
                 {
@@ -142,12 +142,12 @@ namespace GameJam.Map
                 {
                     shoveOneTile = false;
                     TryShoveIntoTile(projectedTile);
-                    if (collisionHappened)
-                    {
-                        GameMaster.Instance.TilemapInteractable = true;
-                        GameMaster.Instance.RemoveEntityInMotion(entity);
-                        yield break;
-                    }
+                }
+                if (collisionHappened)
+                {
+                    GameMaster.Instance.TilemapInteractable = true;
+                    GameMaster.Instance.RemoveEntityInMotion(entity);
+                    yield break;
                 }
 
                 yield return null;

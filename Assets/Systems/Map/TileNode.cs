@@ -54,12 +54,12 @@ namespace GameJam.Map
 
             if (Entities.Count > 0)
             {
-                return false;
-                // foreach (EntityBase tileEntity in Entities)
-                // {
-                //     if (tileEntity.BlocksMovement)
-                //         return false;
-                // }
+                // return false;
+                foreach (EntityBase tileEntity in Entities)
+                {
+                    if (tileEntity.BlocksMovement)
+                        return false;
+                }
             }
             return result;
         }
@@ -169,6 +169,7 @@ namespace GameJam.Map
             //had to cast to a new list as they would get removed from TileNode.Entities while enumeration was happening.
             foreach (EntityBase entity in entitiesToBump)
             {
+                Debug.Log($"{entity} bumped.");
                 entity.CollidedWithObject();
             }
         }
