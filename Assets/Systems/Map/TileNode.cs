@@ -28,7 +28,6 @@ namespace GameJam.Map
         public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         [SerializeField] private TriggerTileManager _triggerTileManager;
         public TriggerTileManager TriggerTileManager => _triggerTileManager;
-        
         public List<EntityBase> Entities = new List<EntityBase>();
 
         private void Start()
@@ -38,11 +37,19 @@ namespace GameJam.Map
         }
         public void SetTileData(Dictionary<TileBase, TileData> data)
         {
+            ResetTileTypeData();
             if (data.ContainsKey(TileType) == false)
                 {return;}
             _isSelectable = data[TileType].IsSelectable;
             _isWalkable = data[TileType].IsWalkable;
             _isPitTile = data[TileType].IsPitTile;
+        }
+
+        private void ResetTileTypeData()
+        {
+            _isSelectable = false;
+            _isWalkable = false;
+            _isPitTile = false;
         }
 
         public bool IsWalkable(EntityBase entity)

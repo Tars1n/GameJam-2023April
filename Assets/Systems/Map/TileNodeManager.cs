@@ -16,6 +16,7 @@ namespace GameJam.Map
         private TileNode[,] _tileNodesArray;
         [SerializeField] private List<TileData> _tileDatas;
         private Dictionary<TileBase, TileData> _dataFromTiles;
+        public Dictionary<TileBase, TileData> DataFromTiles => _dataFromTiles;
         
 
         public void InitializeTileNodeArray(Tilemap map)

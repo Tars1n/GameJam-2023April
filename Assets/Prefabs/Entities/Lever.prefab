@@ -121,6 +121,8 @@ MonoBehaviour:
   _triggerLocationTiles: []
   _leverPulled: 0
   _tilesToToggle: []
+  _unpulledTileState: {fileID: 11400000, guid: e0e9e36c07a8d5a4c903efa59f8fbddd, type: 2}
+  _pulledTileState: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
 --- !u!114 &-6583307751916550081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,3 +155,4 @@ MonoBehaviour:
   _turnOverState: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
   _hasActionReady: 0
   _isCurrentlyProcessingTurnAction: 0
+  _gizmoColour: {r: 1, g: 1, b: 1, a: 0.5254902}
