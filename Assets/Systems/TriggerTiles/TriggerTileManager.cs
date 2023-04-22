@@ -24,9 +24,8 @@ namespace GameJam.Map.TriggerTiles
             _ref = GameMaster.Instance.ReferenceManager;
             _tileNodeManager = _ref.TileNodeManager;
             _entityManager = _ref.EntityManager;
-            SetupTriggers();
         }
-        protected virtual void SetupTriggers()
+        public virtual void SetupTriggerTiles()
         {
             if (_triggerLocationTiles == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)

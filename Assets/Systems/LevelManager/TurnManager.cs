@@ -28,6 +28,12 @@ namespace GameJam.Entity
             _entityManager = GetComponent<EntityManager>();    
         }
 
+        public void Initialize()
+        {
+            _round = 0;
+            _entityManager.SetupAllEntities();
+        }
+
         public void BeginPlay()
         {
             if (_round == 0)

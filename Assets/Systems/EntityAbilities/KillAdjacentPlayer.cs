@@ -42,7 +42,7 @@ namespace GameJam.Entity
             }
             if (targetToKill != null)
             {
-                _entityManager.TryDestroyEntity(targetToKill);
+                _entityManager.DestroyEntity(targetToKill);
             }
         }
     }

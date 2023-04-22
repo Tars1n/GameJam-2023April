@@ -23,14 +23,24 @@ namespace GameJam.Entity
             _traps = new List<EntityTrap>();
             _mapEntityQueue = new Queue<EntityBase>();
             _entitiesToDestroy = new Queue<EntityBase>();
-            _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         }
 
-        private void Start()
+        public void Initialize()
         {
             _ref = GameMaster.Instance.ReferenceManager;
+            _levelManager = _ref.LevelManager;
             _tileNodeManager = _ref.MapManager.TileNodeManager;
-            // RemapAllEntities(); 
+            SetupAllEntities();
+        }
+
+        public void SetupAllEntities()
+        {
+            EntityBase[] foundEntities = FindObjectsOfType<EntityBase>(true);
+            if (_debugLogs) { Debug.Log($"Setting up {foundEntities.Length} Entites."); }
+            foreach (EntityBase entity in foundEntities)
+            {
+                entity.SetupEntity();
+            }
         }
 
         public void AddEntity(EntityBase entity)
@@ -43,28 +53,21 @@ namespace GameJam.Entity
                 _traps.Add((EntityTrap)entity);
         }
 
-        public bool TryDestroyEntity(EntityBase entity)
+        public void RemoveEntity(EntityBase entity)
         {
-            bool removed = false;
             if (entity.GetType() == typeof(EntityCharacter))
-            {
-                _playerCharacters.Remove((EntityCharacter)entity);
-                removed = true;
-                _levelManager.LevelFailed();
-            }
+                { _playerCharacters.Remove((EntityCharacter)entity); }
             if (entity.GetType() == typeof(EntityMonster))
-            {
-                _monsters.Remove((EntityMonster)entity);
-                removed = true;
-            }
+                { _monsters.Remove((EntityMonster)entity); }
             if (entity.GetType() == typeof(EntityTrap))
-            {
-                _traps.Remove((EntityTrap)entity);
-                removed = true;
-            }
+                { _traps.Remove((EntityTrap)entity); }
+        }
+
+        public void DestroyEntity(EntityBase entity)
+        {
+            RemoveEntity(entity);
             _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();
-            return removed;
         }
 
         public void DestroyRemovedEntities()
