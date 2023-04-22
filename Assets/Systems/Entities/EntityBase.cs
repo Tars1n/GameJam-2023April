@@ -18,6 +18,7 @@ namespace GameJam.Entity
         protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         protected TurnManager _turnManager;
         protected MapManager _mapManager;
+        protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         protected MapInteractionManager _mapInteractionManager;
         protected SpriteRenderer _spriteRenderer;
         [SerializeField] protected Color _readyState;
@@ -29,16 +30,11 @@ namespace GameJam.Entity
         // public Action _nextAction;
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;
+        [SerializeField] protected Color _gizmoColour;
         public Action OnEntitySetup;
         
         
         // public delegate void NextActionDelegate(TileNode tileNode);
-        
-
-        protected virtual void Awake()
-        {
-            
-        }
 
         protected virtual void Start()
         {
@@ -118,7 +114,7 @@ namespace GameJam.Entity
                 Debug.LogWarning($"Requested Axial Position failed, {this} does not have a valid TileNode.");
                 return new Vector3Int(0, 0, 0);
             }
-            return _mapManager.CastOddRowToAxial(_currentTileNode.GridCoordinate);
+            return _ref.MapManager.CastOddRowToAxial(_currentTileNode.GridCoordinate);
         }
 
         public virtual void CollidedWithObject()
@@ -146,6 +142,16 @@ namespace GameJam.Entity
             if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
 
             this.gameObject.SetActive(false);
+        }
+
+        protected virtual void OnDrawGizmos()
+        {
+            Gizmos.color = _gizmoColour;
+            if (Map == null) { return; }
+            Vector3Int tileCoord = Map.Map.WorldToCell(transform.position);
+            Vector3 tilePosition = Map.GetWorldPosFromGridCoord(tileCoord);
+                
+            Gizmos.DrawLine(transform.position, tilePosition);
         }
     }
 }

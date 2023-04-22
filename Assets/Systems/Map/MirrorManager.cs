@@ -10,6 +10,7 @@ namespace GameJam.Map
 {
     public class MirrorManager : MonoBehaviour
     {
+        private GameMasterSingleton _gm => GameMaster.Instance;
         private MapManager _mapManager;
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
@@ -57,6 +58,36 @@ namespace GameJam.Map
             if (_mirrorX || _mirrorY)
                 { return true; }
             return false;
+        }
+
+        public void SelectActivePlayer(Vector3Int mouseCoordinate)
+        {
+            if (_mirrorX)
+            {
+                if (mouseCoordinate.x < _mirrorOrigin.x && _entityLeft != null)
+                {
+                    _gm.SetActiveEntity(_entityLeft);
+                }
+                if (mouseCoordinate.x > _mirrorOrigin.x && _entityRight != null)
+                {
+                    _gm.SetActiveEntity(_entityRight);
+                }
+            }
+            if (MirrorY)
+            {
+                if (mouseCoordinate.y < _mirrorOrigin.y && _entityBottom != null)
+                {
+                    _gm.SetActiveEntity(_entityBottom);
+                }
+                if (mouseCoordinate.y > _mirrorOrigin.y && _entityTop != null)
+                {
+                    _gm.SetActiveEntity(_entityTop);
+                }
+            }
+            if (!_mirrorX && !_mirrorY)
+            {
+                _gm.SetActiveEntity(_gm.ReferenceManager.EntityManager.GetNextActivePlayerCharacter());
+            }
         }
 
         public Vector3Int ReflectGridCoordinate(Vector3Int coord)

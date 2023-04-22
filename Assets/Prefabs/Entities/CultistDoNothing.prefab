@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugLog: 1
   _isShovable: 1
+  _blocksMovement: 1
   _currentTileNode:
     TileType: {fileID: 0}
     _isSelectable: 0
@@ -115,6 +116,7 @@ MonoBehaviour:
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
   _isCurrentlyProcessingTurnAction: 0
+  _gizmoColour: {r: 1, g: 1, b: 1, a: 0.5254902}
   _monsterBlueprint: {fileID: 0}
 --- !u!114 &1345157000233498730
 MonoBehaviour:

@@ -43,7 +43,7 @@ namespace GameJam
             _mapManager = _levelManager?.MapManager;
             _mapInteractionManager = _mapManager?.MapInteractionManager;
             _tileNodeManager = _mapManager?.GetComponent<TileNodeManager>();
-            _pathfindingManager = _mapManager.GetComponent<PathfindingManager>();
+            _pathfindingManager = _mapManager?.GetComponent<PathfindingManager>();
             _turnManager = _levelManager?.GetComponent<TurnManager>();
             _entityManager = _turnManager?.GetComponent<EntityManager>();
         }

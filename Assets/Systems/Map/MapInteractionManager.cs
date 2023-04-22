@@ -90,28 +90,7 @@ namespace GameJam.Map
         private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
         {
             if (GameMaster.Instance.MultipleUniquePlayerCharacters) {return;}
-            if (_mirrorManager.MirrorX)
-            {
-                if (mouseCoordinate.x < _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityLeft != null)
-                {
-                    _gm.SetActiveEntity(_mirrorManager.EntityLeft);
-                }
-                if (mouseCoordinate.x > _mirrorManager.MirrorOrigin.x && _mirrorManager.EntityRight != null)
-                {
-                    _gm.SetActiveEntity(_mirrorManager.EntityRight);
-                }
-            }
-            if (_mirrorManager.MirrorY)
-            {
-                if (mouseCoordinate.y < _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityBottom != null)
-                {
-                    _gm.SetActiveEntity(_mirrorManager.EntityBottom);
-                }
-                if (mouseCoordinate.y > _mirrorManager.MirrorOrigin.y && _mirrorManager.EntityTop != null)
-                {
-                    _gm.SetActiveEntity(_mirrorManager.EntityTop);
-                }
-            }
+            _mirrorManager.SelectActivePlayer(mouseCoordinate);
         }
         
         public void CheckHighlightedTile(Vector3Int gridCoordinate)

@@ -12,6 +12,7 @@ namespace GameJam.Entity
         public List<EntityCharacter> PlayerCharacters => _playerCharacters;
         [SerializeField] private List<EntityMonster> _monsters;
         [SerializeField] private List<EntityTrap> _traps;
+        [SerializeField] private List<EntityLever> _levers;
         [SerializeField] private Queue<EntityBase> _mapEntityQueue;
         [SerializeField] private Queue<EntityBase> _entitiesToDestroy;
         private Map.TileNodeManager _tileNodeManager;
@@ -21,6 +22,7 @@ namespace GameJam.Entity
             _playerCharacters = new List<EntityCharacter>();
             _monsters = new List<EntityMonster>();
             _traps = new List<EntityTrap>();
+            _levers = new List<EntityLever>();
             _mapEntityQueue = new Queue<EntityBase>();
             _entitiesToDestroy = new Queue<EntityBase>();
         }
@@ -51,6 +53,8 @@ namespace GameJam.Entity
                 _monsters.Add((EntityMonster)entity);
             if (entity.GetType() == typeof(EntityTrap))
                 _traps.Add((EntityTrap)entity);
+            if (entity.GetType() == typeof(EntityLever))
+                _levers.Add((EntityLever)entity);
         }
 
         public void RemoveEntity(EntityBase entity)
@@ -61,6 +65,8 @@ namespace GameJam.Entity
                 { _monsters.Remove((EntityMonster)entity); }
             if (entity.GetType() == typeof(EntityTrap))
                 { _traps.Remove((EntityTrap)entity); }
+            if (entity.GetType() == typeof(EntityLever))
+                _levers.Remove((EntityLever)entity);
         }
 
         public void DestroyEntity(EntityBase entity)
@@ -88,6 +94,8 @@ namespace GameJam.Entity
                 { entity.ClearTileNode(); }
             foreach (EntityTrap entity in _traps)
                 { entity.ClearTileNode(); }
+            foreach (EntityLever entity in _levers)
+                { entity.ClearTileNode(); }
 
             _tileNodeManager.ClearAllNodeEntityLists();
             
@@ -96,6 +104,8 @@ namespace GameJam.Entity
             foreach (EntityMonster entity in _monsters)
                 { entity.LinkToTileNode(null); }
             foreach (EntityTrap entity in _traps)
+                { entity.LinkToTileNode(null); }
+            foreach (EntityLever entity in _levers)
                 { entity.LinkToTileNode(null); }
         }
 
@@ -109,6 +119,10 @@ namespace GameJam.Entity
                 entity.RefreshAction();
             }
             foreach (EntityTrap entity in _traps)
+            {
+                entity.RefreshAction();
+            }
+            foreach (EntityLever entity in _levers)
             {
                 entity.RefreshAction();
             }
@@ -131,6 +145,16 @@ namespace GameJam.Entity
                     answer = true;
             }
             return answer;
+        }
+
+        public EntityCharacter GetNextActivePlayerCharacter()
+        {
+            foreach (EntityCharacter playerEntity in _playerCharacters)
+            {
+                if (playerEntity.HasActionReady)
+                    return playerEntity;
+            }
+            return null;
         }
 
         public EntityBase GetNextReadyMapEntity()
