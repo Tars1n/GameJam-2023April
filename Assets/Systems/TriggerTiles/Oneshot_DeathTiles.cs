@@ -12,8 +12,8 @@ namespace GameJam.Map.TriggerTiles
             if (entityBase != null)
             {
                 ClearTriggerTiles();
-                _entityManager.DestroyEntity(entityBase); //remove entity that entered trigger tile
-                _entityManager.DestroyEntity(this?.GetComponent<EntityBase>()); //remove trap
+                _ref.EntityManager.DestroyEntity(entityBase); //remove entity that entered trigger tile
+                _ref.EntityManager.DestroyEntity(this?.GetComponent<EntityBase>()); //remove trap
             }
         }
     }

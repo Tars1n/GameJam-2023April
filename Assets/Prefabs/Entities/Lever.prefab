@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggerTile: {fileID: 0}
-  _gizmoColour: {r: 0.41217256, g: 1, b: 0, a: 0.23529412}
+  _gizmoColour: {r: 0.41217256, g: 1, b: 0, a: 0.5411765}
   _triggerLocationTiles: []
   _leverPulled: 0
   _tilesToToggle: []

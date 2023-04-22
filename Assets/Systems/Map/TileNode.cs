@@ -153,7 +153,7 @@ namespace GameJam.Map
         {
             SetUpMapInteractionManager();
             _triggerTileManager = triggerTileManager;
-            _mapInteractionManager?.RenderTriggerHilight(GridCoordinate, triggerTile);
+            _mapInteractionManager.RenderTriggerHilight(GridCoordinate, triggerTile);
         }
         public void ClearTrigger()
         {

@@ -53,6 +53,7 @@ MonoBehaviour:
   _playerCharacters: []
   _monsters: []
   _traps: []
+  _levers: []
 --- !u!114 &2819779886846200605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66490327715a247189028cfcbb6c0f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
   _gizmoColour: {r: 0, g: 0.023826122, b: 1, a: 1}
   _triggerLocationTiles:
@@ -115,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 769d6afa481fa492db8667cb8be446da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
   _gizmoColour: {r: 0.10617697, g: 1, b: 0, a: 1}
   _triggerLocationTiles:
@@ -323,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be0631531de27ef409f84440079bd0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _movementControlsAreMirrored: 1
   _mirrorOrigin: {x: 0, y: 0, z: 0}
   _mirrorX: 0
   _entityLeft: {fileID: 0}

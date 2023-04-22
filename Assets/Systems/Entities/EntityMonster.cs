@@ -14,9 +14,8 @@ namespace GameJam.Entity
         // something that represents goal.
         private BrainBase _brain;
         
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             _brain = GetComponent<BrainBase>();
             _killAdjacentPlayer = GetComponent<KillAdjacentPlayer>();
         }

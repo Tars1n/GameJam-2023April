@@ -9,28 +9,28 @@ namespace GameJam.Map.TriggerTiles
 {
     public abstract class TriggerTileManager : MonoBehaviour
     {
+        [SerializeField] protected MapManager _mapManager;
         [SerializeField] private TileBase _triggerTile;
-        protected TileNodeManager _tileNodeManager;
-        protected ReferenceManager _ref;
+        protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] protected Color _gizmoColour = Color.red;
-        protected MapManager _mapManager;
         protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         [SerializeField] protected List<Vector3Int> _triggerLocationTiles;
         //this list creates tiles that the entity can trigger the trap by steppin on.
-        protected EntityManager _entityManager;
 
         protected virtual void Start()
         {
-            _ref = GameMaster.Instance.ReferenceManager;
-            _tileNodeManager = _ref.TileNodeManager;
-            _entityManager = _ref.EntityManager;
+            _mapManager = _ref.MapManager;
         }
         public virtual void SetupTriggerTiles()
         {
-            if (_triggerLocationTiles == null) return;
+            if (_ref.TileNodeManager == null)
+            {
+                Debug.LogWarning($"SetupTriggerTiles did not have a reference to TileNodeManager.");
+                return;
+            }
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
-                TileNode tileNode = _tileNodeManager.GetNodeFromCoords(tile);
+                TileNode tileNode = _ref.TileNodeManager.GetNodeFromCoords(tile);
                 if (tileNode == null)
                 {
                     Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
@@ -41,6 +41,7 @@ namespace GameJam.Map.TriggerTiles
         }
         protected virtual void OnDrawGizmos()
         {
+            if (Map == null) { return; }
             // Draw a yellow sphere at the transform's position
             Gizmos.color = _gizmoColour;
             foreach (Vector3Int tilePos in _triggerLocationTiles)
@@ -52,14 +53,14 @@ namespace GameJam.Map.TriggerTiles
 
         protected virtual void OnDestroy()
         {
-            ClearTriggerTiles();    
+            // ClearTriggerTiles();    
         }
         public void ClearTriggerTiles()
         {
-            if (_triggerLocationTiles == null) return;
+            if (_triggerLocationTiles == null || _ref.TileNodeManager == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
             {
-                TileNode tileNode = _tileNodeManager?.GetNodeFromCoords(tile);
+                TileNode tileNode = _ref.TileNodeManager?.GetNodeFromCoords(tile);
                 if (tileNode != null)
                     tileNode.ClearTrigger();
             }

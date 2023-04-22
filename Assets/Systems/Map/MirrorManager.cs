@@ -86,7 +86,7 @@ namespace GameJam.Map
             }
             if (!_mirrorX && !_mirrorY)
             {
-                _gm.SetActiveEntity(_gm.ReferenceManager.EntityManager.PlayerCharacters[0]);
+                _gm.SetActiveEntity(_gm.ReferenceManager.EntityManager.GetNextActivePlayerCharacter());
             }
         }
 

@@ -53,7 +53,7 @@ namespace GameJam
             ReferenceManager.LevelManager.transform.root.BroadcastMessage("StopAllCoroutines");
             ReferenceManager.StopAllCoroutinesEverywhere();
             ReferenceManager.TileNodeManager.DeleteAllTileNodes();
-            Destroy(_referenceManager);
+            // Destroy(_referenceManager);
             // _referenceManager = null;
             // GameSuspended = true;
         }

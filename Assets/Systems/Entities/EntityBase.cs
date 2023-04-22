@@ -35,12 +35,6 @@ namespace GameJam.Entity
         
         
         // public delegate void NextActionDelegate(TileNode tileNode);
-        
-
-        protected virtual void Awake()
-        {
-            
-        }
 
         protected virtual void Start()
         {
@@ -153,6 +147,7 @@ namespace GameJam.Entity
         protected virtual void OnDrawGizmos()
         {
             Gizmos.color = _gizmoColour;
+            if (Map == null) { return; }
             Vector3Int tileCoord = Map.Map.WorldToCell(transform.position);
             Vector3 tilePosition = Map.GetWorldPosFromGridCoord(tileCoord);
                 
