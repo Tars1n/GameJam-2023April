@@ -396,11 +396,13 @@ namespace GameJam.Map
         
         public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
         {
-            _triggerTileMap?.SetTile(tileCoords, triggerTileHilight);
+            if (_triggerTileMap == null) { return; }
+            _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {
-            _triggerTileMap?.SetTile(tileCoords, null);
+            if (_triggerTileMap == null) { return; }
+            _triggerTileMap.SetTile(tileCoords, null);
         }
     }
     

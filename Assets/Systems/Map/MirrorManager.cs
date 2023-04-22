@@ -13,6 +13,7 @@ namespace GameJam.Map
         private MapManager _mapManager;
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
+        [SerializeField] private bool _movementControlsAreMirrored;
         [SerializeField] private Vector3Int _mirrorOrigin;
         public Vector3Int MirrorOrigin => _mirrorOrigin;
         private Vector3Int _mirrorOriginAxial;
@@ -74,12 +75,16 @@ namespace GameJam.Map
 
         public Vector3Int ReflectAxialX(Vector3Int axialPointer)
         {
+            if (_movementControlsAreMirrored == false)
+                { return axialPointer; }
             axialPointer = new Vector3Int(axialPointer.z, axialPointer.y, axialPointer.x); //swap axis ignoring y
             return axialPointer;
         }
 
         public Vector3Int ReflectAxialY(Vector3Int axialPointer)
         {
+            if (_movementControlsAreMirrored == false)
+                { return axialPointer; }
             axialPointer = new Vector3Int(axialPointer.z, axialPointer.y, axialPointer.x);
             axialPointer *= -1; //invert coordinate
             return axialPointer;
