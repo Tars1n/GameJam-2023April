@@ -10,5 +10,14 @@ namespace GameJam.Entity
         {
             CompletedTurn();
         }
+
+        public override void DoDestroy()
+        {
+            LeaveTileNode();
+            if (_debugLog) { Debug.Log($"Player character died.");}
+
+            this.gameObject.SetActive(false);
+            GameMaster.Instance.ReferenceManager.LevelManager.LevelFailed();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Map
 {
@@ -28,12 +29,26 @@ namespace GameJam.Map
 
         private void Awake()
         {
-            ActivateTilemaps();
             _mapInteractionManager = GetComponent<MapInteractionManager>();
             _moveEntityAlongAPath = GetComponent<MoveEntityAlongPath>();
             _tileNodeManager = GetComponent<TileNodeManager>();
+        }
+
+        public void SetupMap()
+        {
+            ActivateTilemaps();
             _mapInteractionManager.Initialize(this);
             InitializeTileNodeManager(_map);
+        }
+
+        public void SetupTriggerTiles()
+        {
+            TriggerTileManager[] foundTriggerTiles = FindObjectsOfType<TriggerTileManager>();
+            if (_debugLogs) { Debug.Log($"Setting up {foundTriggerTiles.Length} TriggerTileManagers."); }
+            foreach (TriggerTileManager triggerTiles in foundTriggerTiles)
+            {
+                triggerTiles.SetupTriggerTiles();
+            }
         }
 
         private void ActivateTilemaps()

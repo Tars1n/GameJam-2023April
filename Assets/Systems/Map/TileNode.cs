@@ -115,7 +115,7 @@ namespace GameJam.Map
                 {Entities.Add(entity);}
             if (_isPitTile)
             {
-                GameMaster.Instance.ReferenceManager.EntityManager.TryDestroyEntity(entity);
+                GameMaster.Instance.ReferenceManager.EntityManager.DestroyEntity(entity);
                 return false;
             }
             _triggerTileManager?.EntityEnteredTrigger(entity, this);

@@ -31,8 +31,11 @@ namespace GameJam.Level
 
         private void Start()
         {
-            StartCoroutine(LateStart());
+            _mapManager.SetupMap();
+            _turnManager.Initialize();
+            _mapManager.SetupTriggerTiles();
             IfFirstSceneResetScore();
+            StartCoroutine(LateStart());
         }
         private void IfFirstSceneResetScore()
         {

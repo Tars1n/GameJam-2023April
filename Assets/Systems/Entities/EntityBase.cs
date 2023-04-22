@@ -8,27 +8,28 @@ namespace GameJam.Entity
 {
     public abstract class EntityBase : MonoBehaviour
     {
-        [SerializeField] private bool _debugLog = true;
-        [SerializeField] private bool _isShovable = true;
+        [SerializeField] protected bool _debugLog = true;
+        [SerializeField] protected bool _isShovable = true;
         public bool IsShovable => _isShovable;
-        [SerializeField] private bool _blocksMovement = true;
+        [SerializeField] protected bool _blocksMovement = true;
         public bool BlocksMovement => _blocksMovement;
         [SerializeField] protected TileNode _currentTileNode = null;
         public TileNode CurrentTileNode => _currentTileNode;
-        protected ReferenceManager _ref;
+        protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         protected TurnManager _turnManager;
         protected MapManager _mapManager;
         protected MapInteractionManager _mapInteractionManager;
         protected SpriteRenderer _spriteRenderer;
-        [SerializeField] private Color _readyState;
-        [SerializeField] private Color _turnOverState;
-        [SerializeField] private bool _hasActionReady;
+        [SerializeField] protected Color _readyState;
+        [SerializeField] protected Color _turnOverState;
+        [SerializeField] protected bool _hasActionReady;
         public bool HasActionReady => _hasActionReady;
         // [SerializeField] private bool _additionalActions;
         // public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
         // public Action _nextAction;
-        [SerializeField] private bool _isCurrentlyProcessingTurnAction = false;
+        [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;
+        public Action OnEntitySetup;
         
         
         // public delegate void NextActionDelegate(TileNode tileNode);
@@ -40,14 +41,18 @@ namespace GameJam.Entity
         }
         protected virtual void Start()
         {
-            _ref = GameMaster.Instance.ReferenceManager;
             _turnManager = _ref.TurnManager;
             _mapManager = _ref.MapManager;
             _mapInteractionManager = _ref.MapInteractionManager;
             if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
+        }
+
+        public void SetupEntity()
+        {
             _ref.EntityManager.AddEntity(this);
             LinkToTileNode(null);
             SnapEntityPositionToTile();
+            OnEntitySetup?.Invoke();
         }
 
         public void LinkToTileNode(TileNode tileNode)
@@ -67,7 +72,7 @@ namespace GameJam.Entity
             _currentTileNode?.TryAddEntity(this);
         }
 
-        private void LeaveTileNode()
+        protected void LeaveTileNode()
         {
             if (_currentTileNode == null) 
                 {return;}

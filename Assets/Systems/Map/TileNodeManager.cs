@@ -19,7 +19,7 @@ namespace GameJam.Map
         
 
         public void InitializeTileNodeArray(Tilemap map)
-        {   //this is called on Awake from MapManager. Local initialization only.
+        {   
             _mapManager = GetComponent<MapManager>();
             _mapBounds = map.cellBounds;
             _tileNodesArray = new TileNode[_mapBounds.xMax - _mapBounds.xMin, _mapBounds.yMax - _mapBounds.yMin];

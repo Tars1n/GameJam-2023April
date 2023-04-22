@@ -12,8 +12,9 @@ namespace GameJam.Entity.Brain
         [SerializeField] private EntityBase _targetEntity;
         [SerializeField] private TileNode _targetNode;
         private ReferenceManager _ref;
+        private ReferenceManager Ref => _ref ? _ref : _ref = GameMaster.Instance.ReferenceManager;
         private MapInteractionManager _mapInteractionManager;
-        private MapInteractionManager Interaction => _mapInteractionManager ? _mapInteractionManager : _mapInteractionManager = _ref.MapInteractionManager;
+        private MapInteractionManager Interaction => _mapInteractionManager ? _mapInteractionManager : _mapInteractionManager = Ref.MapInteractionManager;
         private TurnManager _turnManager;
 
         private void Awake()
@@ -23,8 +24,8 @@ namespace GameJam.Entity.Brain
         private void Start()
         {
             _ref = GameMaster.Instance.ReferenceManager;
-            _mapInteractionManager = _ref.MapInteractionManager;
-            _turnManager = _ref.TurnManager;
+            _mapInteractionManager = Ref.MapInteractionManager;
+            _turnManager = Ref.TurnManager;
         }
         public override void Think()
         {
@@ -37,8 +38,8 @@ namespace GameJam.Entity.Brain
                 return;
             }
 
-            _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
-            TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
+            Ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
+            TileNode node = Ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
             if (node == null)
             {
                 Debug.LogWarning($"{this} was seeking invalid TileNode.");
