@@ -185,7 +185,6 @@ namespace GameJam.Map
                 return false;
             }
 
-            entity.ActionCompleted();
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);
         }

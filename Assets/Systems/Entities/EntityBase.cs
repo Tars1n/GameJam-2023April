@@ -37,8 +37,9 @@ namespace GameJam.Entity
 
         protected virtual void Awake()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            
         }
+
         protected virtual void Start()
         {
             _turnManager = _ref.TurnManager;
@@ -49,6 +50,7 @@ namespace GameJam.Entity
 
         public void SetupEntity()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             _ref.EntityManager.AddEntity(this);
             LinkToTileNode(null);
             SnapEntityPositionToTile();
@@ -95,6 +97,8 @@ namespace GameJam.Entity
 
         public virtual void RefreshAction()
         {
+            if (this.gameObject.activeInHierarchy == false)
+                { return; }
             _hasActionReady = true;
             _spriteRenderer.color = _readyState;
 
