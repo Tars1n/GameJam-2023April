@@ -94,7 +94,6 @@ namespace GameJam.Map
         //this is simply to make the mouse refresh for a frame
         private void DirtyMousePosition()
         {
-            Debug.Log("Dirtied mouse position");
             _previousTileMousedOver = new Vector3Int( 0, 0, -11);
         }
 
