@@ -336,11 +336,12 @@ namespace GameJam.Map
 
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
         {
-            SoundManager.Instance.PlaySound(entity.JumpTakeoff);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityHop);
             Vector3 targetPosition = targetTile.WorldPos;
             if (entity == null) { yield break; }
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
+            entity.IsCurrentlyMoving = true;
 
             float timeElapsed = 0;
             Vector3 startPos = entity.transform.position;
@@ -371,7 +372,8 @@ namespace GameJam.Map
                 yield return null;
             }
             
-            entity.transform.position = targetPosition; 
+            entity.transform.position = targetPosition;
+            entity.IsCurrentlyMoving = false;
             entity.LinkToTileNode(null);
             entity.SnapEntityPositionToTile();
 
@@ -380,7 +382,7 @@ namespace GameJam.Map
                 entity.GetComponent<JumpAndShove>()?.ActivateJumpPushback();
             }
 
-            SoundManager.Instance.PlaySound(entity.HopLanding);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityLanding);
             entity.ActionCompleted();
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);

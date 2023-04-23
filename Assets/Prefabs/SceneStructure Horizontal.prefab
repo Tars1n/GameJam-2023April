@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 2819779886868964721}
+  _audioLibrary: {fileID: 11400000, guid: 7d6485446bf547449ba54d609e056ed3, type: 2}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
   _recordSlimeTrails: 1
   _scoreSO: {fileID: 11400000, guid: 40af083b746654f5cbd202a98cd2a64d, type: 2}

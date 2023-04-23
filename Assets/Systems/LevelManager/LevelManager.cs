@@ -15,6 +15,8 @@ namespace GameJam.Level
         public MapManager MapManager => _mapManager;
         private TurnManager _turnManager;
         public TurnManager TurnManager => _turnManager;
+        [SerializeField] private AudioLibrary _audioLibrary;
+        public AudioLibrary AudioLibrary => _audioLibrary;
         [SerializeField] private GameObject _slimeDrop;
         public GameObject SlimeDrop => _slimeDrop;
         [SerializeField] private bool _recordSlimeTrails;

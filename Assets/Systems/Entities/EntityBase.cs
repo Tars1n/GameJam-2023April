@@ -13,6 +13,7 @@ namespace GameJam.Entity
         public bool IsShovable => _isShovable;
         [SerializeField] protected bool _blocksMovement = true;
         public bool BlocksMovement => _blocksMovement;
+        public bool IsCurrentlyMoving = false;
         [SerializeField] protected TileNode _currentTileNode = null;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
@@ -29,12 +30,7 @@ namespace GameJam.Entity
         // public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
         // public Action _nextAction;
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
-        public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;
-        [SerializeField] private AudioClip _hopLanding;
-        public AudioClip HopLanding => _hopLanding;
-        [SerializeField] private AudioClip _jumpTakeoff;
-        public AudioClip JumpTakeoff => _jumpTakeoff;
-        
+        public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;        
         [SerializeField] protected Color _gizmoColour;
         public Action OnEntitySetup;
         
