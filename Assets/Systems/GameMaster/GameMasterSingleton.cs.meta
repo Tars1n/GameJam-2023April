@@ -3,7 +3,9 @@ guid: 8405fe074a4b2d94a9df095f01ae8d34
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _soundManagerPrefab: {fileID: 3072330171085628188, guid: e9fc9f7031a46a64c86de83df97380e2, type: 3}
+  - _activeEntity: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

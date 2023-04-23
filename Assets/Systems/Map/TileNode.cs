@@ -122,7 +122,7 @@ namespace GameJam.Map
                 {Entities.Add(entity);}
             if (_isPitTile)
             {
-                GameMaster.Instance.ReferenceManager.EntityManager.DestroyEntity(entity);
+                EntityEnteredPit(entity);
                 return false;
             }
             _triggerTileManager?.EntityEnteredTrigger(entity, this);
@@ -131,6 +131,20 @@ namespace GameJam.Map
                 GameObject slime = GameObject.Instantiate(LevelManager.SlimeDrop, WorldPos, Quaternion.identity);
             }
             return true;
+        }
+
+        //if entity is beings shoved over pit, first stops their movement before they can be destroyed by it.
+        private void EntityEnteredPit(EntityBase entity)
+        {
+            GameMaster.Instance.ReferenceManager.EntityManager.DestroyEntity(entity);
+            
+            if (entity.IsCurrentlyMoving == false)
+            {
+                if (entity.GetType() != typeof(EntityCharacter))
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.MonsterFallIntoPit);
+                else
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.PlayerFallIntoPit);
+            }
         }
 
         public bool TryRemoveEntity(EntityBase entity)

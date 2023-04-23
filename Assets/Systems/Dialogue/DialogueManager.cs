@@ -64,7 +64,7 @@ namespace GameJam.Dialogue
                 DialogueSpawnEntity dialogueSpawnEntity = (DialogueSpawnEntity)_currentDialogue[_dialogueIndex];
                 GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
                 EntityBase eb = go.GetComponent<EntityBase>();
-                _entityManager.AddEntity(eb);
+                eb.SetupEntity();
                 _dialogueIndex ++;
                 NextDialoguePiece();
                 return;

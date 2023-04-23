@@ -16,7 +16,6 @@ namespace GameJam.Map
         [SerializeField] private bool _shoveInteractWithEveryTile = true;
         [SerializeField] private TileBase[] _shoveTileHilight;
         [SerializeField] private float _slideSpeed = 0.5f;
-
         private void Awake()
         {
             _mapManager = GetComponent<MapManager>();
@@ -84,6 +83,7 @@ namespace GameJam.Map
         {
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
+            entity.IsCurrentlyMoving = true;
 
             Vector3 startPos = entity.transform.position;
             //calculate the final target position.
@@ -101,6 +101,8 @@ namespace GameJam.Map
             float j = 0f;
             float shortenSlideDistance = 0.1f;
             bool shoveOneTile = false;
+            
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.StartShove);
 
             while (timeElapsed < _slideSpeed)
             {
@@ -135,6 +137,7 @@ namespace GameJam.Map
                     if (projectedTile == null) {continue;}
                     if (projectedTile.IsWalkable(entity))
                     {
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.Sliding);
                         shortenSlideDistance = 0.1f;
                     }
                 }
@@ -154,6 +157,7 @@ namespace GameJam.Map
             }
 
             // final attempt after while loop, because lerp never actually reaches 100%
+            entity.IsCurrentlyMoving = false;
             if (collisionHappened == false)
             {
                 projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
@@ -167,6 +171,7 @@ namespace GameJam.Map
                     entity.LinkToTileNode(currentTile);
                     collisionHappened = true;
                     currentTile.CollidedWith();
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.Collision);
                     return false;
                 }
                 if (tileToCheck.IsWalkable(entity))
@@ -177,11 +182,12 @@ namespace GameJam.Map
                     return true;
                 }
                 
-                Debug.Log("entity slammed into object");
+                if (_debugLogs) Debug.Log("entity slammed into object");
                 entity.LinkToTileNode(currentTile);
                 collisionHappened = true;
                 currentTile.CollidedWith();
                 tileToCheck.CollidedWith();
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.Collision);
                 return false;
             }
 

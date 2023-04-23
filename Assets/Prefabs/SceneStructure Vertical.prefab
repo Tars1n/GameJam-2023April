@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1805371981660791810
 RectTransform:
   m_ObjectHideFlags: 0
@@ -530,6 +530,7 @@ MonoBehaviour:
   _renderPathToTarget: 1
   _mp: 5
   _slideSpeed: 0.5
+  _tileMouseover: {fileID: 0}
   _ignoreObstacles: 0
 --- !u!114 &1805371981997291029
 MonoBehaviour:
@@ -553,6 +554,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 199c6859f053e454f904ca2eeca45853, type: 2}
   - {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
   _slideSpeed: 0.5
+  _sfx_startShove: {fileID: 0}
+  _sfx_sliding: {fileID: 0}
+  _sfx_collision: {fileID: 0}
 --- !u!114 &1805371981997291498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,6 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 1805371981997291026}
+  _audioLibrary: {fileID: 11400000, guid: 7d6485446bf547449ba54d609e056ed3, type: 2}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
   _recordSlimeTrails: 1
   _scoreSO: {fileID: 0}
