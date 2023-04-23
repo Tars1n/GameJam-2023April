@@ -60,6 +60,7 @@ namespace GameJam.Level
         public void LevelFailed()
         {
             _scoreSO.RestartLevelScore();
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.FailedLevel);
             _sceneHandler.RestartLevel();
         }
         

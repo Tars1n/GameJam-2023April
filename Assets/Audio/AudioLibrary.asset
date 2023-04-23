@@ -16,6 +16,9 @@ MonoBehaviour:
   EntityLanding: {fileID: 8300000, guid: 09c3e6e29e09a754887d92bc2636bac2, type: 3}
   GatheredRelic: {fileID: 8300000, guid: af72a2fed8e6b7a4b8920bd288664111, type: 3}
   NextLevel: {fileID: 8300000, guid: c51e2c6e99c09aa42a90563bea21c4d2, type: 3}
+  FailedLevel: {fileID: 8300000, guid: 65813e657e4393b41a4eff92967dcffb, type: 3}
+  DialogueSting: {fileID: 8300000, guid: 3de681f20e188b640b46b98468b8480a, type: 3}
+  EntityRevealed: {fileID: 8300000, guid: 1c62f7fa6f75000478a7ffc839ec938b, type: 3}
   StartShove: {fileID: 8300000, guid: 1a393e1bf0d601443980cc5b80cafa49, type: 3}
   Sliding: {fileID: 8300000, guid: cbbc92b20f30e3441b7062db322b3dee, type: 3}
   Collision: {fileID: 8300000, guid: eb2617005f57a1d4d87baea852dc9d6b, type: 3}
@@ -24,4 +27,4 @@ MonoBehaviour:
   CultistAttackedPlayer: {fileID: 8300000, guid: b4d6d0e5ef61b7c4aa7e73eefd2aa7aa, type: 3}
   TrapActivated: {fileID: 8300000, guid: 1c62f7fa6f75000478a7ffc839ec938b, type: 3}
   LeverToggled: {fileID: 8300000, guid: 7436b5666c3455842b9c1c74a627bc55, type: 3}
-  TilesAltered: {fileID: 8300000, guid: 1faf0db5cc8226c43bfae36b336ba00c, type: 3}
+  TilesAltered: {fileID: 8300000, guid: cbbc92b20f30e3441b7062db322b3dee, type: 3}

@@ -52,6 +52,7 @@ namespace GameJam.Dialogue
             
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueText))
             {
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
                 DialogueText dialogueText = (DialogueText)_currentDialogue[_dialogueIndex];
                 Debug.Log(dialogueText.DialogueTextStr);
                 _dialogueIndex ++;  
@@ -61,6 +62,7 @@ namespace GameJam.Dialogue
             
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueSpawnEntity))            
             {
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
                 DialogueSpawnEntity dialogueSpawnEntity = (DialogueSpawnEntity)_currentDialogue[_dialogueIndex];
                 GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
                 EntityBase eb = go.GetComponent<EntityBase>();
