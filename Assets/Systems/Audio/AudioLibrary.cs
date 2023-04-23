@@ -10,6 +10,8 @@ namespace GameJam
     {
         public AudioClip EntityHop;
         public AudioClip EntityLanding;
+        public AudioClip GatheredRelic;
+        public AudioClip NextLevel;
         public AudioClip StartShove;
         public AudioClip Sliding;
         public AudioClip Collision;
@@ -17,5 +19,7 @@ namespace GameJam
         public AudioClip PlayerFallIntoPit;
         public AudioClip CultistAttackedPlayer;
         public AudioClip TrapActivated;
+        public AudioClip LeverToggled;
+        public AudioClip TilesAltered;
     }
 }

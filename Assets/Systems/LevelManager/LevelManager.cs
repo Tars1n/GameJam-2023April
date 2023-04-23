@@ -53,6 +53,7 @@ namespace GameJam.Level
         }
         public void LevelComplete()
         {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.NextLevel);
             _scoreSO.LevelCompleteSetScore();
             _sceneHandler.LoadNextLevel();
         }
