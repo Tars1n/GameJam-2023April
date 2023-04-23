@@ -12,6 +12,9 @@ namespace GameJam
         public AudioClip EntityLanding;
         public AudioClip GatheredRelic;
         public AudioClip NextLevel;
+        public AudioClip FailedLevel;
+        public AudioClip DialogueSting;
+        public AudioClip EntityRevealed;
         public AudioClip StartShove;
         public AudioClip Sliding;
         public AudioClip Collision;

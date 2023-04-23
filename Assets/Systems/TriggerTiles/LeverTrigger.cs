@@ -45,6 +45,7 @@ namespace GameJam.Map.TriggerTiles
             _leverPulled = !_leverPulled;
             _animator?.SetBool("LeverPulled", _leverPulled);
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.LeverToggled);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.TilesAltered);
 
             if (_leverPulled)
                 { _currentTileState = _pulledTileState; }
@@ -63,7 +64,6 @@ namespace GameJam.Map.TriggerTiles
                 
                 tile.TileType = _currentTileState;
                 _mapManager.Map.SetTile(tileCoord, _currentTileState);
-                // SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.TilesAltered);
 
                 tile.SetTileData(_ref.TileNodeManager.DataFromTiles);
                 tile.CollidedWith();
