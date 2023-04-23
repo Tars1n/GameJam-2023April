@@ -530,6 +530,7 @@ MonoBehaviour:
   _renderPathToTarget: 1
   _mp: 5
   _slideSpeed: 0.5
+  _tileMouseover: {fileID: 0}
   _ignoreObstacles: 0
 --- !u!114 &1805371981997291029
 MonoBehaviour:
@@ -553,6 +554,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 199c6859f053e454f904ca2eeca45853, type: 2}
   - {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
   _slideSpeed: 0.5
+  _sfx_startShove: {fileID: 0}
+  _sfx_sliding: {fileID: 0}
+  _sfx_collision: {fileID: 0}
 --- !u!114 &1805371981997291498
 MonoBehaviour:
   m_ObjectHideFlags: 0

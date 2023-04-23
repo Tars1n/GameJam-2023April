@@ -30,6 +30,11 @@ namespace GameJam.Entity
         // public Action _nextAction;
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;
+        [SerializeField] private AudioClip _hopLanding;
+        public AudioClip HopLanding => _hopLanding;
+        [SerializeField] private AudioClip _jumpTakeoff;
+        public AudioClip JumpTakeoff => _jumpTakeoff;
+        
         [SerializeField] protected Color _gizmoColour;
         public Action OnEntitySetup;
         

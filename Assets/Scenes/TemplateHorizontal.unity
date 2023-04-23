@@ -154,6 +154,22 @@ PrefabInstance:
       propertyPath: _debugLogs
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2819779886868964726, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _sfx_sliding
+      value: 
+      objectReference: {fileID: 8300000, guid: cbbc92b20f30e3441b7062db322b3dee, type: 3}
+    - target: {fileID: 2819779886868964726, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _sfx_collision
+      value: 
+      objectReference: {fileID: 8300000, guid: eb2617005f57a1d4d87baea852dc9d6b, type: 3}
+    - target: {fileID: 2819779886868964726, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _sfx_startShove
+      value: 
+      objectReference: {fileID: 8300000, guid: 1a393e1bf0d601443980cc5b80cafa49, type: 3}
+    - target: {fileID: 2819779886868964727, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _tileMouseover
+      value: 
+      objectReference: {fileID: 8300000, guid: baaa84e8b2b777848b96fee3cae92858, type: 3}
     - target: {fileID: 4520991719523372559, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

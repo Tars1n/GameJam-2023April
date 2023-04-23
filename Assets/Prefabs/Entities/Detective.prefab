@@ -117,6 +117,8 @@ MonoBehaviour:
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
   _hasActionReady: 0
   _isCurrentlyProcessingTurnAction: 0
+  _hopLanding: {fileID: 8300000, guid: 09c3e6e29e09a754887d92bc2636bac2, type: 3}
+  _jumpTakeoff: {fileID: 8300000, guid: d45b17b823a60844dbf1652c95377324, type: 3}
   _gizmoColour: {r: 1, g: 1, b: 1, a: 0.5254902}
 --- !u!114 &694517987159947115
 MonoBehaviour:

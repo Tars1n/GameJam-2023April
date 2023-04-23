@@ -34,7 +34,7 @@ namespace GameJam
         private void Awake() {
             _fixedDeltaTime = Time.fixedDeltaTime;
             _referenceManager = GetReferenceManager();
-            _eventManager = GetComponent<EventManager>();          
+            _eventManager = GetComponent<EventManager>();
             DontDestroyOnLoad(this);
             Initialize();
         }

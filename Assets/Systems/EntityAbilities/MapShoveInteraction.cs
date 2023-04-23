@@ -16,6 +16,9 @@ namespace GameJam.Map
         [SerializeField] private bool _shoveInteractWithEveryTile = true;
         [SerializeField] private TileBase[] _shoveTileHilight;
         [SerializeField] private float _slideSpeed = 0.5f;
+        [SerializeField] private AudioClip _sfx_startShove;
+        [SerializeField] private AudioClip _sfx_sliding;
+        [SerializeField] private AudioClip _sfx_collision;
 
         private void Awake()
         {
@@ -101,6 +104,8 @@ namespace GameJam.Map
             float j = 0f;
             float shortenSlideDistance = 0.1f;
             bool shoveOneTile = false;
+            
+            SoundManager.Instance.PlaySound(_sfx_startShove);
 
             while (timeElapsed < _slideSpeed)
             {
@@ -135,6 +140,7 @@ namespace GameJam.Map
                     if (projectedTile == null) {continue;}
                     if (projectedTile.IsWalkable(entity))
                     {
+                        SoundManager.Instance.PlaySound(_sfx_sliding);
                         shortenSlideDistance = 0.1f;
                     }
                 }
@@ -182,6 +188,7 @@ namespace GameJam.Map
                 collisionHappened = true;
                 currentTile.CollidedWith();
                 tileToCheck.CollidedWith();
+                SoundManager.Instance.PlaySound(_sfx_collision);
                 return false;
             }
 

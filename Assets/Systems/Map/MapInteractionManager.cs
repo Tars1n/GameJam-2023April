@@ -22,6 +22,7 @@ namespace GameJam.Map
         private MoveEntityAlongPath _moveEntityAlongAPath;
         private MapShoveInteraction _shoveInteraction;
         public MapShoveInteraction MapShoveInteraction => _shoveInteraction;
+        private TurnManager _turnManager;
         private Tilemap _map;
         private Tilemap _overlayTilemap;
         private Tilemap _triggerTileMap;
@@ -38,6 +39,7 @@ namespace GameJam.Map
         [SerializeField] private bool _renderPathToTarget = true;
         [SerializeField] private int _mp = 3;
         [SerializeField] private float _slideSpeed = 0.5f;
+        [SerializeField] private AudioClip _tileMouseover;
         [SerializeField] private bool _ignoreObstacles;
 
         public void Initialize(MapManager mapManager)
@@ -53,6 +55,8 @@ namespace GameJam.Map
             _overlayTilemap = _mapManager.OverlayMap;
             _triggerTileMap = _mapManager.TriggerTilemap;
             _mouseMap = _mapManager.MouseInteractionTilemap;
+            _turnManager = _gm.ReferenceManager.TurnManager;
+            _turnManager.OnPlayerTurnBegins += DirtyMousePosition;
         }
 
         private void Update() {
@@ -85,6 +89,13 @@ namespace GameJam.Map
                 OnTileSelected(gridCoordinate);
             }
             _previousTileMousedOver = gridCoordinate;
+        }
+
+        //this is simply to make the mouse refresh for a frame
+        private void DirtyMousePosition()
+        {
+            Debug.Log("Dirtied mouse position");
+            _previousTileMousedOver = new Vector3Int( 0, 0, -11);
         }
 
         private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
@@ -325,6 +336,7 @@ namespace GameJam.Map
 
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
         {
+            SoundManager.Instance.PlaySound(entity.JumpTakeoff);
             Vector3 targetPosition = targetTile.WorldPos;
             if (entity == null) { yield break; }
             GameMaster.Instance.TilemapInteractable = false;
@@ -368,6 +380,7 @@ namespace GameJam.Map
                 entity.GetComponent<JumpAndShove>()?.ActivateJumpPushback();
             }
 
+            SoundManager.Instance.PlaySound(entity.HopLanding);
             entity.ActionCompleted();
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);
@@ -382,6 +395,11 @@ namespace GameJam.Map
         {
             if (_triggerTileMap == null) { return; }
             _triggerTileMap.SetTile(tileCoords, null);
+        }
+
+        private void OnDisable()
+        {
+            _turnManager.OnPlayerTurnBegins -= DirtyMousePosition;
         }
     }
     

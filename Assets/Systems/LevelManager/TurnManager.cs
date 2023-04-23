@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,8 +20,7 @@ namespace GameJam.Entity
         public int Round => _round;
         [SerializeField] private bool _holdingNextTick = false;
         public bool HoldingNextTick => _holdingNextTick;
-        
-        
+        public Action OnPlayerTurnBegins;      
         
 
         private void Awake()
@@ -63,12 +63,14 @@ namespace GameJam.Entity
         {
             _playerTurn = true;
             if (DebugLog)  Debug.Log("Player's turn begins.");
+
+            OnPlayerTurnBegins?.Invoke();
         }
 
         private void StartComputerTurn()
         {
-            if (DebugLog)  Debug.Log("Player has completed their turn. Evil begins to stir.");
             _playerTurn = false;
+            if (DebugLog)  Debug.Log("Player has completed their turn. Evil begins to stir.");
             _entityManager.EnqueueAllMapEntities();
             TickNext();
         }

@@ -16,6 +16,7 @@ namespace GameJam
                 GameObject go = new GameObject();
                 go.name = "GameMaster";
                 _instance = go.AddComponent<GameMasterSingleton>();
+                go.AddComponent<SoundManager>();
             }
             return _instance;
         }
