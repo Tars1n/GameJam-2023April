@@ -60,7 +60,7 @@ namespace GameJam.Map
                 return;
             if (GameMaster.GetSingleton().GameSuspended == true)
             {
-                RefreshOverlayMap();
+                // RefreshOverlayMap();
                 return;
             }
 
