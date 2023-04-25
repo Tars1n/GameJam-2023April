@@ -33,6 +33,7 @@ namespace GameJam.Level
 
         private void Start()
         {
+            GameMaster.Instance.Initialize();
             _mapManager.SetupMap();
             _turnManager.Initialize();
             _mapManager.SetupTriggerTiles();

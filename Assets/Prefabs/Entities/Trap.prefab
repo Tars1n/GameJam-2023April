@@ -99,6 +99,7 @@ MonoBehaviour:
   _debugLog: 1
   _isShovable: 0
   _blocksMovement: 1
+  IsCurrentlyMoving: 0
   _currentTileNode:
     TileType: {fileID: 0}
     _isSelectable: 0
@@ -130,7 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d7643e46e0fc948a5586e7ffc0fc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerTile: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
+  _mapManager: {fileID: 0}
+  _triggerTile: {fileID: 11400000, guid: 087138e17713fd541a30493fb7e57c52, type: 2}
   _gizmoColour: {r: 1, g: 0, b: 0, a: 0.5019608}
   _triggerLocationTiles:
   - {x: 0, y: 0, z: 0}

@@ -12,7 +12,6 @@ namespace GameJam.Level.Scene
             //int thisLevel = SceneManager.GetActiveScene().buildIndex;
             string thisLevel = SceneManager.GetActiveScene().name;
 
-            GameMaster.Instance.EndScene();
             LoadScene(thisLevel);
         }
 
@@ -25,19 +24,18 @@ namespace GameJam.Level.Scene
                 return;
             }
             
-            GameMaster.Instance.EndScene();
             LoadScene(nextLevel);
         }
 
         private void LoadScene(int sceneIndex)
         {
-            GameMaster.Instance.Initialize();
+            GameMaster.Instance.EndScene();
             SceneManager.LoadScene(sceneIndex);
         }
 
         private void LoadScene(string sceneName)
         {
-            GameMaster.Instance.Initialize();
+            GameMaster.Instance.EndScene();
             SceneManager.LoadScene(sceneName);
         }
     }
