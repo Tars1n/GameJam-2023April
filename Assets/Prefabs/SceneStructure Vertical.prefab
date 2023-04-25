@@ -554,9 +554,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 199c6859f053e454f904ca2eeca45853, type: 2}
   - {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
   _slideSpeed: 0.5
-  _sfx_startShove: {fileID: 0}
-  _sfx_sliding: {fileID: 0}
-  _sfx_collision: {fileID: 0}
 --- !u!114 &1805371981997291498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,7 +675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
-  _triggerTile: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
+  _triggerTile: {fileID: 11400000, guid: 19a9d93db59183d49bab09fedc4a3ecf, type: 2}
   _gizmoColour: {r: 0, g: 0.011921406, b: 1, a: 1}
   _triggerLocationTiles: []
   _relicsGathered: 0

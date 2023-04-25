@@ -35,7 +35,8 @@ namespace GameJam.Entity
                     {
                         if (entity?.GetType() == typeof(EntityCharacter))
                         {
-                            targetToKill = (EntityCharacter)entity;
+                            if (entity.gameObject.activeSelf)
+                                targetToKill = (EntityCharacter)entity;
                         }
                     }
                 }
