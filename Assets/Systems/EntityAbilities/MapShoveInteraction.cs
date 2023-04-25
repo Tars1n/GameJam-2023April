@@ -38,7 +38,8 @@ namespace GameJam.Map
             foreach (EntityBase entity in tileBeingPushed.Entities)
             {
                 if (entity == null) { continue; }
-                return entity.IsShovable;
+                if (entity.IsShovable)
+                    { return true; }
             }
             return false;
         }
