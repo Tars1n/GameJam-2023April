@@ -152,7 +152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886868145783, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886868964489, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _mirrorY
@@ -3188,7 +3188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6866971688026858075, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8127041672742142467, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_Name
