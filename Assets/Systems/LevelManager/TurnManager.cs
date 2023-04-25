@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Entity
 {
@@ -20,12 +21,14 @@ namespace GameJam.Entity
         public int Round => _round;
         [SerializeField] private bool _holdingNextTick = false;
         public bool HoldingNextTick => _holdingNextTick;
+        private LevelCompletion _levelCompletion;
         public Action OnPlayerTurnBegins;      
         
 
         private void Awake()
         {
-            _entityManager = GetComponent<EntityManager>();    
+            _entityManager = GetComponent<EntityManager>(); 
+            _levelCompletion = GetComponent<LevelCompletion>();   
         }
 
         public void Initialize()
@@ -102,7 +105,7 @@ namespace GameJam.Entity
             
             if (_playerTurn)
             {
-                TryEndPlayerTurn();
+                TryEndPlayerTurn();                
                 return;
             }
             EntityBase nextEntity = _entityManager.GetNextReadyMapEntity();
@@ -127,6 +130,7 @@ namespace GameJam.Entity
         IEnumerator DelayedComputerTurnStart()
         {
             yield return new WaitForSeconds(_delayBetweenActions);
+            _levelCompletion.CheckIfLevelComplete();
             StartComputerTurn();
         }
     }
