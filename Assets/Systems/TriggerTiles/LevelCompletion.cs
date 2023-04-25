@@ -11,6 +11,7 @@ namespace GameJam.Map.TriggerTiles
         private LevelManager _levelManager;
         private RelicPickup _relicPickup;
         private int _relicsRequiredForCompletion;
+        private bool _levelComplete;
 
         private void Awake()
         {
@@ -25,7 +26,15 @@ namespace GameJam.Map.TriggerTiles
             {
                 Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tileNode}");
             }
-            _levelManager.LevelComplete();
+            // _levelManager.LevelComplete();
+            _levelComplete = true;
+        }
+        public void CheckIfLevelComplete()
+        {
+            if (_levelComplete)
+            {
+                _levelManager.LevelComplete();
+            }
         }
     }
 }
