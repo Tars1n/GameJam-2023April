@@ -135,8 +135,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164906cc952f04e848b2c1d60ae3825a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _startDialogueSO: []
+  _currentDialogueSO: []
   _startDialogue: []
   _currentDialogue: []
+  _dialoguePieceTextClassStart: []
+  _dialogueInCanvas: {fileID: 6757537002541439846}
+  _dialogueTMPText: {fileID: 6948081894348425778}
+  references:
+    version: 1
 --- !u!114 &1037455770909591612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4916,6 +4923,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1861009983919239151, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
   m_PrefabInstance: {fileID: 4535824554078957980}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6757537002541439846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7148871220792175354, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+  m_PrefabInstance: {fileID: 4535824554078957980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6948081894348425778 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6818159349813803950, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+  m_PrefabInstance: {fileID: 4535824554078957980}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4659552012619187832
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,13 +4,19 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using GameJam.Entity;
+using TMPro;
 
 namespace GameJam.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        [SerializeField] private List<DialoguePieceSO> _startDialogue;
-        [SerializeField] private List<DialoguePieceSO> _currentDialogue;
+        [SerializeField] private List<DialoguePieceSO> _startDialogueSO;
+        [SerializeField] private List<DialoguePieceSO> _currentDialogueSO;
+        [SerializeReference] private List<DialoguePieceClass> _startDialogue;
+        [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
+        [SerializeField] private List<DialoguePieceTextClass> _dialoguePieceTextClassStart;
+        [SerializeField] private GameObject _dialogueInCanvas;
+        [SerializeField] private TMP_Text _dialogueTMPText;
 
         private GameMasterSingleton _gameMasterSingleton;
         private EntityManager _entityManager;
@@ -30,14 +36,18 @@ namespace GameJam.Dialogue
         {
             if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame))
             {
+                Debug.Log($"continue");
                 _continueDialogue?.Invoke();
             }
         }
         private void BeginDialogue()
         {
-            _dialogueIndex = 0;
+            if (_currentDialogue == null) Debug.Log($"current dialogue = null");
+            if (_currentDialogue.Count == 0) Debug.Log($"current dialgue count = 0");
             if ((_currentDialogue == null) || (_currentDialogue.Count == 0)) return;
+            _dialogueIndex = 0;
             _gameMasterSingleton.GameSuspended = true;
+            _dialogueInCanvas.SetActive(true);
             NextDialoguePiece();
         }
         private void NextDialoguePiece()
@@ -46,31 +56,35 @@ namespace GameJam.Dialogue
             if (_dialogueIndex >= _currentDialogue.Count)
             {
                 _gameMasterSingleton.GameSuspended = false;
+                _dialogueInCanvas.SetActive(false);
                 _dialgueComplete?.Invoke();
                 return;
             }
-            
-            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueText))
+
+            // if (_currentDialogueSO[_dialogueIndex].GetType() == typeof(DialogueText))
+            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceTextClass))
             {
+                Debug.Log($"dialoguepiecetextclass");
                 SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
-                DialogueText dialogueText = (DialogueText)_currentDialogue[_dialogueIndex];
-                Debug.Log(dialogueText.DialogueTextStr);
+                DialoguePieceTextClass dialoguePieceText = (DialoguePieceTextClass)_currentDialogue[_dialogueIndex];
+                Debug.Log(dialoguePieceText.DialogueTextStr);
+                _dialogueTMPText.text = dialoguePieceText.DialogueTextStr;
                 _dialogueIndex ++;  
                 _continueDialogue += NextDialoguePiece; 
                 return;         
             }
             
-            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueSpawnEntity))            
-            {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
-                DialogueSpawnEntity dialogueSpawnEntity = (DialogueSpawnEntity)_currentDialogue[_dialogueIndex];
-                GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
-                EntityBase eb = go.GetComponent<EntityBase>();
-                eb.SetupEntity();
-                _dialogueIndex ++;
-                NextDialoguePiece();
-                return;
-            }
+            // if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueSpawnEntity))            
+            // {
+            //     SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
+            //     DialogueSpawnEntity dialogueSpawnEntity = (DialogueSpawnEntity)_currentDialogueSO[_dialogueIndex];
+            //     GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
+            //     EntityBase eb = go.GetComponent<EntityBase>();
+            //     eb.SetupEntity();
+            //     _dialogueIndex ++;
+            //     NextDialoguePiece();
+            //     return;
+            // }
         }
         private void OnDisable()
         {

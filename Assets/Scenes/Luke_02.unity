@@ -141,6 +141,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogueSO.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[0]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[0]._dialogueText
+      value: It was a dark and storm night.
+      objectReference: {fileID: 0}
     - target: {fileID: 6395715848295395616, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -189,6 +205,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneStructure Horizontal
       objectReference: {fileID: 0}
+    - target: {fileID: 8127886971371785648, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.850006
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
 --- !u!1001 &1456978169
@@ -204,11 +224,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7065358791319654612, guid: ce63f8172eb62dc4e8cab394d8e18cfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.29
+      value: -3.07
       objectReference: {fileID: 0}
     - target: {fileID: 7065358791319654612, guid: ce63f8172eb62dc4e8cab394d8e18cfa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.71
+      value: -2.35
       objectReference: {fileID: 0}
     - target: {fileID: 7065358791319654612, guid: ce63f8172eb62dc4e8cab394d8e18cfa, type: 3}
       propertyPath: m_LocalPosition.z
