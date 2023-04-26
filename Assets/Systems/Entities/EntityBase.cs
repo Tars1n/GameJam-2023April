@@ -145,6 +145,11 @@ namespace GameJam.Entity
             this.gameObject.SetActive(false);
         }
 
+        public void RenderOnLayer(int i)
+        {
+            _spriteRenderer.sortingOrder = i;
+        }
+
         protected virtual void OnDrawGizmos()
         {
             Gizmos.color = _gizmoColour;

@@ -77,6 +77,17 @@ namespace GameJam.Map
             }
         }
 
+        public void RenderAllOcclusionTiles(Tilemap tilemap)
+        {
+            foreach (TileNode tile in _tileNodesArray)
+            {
+                if (tile == null) continue;
+                if (tile.OcclusionLayer)
+                    tilemap.SetTile(tile.GridCoordinate, tile.TileType);
+                    Debug.Log($"rendered occlusion tile: {tile.TileType} at {tile.GridCoordinate}");
+            }
+        }
+
         public void ResetAllPathing()
         {
             foreach (TileNode node in _tileNodesArray)

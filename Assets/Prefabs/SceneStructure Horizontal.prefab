@@ -258,6 +258,7 @@ MonoBehaviour:
   _tileDatas:
   - {fileID: 11400000, guid: 36031bc8000efa842a37564319fc8198, type: 2}
   - {fileID: 11400000, guid: 18ab20c4fb840ef45a542324d63bea32, type: 2}
+  - {fileID: 11400000, guid: 6d77e4b43d04f68428018bf59c0fe463, type: 2}
 --- !u!114 &2819779886868964724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4732,11 +4733,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
---- !u!4 &6020328266290781500 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8407479944982123146, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
-  m_PrefabInstance: {fileID: 2819779887435354038}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6020328266290781499 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8407479944982123149, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
@@ -4748,6 +4744,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b5a30b7f3328f41a1f9b724b0453f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &6020328266290781500 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8407479944982123146, guid: e46cff6f23a87ca459a363ab9c1fe77b, type: 3}
+  m_PrefabInstance: {fileID: 2819779887435354038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2819779888874594948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4909,6 +4910,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2819779886846200604}
+    - target: {fileID: 6935304663658258939, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.4550171
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494165687896413882, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -222.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494165687896413882, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.4550171
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
 --- !u!224 &2819779886970363507 stripped

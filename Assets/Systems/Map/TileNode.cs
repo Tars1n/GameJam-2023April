@@ -17,6 +17,8 @@ namespace GameJam.Map
         [SerializeField] private bool _isWalkable = false;
         [SerializeField] private bool _isPitTile = false;
         public bool IsPitTile => _isPitTile;
+        [SerializeField] private bool _occlusionLayer;
+        public bool OcclusionLayer => _occlusionLayer;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
         public Vector3Int WalkingPathDirection;
@@ -43,6 +45,7 @@ namespace GameJam.Map
             _isSelectable = data[TileType].IsSelectable;
             _isWalkable = data[TileType].IsWalkable;
             _isPitTile = data[TileType].IsPitTile;
+            _occlusionLayer = data[TileType].OcclusionLayer;
         }
 
         private void ResetTileTypeData()

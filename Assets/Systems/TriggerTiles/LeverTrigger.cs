@@ -55,6 +55,7 @@ namespace GameJam.Map.TriggerTiles
                 { _currentTileState = _unpulledTileState; }
 
             DoToggleTiles();
+            _mapManager.RenderOcclusionTiles();
         }
 
         private void DoToggleTiles()

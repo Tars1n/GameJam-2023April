@@ -13,6 +13,7 @@ namespace GameJam.Map
         public bool IsSelectable;
         public bool IsWalkable;
         public bool IsPitTile;
+        public bool OcclusionLayer;
         
     }
 }
