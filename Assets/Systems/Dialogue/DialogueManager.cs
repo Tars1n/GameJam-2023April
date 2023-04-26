@@ -116,7 +116,17 @@ namespace GameJam.Dialogue
             if (dialoguePieceTextClass.CharacterTalking != null)
             {
                 _characterPortrait.sprite = dialoguePieceTextClass.CharacterTalking;
+                StrechPortraitScale(dialoguePieceTextClass);
             }
+        }
+
+        private void StrechPortraitScale(DialoguePieceTextClass dialoguePieceTextClass)
+        {
+            RectTransform rectTransform = _characterPortrait.GetComponent<RectTransform>();
+            float rectXScale = rectTransform.localScale.x;
+            float newRectYScale = (dialoguePieceTextClass.CharacterTalking.bounds.max.y - dialoguePieceTextClass.CharacterTalking.bounds.min.y) / (dialoguePieceTextClass.CharacterTalking.bounds.max.x - dialoguePieceTextClass.CharacterTalking.bounds.min.x);
+            newRectYScale *= rectXScale;
+            rectTransform.localScale = new Vector2(rectXScale, newRectYScale);
         }
 
         private void OnDisable()
