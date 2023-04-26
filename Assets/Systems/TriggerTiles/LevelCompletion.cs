@@ -22,6 +22,7 @@ namespace GameJam.Map.TriggerTiles
         {
             if (_relicsRequiredForCompletion > _relicPickup.RelicsGathered) return;
             if (_triggerLocationTiles == null) return;
+            if (entityBase.GetType() != typeof(EntityCharacter)) return;
             if (tileNode == null)
             {
                 Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tileNode}");
