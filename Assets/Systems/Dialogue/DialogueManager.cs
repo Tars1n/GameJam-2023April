@@ -68,18 +68,17 @@ namespace GameJam.Dialogue
                 _continueDialogue += NextDialoguePiece; 
                 return;         
             }
-            
-            // if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialogueSpawnEntity))            
-            // {
-            //     SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
-            //     DialogueSpawnEntity dialogueSpawnEntity = (DialogueSpawnEntity)_currentDialogueSO[_dialogueIndex];
-            //     GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
-            //     EntityBase eb = go.GetComponent<EntityBase>();
-            //     eb.SetupEntity();
-            //     _dialogueIndex ++;
-            //     NextDialoguePiece();
-            //     return;
-            // }
+            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceSpawnEntityClass))
+            {
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
+                DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
+                GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
+                EntityBase eb = go.GetComponent<EntityBase>();
+                eb.SetupEntity();
+                _dialogueIndex ++;
+                NextDialoguePiece();
+                return;
+            }
         }
         private void OnDisable()
         {

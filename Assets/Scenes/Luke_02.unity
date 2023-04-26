@@ -143,7 +143,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogueSO.Array.size
@@ -154,8 +154,28 @@ PrefabInstance:
       value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[1]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceSpawnEntityClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[0]._dialogueText
       value: It was a dark and storm night.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._entityPrefab
+      value: 
+      objectReference: {fileID: 7065358791319656232, guid: ea0f8bb4b602f410ab19f63e541de325, type: 3}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._entityLocation.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._entityLocation.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._entityLocation.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6395715848295395616, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_RootOrder
