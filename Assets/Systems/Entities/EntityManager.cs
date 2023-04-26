@@ -41,6 +41,7 @@ namespace GameJam.Entity
             if (_debugLogs) { Debug.Log($"Setting up {foundEntities.Length} Entites."); }
             foreach (EntityBase entity in foundEntities)
             {
+                if (!entity.gameObject.activeInHierarchy) continue;
                 entity.SetupEntity();
             }
         }
@@ -132,8 +133,8 @@ namespace GameJam.Entity
         {
             foreach (EntityMonster entity in _monsters)
                 { _mapEntityQueue.Enqueue(entity); }
-            foreach (EntityTrap entity in _traps)
-                { _mapEntityQueue.Enqueue(entity); }
+            // foreach (EntityTrap entity in _traps)
+                // { _mapEntityQueue.Enqueue(entity); }
         }
 
         public bool DoesPlayerStillHaveAction()
