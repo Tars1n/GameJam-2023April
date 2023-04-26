@@ -330,6 +330,11 @@ namespace GameJam.Map
                 { slamLanding = true; }
 
             // entity.LeaveTileNode();
+            // StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
+            HopEntityToPosFunc(entity, targetTile, _slideSpeed, slamLanding);
+        }
+        public void HopEntityToPosFunc(EntityBase entity, TileNode targetTile, float duration, bool slamLanding)
+        {
             StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
         }
 

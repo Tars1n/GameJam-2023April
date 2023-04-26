@@ -6,6 +6,7 @@ using System;
 using GameJam.Entity;
 using TMPro;
 using UnityEngine.UI;
+using GameJam.Map;
 
 namespace GameJam.Dialogue
 {
@@ -19,14 +20,18 @@ namespace GameJam.Dialogue
 
         private GameMasterSingleton _gameMasterSingleton;
         private EntityManager _entityManager;
-        public Action _continueDialogue;
+        private MapInteractionManager _mapInteractionManager;
+        private TileNodeManager _tileNodeManager;
+        public Action _continueDialogue;        
         public Action _dialgueComplete;
-        private int _dialogueIndex;
+        private int _dialogueIndex;        
 
         private void Start() {
             {
                 _entityManager = GameMaster.Instance.ReferenceManager.EntityManager;
                 _gameMasterSingleton = GameMaster.GetSingleton();
+                _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
+                _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
                 _currentDialogue = _startDialogue; 
                 BeginDialogue();               
             }
@@ -69,6 +74,19 @@ namespace GameJam.Dialogue
                 DoSpawnEntity();
                 return;
             }
+            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceHopEntityClass))
+            {
+                DoHopEntity();
+                return;
+            }
+        }
+        private void DoHopEntity()
+        {
+            DialoguePieceHopEntityClass dialogueHopEntity = (DialoguePieceHopEntityClass)_currentDialogue[_dialogueIndex];
+            TileNode tileNode = _tileNodeManager.GetTileFromAxial(dialogueHopEntity.TileToHopTo);
+            _mapInteractionManager.HopEntityToPosFunc(dialogueHopEntity.Entity, tileNode, dialogueHopEntity.DurationOfHop, dialogueHopEntity.SlamAtEnd);
+            _dialogueIndex ++;
+            NextDialoguePiece();
         }
 
         private void DoSpawnEntity()
