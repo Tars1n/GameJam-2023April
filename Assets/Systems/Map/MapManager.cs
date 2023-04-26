@@ -59,6 +59,11 @@ namespace GameJam.Map
             _occlusionTilemap?.gameObject.SetActive(true);
         }
 
+        public void MapOcclusionTiles()
+        {
+            
+        }
+
         private void InitializeTileNodeManager(Tilemap mapToDesignate)
         {
             _map.CompressBounds();

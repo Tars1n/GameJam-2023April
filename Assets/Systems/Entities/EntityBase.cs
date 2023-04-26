@@ -120,7 +120,7 @@ namespace GameJam.Entity
 
         public virtual void CollidedWithObject()
         {
-            _mapInteractionManager.HopEntity(this, this?._currentTileNode, 1);
+              _mapInteractionManager?.HopEntity(this, this?._currentTileNode, 1);
         }
 
         protected virtual void CompletedTurn()

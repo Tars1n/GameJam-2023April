@@ -13,6 +13,8 @@ namespace GameJam.Map.TriggerTiles
         [SerializeField] private List<Vector3Int> _tilesToToggle = new List<Vector3Int>();
         [SerializeField] private TileBase _unpulledTileState;
         [SerializeField] private TileBase _pulledTileState;
+        [SerializeField] private TileBase _sigilSymbol;
+        [SerializeField] private bool _toggleAnyTileState = true;
         private TileBase _currentTileState;
         private Animator _animator;
 
@@ -60,14 +62,39 @@ namespace GameJam.Map.TriggerTiles
             foreach (Vector3Int tileCoord in _tilesToToggle)
             {
                 TileNode tile = _ref.TileNodeManager.GetNodeFromCoords(tileCoord);
-                // if (tile == null || tile?.Entities.Count > 0) { continue; }
+                if (tile == null) { continue; }
                 
-                tile.TileType = _currentTileState;
-                _mapManager.Map.SetTile(tileCoord, _currentTileState);
+                if (_toggleAnyTileState)
+                {
+                    ToggleTile(tile);
+                }
+                else
+                {
+                    SetToSpecificTile(tile);
+                }
 
                 tile.SetTileData(_ref.TileNodeManager.DataFromTiles);
                 tile.CollidedWith();
             }
+        }
+
+        private void ToggleTile(TileNode tile)
+        {
+            if (tile.TileType != _pulledTileState)
+            {
+                tile.TileType = _pulledTileState;
+                _mapManager.Map.SetTile(tile.GridCoordinate, _pulledTileState);
+                return;
+            }
+
+            tile.TileType = _unpulledTileState;
+            _mapManager.Map.SetTile(tile.GridCoordinate, _unpulledTileState);
+        }
+
+        private void SetToSpecificTile(TileNode tile)
+        {
+            tile.TileType = _currentTileState;
+            _mapManager.Map.SetTile(tile.GridCoordinate, _currentTileState);
         }
 
         protected override void OnDrawGizmos()
