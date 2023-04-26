@@ -40,6 +40,7 @@ namespace GameJam.Map
             _mapInteractionManager.Initialize(this);
             InitializeTileNodeManager(_map);
             RenderOcclusionTiles();
+            // _tileNodeManager.SetupAllTriggerTiles();
         }
 
         public void SetupTriggerTiles()

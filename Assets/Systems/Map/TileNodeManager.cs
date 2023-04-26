@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Map
 {
@@ -84,7 +85,16 @@ namespace GameJam.Map
                 if (tile == null) continue;
                 if (tile.OcclusionLayer)
                     tilemap.SetTile(tile.GridCoordinate, tile.TileType);
-                    Debug.Log($"rendered occlusion tile: {tile.TileType} at {tile.GridCoordinate}");
+            }
+        }
+
+        public void SetupAllTriggerTiles()
+        {
+            TriggerTileManager[] foundTriggerTiles = FindObjectsOfType<TriggerTileManager>();
+            if (_debugLog) { Debug.Log($"Setting up {foundTriggerTiles.Length} TriggerTileManagers."); }
+            foreach (TriggerTileManager triggerManager in foundTriggerTiles)
+            {
+                triggerManager.SetupTriggerTiles();
             }
         }
 

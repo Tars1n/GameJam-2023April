@@ -33,16 +33,31 @@ namespace GameJam.Map.TriggerTiles
             
         }
 
+        public override void SetupTriggerTiles()
+        {
+            base.SetupTriggerTiles();
+            RenderToggleTiles();
+        }
+
+        private void RenderToggleTiles()
+        {
+            foreach (Vector3Int coord in _tilesToToggle)
+            {
+                Debug.Log($"draw {_sigilSymbol} sigil at {coord}");
+                _mapManager.TriggerTilemap.SetTile(coord, _sigilSymbol);
+            }
+        }
+
 
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
-            if (ActivatedThisTurn)
-                { return; }
             ToggleLever();
         }
 
         public void ToggleLever()
         {
+            if (ActivatedThisTurn)
+                { return; }
             ActivatedThisTurn = true;
             _leverPulled = !_leverPulled;
             _animator?.SetBool("LeverPulled", _leverPulled);
@@ -56,6 +71,7 @@ namespace GameJam.Map.TriggerTiles
 
             DoToggleTiles();
             _mapManager.RenderOcclusionTiles();
+            // RenderToggleTiles();
         }
 
         private void DoToggleTiles()

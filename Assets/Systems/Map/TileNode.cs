@@ -11,6 +11,7 @@ namespace GameJam.Map
     [System.Serializable]
     public class TileNode
     {
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         public TileBase TileType;
         [SerializeField] private bool _isSelectable = false;
         public bool IsSelectable => _isSelectable;
@@ -27,15 +28,15 @@ namespace GameJam.Map
         public bool FlyingPathExplored = false;
         private MapInteractionManager _mapInteractionManager;
         private LevelManager _levelManager;
-        public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
+        public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = _ref.LevelManager;
         [SerializeField] private TriggerTileManager _triggerTileManager;
         public TriggerTileManager TriggerTileManager => _triggerTileManager;
         public List<EntityBase> Entities = new List<EntityBase>();
 
         private void Start()
         {
-            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
-            _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
+            _mapInteractionManager = _ref.MapInteractionManager;
+            _levelManager = _ref.LevelManager;
         }
         public void SetTileData(Dictionary<TileBase, TileData> data)
         {
@@ -53,6 +54,7 @@ namespace GameJam.Map
             _isSelectable = false;
             _isWalkable = false;
             _isPitTile = false;
+            _occlusionLayer = false;
         }
 
         public bool IsWalkable(EntityBase entity)
