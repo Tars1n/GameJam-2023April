@@ -30,7 +30,7 @@ namespace GameJam.Map
         public List<EntityBase> Entities = new List<EntityBase>();
 
         
-        public void SetTileData(Dictionary<TileBase, TileData> data)
+        public void SetTileData(Dictionary<TileBase, TileAttributes> data)
         {
             ResetTileTypeData();
             if (data.ContainsKey(TileType) == false)

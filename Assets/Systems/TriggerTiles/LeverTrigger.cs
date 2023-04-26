@@ -42,6 +42,8 @@ namespace GameJam.Map.TriggerTiles
         {
             foreach (Vector3Int coord in _tilesToToggle)
             {
+                TileBase tileBase = _triggerTile;
+                
                 _mapManager.TriggerTilemap.SetTile(coord, _triggerTile);
             }
         }

@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
-  _triggerTile: {fileID: 0}
+  _triggerTile: {fileID: 11400000, guid: 5f76c4a1d2751dd458bc95901b88c3b8, type: 2}
   _gizmoColour: {r: 0.41217256, g: 1, b: 0, a: 0.5411765}
   _triggerLocationTiles: []
   _leverPulled: 0
@@ -125,7 +125,6 @@ MonoBehaviour:
   _tilesToToggle: []
   _unpulledTileState: {fileID: 11400000, guid: e0e9e36c07a8d5a4c903efa59f8fbddd, type: 2}
   _pulledTileState: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
-  _sigilSymbol: {fileID: 11400000, guid: 0c7db5da485474f409e59f7b3279fc6d, type: 2}
   _toggleAnyTileState: 1
 --- !u!114 &-6583307751916550081
 MonoBehaviour:

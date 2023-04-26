@@ -5,9 +5,9 @@ using UnityEngine.Tilemaps;
 
 namespace GameJam.Map
 {
-    [CreateAssetMenu(fileName = "Tile_", menuName = "Game Asset/New TileData")]
+    [CreateAssetMenu(fileName = "Tile_", menuName = "Game Asset/New TileAttributes")]
     [System.Serializable]
-    public class TileData : ScriptableObject
+    public class TileAttributes : ScriptableObject
     {
         public TileBase[] Tiles;
         public bool IsSelectable;
