@@ -20,13 +20,14 @@ namespace GameJam.Map.TriggerTiles
         }
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
+            if (entityBase.GetType() != typeof(EntityCharacter)) return;
             if (_relicsRequiredForCompletion > _relicPickup.RelicsGathered) return;
             if (_triggerLocationTiles == null) return;
             if (tileNode == null)
             {
                 Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tileNode}");
+                return;
             }
-            // _levelManager.LevelComplete();
             _levelComplete = true;
         }
         public void CheckIfLevelComplete()
