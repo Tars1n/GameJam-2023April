@@ -116,13 +116,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b1e9c80df5b7449afe394f44a829a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerTile: {fileID: 0}
-  _gizmoColour: {r: 0.41217256, g: 1, b: 0, a: 0.5411765}
+  _mapManager: {fileID: 0}
+  _triggerTile: {fileID: 11400000, guid: 5f76c4a1d2751dd458bc95901b88c3b8, type: 2}
+  _colour: {r: 0, g: 0.78036356, b: 1, a: 0.5019608}
   _triggerLocationTiles: []
   _leverPulled: 0
+  ActivatedThisTurn: 0
   _tilesToToggle: []
   _unpulledTileState: {fileID: 11400000, guid: e0e9e36c07a8d5a4c903efa59f8fbddd, type: 2}
   _pulledTileState: {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
+  _toggleAnyTileState: 1
 --- !u!114 &-6583307751916550081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,11 +141,13 @@ MonoBehaviour:
   _debugLog: 1
   _isShovable: 0
   _blocksMovement: 0
+  IsCurrentlyMoving: 0
   _currentTileNode:
     TileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
     _isPitTile: 0
+    _occlusionLayer: 0
     GridCoordinate: {x: 0, y: 0, z: 0}
     WorldPos: {x: 0, y: 0, z: 0}
     WalkingPathDirection: {x: 0, y: 0, z: 0}

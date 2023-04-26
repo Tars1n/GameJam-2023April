@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Map
 {
@@ -14,9 +15,9 @@ namespace GameJam.Map
         private int _arrayHeight;
         private BoundsInt _mapBounds;
         private TileNode[,] _tileNodesArray;
-        [SerializeField] private List<TileData> _tileDatas;
-        private Dictionary<TileBase, TileData> _dataFromTiles;
-        public Dictionary<TileBase, TileData> DataFromTiles => _dataFromTiles;
+        [SerializeField] private List<TileAttributes> _tileDatas;
+        private Dictionary<TileBase, TileAttributes> _dataFromTiles;
+        public Dictionary<TileBase, TileAttributes> DataFromTiles => _dataFromTiles;
         
 
         public void InitializeTileNodeArray(Tilemap map)
@@ -67,13 +68,33 @@ namespace GameJam.Map
 
         private void SetupTileData()
         {
-            _dataFromTiles = new Dictionary<TileBase, TileData>();
-            foreach (TileData tileData in _tileDatas)
+            _dataFromTiles = new Dictionary<TileBase, TileAttributes>();
+            foreach (TileAttributes tileData in _tileDatas)
             {
                 foreach (TileBase tile in tileData.Tiles)
                 {
                     _dataFromTiles.Add(tile, tileData);
                 }
+            }
+        }
+
+        public void RenderAllOcclusionTiles(Tilemap tilemap)
+        {
+            foreach (TileNode tile in _tileNodesArray)
+            {
+                if (tile == null) continue;
+                if (tile.OcclusionLayer)
+                    tilemap.SetTile(tile.GridCoordinate, tile.TileType);
+            }
+        }
+
+        public void SetupAllTriggerTiles()
+        {
+            TriggerTileManager[] foundTriggerTiles = FindObjectsOfType<TriggerTileManager>();
+            if (_debugLog) { Debug.Log($"Setting up {foundTriggerTiles.Length} TriggerTileManagers."); }
+            foreach (TriggerTileManager triggerManager in foundTriggerTiles)
+            {
+                triggerManager.SetupTriggerTiles();
             }
         }
 

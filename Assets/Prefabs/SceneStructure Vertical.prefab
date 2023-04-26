@@ -263,6 +263,7 @@ MonoBehaviour:
   _tileDatas:
   - {fileID: 11400000, guid: 36031bc8000efa842a37564319fc8198, type: 2}
   - {fileID: 11400000, guid: 18ab20c4fb840ef45a542324d63bea32, type: 2}
+  - {fileID: 11400000, guid: 6d77e4b43d04f68428018bf59c0fe463, type: 2}
 --- !u!114 &1805371981997291031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,8 +444,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 19a9d93db59183d49bab09fedc4a3ecf, type: 2}
-  _gizmoColour: {r: 0, g: 0.011921406, b: 1, a: 1}
-  _triggerLocationTiles: []
+  _colour: {r: 0.5989195, g: 1, b: 0, a: 1}
+  _triggerLocationTiles:
+  - {x: -4, y: 0, z: 0}
   _relicsGathered: 0
 --- !u!114 &5038486035045394039
 MonoBehaviour:
@@ -460,8 +462,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 11977b858db394471be7428100f1e33b, type: 2}
-  _gizmoColour: {r: 0.09451604, g: 1, b: 0, a: 1}
-  _triggerLocationTiles: []
+  _colour: {r: 0, g: 0.43347955, b: 1, a: 1}
+  _triggerLocationTiles:
+  - {x: 5, y: 0, z: 0}
 --- !u!114 &3631122234873527844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4881,6 +4884,18 @@ PrefabInstance:
     - target: {fileID: 1861009984153896700, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: TEST_EndPlayerTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 6935304663658258939, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.4550171
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494165687896413882, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -222.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494165687896413882, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.4550171
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}

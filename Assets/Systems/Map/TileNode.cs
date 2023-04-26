@@ -4,38 +4,33 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Map.TriggerTiles;
-using GameJam.Level;
 
 namespace GameJam.Map
 {
     [System.Serializable]
     public class TileNode
     {
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         public TileBase TileType;
         [SerializeField] private bool _isSelectable = false;
         public bool IsSelectable => _isSelectable;
         [SerializeField] private bool _isWalkable = false;
         [SerializeField] private bool _isPitTile = false;
         public bool IsPitTile => _isPitTile;
+        [SerializeField] private bool _occlusionLayer;
+        public bool OcclusionLayer => _occlusionLayer;
         public Vector3Int GridCoordinate;
         public Vector3 WorldPos;
         public Vector3Int WalkingPathDirection;
         public Vector3Int FlyingPathDirection;
         public bool WalkingPathExplored = false;
         public bool FlyingPathExplored = false;
-        private MapInteractionManager _mapInteractionManager;
-        private LevelManager _levelManager;
-        public LevelManager LevelManager => _levelManager ? _levelManager : _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
         [SerializeField] private TriggerTileManager _triggerTileManager;
         public TriggerTileManager TriggerTileManager => _triggerTileManager;
         public List<EntityBase> Entities = new List<EntityBase>();
 
-        private void Start()
-        {
-            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
-            _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
-        }
-        public void SetTileData(Dictionary<TileBase, TileData> data)
+        
+        public void SetTileData(Dictionary<TileBase, TileAttributes> data)
         {
             ResetTileTypeData();
             if (data.ContainsKey(TileType) == false)
@@ -43,6 +38,7 @@ namespace GameJam.Map
             _isSelectable = data[TileType].IsSelectable;
             _isWalkable = data[TileType].IsWalkable;
             _isPitTile = data[TileType].IsPitTile;
+            _occlusionLayer = data[TileType].OcclusionLayer;
         }
 
         private void ResetTileTypeData()
@@ -50,6 +46,7 @@ namespace GameJam.Map
             _isSelectable = false;
             _isWalkable = false;
             _isPitTile = false;
+            _occlusionLayer = false;
         }
 
         public bool IsWalkable(EntityBase entity)
@@ -61,7 +58,6 @@ namespace GameJam.Map
 
             if (Entities.Count > 0)
             {
-                // return false;
                 foreach (EntityBase tileEntity in Entities)
                 {
                     if (tileEntity.BlocksMovement)
@@ -126,9 +122,9 @@ namespace GameJam.Map
                 return false;
             }
             _triggerTileManager?.EntityEnteredTrigger(entity, this);
-            if (LevelManager.RecordSlimeTrails)
+            if (_ref.LevelManager.RecordSlimeTrails)
             {
-                GameObject slime = GameObject.Instantiate(LevelManager.SlimeDrop, WorldPos, Quaternion.identity);
+                GameObject slime = GameObject.Instantiate(_ref.LevelManager.SlimeDrop, WorldPos, Quaternion.identity);
             }
             return true;
         }
@@ -136,7 +132,7 @@ namespace GameJam.Map
         //if entity is beings shoved over pit, first stops their movement before they can be destroyed by it.
         private void EntityEnteredPit(EntityBase entity)
         {
-            GameMaster.Instance.ReferenceManager.EntityManager.DestroyEntity(entity);
+            _ref.EntityManager.DestroyEntity(entity);
             
             if (entity.IsCurrentlyMoving == false)
             {
@@ -163,21 +159,15 @@ namespace GameJam.Map
         {
             Entities = new List<EntityBase>();
         }
-        public void SetUpTrigger(TriggerTileManager triggerTileManager, TileBase triggerTile)
+        public void SetUpTrigger(TriggerTileManager triggerTileManager, TileBase triggerTile, Color colour)
         {
-            SetUpMapInteractionManager();
             _triggerTileManager = triggerTileManager;
-            _mapInteractionManager.RenderTriggerHilight(GridCoordinate, triggerTile);
+            _ref.MapInteractionManager.RenderTriggerHilight(GridCoordinate, triggerTile, colour);
         }
         public void ClearTrigger()
         {
-            _mapInteractionManager?.ClearTriggerHilight(GridCoordinate);
+            _ref.MapInteractionManager?.ClearTriggerHilight(GridCoordinate);
             _triggerTileManager = null;
-        }
-        private void SetUpMapInteractionManager()
-        {
-            if (_mapInteractionManager != null) return;
-            _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;        
         }
 
         public void CollidedWith()
