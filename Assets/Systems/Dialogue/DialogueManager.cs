@@ -10,11 +10,8 @@ namespace GameJam.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
-        [SerializeField] private List<DialoguePieceSO> _startDialogueSO;
-        [SerializeField] private List<DialoguePieceSO> _currentDialogueSO;
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
         [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
-        [SerializeField] private List<DialoguePieceTextClass> _dialoguePieceTextClassStart;
         [SerializeField] private GameObject _dialogueInCanvas;
         [SerializeField] private TMP_Text _dialogueTMPText;
 
@@ -60,8 +57,6 @@ namespace GameJam.Dialogue
                 _dialgueComplete?.Invoke();
                 return;
             }
-
-            // if (_currentDialogueSO[_dialogueIndex].GetType() == typeof(DialogueText))
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceTextClass))
             {
                 Debug.Log($"dialoguepiecetextclass");
