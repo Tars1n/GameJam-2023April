@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tile_sigilWhite
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: bbbda3c857fcf9946bf7d37a0460ed6a, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7372549}
   m_Transform:
     e00: 1
     e01: 0

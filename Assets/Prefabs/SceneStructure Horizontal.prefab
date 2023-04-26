@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 19a9d93db59183d49bab09fedc4a3ecf, type: 2}
-  _gizmoColour: {r: 0.56943923, g: 1, b: 0.023584902, a: 1}
+  _colour: {r: 0.54426897, g: 1, b: 0, a: 1}
   _triggerLocationTiles:
   - {x: -3, y: -6, z: 1}
   _relicsGathered: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 9d91083f604d0fa439785afdcd0637d1, type: 2}
-  _gizmoColour: {r: 0, g: 0.46050358, b: 1, a: 1}
+  _colour: {r: 0, g: 0.50668955, b: 1, a: 1}
   _triggerLocationTiles:
   - {x: -4, y: -4, z: 0}
 --- !u!114 &2707918603073301925

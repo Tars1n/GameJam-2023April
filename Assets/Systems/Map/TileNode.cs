@@ -159,10 +159,10 @@ namespace GameJam.Map
         {
             Entities = new List<EntityBase>();
         }
-        public void SetUpTrigger(TriggerTileManager triggerTileManager, TileBase triggerTile)
+        public void SetUpTrigger(TriggerTileManager triggerTileManager, TileBase triggerTile, Color colour)
         {
             _triggerTileManager = triggerTileManager;
-            _ref.MapInteractionManager.RenderTriggerHilight(GridCoordinate, triggerTile);
+            _ref.MapInteractionManager.RenderTriggerHilight(GridCoordinate, triggerTile, colour);
         }
         public void ClearTrigger()
         {

@@ -497,13 +497,25 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.a
+      value: 0.7372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.r
+      value: 0.11399722
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _mapManager
       value: 
       objectReference: {fileID: 1550788310}
-    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
-      propertyPath: _triggerTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 5f76c4a1d2751dd458bc95901b88c3b8, type: 2}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _gizmoColour.b
       value: 0.98136926
@@ -638,6 +650,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.b
+      value: 0.945982
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _mapManager
       value: 
       objectReference: {fileID: 1550788310}
@@ -645,10 +673,6 @@ PrefabInstance:
       propertyPath: _leverPulled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
-      propertyPath: _triggerTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 21d5b43d4f6e73d4c80f3345b36f6fae, type: 2}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _gizmoColour.g
       value: 0.3115185
@@ -779,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103536119533207669, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: m_Name
-      value: Lever (2)
+      value: Lever (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
@@ -8629,6 +8653,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.a
+      value: 0.7372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.g
+      value: 0.9372188
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _mapManager
       value: 
       objectReference: {fileID: 1550788310}
@@ -8636,10 +8676,6 @@ PrefabInstance:
       propertyPath: _leverPulled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
-      propertyPath: _triggerTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 9d91083f604d0fa439785afdcd0637d1, type: 2}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _gizmoColour.a
       value: 0.6392157
@@ -8742,6 +8778,22 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.a
+      value: 0.7372549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.g
+      value: 0.4848323
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _colour.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _mapManager
       value: 
       objectReference: {fileID: 1550788310}
@@ -8749,10 +8801,6 @@ PrefabInstance:
       propertyPath: _leverPulled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
-      propertyPath: _triggerTile
-      value: 
-      objectReference: {fileID: 11400000, guid: 21d5b43d4f6e73d4c80f3345b36f6fae, type: 2}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _gizmoColour.b
       value: 0.88149357
@@ -8871,7 +8919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8103536119533207669, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: m_Name
-      value: Lever (3)
+      value: Lever (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}

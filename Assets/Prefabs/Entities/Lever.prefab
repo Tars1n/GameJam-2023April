@@ -118,7 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 5f76c4a1d2751dd458bc95901b88c3b8, type: 2}
-  _gizmoColour: {r: 0.41217256, g: 1, b: 0, a: 0.5411765}
+  _colour: {r: 0, g: 0.78036356, b: 1, a: 0.5019608}
   _triggerLocationTiles: []
   _leverPulled: 0
   ActivatedThisTurn: 0

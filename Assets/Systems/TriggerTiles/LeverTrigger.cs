@@ -34,7 +34,22 @@ namespace GameJam.Map.TriggerTiles
 
         public override void SetupTriggerTiles()
         {
-            base.SetupTriggerTiles();
+            // base.SetupTriggerTiles();
+            if (_ref.TileNodeManager == null)
+            {
+                Debug.LogWarning($"SetupTriggerTiles did not have a reference to TileNodeManager.");
+                return;
+            }
+            foreach (Vector3Int tile in _triggerLocationTiles)
+            {
+                TileNode tileNode = _ref.TileNodeManager.GetNodeFromCoords(tile);
+                if (tileNode == null)
+                {
+                    Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
+                    continue;
+                }
+                tileNode.SetUpTrigger(this, _triggerTile, _colour);
+            }
             RenderToggleTiles();
         }
 
@@ -42,9 +57,12 @@ namespace GameJam.Map.TriggerTiles
         {
             foreach (Vector3Int coord in _tilesToToggle)
             {
-                TileBase tileBase = _triggerTile;
-                
-                _mapManager.TriggerTilemap.SetTile(coord, _triggerTile);
+                // Tile tile = (Tile)_triggerTile;
+                // tile.color = _gizmoColour;
+                // _mapManager.TriggerTilemap.SetTile(coord, tile);
+                Vector3Int coordinate = Map.Map.WorldToCell(this.transform.position);
+                _ref.MapInteractionManager.RenderTriggerHilight(coordinate, _triggerTile, _colour);
+                _ref.MapInteractionManager.RenderTriggerHilight(coord, _triggerTile, _colour);
             }
         }
 
@@ -116,7 +134,7 @@ namespace GameJam.Map.TriggerTiles
         protected override void OnDrawGizmos()
         {
             if (Map == null) return;
-            Gizmos.color = _gizmoColour;
+            Gizmos.color = _colour;
             foreach (Vector3Int tilePos in _triggerLocationTiles)
             {
                 Vector3 position = _mapManager.GetWorldPosFromGridCoord(tilePos);

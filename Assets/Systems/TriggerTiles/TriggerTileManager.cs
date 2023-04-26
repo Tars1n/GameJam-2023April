@@ -12,7 +12,7 @@ namespace GameJam.Map.TriggerTiles
         [SerializeField] protected MapManager _mapManager;
         [SerializeField] protected TileBase _triggerTile;
         protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
-        [SerializeField] protected Color _gizmoColour = Color.red;
+        [SerializeField] protected Color _colour = Color.white;
         protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         [SerializeField] protected List<Vector3Int> _triggerLocationTiles;
         //this list creates tiles that the entity can trigger the trap by steppin on.
@@ -36,14 +36,15 @@ namespace GameJam.Map.TriggerTiles
                     Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
                     continue;
                 }
-                tileNode.SetUpTrigger(this, _triggerTile);
+                Tile t = (Tile)_triggerTile;
+                tileNode.SetUpTrigger(this, _triggerTile, t.color);
             }
         }
         protected virtual void OnDrawGizmos()
         {
             if (Map == null) { return; }
             // Draw a yellow sphere at the transform's position
-            Gizmos.color = _gizmoColour;
+            Gizmos.color = _colour;
             foreach (Vector3Int tilePos in _triggerLocationTiles)
             {
                 Vector3 position = Map.GetWorldPosFromGridCoord(tilePos);

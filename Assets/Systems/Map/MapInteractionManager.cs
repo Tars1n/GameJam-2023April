@@ -390,10 +390,13 @@ namespace GameJam.Map
             GameMaster.Instance.RemoveEntityInMotion(entity);
         }
         
-        public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
+        public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight, Color colour)
         {
             if (_triggerTileMap == null) { return; }
-            _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
+            Tile tile = (Tile)triggerTileHilight;
+            tile.color = colour;
+            _triggerTileMap.SetTile(tileCoords, tile);
+            // _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {
