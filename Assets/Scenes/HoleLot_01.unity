@@ -648,7 +648,7 @@ PrefabInstance:
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _triggerTile
       value: 
-      objectReference: {fileID: 11400000, guid: 21d5b43d4f6e73d4c80f3345b36f6fae, type: 2}
+      objectReference: {fileID: 11400000, guid: 087138e17713fd541a30493fb7e57c52, type: 2}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _gizmoColour.g
       value: 0.3115185
@@ -956,19 +956,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886868964721, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _debugLogs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886868964722, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _debugLogs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886868964725, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _debugLog
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886868964727, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _debugLogs
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819779886985963285, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_LocalPosition.x

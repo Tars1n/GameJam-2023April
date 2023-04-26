@@ -57,7 +57,7 @@ namespace GameJam.Map
             _mouseMap = _mapManager.MouseInteractionTilemap;
             _turnManager = _gm.ReferenceManager.TurnManager;
             _turnManager.OnPlayerTurnBegins += DirtyMousePosition;
-            if (_debugLogs) Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
+            Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
         private void Update() {
@@ -393,7 +393,6 @@ namespace GameJam.Map
         public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
         {
             if (_triggerTileMap == null) { return; }
-            Debug.Log($"setting up tileTrigger using interaction manager at {tileCoords}.");
             _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)

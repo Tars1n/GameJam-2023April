@@ -13,7 +13,6 @@ namespace GameJam.Map.TriggerTiles
         [SerializeField] private List<Vector3Int> _tilesToToggle = new List<Vector3Int>();
         [SerializeField] private TileBase _unpulledTileState;
         [SerializeField] private TileBase _pulledTileState;
-        [SerializeField] private TileBase _sigilSymbol;
         [SerializeField] private bool _toggleAnyTileState = true;
         private TileBase _currentTileState;
         private Animator _animator;
@@ -43,8 +42,7 @@ namespace GameJam.Map.TriggerTiles
         {
             foreach (Vector3Int coord in _tilesToToggle)
             {
-                Debug.Log($"draw {_sigilSymbol} sigil at {coord}");
-                _mapManager.TriggerTilemap.SetTile(coord, _sigilSymbol);
+                _mapManager.TriggerTilemap.SetTile(coord, _triggerTile);
             }
         }
 

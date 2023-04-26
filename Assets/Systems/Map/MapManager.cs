@@ -36,11 +36,11 @@ namespace GameJam.Map
 
         public void SetupMap()
         {
+            Debug.Log("Setting up Tilemap.");
             ActivateTilemaps();
             _mapInteractionManager.Initialize(this);
             InitializeTileNodeManager(_map);
             RenderOcclusionTiles();
-            // _tileNodeManager.SetupAllTriggerTiles();
         }
 
         public void SetupTriggerTiles()

@@ -10,7 +10,7 @@ namespace GameJam.Map.TriggerTiles
     public abstract class TriggerTileManager : MonoBehaviour
     {
         [SerializeField] protected MapManager _mapManager;
-        [SerializeField] private TileBase _triggerTile;
+        [SerializeField] protected TileBase _triggerTile;
         protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] protected Color _gizmoColour = Color.red;
         protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
