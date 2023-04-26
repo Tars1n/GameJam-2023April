@@ -9,5 +9,7 @@ namespace GameJam.Dialogue
     {
         [SerializeField] private string _dialogueText;
         public string DialogueTextStr => _dialogueText;
+        [SerializeField] private Sprite _characterTalking;
+        public Sprite CharacterTalking => _characterTalking;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System;
 using GameJam.Entity;
 using TMPro;
+using UnityEngine.UI;
 
 namespace GameJam.Dialogue
 {
@@ -14,6 +15,7 @@ namespace GameJam.Dialogue
         [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
         [SerializeField] private GameObject _dialogueInCanvas;
         [SerializeField] private TMP_Text _dialogueTMPText;
+        [SerializeField] private Image _characterPortrait;
 
         private GameMasterSingleton _gameMasterSingleton;
         private EntityManager _entityManager;
@@ -59,27 +61,46 @@ namespace GameJam.Dialogue
             }
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceTextClass))
             {
-                Debug.Log($"dialoguepiecetextclass");
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
-                DialoguePieceTextClass dialoguePieceText = (DialoguePieceTextClass)_currentDialogue[_dialogueIndex];
-                Debug.Log(dialoguePieceText.DialogueTextStr);
-                _dialogueTMPText.text = dialoguePieceText.DialogueTextStr;
-                _dialogueIndex ++;  
-                _continueDialogue += NextDialoguePiece; 
-                return;         
+                DoDialogueText();
+                return;
             }
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceSpawnEntityClass))
             {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
-                DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
-                GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
-                EntityBase eb = go.GetComponent<EntityBase>();
-                eb.SetupEntity();
-                _dialogueIndex ++;
-                NextDialoguePiece();
+                DoSpawnEntity();
                 return;
             }
         }
+
+        private void DoSpawnEntity()
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
+            DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
+            GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
+            EntityBase eb = go.GetComponent<EntityBase>();
+            eb.SetupEntity();
+            _dialogueIndex++;
+            NextDialoguePiece();
+        }
+
+        private void DoDialogueText()
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
+            DialoguePieceTextClass dialoguePieceTextClass = (DialoguePieceTextClass)_currentDialogue[_dialogueIndex];
+            
+            ChangePortrait(dialoguePieceTextClass);
+            _dialogueTMPText.text = dialoguePieceTextClass.DialogueTextStr;
+            _dialogueIndex++;
+            _continueDialogue += NextDialoguePiece;
+        }
+
+        private void ChangePortrait(DialoguePieceTextClass dialoguePieceTextClass)
+        {
+            if (dialoguePieceTextClass.CharacterTalking != null)
+            {
+                _characterPortrait.sprite = dialoguePieceTextClass.CharacterTalking;
+            }
+        }
+
         private void OnDisable()
         {
             _continueDialogue -= NextDialoguePiece;
