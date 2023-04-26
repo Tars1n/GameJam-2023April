@@ -33,6 +33,7 @@ namespace GameJam.Level
 
         private void Start()
         {
+            Debug.Log("Setting up Level.");
             GameMaster.Instance.Initialize();
             _mapManager.SetupMap();
             _turnManager.Initialize();
@@ -44,11 +45,13 @@ namespace GameJam.Level
         {
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
+                Debug.Log("Loading first scene, resetting game score.");
                 _scoreSO.GameStartResetScore();
             }
         }
         IEnumerator LateStart()
         {
+            Debug.Log("Activate LateStart:");
             yield return new WaitForSeconds(1f);
             _turnManager.BeginPlay();
         }

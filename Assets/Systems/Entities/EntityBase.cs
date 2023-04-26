@@ -120,7 +120,7 @@ namespace GameJam.Entity
 
         public virtual void CollidedWithObject()
         {
-            _mapInteractionManager.HopEntity(this, this?._currentTileNode, 1);
+              _mapInteractionManager?.HopEntity(this, this?._currentTileNode, 1);
         }
 
         protected virtual void CompletedTurn()
@@ -143,6 +143,11 @@ namespace GameJam.Entity
             if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
 
             this.gameObject.SetActive(false);
+        }
+
+        public void RenderOnLayer(int i)
+        {
+            _spriteRenderer.sortingOrder = i;
         }
 
         protected virtual void OnDrawGizmos()

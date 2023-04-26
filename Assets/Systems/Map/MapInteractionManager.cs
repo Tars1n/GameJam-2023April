@@ -57,6 +57,7 @@ namespace GameJam.Map
             _mouseMap = _mapManager.MouseInteractionTilemap;
             _turnManager = _gm.ReferenceManager.TurnManager;
             _turnManager.OnPlayerTurnBegins += DirtyMousePosition;
+            Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
         private void Update() {
@@ -346,6 +347,7 @@ namespace GameJam.Map
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
             entity.IsCurrentlyMoving = true;
+            entity.RenderOnLayer(1);
 
             float timeElapsed = 0;
             Vector3 startPos = entity.transform.position;
@@ -379,6 +381,7 @@ namespace GameJam.Map
             entity.transform.position = targetPosition;
             entity.IsCurrentlyMoving = false;
             entity.LinkToTileNode(null);
+            entity.RenderOnLayer(0);
             entity.SnapEntityPositionToTile();
 
             if (slamAtEnd)
@@ -392,10 +395,13 @@ namespace GameJam.Map
             GameMaster.Instance.RemoveEntityInMotion(entity);
         }
         
-        public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight)
+        public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight, Color colour)
         {
             if (_triggerTileMap == null) { return; }
-            _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
+            Tile tile = (Tile)triggerTileHilight;
+            tile.color = colour;
+            _triggerTileMap.SetTile(tileCoords, tile);
+            // _triggerTileMap.SetTile(tileCoords, triggerTileHilight);
         }
         public void ClearTriggerHilight(Vector3Int tileCoords)
         {

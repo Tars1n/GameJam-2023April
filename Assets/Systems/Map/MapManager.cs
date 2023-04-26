@@ -36,9 +36,11 @@ namespace GameJam.Map
 
         public void SetupMap()
         {
+            Debug.Log("Setting up Tilemap.");
             ActivateTilemaps();
             _mapInteractionManager.Initialize(this);
             InitializeTileNodeManager(_map);
+            RenderOcclusionTiles();
         }
 
         public void SetupTriggerTiles()
@@ -57,6 +59,12 @@ namespace GameJam.Map
             _triggerTilemap?.gameObject.SetActive(true);
             _mouseInteractionTilemap?.gameObject.SetActive(true);
             _occlusionTilemap?.gameObject.SetActive(true);
+        }
+
+        public void RenderOcclusionTiles()
+        {
+            _occlusionTilemap.ClearAllTiles();
+            _tileNodeManager.RenderAllOcclusionTiles(_occlusionTilemap);
         }
 
         private void InitializeTileNodeManager(Tilemap mapToDesignate)

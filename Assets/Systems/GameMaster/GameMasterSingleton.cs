@@ -45,6 +45,7 @@ namespace GameJam
             _entitiesInMotion = new List<EntityBase>();
             _activeEntity = null;
             _pauseIcon = null;
+            Debug.Log("GameMaster initialized.");
         }
 
         public void EndScene()
