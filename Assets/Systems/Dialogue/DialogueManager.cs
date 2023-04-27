@@ -116,7 +116,7 @@ namespace GameJam.Dialogue
             if (dialoguePieceTextClass.CharacterTalking != null)
             {
                 _characterPortrait.sprite = dialoguePieceTextClass.CharacterTalking;
-                StrechPortraitScale(dialoguePieceTextClass);
+                // StrechPortraitScale(dialoguePieceTextClass);
             }
         }
 
