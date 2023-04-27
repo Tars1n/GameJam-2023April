@@ -16,6 +16,7 @@ namespace GameJam.Dialogue
     {
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
         [SerializeReference] private List<DialoguePieceClass> _endDialogue;
+        [SerializeReference] private List<DialoguePieceClass> _playerDiesToAdjacentBaddie;
         [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
         [SerializeField] private GameObject _dialogueInCanvas;
         [SerializeField] private TMP_Text _dialogueTMPText;
@@ -28,7 +29,8 @@ namespace GameJam.Dialogue
         private LevelManager _levelManager;
         public Action _continueDialogue;        
         public Action _dialgueComplete;
-        private int _dialogueIndex;        
+        private int _dialogueIndex; 
+        private bool _levelLost;       
 
         private void Start() {
             {
@@ -44,6 +46,12 @@ namespace GameJam.Dialogue
         public void DoEndDialogue()
         {
             _currentDialogue = _endDialogue;
+            BeginDialogue();
+        }
+        public void DoDialoguePlayerDiesToAdjacentBaddie(Sprite baddieSprite)
+        {
+            _currentDialogue = _playerDiesToAdjacentBaddie;
+            _levelLost = true;
             BeginDialogue();
         }
         private void Update()
@@ -70,6 +78,7 @@ namespace GameJam.Dialogue
             if (_dialogueIndex >= _currentDialogue.Count)
             {
                 DialogueDoneCheckIfLevelEnd();
+                DialogueDoneCheckIfLevelLost();
                 _gameMasterSingleton.GameSuspended = false;
                 _dialogueInCanvas.SetActive(false);
                 _dialgueComplete?.Invoke();
@@ -101,6 +110,13 @@ namespace GameJam.Dialogue
             if (_currentDialogue == _endDialogue)
             {
                 _levelManager.LevelComplete();
+            }
+        }
+        private void DialogueDoneCheckIfLevelLost()
+        {
+            if (_levelLost)
+            {
+                _levelManager.LevelFailed();
             }
         }
         private void DoHopEntity()

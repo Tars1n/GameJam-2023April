@@ -17,7 +17,7 @@ namespace GameJam.Entity
             if (_debugLog) { Debug.Log($"Player character died.");}
 
             this.gameObject.SetActive(false);
-            GameMaster.Instance.ReferenceManager.LevelManager.LevelFailed();
+            // GameMaster.Instance.ReferenceManager.LevelManager.LevelFailed();
         }
     }
 }

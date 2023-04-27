@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map;
+using GameJam.Dialogue;
 
 namespace GameJam.Entity
 {
@@ -11,6 +12,7 @@ namespace GameJam.Entity
         private MapManager _mapManager;
         private EntityBase _entityBase;
         private EntityManager _entityManager;
+        private DialogueManager _dialgueManager;
 
         private void Start()
         {
@@ -18,6 +20,7 @@ namespace GameJam.Entity
             _mapManager =GameMaster.Instance.ReferenceManager.MapManager;
             _entityBase = GetComponent<EntityBase>();
             _entityManager = GameMaster.Instance.ReferenceManager.EntityManager;
+            _dialgueManager = GameMaster.Instance.ReferenceManager.DialogueManager;
 
         }
         public void KillIfCan()
@@ -44,6 +47,7 @@ namespace GameJam.Entity
             if (targetToKill != null)
             {
                 SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.CultistAttackedPlayer);
+                _dialgueManager.DoDialoguePlayerDiesToAdjacentBaddie(_entityBase.SpriteRenderer.sprite);
                 _entityManager.DestroyEntity(targetToKill);
             }
         }

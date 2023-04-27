@@ -265,6 +265,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 759802058}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _playerDiesToAdjacentBaddie.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[3]._slamAtEnd
       value: 1
       objectReference: {fileID: 0}
@@ -275,6 +279,10 @@ PrefabInstance:
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _endDialogue.Array.data[0]._dialogueText
       value: teh end
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _playerDiesToAdjacentBaddie.Array.data[0]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[0]._dialogueText
@@ -501,6 +509,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _playerDiesToAdjacentBaddie.Array.data[0]._dialogueText
+      value: Death!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[2]._vectorPath.Array.data[0].x
       value: -1
       objectReference: {fileID: 0}
@@ -523,6 +535,10 @@ PrefabInstance:
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[2]._vectorPath.Array.data[1].z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _playerDiesToAdjacentBaddie.Array.data[0]._characterTalking
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[2]._activityList.Array.data[0].GridCoord.x

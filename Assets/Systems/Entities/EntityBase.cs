@@ -22,6 +22,7 @@ namespace GameJam.Entity
         protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         protected MapInteractionManager _mapInteractionManager;
         protected SpriteRenderer _spriteRenderer;
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
         [SerializeField] protected Color _readyState;
         [SerializeField] protected Color _turnOverState;
         [SerializeField] protected bool _hasActionReady;
