@@ -186,7 +186,11 @@ namespace GameJam.Map
         private void DoActionOnMirroredEntity(EntityBase mirroredEntity, Vector3Int mirroredPointer)
         {
             TileNode tileNode = GetReflectedTileOfEntity(mirroredEntity, mirroredPointer);
-            _mapInteractionManager.TryToTakeAction(mirroredEntity, tileNode);
+            if (_mapInteractionManager.TryToTakeAction(mirroredEntity, tileNode) == false)
+            {
+                _mapInteractionManager.HopEntity(mirroredEntity, mirroredEntity?.CurrentTileNode, 0);
+            }
+            
         }
 
         
