@@ -5,6 +5,7 @@ using GameJam.Map;
 using GameJam.Entity;
 using GameJam.Level.Scene;
 using UnityEngine.SceneManagement;
+using GameJam.Dialogue;
 
 namespace GameJam.Level
 {

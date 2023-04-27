@@ -154,6 +154,38 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.8999939
       objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _endDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _endDialogue.Array.data[0]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[0]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _endDialogue.Array.data[0]._dialogueText
+      value: Wooo! Good job me!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[0]._dialogueText
+      value: Holy wooden floor Batman!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _endDialogue.Array.data[0]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[0]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2819779886868145783, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_IsActive
       value: 0

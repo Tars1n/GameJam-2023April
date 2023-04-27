@@ -8,12 +8,14 @@ using TMPro;
 using UnityEngine.UI;
 using GameJam.Map;
 using GameJam.Entity.Brain;
+using GameJam.Level;
 
 namespace GameJam.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
+        [SerializeReference] private List<DialoguePieceClass> _endDialogue;
         [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
         [SerializeField] private GameObject _dialogueInCanvas;
         [SerializeField] private TMP_Text _dialogueTMPText;
@@ -23,6 +25,7 @@ namespace GameJam.Dialogue
         private EntityManager _entityManager;
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
+        private LevelManager _levelManager;
         public Action _continueDialogue;        
         public Action _dialgueComplete;
         private int _dialogueIndex;        
@@ -33,9 +36,15 @@ namespace GameJam.Dialogue
                 _gameMasterSingleton = GameMaster.GetSingleton();
                 _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
                 _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
+                _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
                 _currentDialogue = _startDialogue; 
                 BeginDialogue();               
             }
+        }
+        public void DoEndDialogue()
+        {
+            _currentDialogue = _endDialogue;
+            BeginDialogue();
         }
         private void Update()
         {
@@ -60,6 +69,7 @@ namespace GameJam.Dialogue
             _continueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
+                DialogueDoneCheckIfLevelEnd();
                 _gameMasterSingleton.GameSuspended = false;
                 _dialogueInCanvas.SetActive(false);
                 _dialgueComplete?.Invoke();
@@ -84,6 +94,13 @@ namespace GameJam.Dialogue
             {
                 DoHopEntity();
                 return;
+            }
+        }
+        private void DialogueDoneCheckIfLevelEnd()
+        {
+            if (_currentDialogue == _endDialogue)
+            {
+                _levelManager.LevelComplete();
             }
         }
         private void DoHopEntity()

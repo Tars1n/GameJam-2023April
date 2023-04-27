@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Entity;
 using GameJam.Level;
+using GameJam.Dialogue;
 
 namespace GameJam.Map.TriggerTiles
 {
@@ -10,6 +11,7 @@ namespace GameJam.Map.TriggerTiles
     {
         private LevelManager _levelManager;
         private RelicPickup _relicPickup;
+        private DialogueManager _dialogueManager;
         private int _relicsRequiredForCompletion;
         private bool _levelComplete;
 
@@ -17,6 +19,11 @@ namespace GameJam.Map.TriggerTiles
         {
             _levelManager = GetComponent<LevelManager>();
             _relicPickup = GetComponent<RelicPickup>();
+        }
+        private new void Start() 
+        {
+            base.Start();
+            _dialogueManager = GameMaster.Instance.ReferenceManager.DialogueManager;
         }
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
@@ -35,7 +42,8 @@ namespace GameJam.Map.TriggerTiles
         {
             if (_levelComplete)
             {
-                _levelManager.LevelComplete();
+                _dialogueManager.DoEndDialogue();
+                // _levelManager.LevelComplete();
             }
         }
     }
