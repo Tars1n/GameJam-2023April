@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _debugLog: 1
   _isShovable: 0
-  _blocksMovement: 1
+  _blocksMovement: 0
   IsCurrentlyMoving: 0
   _currentTileNode:
     TileType: {fileID: 0}
@@ -134,6 +134,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 0}
   _triggerTile: {fileID: 11400000, guid: 087138e17713fd541a30493fb7e57c52, type: 2}
-  _colour: {r: 1, g: 1, b: 1, a: 0.78431374}
+  _colour: {r: 1, g: 0, b: 0, a: 0.78431374}
   _triggerLocationTiles:
   - {x: 0, y: 0, z: 0}

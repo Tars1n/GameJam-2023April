@@ -42,7 +42,8 @@ namespace GameJam.Entity.Brain
         {
             _telegraphGO.SetActive(false);
             TileNode tile = NextStepTile();
-            _mapInteractionManager.TryToTakeAction(_entityBase, tile);
+            if (_mapInteractionManager.TryToTakeAction(_entityBase, tile) == false)
+                _mapInteractionManager.HopEntity(_entityBase, _entityBase?.CurrentTileNode, 0);
             IncreaseStep();
         }
 
