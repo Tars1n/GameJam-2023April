@@ -170,13 +170,13 @@ namespace GameJam.Map
             TileNode originTile = originalEntity.CurrentTileNode;
             Vector3Int originalPointingVector = _mapManager.CalculateAxialPointerBetweenTiles(originTile, selectedTile);
 
-            if (mirrored.MirrorEntityX != null)
+            if (_mirrorX && mirrored.MirrorEntityX != null)
             {
                 Vector3Int xPointer = ReflectAxialX(originalPointingVector);
                 DoActionOnMirroredEntity(mirrored.MirrorEntityX, xPointer);
             }
 
-            if (mirrored.MirrorEntityY != null)
+            if (_mirrorY && mirrored.MirrorEntityY != null)
             {
                 Vector3Int yPointer = ReflectAxialY(originalPointingVector);
                 DoActionOnMirroredEntity(mirrored.MirrorEntityY, yPointer);
