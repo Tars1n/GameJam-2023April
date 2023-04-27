@@ -342,46 +342,52 @@ namespace GameJam.Map
                 return _tileNodeManager.GetTileFromAxial(tileAxial).IsSelectable;
             }
             //Up left: -1, 1, 0
-            Vector3Int upLeft = new Vector3Int((int)startPos.x-1, (int)startPos.y+1, (int)startPos.z);
+            Vector3Int ul = new Vector3Int((int)startPos.x-1, (int)startPos.y+1, (int)startPos.z);
+            TileNode upLeft = _tileNodeManager.GetTileFromAxial(ul);
             //left: -1, 0, 1
-            Vector3Int left = new Vector3Int((int)startPos.x-1, (int)startPos.y, (int)startPos.z+1);
+            Vector3Int l = new Vector3Int((int)startPos.x-1, (int)startPos.y, (int)startPos.z+1);
+            TileNode left = _tileNodeManager.GetTileFromAxial(l);
             //down left: 0, -1, 1
-            Vector3Int downLeft = new Vector3Int((int)startPos.x, (int)startPos.y-1, (int)startPos.z+1);
+            Vector3Int dl = new Vector3Int((int)startPos.x, (int)startPos.y-1, (int)startPos.z+1);
+            TileNode downLeft = _tileNodeManager.GetTileFromAxial(dl);
             //down right: 1, -1, 0
-            Vector3Int downRight = new Vector3Int((int)startPos.x+1, (int)startPos.y-1, (int)startPos.z);
+            Vector3Int dr = new Vector3Int((int)startPos.x+1, (int)startPos.y-1, (int)startPos.z);
+            TileNode downRight = _tileNodeManager.GetTileFromAxial(dr);
             //right: 1, 0, -1
-            Vector3Int right = new Vector3Int((int)startPos.x+1, (int)startPos.y, (int)startPos.z-1);
+            Vector3Int r = new Vector3Int((int)startPos.x+1, (int)startPos.y, (int)startPos.z-1);
+            TileNode right = _tileNodeManager.GetTileFromAxial(r);
             //up right: 0, 1, -1
-            Vector3Int upRight = new Vector3Int((int)startPos.x, (int)startPos.y+1, (int)startPos.z-1);
+            Vector3Int ur = new Vector3Int((int)startPos.x, (int)startPos.y+1, (int)startPos.z-1);
+            TileNode upRight = _tileNodeManager.GetTileFromAxial(ur);
             if (difference == new Vector3(-0.5f, 1, -0.5f))
             {   //jumping up
-                if (_tileNodeManager.GetTileFromAxial(upLeft).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(upRight).IsSelectable) { result = true; }
+                if (upLeft != null && upLeft.IsSelectable) { result = true; }
+                if (upRight != null && upRight.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(-1f, 0.5f, 0.5f))
             {   //jumping up left
-                if (_tileNodeManager.GetTileFromAxial(upLeft).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(left).IsSelectable) { result = true; }
+                if (upLeft != null && upLeft.IsSelectable) { result = true; }
+                if (left != null && left.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(-0.5f, -0.5f, 1))
             {   //jumping down left
-                if (_tileNodeManager.GetTileFromAxial(left).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(downLeft).IsSelectable) { result = true; }
+                if (left != null && left.IsSelectable) { result = true; }
+                if (downLeft != null && downLeft.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(0.5f, -1, 0.5f))
             {   //jumping down
-                if (_tileNodeManager.GetTileFromAxial(downLeft).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(downRight).IsSelectable) { result = true; }
+                if (downLeft != null && downLeft.IsSelectable) { result = true; }
+                if (downRight != null && downRight.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(1f, -0.5f, -0.5f))
             {   //jumping down right
-                if (_tileNodeManager.GetTileFromAxial(downRight).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(right).IsSelectable) { result = true; }
+                if (downRight != null && downRight.IsSelectable) { result = true; }
+                if (right != null && right.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(0.5f, 0.5f, -1f))
             {   //jumping up right
-                if (_tileNodeManager.GetTileFromAxial(right).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(upRight).IsSelectable) { result = true; }
+                if (right != null && right.IsSelectable) { result = true; }
+                if (upRight != null && upRight.IsSelectable) { result = true; }
             }
 
             return result;
