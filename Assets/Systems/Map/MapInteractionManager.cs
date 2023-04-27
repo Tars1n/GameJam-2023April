@@ -280,6 +280,11 @@ namespace GameJam.Map
                 entity.ActionCompleted();
                 return true;
             }
+            if (entity.CurrentTileNode == tile)
+            {
+                HopEntity(entity, tile, 0);
+                return true;
+            }
             if (CanMoveToTile(entity, tile, 1))
             {
                 HopEntity(entity, tile, 1);
@@ -342,46 +347,52 @@ namespace GameJam.Map
                 return _tileNodeManager.GetTileFromAxial(tileAxial).IsSelectable;
             }
             //Up left: -1, 1, 0
-            Vector3Int upLeft = new Vector3Int((int)startPos.x-1, (int)startPos.y+1, (int)startPos.z);
+            Vector3Int ul = new Vector3Int((int)startPos.x-1, (int)startPos.y+1, (int)startPos.z);
+            TileNode upLeft = _tileNodeManager.GetTileFromAxial(ul);
             //left: -1, 0, 1
-            Vector3Int left = new Vector3Int((int)startPos.x-1, (int)startPos.y, (int)startPos.z+1);
+            Vector3Int l = new Vector3Int((int)startPos.x-1, (int)startPos.y, (int)startPos.z+1);
+            TileNode left = _tileNodeManager.GetTileFromAxial(l);
             //down left: 0, -1, 1
-            Vector3Int downLeft = new Vector3Int((int)startPos.x, (int)startPos.y-1, (int)startPos.z+1);
+            Vector3Int dl = new Vector3Int((int)startPos.x, (int)startPos.y-1, (int)startPos.z+1);
+            TileNode downLeft = _tileNodeManager.GetTileFromAxial(dl);
             //down right: 1, -1, 0
-            Vector3Int downRight = new Vector3Int((int)startPos.x+1, (int)startPos.y-1, (int)startPos.z);
+            Vector3Int dr = new Vector3Int((int)startPos.x+1, (int)startPos.y-1, (int)startPos.z);
+            TileNode downRight = _tileNodeManager.GetTileFromAxial(dr);
             //right: 1, 0, -1
-            Vector3Int right = new Vector3Int((int)startPos.x+1, (int)startPos.y, (int)startPos.z-1);
+            Vector3Int r = new Vector3Int((int)startPos.x+1, (int)startPos.y, (int)startPos.z-1);
+            TileNode right = _tileNodeManager.GetTileFromAxial(r);
             //up right: 0, 1, -1
-            Vector3Int upRight = new Vector3Int((int)startPos.x, (int)startPos.y+1, (int)startPos.z-1);
+            Vector3Int ur = new Vector3Int((int)startPos.x, (int)startPos.y+1, (int)startPos.z-1);
+            TileNode upRight = _tileNodeManager.GetTileFromAxial(ur);
             if (difference == new Vector3(-0.5f, 1, -0.5f))
             {   //jumping up
-                if (_tileNodeManager.GetTileFromAxial(upLeft).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(upRight).IsSelectable) { result = true; }
+                if (upLeft != null && upLeft.IsSelectable) { result = true; }
+                if (upRight != null && upRight.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(-1f, 0.5f, 0.5f))
             {   //jumping up left
-                if (_tileNodeManager.GetTileFromAxial(upLeft).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(left).IsSelectable) { result = true; }
+                if (upLeft != null && upLeft.IsSelectable) { result = true; }
+                if (left != null && left.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(-0.5f, -0.5f, 1))
             {   //jumping down left
-                if (_tileNodeManager.GetTileFromAxial(left).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(downLeft).IsSelectable) { result = true; }
+                if (left != null && left.IsSelectable) { result = true; }
+                if (downLeft != null && downLeft.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(0.5f, -1, 0.5f))
             {   //jumping down
-                if (_tileNodeManager.GetTileFromAxial(downLeft).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(downRight).IsSelectable) { result = true; }
+                if (downLeft != null && downLeft.IsSelectable) { result = true; }
+                if (downRight != null && downRight.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(1f, -0.5f, -0.5f))
             {   //jumping down right
-                if (_tileNodeManager.GetTileFromAxial(downRight).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(right).IsSelectable) { result = true; }
+                if (downRight != null && downRight.IsSelectable) { result = true; }
+                if (right != null && right.IsSelectable) { result = true; }
             }
             if (difference == new Vector3(0.5f, 0.5f, -1f))
             {   //jumping up right
-                if (_tileNodeManager.GetTileFromAxial(right).IsSelectable) { result = true; }
-                if (_tileNodeManager.GetTileFromAxial(upRight).IsSelectable) { result = true; }
+                if (right != null && right.IsSelectable) { result = true; }
+                if (upRight != null && upRight.IsSelectable) { result = true; }
             }
 
             return result;
@@ -389,6 +400,7 @@ namespace GameJam.Map
 
         public void HopEntity(EntityBase entity, TileNode targetTile, int range)
         {
+            float speed = _slideSpeed;
             bool slamLanding = false;
             if (entity?.CurrentTileNode == null || targetTile == null)
                 { return; }
@@ -396,14 +408,14 @@ namespace GameJam.Map
 
             if (range > 1)
                 { slamLanding = true; }
+            if (range == 0)
+                { speed = 0.25f; }
 
-            // entity.LeaveTileNode();
-            // StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
-            HopEntityToPosFunc(entity, targetTile, _slideSpeed, slamLanding);
+            HopEntityToPosFunc(entity, targetTile, speed, slamLanding);
         }
         public void HopEntityToPosFunc(EntityBase entity, TileNode targetTile, float duration, bool slamLanding)
         {
-            StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
+            StartCoroutine(DoHopEntityToPos(entity, targetTile, duration, slamLanding));
         }
 
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
@@ -434,7 +446,7 @@ namespace GameJam.Map
 
 
                 float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
-                float hopHeight = ((startPos.y + targetPosition.y) * 0.5f) +1;
+                float hopHeight = ((startPos.y + targetPosition.y) * 0.5f) + (duration * 2);
                 float launch = Mathf.Lerp(startPos.y, hopHeight, g);
                 float land = Mathf.Lerp(hopHeight, targetPosition.y, g);
                 float y = Mathf.Lerp(launch, land, t);

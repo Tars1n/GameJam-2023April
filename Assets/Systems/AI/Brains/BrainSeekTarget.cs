@@ -11,22 +11,13 @@ namespace GameJam.Entity.Brain
         private EntityMonster _entityMonster;
         [SerializeField] private EntityBase _targetEntity;
         [SerializeField] private TileNode _targetNode;
-        private ReferenceManager _ref;
-        private ReferenceManager Ref => _ref ? _ref : _ref = GameMaster.Instance.ReferenceManager;
-        private MapInteractionManager _mapInteractionManager;
-        private MapInteractionManager Interaction => _mapInteractionManager ? _mapInteractionManager : _mapInteractionManager = Ref.MapInteractionManager;
-        private TurnManager _turnManager;
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
 
         private void Awake()
         {
             _entityMonster = GetComponent<EntityMonster>();            
         }
-        private void Start()
-        {
-            _ref = GameMaster.Instance.ReferenceManager;
-            _mapInteractionManager = Ref.MapInteractionManager;
-            _turnManager = Ref.TurnManager;
-        }
+     
         public override void Think()
         {
             TileNode _currentTileNode = _entityMonster.CurrentTileNode;
@@ -34,20 +25,20 @@ namespace GameJam.Entity.Brain
             if (_targetEntity == null || _targetNode == null)
             {
                 // Debug.Log($"{this.gameObject} has no valid target to seek. Ending turn.");
-                { StartCoroutine(TakeNoAction()); }
+                TakeNoAction();
                 return;
             }
 
-            Ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
-            TileNode node = Ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
+            _ref.PathFindingManager.MapAllTileNodesToTarget(_targetNode.GridCoordinate);
+            TileNode node = _ref.TileNodeManager.GetNodeFromCoords(_currentTileNode.WalkingPathDirection);
             if (node == null)
             {
                 Debug.LogWarning($"{this} was seeking invalid TileNode.");
                 return;
             }
 
-            if (Interaction.TryToTakeAction(null, node) == false) //Entity attempts to do action
-            { StartCoroutine(TakeNoAction()); }
+            if (_ref.MapInteractionManager.TryToTakeAction(null, node) == false) //Entity attempts to do action
+                { TakeNoAction(); }
         }
 
         public override void TelegraphNextTurn()
@@ -55,11 +46,12 @@ namespace GameJam.Entity.Brain
 
         }
 
-        IEnumerator TakeNoAction()
+        private void TakeNoAction()
         {
-            if (_turnManager.DebugLog) { Debug.Log($"{this} stands in place."); }
-            yield return new WaitForSeconds(_turnManager.DelayBetweenActions);
-            _entityMonster.ActionCompleted();
+            _ref.MapInteractionManager.HopEntity(_entityMonster, _entityMonster.CurrentTileNode, 0);
+            // if (_ref.TurnManager.DebugLog) { Debug.Log($"{this} stands in place."); }
+            // yield return new WaitForSeconds(_ref.TurnManager.DelayBetweenActions);
+            // _entityMonster.ActionCompleted();
         }
     }
 }
