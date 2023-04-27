@@ -75,6 +75,7 @@ namespace GameJam.Dialogue
             {
                 EntityBase entitySpawned = DoSpawnEntity();
                 SetActivities(entitySpawned);
+                SetSeeking(entitySpawned);
                 _dialogueIndex++;
                 NextDialoguePiece();
                 return;
@@ -112,6 +113,15 @@ namespace GameJam.Dialogue
             if (brainLoop == null) return;
             brainLoop.SetActivitiesToLoop(spawnEntityPathClass.ActivityList);
             
+        }
+        private void SetSeeking(EntityBase entitySpawned)
+        {
+            if (_currentDialogue[_dialogueIndex].GetType() != typeof(DialoguePieceSpawnEntitySeekClass)) return;
+            DialoguePieceSpawnEntitySeekClass seekEntityClass = (DialoguePieceSpawnEntitySeekClass)_currentDialogue[_dialogueIndex];
+            if (seekEntityClass.EntityToSeek == null) return;
+            BrainSeekTarget brainSeek = entitySpawned.GetComponent<BrainSeekTarget>();
+            if (brainSeek == null) return;
+            brainSeek.SetTargetEntity(seekEntityClass.EntityToSeek);
         }
 
         private void DoDialogueText()

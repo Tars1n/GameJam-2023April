@@ -214,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 395361403}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogueSO.Array.size
@@ -243,6 +243,10 @@ PrefabInstance:
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[5]
       value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[6]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceSpawnEntitySeekClass
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[3]._entity
@@ -296,6 +300,14 @@ PrefabInstance:
       propertyPath: _startDialogue.Array.data[5]._entityPrefab
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._entityPrefab
+      value: 
+      objectReference: {fileID: 7065358791319656232, guid: ce63f8172eb62dc4e8cab394d8e18cfa, type: 3}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._entityToSeek
+      value: 
+      objectReference: {fileID: 759802058}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[3]._durationOfHop
       value: 1
@@ -454,6 +466,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _startDialogue.Array.data[5]._vectorPath.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._entitySpawnWorldPos.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._entitySpawnWorldPos.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._entitySpawnWorldPos.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2707918603073301925, guid: e6d12db5f60616d428139efb4157cb79, type: 3}

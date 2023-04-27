@@ -53,5 +53,9 @@ namespace GameJam.Entity.Brain
             // yield return new WaitForSeconds(_ref.TurnManager.DelayBetweenActions);
             // _entityMonster.ActionCompleted();
         }
+        public void SetTargetEntity(EntityBase targetEntity)
+        {
+            _targetEntity = targetEntity;
+        }
     }
 }
