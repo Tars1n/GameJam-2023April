@@ -98,7 +98,7 @@ namespace GameJam.Dialogue
         {
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
             DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
-            GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
+            GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab, dialogueSpawnEntity.EntitySpawnWorldPos, Quaternion.identity);
             EntityBase eb = go.GetComponent<EntityBase>();
             eb.SetupEntity();
             return eb;

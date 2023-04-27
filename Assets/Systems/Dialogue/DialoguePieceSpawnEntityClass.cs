@@ -9,7 +9,7 @@ namespace GameJam.Dialogue
     {
         [SerializeField] private GameObject _entityPrefab;
         public GameObject EntityPrefab => _entityPrefab;
-        [SerializeField] private Vector3Int _entityLocation;
-        public Vector3Int EntityLocation => _entityLocation;
+        [SerializeField] private Vector3 _entitySpawnWorldPos;
+        public Vector3 EntitySpawnWorldPos => _entitySpawnWorldPos;
     }
 }
