@@ -102,6 +102,7 @@ namespace GameJam.Dialogue
             GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab, dialogueSpawnEntity.EntitySpawnWorldPos, Quaternion.identity);
             EntityBase eb = go.GetComponent<EntityBase>();
             eb.SetupEntity();
+            // eb.RefreshAction();
             return eb;
         }
         private void SetActivities(EntityBase entitySpawned)
