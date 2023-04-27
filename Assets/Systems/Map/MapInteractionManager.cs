@@ -280,6 +280,11 @@ namespace GameJam.Map
                 entity.ActionCompleted();
                 return true;
             }
+            if (entity.CurrentTileNode == tile)
+            {
+                HopEntity(entity, tile, 0);
+                return true;
+            }
             if (CanMoveToTile(entity, tile, 1))
             {
                 HopEntity(entity, tile, 1);
@@ -395,6 +400,7 @@ namespace GameJam.Map
 
         public void HopEntity(EntityBase entity, TileNode targetTile, int range)
         {
+            float speed = _slideSpeed;
             bool slamLanding = false;
             if (entity?.CurrentTileNode == null || targetTile == null)
                 { return; }
@@ -402,14 +408,14 @@ namespace GameJam.Map
 
             if (range > 1)
                 { slamLanding = true; }
+            if (range == 0)
+                { speed = 0.25f; }
 
-            // entity.LeaveTileNode();
-            // StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
-            HopEntityToPosFunc(entity, targetTile, _slideSpeed, slamLanding);
+            HopEntityToPosFunc(entity, targetTile, speed, slamLanding);
         }
         public void HopEntityToPosFunc(EntityBase entity, TileNode targetTile, float duration, bool slamLanding)
         {
-            StartCoroutine(DoHopEntityToPos(entity, targetTile, _slideSpeed, slamLanding));
+            StartCoroutine(DoHopEntityToPos(entity, targetTile, duration, slamLanding));
         }
 
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
@@ -440,7 +446,7 @@ namespace GameJam.Map
 
 
                 float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
-                float hopHeight = ((startPos.y + targetPosition.y) * 0.5f) +1;
+                float hopHeight = ((startPos.y + targetPosition.y) * 0.5f) + (duration * 2);
                 float launch = Mathf.Lerp(startPos.y, hopHeight, g);
                 float land = Mathf.Lerp(hopHeight, targetPosition.y, g);
                 float y = Mathf.Lerp(launch, land, t);

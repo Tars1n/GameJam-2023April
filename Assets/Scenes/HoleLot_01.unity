@@ -1100,11 +1100,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819779887218496751, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.11
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: 2819779887218496751, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.95
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 2819779887320675723, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _activitiesToLoop.Array.size
@@ -1560,6 +1560,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2819779887353898597, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: m_ChunkCullingBounds.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2819779887723667567, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819779887823293942, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
