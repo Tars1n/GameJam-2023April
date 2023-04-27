@@ -146,6 +146,8 @@ namespace GameJam.Map
             }
             if ( range == 2)
             {
+                if (CheckIfJumpNotBlocked(entity, tile, range) == false)
+                    return;
                 if (tile.IsWalkable(entity))
                 {
                     _mouseMap.SetTile(tile.GridCoordinate, _selectionTileBase);
@@ -288,6 +290,8 @@ namespace GameJam.Map
                 HopEntity(entity, tile, 2);
                 return true;                
             }
+            if (CanMoveToTile(entity, tile, 2) == false)
+                return false;
 
             if (_mapManager.CalculateRange(entity.CurrentTileNode.GridCoordinate, tile.GridCoordinate) <= 2)
             {
@@ -317,7 +321,70 @@ namespace GameJam.Map
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
             if (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) > range)
                 { return false; }
+            if (range == 2)
+                return CheckIfJumpNotBlocked(entity, tile, range);
+
             return true;
+        }
+
+        private bool CheckIfJumpNotBlocked(EntityBase entity, TileNode tile, int range)
+        {
+            bool result = false;
+            Vector3 startPos = entity.GetAxialPos();
+            Vector3 landingPos = _mapManager.CastOddRowToAxial(tile.GridCoordinate);
+
+            Vector3 difference = landingPos - startPos;
+            difference /= range;
+            if (difference.x % 1 == 0 && difference.y % 1 == 0 && difference.z % 1 == 0)
+            {   //Has no divergent tiles
+                Vector3 tileBetween = startPos + difference;
+                Vector3Int tileAxial = new Vector3Int((int)tileBetween.x, (int)tileBetween.y, (int)tileBetween.z);
+                return _tileNodeManager.GetTileFromAxial(tileAxial).IsSelectable;
+            }
+            //Up left: -1, 1, 0
+            Vector3Int upLeft = new Vector3Int((int)startPos.x-1, (int)startPos.y+1, (int)startPos.z);
+            //left: -1, 0, 1
+            Vector3Int left = new Vector3Int((int)startPos.x-1, (int)startPos.y, (int)startPos.z+1);
+            //down left: 0, -1, 1
+            Vector3Int downLeft = new Vector3Int((int)startPos.x, (int)startPos.y-1, (int)startPos.z+1);
+            //down right: 1, -1, 0
+            Vector3Int downRight = new Vector3Int((int)startPos.x+1, (int)startPos.y-1, (int)startPos.z);
+            //right: 1, 0, -1
+            Vector3Int right = new Vector3Int((int)startPos.x+1, (int)startPos.y, (int)startPos.z-1);
+            //up right: 0, 1, -1
+            Vector3Int upRight = new Vector3Int((int)startPos.x, (int)startPos.y+1, (int)startPos.z-1);
+            if (difference == new Vector3(-0.5f, 1, -0.5f))
+            {   //jumping up
+                if (_tileNodeManager.GetTileFromAxial(upLeft).IsSelectable) { result = true; }
+                if (_tileNodeManager.GetTileFromAxial(upRight).IsSelectable) { result = true; }
+            }
+            if (difference == new Vector3(-1f, 0.5f, 0.5f))
+            {   //jumping up left
+                if (_tileNodeManager.GetTileFromAxial(upLeft).IsSelectable) { result = true; }
+                if (_tileNodeManager.GetTileFromAxial(left).IsSelectable) { result = true; }
+            }
+            if (difference == new Vector3(-0.5f, -0.5f, 1))
+            {   //jumping down left
+                if (_tileNodeManager.GetTileFromAxial(left).IsSelectable) { result = true; }
+                if (_tileNodeManager.GetTileFromAxial(downLeft).IsSelectable) { result = true; }
+            }
+            if (difference == new Vector3(0.5f, -1, 0.5f))
+            {   //jumping down
+                if (_tileNodeManager.GetTileFromAxial(downLeft).IsSelectable) { result = true; }
+                if (_tileNodeManager.GetTileFromAxial(downRight).IsSelectable) { result = true; }
+            }
+            if (difference == new Vector3(1f, -0.5f, -0.5f))
+            {   //jumping down right
+                if (_tileNodeManager.GetTileFromAxial(downRight).IsSelectable) { result = true; }
+                if (_tileNodeManager.GetTileFromAxial(right).IsSelectable) { result = true; }
+            }
+            if (difference == new Vector3(0.5f, 0.5f, -1f))
+            {   //jumping up right
+                if (_tileNodeManager.GetTileFromAxial(right).IsSelectable) { result = true; }
+                if (_tileNodeManager.GetTileFromAxial(upRight).IsSelectable) { result = true; }
+            }
+
+            return result;
         }
 
         public void HopEntity(EntityBase entity, TileNode targetTile, int range)
