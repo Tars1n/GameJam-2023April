@@ -16,7 +16,6 @@ namespace GameJam.Dialogue
     {
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
         [SerializeReference] private List<DialoguePieceClass> _endDialogue;
-        [SerializeReference] private List<DialoguePieceClass> _playerDiesToAdjacentBaddie;
         [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
         [SerializeField] private GameObject _dialogueInCanvas;
         [SerializeField] private TMP_Text _dialogueTMPText;
@@ -48,9 +47,9 @@ namespace GameJam.Dialogue
             _currentDialogue = _endDialogue;
             BeginDialogue();
         }
-        public void DoDialoguePlayerDiesToAdjacentBaddie(Sprite baddieSprite)
+        public void DoDialoguePlayerDies(List<DialoguePieceClass> killDialogue)
         {
-            _currentDialogue = _playerDiesToAdjacentBaddie;
+            _currentDialogue = killDialogue;
             _levelLost = true;
             BeginDialogue();
         }

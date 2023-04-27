@@ -13,6 +13,7 @@ namespace GameJam.Entity
         private EntityBase _entityBase;
         private EntityManager _entityManager;
         private DialogueManager _dialgueManager;
+        [SerializeReference] private List<DialoguePieceClass> _killDialogue;
 
         private void Start()
         {
@@ -47,7 +48,7 @@ namespace GameJam.Entity
             if (targetToKill != null)
             {
                 SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.CultistAttackedPlayer);
-                _dialgueManager.DoDialoguePlayerDiesToAdjacentBaddie(_entityBase.SpriteRenderer.sprite);
+                _dialgueManager.DoDialoguePlayerDies(_killDialogue);
                 _entityManager.DestroyEntity(targetToKill);
             }
         }

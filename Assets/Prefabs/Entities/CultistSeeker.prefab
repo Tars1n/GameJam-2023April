@@ -160,3 +160,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9db2caf12aa3b4894b20cf008e79eb6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _killDialogue:
+  - id: 0
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _dialogueText: Stabby!
+        _characterTalking: {fileID: 21300000, guid: 34d2655aa0da54f40a39cc112d02e5dc, type: 3}
+    00000001:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _dialogueText: Graaaahhhh!!!!
+        _characterTalking: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
