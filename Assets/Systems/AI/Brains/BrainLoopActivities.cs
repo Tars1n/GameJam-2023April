@@ -10,7 +10,8 @@ namespace GameJam.Entity.Brain
     public class BrainLoopActivities : BrainBase
     {
         [SerializeField] private List<Activity> _activitiesToLoop;
-        public List<Activity> ActivitiesToLoop => _activitiesToLoop;
+        public List<Activity> ActivitiesToLoop { get => _activitiesToLoop;}
+        
         //Axial inputs to move one step
         //Up left: -1, 1, 0
         //left: -1, 0, 1
@@ -37,6 +38,16 @@ namespace GameJam.Entity.Brain
             _mapManager = _ref.MapManager;
             _mapInteractionManager = _ref.MapInteractionManager;
             _tileNodeManager = _ref.TileNodeManager;
+        }
+        public void SetActivitiesToLoop(List<Activity> activitiesToSet)
+        {
+            //I need to manually re-create the list, otherwise it just stores a reference.
+            if ((activitiesToSet == null) || (activitiesToSet.Count == 0)) return;
+            _activitiesToLoop = new List<Activity>();
+            foreach (Activity activity in activitiesToSet)
+            {
+                _activitiesToLoop.Add(activity);
+            }
         }
         public override void Think()
         {

@@ -7,6 +7,7 @@ using GameJam.Entity;
 using TMPro;
 using UnityEngine.UI;
 using GameJam.Map;
+using GameJam.Entity.Brain;
 
 namespace GameJam.Dialogue
 {
@@ -69,9 +70,13 @@ namespace GameJam.Dialogue
                 DoDialogueText();
                 return;
             }
-            if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceSpawnEntityClass))
+            // if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceSpawnEntityClass))
+            if (_currentDialogue[_dialogueIndex] is DialoguePieceSpawnEntityClass)
             {
-                DoSpawnEntity();
+                EntityBase entitySpawned = DoSpawnEntity();
+                SetActivities(entitySpawned);
+                _dialogueIndex++;
+                NextDialoguePiece();
                 return;
             }
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceHopEntityClass))
@@ -89,15 +94,24 @@ namespace GameJam.Dialogue
             NextDialoguePiece();
         }
 
-        private void DoSpawnEntity()
+        private EntityBase DoSpawnEntity()
         {
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
             DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
             GameObject go = Instantiate(dialogueSpawnEntity.EntityPrefab);
             EntityBase eb = go.GetComponent<EntityBase>();
             eb.SetupEntity();
-            _dialogueIndex++;
-            NextDialoguePiece();
+            return eb;
+        }
+        private void SetActivities(EntityBase entitySpawned)
+        {
+            if (_currentDialogue[_dialogueIndex].GetType() != typeof(DialoguePieceSpawnEntityPathClass)) return;
+            DialoguePieceSpawnEntityPathClass spawnEntityPathClass = (DialoguePieceSpawnEntityPathClass)_currentDialogue[_dialogueIndex];
+            if ((spawnEntityPathClass.ActivityList == null) || (spawnEntityPathClass.ActivityList.Count == 0)) return;            
+            BrainLoopActivities brainLoop = entitySpawned.GetComponent<BrainLoopActivities>();
+            if (brainLoop == null) return;
+            brainLoop.SetActivitiesToLoop(spawnEntityPathClass.ActivityList);
+            
         }
 
         private void DoDialogueText()
