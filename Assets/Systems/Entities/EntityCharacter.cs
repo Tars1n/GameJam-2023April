@@ -19,5 +19,13 @@ namespace GameJam.Entity
             this.gameObject.SetActive(false);
             // GameMaster.Instance.ReferenceManager.LevelManager.LevelFailed();
         }
+        public new void FallInPit()
+        {
+            if (IsCurrentlyMoving == false)
+            {
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.PlayerFallIntoPit);
+            }
+            base.FallInPit();
+        }
     }
 }

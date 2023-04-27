@@ -29,6 +29,14 @@ namespace GameJam.Entity
         {
             _killAdjacentPlayer?.KillIfCan();
             _brain?.Think();
-        }        
+        }     
+        public new void FallInPit()
+        {
+            if (IsCurrentlyMoving == false)
+            {
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.MonsterFallIntoPit);
+            }
+            base.FallInPit();
+        }   
     }
 }

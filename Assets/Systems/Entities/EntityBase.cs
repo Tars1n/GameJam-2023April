@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using GameJam.Map;
+using GameJam.Dialogue;
 
 namespace GameJam.Entity
 {
@@ -33,6 +34,8 @@ namespace GameJam.Entity
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;        
         [SerializeField] protected Color _gizmoColour;
+        [SerializeReference] private List<DialoguePieceClass> _fallInPitDialogue;
+        private DialogueManager _dialogueManager;
         public Action OnEntitySetup;
         
         
@@ -43,6 +46,7 @@ namespace GameJam.Entity
             _turnManager = _ref.TurnManager;
             _mapManager = _ref.MapManager;
             _mapInteractionManager = _ref.MapInteractionManager;
+            _dialogueManager = _ref.DialogueManager;
             if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
         }
 
@@ -103,6 +107,14 @@ namespace GameJam.Entity
         }
 
         public abstract void DoTurnAction();
+
+        public virtual void FallInPit()
+        {
+            _ref.EntityManager.DestroyEntity(this);
+            _dialogueManager.DoDialoguePlayerDies(_fallInPitDialogue);
+            
+
+        }
 
         public virtual void ActionCompleted()
         {

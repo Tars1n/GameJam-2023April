@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using GameJam.Entity;
 using GameJam.Map.TriggerTiles;
+using GameJam.Dialogue;
 
 namespace GameJam.Map
 {
@@ -27,7 +28,7 @@ namespace GameJam.Map
         public bool FlyingPathExplored = false;
         [SerializeField] private TriggerTileManager _triggerTileManager;
         public TriggerTileManager TriggerTileManager => _triggerTileManager;
-        public List<EntityBase> Entities = new List<EntityBase>();
+        public List<EntityBase> Entities = new List<EntityBase>();        
 
         
         public void SetTileData(Dictionary<TileBase, TileAttributes> data)
@@ -132,15 +133,7 @@ namespace GameJam.Map
         //if entity is beings shoved over pit, first stops their movement before they can be destroyed by it.
         private void EntityEnteredPit(EntityBase entity)
         {
-            _ref.EntityManager.DestroyEntity(entity);
-            
-            if (entity.IsCurrentlyMoving == false)
-            {
-                if (entity.GetType() != typeof(EntityCharacter))
-                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.MonsterFallIntoPit);
-                else
-                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.PlayerFallIntoPit);
-            }
+            entity.FallInPit();
         }
 
         public bool TryRemoveEntity(EntityBase entity)
