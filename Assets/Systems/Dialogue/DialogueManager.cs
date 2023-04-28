@@ -68,9 +68,9 @@ namespace GameJam.Dialogue
         }
         private void BeginDialogue()
         {
-            if (_currentDialogue == null) Debug.Log($"current dialogue = null");
-            if (_currentDialogue.Count == 0) Debug.Log($"current dialgue count = 0");
-            if ((_currentDialogue == null) || (_currentDialogue.Count == 0)) return;
+            // if (_currentDialogue == null) Debug.Log($"current dialogue = null");
+            // if (_currentDialogue.Count == 0) Debug.Log($"current dialgue count = 0");
+            // if ((_currentDialogue == null) || (_currentDialogue.Count == 0)) return;
             _dialogueIndex = 0;
             _gameMasterSingleton.GameSuspended = true;
             _dialogueInCanvas.SetActive(true);
@@ -86,6 +86,12 @@ namespace GameJam.Dialogue
                 _gameMasterSingleton.GameSuspended = false;
                 _dialogueInCanvas.SetActive(false);
                 _dialgueComplete?.Invoke();
+                return;
+            }
+            if (_currentDialogue[_dialogueIndex] == null)
+            {
+                _dialogueIndex ++;
+                NextDialoguePiece();
                 return;
             }
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceTextClass))

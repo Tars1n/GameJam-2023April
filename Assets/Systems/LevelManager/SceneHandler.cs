@@ -18,6 +18,10 @@ namespace GameJam.Level.Scene
         public void LoadNextLevel()
         {
             int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
+            if (nextLevel > SceneManager.sceneCount)
+            {
+                nextLevel = 0;
+            }
             if (SceneManager.sceneCountInBuildSettings <= nextLevel)
             {
                 Debug.LogWarning($"There are no more Scenes to load beyond this one: {SceneManager.GetActiveScene().buildIndex}. Make sure to add new levels in File->Build Settings.");
