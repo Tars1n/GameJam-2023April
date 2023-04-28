@@ -18,7 +18,7 @@ namespace GameJam.Level.Scene
         public void LoadNextLevel()
         {
             int nextLevel = SceneManager.GetActiveScene().buildIndex + 1;
-            if (nextLevel > SceneManager.sceneCount)
+            if (nextLevel >= SceneManager.sceneCountInBuildSettings)
             {
                 nextLevel = 0;
             }
