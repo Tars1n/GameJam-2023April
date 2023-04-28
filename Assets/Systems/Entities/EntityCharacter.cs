@@ -19,7 +19,7 @@ namespace GameJam.Entity
             this.gameObject.SetActive(false);
             // GameMaster.Instance.ReferenceManager.LevelManager.LevelFailed();
         }
-        public new void FallInPit()
+        public override void FallInPit()
         {
             if (IsCurrentlyMoving == false)
             {
@@ -28,9 +28,9 @@ namespace GameJam.Entity
             base.FallInPit();
             _dialogueManager.DoDialoguePlayerDies(_fallInPitDialogue);
         }
-        public new void TriggerTrap()
+        public override void TriggerTrap()
         {
-            // base.TriggerTrap();
+            base.TriggerTrap();
             _dialogueManager.DoDialoguePlayerDies(_triggersTrap);
         }
     }

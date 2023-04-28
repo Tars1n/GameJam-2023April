@@ -30,7 +30,7 @@ namespace GameJam.Entity
             _killAdjacentPlayer?.KillIfCan();
             _brain?.Think();
         }     
-        public new void FallInPit()
+        public override void FallInPit()
         {
             if (IsCurrentlyMoving == false)
             {
@@ -39,9 +39,9 @@ namespace GameJam.Entity
             base.FallInPit();
             _dialogueManager.DoDialogue(_fallInPitDialogue);
         }   
-        public new void TriggerTrap()
+        public override void TriggerTrap()
         {
-            // base.TriggerTrap();
+            base.TriggerTrap();
             _dialogueManager.DoDialogue(_triggersTrap);
         }
     }

@@ -20,7 +20,7 @@ namespace GameJam.Map.TriggerTiles
             _levelManager = GetComponent<LevelManager>();
             _relicPickup = GetComponent<RelicPickup>();
         }
-        private new void Start() 
+        protected override void Start() 
         {
             base.Start();
             _dialogueManager = GameMaster.Instance.ReferenceManager.DialogueManager;

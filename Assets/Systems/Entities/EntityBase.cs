@@ -116,16 +116,6 @@ namespace GameJam.Entity
         public virtual void TriggerTrap()
         {
             _ref.EntityManager.DestroyEntity(this);
-            if (this.GetType() == typeof(EntityMonster))
-            {
-                EntityMonster entityMonster = (EntityMonster)this;
-                entityMonster.TriggerTrap();
-            }
-            if (this.GetType() == typeof(EntityCharacter))
-            {
-                EntityCharacter entityCharacter = (EntityCharacter) this;
-                entityCharacter.TriggerTrap();
-            }
         }
 
         public virtual void ActionCompleted()
