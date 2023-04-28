@@ -122,6 +122,8 @@ MonoBehaviour:
   _gizmoColour: {r: 1, g: 1, b: 1, a: 0.5254902}
   _fallInPitDialogue:
   - id: 0
+  _triggersTrap:
+  - id: 1
   references:
     version: 1
     00000000:
@@ -129,6 +131,11 @@ MonoBehaviour:
       data:
         _dialogueText: I'll get to the bottom of thi-WHAAAAA!!!!
         _characterTalking: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
+    00000001:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _dialogueText: '*tick*'
+        _characterTalking: {fileID: 21300000, guid: a54cfd7db3cefc04baec6708a3ccd261, type: 3}
 --- !u!114 &694517987159947115
 MonoBehaviour:
   m_ObjectHideFlags: 0

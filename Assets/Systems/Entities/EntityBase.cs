@@ -34,8 +34,9 @@ namespace GameJam.Entity
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;        
         [SerializeField] protected Color _gizmoColour;
-        [SerializeReference] private List<DialoguePieceClass> _fallInPitDialogue;
-        private DialogueManager _dialogueManager;
+        [SerializeReference] protected List<DialoguePieceClass> _fallInPitDialogue;
+        [SerializeReference] protected List<DialoguePieceClass> _triggersTrap;
+        protected DialogueManager _dialogueManager;
         public Action OnEntitySetup;
         
         
@@ -111,9 +112,20 @@ namespace GameJam.Entity
         public virtual void FallInPit()
         {
             _ref.EntityManager.DestroyEntity(this);
-            _dialogueManager.DoDialoguePlayerDies(_fallInPitDialogue);
-            
-
+        }
+        public virtual void TriggerTrap()
+        {
+            _ref.EntityManager.DestroyEntity(this);
+            if (this.GetType() == typeof(EntityMonster))
+            {
+                EntityMonster entityMonster = (EntityMonster)this;
+                entityMonster.TriggerTrap();
+            }
+            if (this.GetType() == typeof(EntityCharacter))
+            {
+                EntityCharacter entityCharacter = (EntityCharacter) this;
+                entityCharacter.TriggerTrap();
+            }
         }
 
         public virtual void ActionCompleted()

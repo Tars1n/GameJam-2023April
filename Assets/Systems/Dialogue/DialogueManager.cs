@@ -53,6 +53,11 @@ namespace GameJam.Dialogue
             _levelLost = true;
             BeginDialogue();
         }
+        public void DoDialogue(List<DialoguePieceClass> killDialogue)
+        {
+            _currentDialogue = killDialogue;
+            BeginDialogue();
+        }
         private void Update()
         {
             if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame))

@@ -26,6 +26,12 @@ namespace GameJam.Entity
                         SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.PlayerFallIntoPit);
             }
             base.FallInPit();
+            _dialogueManager.DoDialoguePlayerDies(_fallInPitDialogue);
+        }
+        public new void TriggerTrap()
+        {
+            // base.TriggerTrap();
+            _dialogueManager.DoDialoguePlayerDies(_triggersTrap);
         }
     }
 }
