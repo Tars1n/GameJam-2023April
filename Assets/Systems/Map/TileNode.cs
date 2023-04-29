@@ -48,6 +48,7 @@ namespace GameJam.Map
             _isWalkable = false;
             _isPitTile = false;
             _occlusionLayer = false;
+            if (GameMaster.Instance._jacobLogs) Debug.Log("TileData reset.");
         }
 
         public bool IsWalkable(EntityBase entity)
