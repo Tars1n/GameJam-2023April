@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &279485468674878900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6865115584187699498}
+  m_Layer: 0
+  m_Name: MapDecoration
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6865115584187699498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279485468674878900}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7839092327430880680}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1380906905020436487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,6 +2858,7 @@ Transform:
   - {fileID: 8425172638946850659}
   - {fileID: 7985577176346663751}
   - {fileID: 5333332994944878265}
+  - {fileID: 6865115584187699498}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3061,6 +3092,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1861009983919239151, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
   m_PrefabInstance: {fileID: 7872181476147746956}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1011760874754863734 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7148871220792175354, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+  m_PrefabInstance: {fileID: 7872181476147746956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3720374158662214434 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6818159349813803950, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
@@ -3083,8 +3119,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1011760874754863734 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7148871220792175354, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
-  m_PrefabInstance: {fileID: 7872181476147746956}
-  m_PrefabAsset: {fileID: 0}
