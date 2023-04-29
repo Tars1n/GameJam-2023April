@@ -13,7 +13,7 @@ namespace GameJam.Dialogue
         public EntityBase Entity => _entity;
         [SerializeField] private Vector3Int _tileToHopTo;
         public Vector3Int TileToHopTo => _tileToHopTo;
-        [SerializeField] private float _durationOfHop;
+        [SerializeField] private float _durationOfHop = 0.5f;
         public float DurationOfHop => _durationOfHop;
         [SerializeField] private bool _slamAtEnd;
         public bool SlamAtEnd => _slamAtEnd;
@@ -28,6 +28,13 @@ namespace GameJam.Dialogue
             TileNode tileNode = _ref.TileNodeManager.GetTileFromAxial(_tileToHopTo);
 
             _ref.MapInteractionManager.HopEntityToPosFunc(_entity, tileNode, _durationOfHop, _slamAtEnd);
+            _entity.OnEntityStoppedMoving += ProgressCutscene;
+        }
+
+        public void ProgressCutscene()
+        {
+            _entity.OnEntityStoppedMoving -= ProgressCutscene;
+            _ref.DialogueManager.NextDialoguePiece();
         }
     }
 }

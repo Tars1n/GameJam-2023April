@@ -84,7 +84,7 @@ namespace GameJam.Map
         {
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
-            entity.IsCurrentlyMoving = true;
+            entity.StartEntityMoving();
 
             Vector3 startPos = entity.transform.position;
             //calculate the final target position.
@@ -152,7 +152,7 @@ namespace GameJam.Map
                 }
                 if (collisionHappened)
                 {
-                    entity.IsCurrentlyMoving = false;
+                    entity.StopEntityMoving();
                     GameMaster.Instance.TilemapInteractable = true;
                     GameMaster.Instance.RemoveEntityInMotion(entity);
                     yield break;
@@ -168,7 +168,7 @@ namespace GameJam.Map
                 if (entity.CurrentTileNode != null && entity.CurrentTileNode != projectedTile)
                     { TryShoveIntoTile(projectedTile); }
             }
-            entity.IsCurrentlyMoving = false;
+            entity.StopEntityMoving();
 
             bool TryShoveIntoTile(TileNode tileToCheck)
             {

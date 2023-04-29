@@ -20,6 +20,11 @@ namespace GameJam.Entity
             _killAdjacentPlayer = GetComponent<KillAdjacentPlayer>();
         }
 
+        public override void SetupEntity()
+        {
+            base.SetupEntity();
+        }
+
         public override void RefreshAction()
         {
             base.RefreshAction();

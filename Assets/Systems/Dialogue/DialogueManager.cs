@@ -82,11 +82,11 @@ namespace GameJam.Dialogue
             GameMaster.Instance.InCutscene = true;
             GameMaster.Instance.GameSuspended = true;
             GameMaster.Instance.TilemapInteractable = false;
-            _dialogueInCanvas.SetActive(true);
+            
             NextDialoguePiece();
         }
 
-        private void NextDialoguePiece()
+        public void NextDialoguePiece()
         {
             OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
@@ -106,6 +106,16 @@ namespace GameJam.Dialogue
             _currentDialogue[_dialogueIndex].DoPiece(this);
             _dialogueIndex ++;
             return;
+        }
+
+        public void TryOpenDialogueBox()
+        {
+            _dialogueInCanvas.SetActive(true);
+        }
+
+        public void TryCloseDialogueBox()
+        {
+            _dialogueInCanvas.SetActive(false);
         }
         
         private void FinishDialogue()

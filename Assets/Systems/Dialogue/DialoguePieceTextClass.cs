@@ -20,6 +20,7 @@ namespace GameJam.Dialogue
 
         private void DoDialogueText(DialogueManager dialogueManager)
         {
+            dialogueManager.TryOpenDialogueBox();
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
             
             dialogueManager.ChangePortrait(_characterTalking);

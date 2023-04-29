@@ -23,22 +23,15 @@ namespace GameJam.Entity.Brain
         [SerializeField] private Color _gizmoColour;
         private MapManager _mapManager;
         private MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
-        private ReferenceManager _ref;
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         private EntityBase _entityBase;
-        private MapInteractionManager _mapInteractionManager;
-        private TileNodeManager _tileNodeManager;
+
         [SerializeField] private GameObject _telegraphGO;
         private void Awake()
         {  
             _entityBase = GetComponent<EntityBase>();      
         }
-        private void Start() 
-        {
-            _ref = GameMaster.Instance.ReferenceManager;
-            _mapManager = _ref.MapManager;
-            _mapInteractionManager = _ref.MapInteractionManager;
-            _tileNodeManager = _ref.TileNodeManager;
-        }
+    
         public void SetActivitiesToLoop(List<Activity> activitiesToSet)
         {
             //I need to manually re-create the list, otherwise it just stores a reference.
@@ -53,22 +46,24 @@ namespace GameJam.Entity.Brain
         {
             _telegraphGO.SetActive(false);
             TileNode tile = NextStepTile();
-            if (_mapInteractionManager.TryToTakeAction(_entityBase, tile) == false)
-                _mapInteractionManager.HopEntity(_entityBase, _entityBase?.CurrentTileNode, 0);
+            if (_ref.MapInteractionManager.TryToTakeAction(_entityBase, tile) == false)
+                _ref.MapInteractionManager.HopEntity(_entityBase, _entityBase?.CurrentTileNode, 0);
             IncreaseStep();
         }
 
         private TileNode NextStepTile()
         {
-            Vector3Int axialToMoveTo = _mapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
+            if (_entityBase.CurrentTileNode == null) {return null;}
+            Vector3Int axialToMoveTo = _ref.MapManager.CastOddRowToAxial(_entityBase.CurrentTileNode.GridCoordinate);
             axialToMoveTo += _activitiesToLoop[_stepInActivityLoop].GridCoord;
             // Debug.Log($"move to coords " + axialToMoveTo);
-            TileNode tile = _tileNodeManager.GetNodeFromCoords(_mapManager.CastAxialToOddRow(axialToMoveTo));
+            TileNode tile = _ref.TileNodeManager.GetNodeFromCoords(_ref.MapManager.CastAxialToOddRow(axialToMoveTo));
             return tile;
         }
 
         public override void TelegraphNextTurn()
         {
+            if (_activitiesToLoop == null || _activitiesToLoop.Count == 0) { return; }
             TileNode tile = NextStepTile();
             if (tile == null) { return; }
             _telegraphGO.transform.position = tile.WorldPos;
