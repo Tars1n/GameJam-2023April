@@ -7,7 +7,7 @@ namespace GameJam.Entity
     public class EntityManager : MonoBehaviour
     {
         [SerializeField] private bool _debugLogs = false;
-        private ReferenceManager _ref;
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] private List<EntityCharacter> _playerCharacters;
         public List<EntityCharacter> PlayerCharacters => _playerCharacters;
         [SerializeField] private List<EntityMonster> _monsters;
@@ -29,7 +29,6 @@ namespace GameJam.Entity
 
         public void Initialize()
         {
-            _ref = GameMaster.Instance.ReferenceManager;
             _levelManager = _ref.LevelManager;
             _tileNodeManager = _ref.MapManager.TileNodeManager;
             SetupAllEntities();
@@ -48,6 +47,7 @@ namespace GameJam.Entity
 
         public EntityBase SpawnEntity(GameObject entity, Vector3Int coords)
         {
+            if (entity == null) return null;
             Vector3 spawnPos = _ref.MapManager.Map.CellToWorld(coords);
             GameObject go = Instantiate(entity, spawnPos, Quaternion.identity);
             EntityBase eb = go.GetComponent<EntityBase>();
