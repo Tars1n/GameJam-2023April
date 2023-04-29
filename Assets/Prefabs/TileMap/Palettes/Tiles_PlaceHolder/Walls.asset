@@ -15,6 +15,7 @@ MonoBehaviour:
   Tiles:
   - {fileID: 11400000, guid: e0e9e36c07a8d5a4c903efa59f8fbddd, type: 2}
   - {fileID: 11400000, guid: 3d2ec167154bee74780ace5b5218a779, type: 2}
+  - {fileID: 11400000, guid: dcd9e598597c15b4d9351f0928e95012, type: 2}
   IsSelectable: 0
   IsWalkable: 0
   IsPitTile: 0

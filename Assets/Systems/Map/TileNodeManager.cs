@@ -56,9 +56,10 @@ namespace GameJam.Map
                     tileNode.WalkingPathDirection = coord;
                     tileNode.FlyingPathDirection = coord;
                     tileNode.WorldPos = map.CellToWorld(coord);
-                    tileNode.TileType = mapTile;
+                    tileNode.SetTileType(mapTile);
+                    // tileNode.TileType = mapTile;
                     _tileNodesArray[x, y] = tileNode;
-                    tileNode.SetTileData(_dataFromTiles);
+                    // tileNode.SetTileData(_dataFromTiles);
                     tCount ++;
                 }
             }

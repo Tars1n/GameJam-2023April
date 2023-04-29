@@ -18,6 +18,7 @@ namespace GameJam
         public bool _lukeLogs = false;
         [SerializeField] bool _gmLogs = false;
         public bool GameSuspended = false;
+        public bool InCutscene = false;
         [SerializeField] private float _currentTimeScale;
         private float _fixedDeltaTime;
         [SerializeField] private EntityBase _activeEntity;

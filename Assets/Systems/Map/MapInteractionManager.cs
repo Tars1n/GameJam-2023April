@@ -415,6 +415,7 @@ namespace GameJam.Map
         }
         public void HopEntityToPosFunc(EntityBase entity, TileNode targetTile, float duration, bool slamLanding)
         {
+            if (targetTile == null) return;
             StartCoroutine(DoHopEntityToPos(entity, targetTile, duration, slamLanding));
         }
 
@@ -425,7 +426,7 @@ namespace GameJam.Map
             if (entity == null) { yield break; }
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
-            entity.IsCurrentlyMoving = true;
+            entity.StartEntityMoving();
             entity.RenderOnLayer(1);
 
             float timeElapsed = 0;
@@ -458,7 +459,7 @@ namespace GameJam.Map
             }
             
             entity.transform.position = targetPosition;
-            entity.IsCurrentlyMoving = false;
+            entity.StopEntityMoving();
             entity.LinkToTileNode(null);
             entity.RenderOnLayer(0);
             entity.SnapEntityPositionToTile();

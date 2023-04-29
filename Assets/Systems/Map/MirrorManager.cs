@@ -46,11 +46,18 @@ namespace GameJam.Map
 
         public TileNode TryReflectTileNode(TileNode tile)
         {
-            if (!_mirrorX && !_mirrorY)
+            if (HasNoMirror())
                 { return null;}
             
             Vector3Int reflection = ReflectGridCoordinate(tile.GridCoordinate);
             return _tileNodeManager.GetNodeFromCoords(reflection);
+        }
+
+        private bool HasNoMirror()
+        {
+            if (!_mirrorX && !_mirrorY)
+                { return true;}
+            return false;
         }
 
         public bool IsReflecting()
@@ -62,6 +69,11 @@ namespace GameJam.Map
 
         public void SelectActivePlayer(Vector3Int mouseCoordinate)
         {
+            if (HasNoMirror())
+            {
+                _gm.SetActiveEntity(_gm.ReferenceManager.EntityManager.GetNextActivePlayerCharacter());
+                return;
+            }
             if (_mirrorX)
             {
                 if (mouseCoordinate.x < _mirrorOrigin.x && _entityLeft != null)
@@ -83,10 +95,6 @@ namespace GameJam.Map
                 {
                     _gm.SetActiveEntity(_entityTop);
                 }
-            }
-            if (!_mirrorX && !_mirrorY)
-            {
-                _gm.SetActiveEntity(_gm.ReferenceManager.EntityManager.GetNextActivePlayerCharacter());
             }
         }
 
@@ -123,6 +131,7 @@ namespace GameJam.Map
 
         public void RenderMirroredSelection(EntityBase originalEntity, TileNode selectedTile)
         {
+            if (HasNoMirror()) { return; }
             if (originalEntity == null) { return; }
             Mirrored mirrored = originalEntity?.GetComponent<Mirrored>();
             if (mirrored == null) { return; }

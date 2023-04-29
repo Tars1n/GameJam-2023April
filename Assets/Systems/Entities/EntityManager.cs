@@ -7,7 +7,7 @@ namespace GameJam.Entity
     public class EntityManager : MonoBehaviour
     {
         [SerializeField] private bool _debugLogs = false;
-        private ReferenceManager _ref;
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] private List<EntityCharacter> _playerCharacters;
         public List<EntityCharacter> PlayerCharacters => _playerCharacters;
         [SerializeField] private List<EntityMonster> _monsters;
@@ -29,7 +29,6 @@ namespace GameJam.Entity
 
         public void Initialize()
         {
-            _ref = GameMaster.Instance.ReferenceManager;
             _levelManager = _ref.LevelManager;
             _tileNodeManager = _ref.MapManager.TileNodeManager;
             SetupAllEntities();
@@ -41,9 +40,20 @@ namespace GameJam.Entity
             if (_debugLogs) { Debug.Log($"Setting up {foundEntities.Length} Entites."); }
             foreach (EntityBase entity in foundEntities)
             {
-                if (!entity.gameObject.activeInHierarchy) continue;
+                if (!entity.gameObject.activeInHierarchy) continue; //?Notice the true flag at the top, that was for including inactive entities.
                 entity.SetupEntity();
             }
+        }
+
+        public EntityBase SpawnEntity(GameObject entity, Vector3Int coords)
+        {
+            if (entity == null) return null;
+            Vector3 spawnPos = _ref.MapManager.Map.CellToWorld(coords);
+            GameObject go = Instantiate(entity, spawnPos, Quaternion.identity);
+            EntityBase eb = go.GetComponent<EntityBase>();
+            eb.SetupEntity();
+            eb.RefreshAction();
+            return eb;
         }
 
         public void AddEntity(EntityBase entity)
@@ -58,7 +68,7 @@ namespace GameJam.Entity
                 _levers.Add((EntityLever)entity);
         }
 
-        public void RemoveEntity(EntityBase entity)
+        public void RemoveEntityReference(EntityBase entity)
         {
             if (entity.GetType() == typeof(EntityCharacter))
                 { _playerCharacters.Remove((EntityCharacter)entity); }
@@ -68,11 +78,13 @@ namespace GameJam.Entity
                 { _traps.Remove((EntityTrap)entity); }
             if (entity.GetType() == typeof(EntityLever))
                 _levers.Remove((EntityLever)entity);
+            if (_debugLogs)
+                Debug.Log($"{entity} removed from EntityManager.");
         }
 
         public void DestroyEntity(EntityBase entity)
         {
-            RemoveEntity(entity);
+            RemoveEntityReference(entity);
             _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();
         }
@@ -82,6 +94,8 @@ namespace GameJam.Entity
             while (_entitiesToDestroy.Count > 0)
             {
                 EntityBase entity = _entitiesToDestroy.Dequeue();
+                if (_debugLogs)
+                    Debug.Log($"EntityManager destroyed GameObject: {entity}");
                 Destroy(entity.gameObject);
             }
         }

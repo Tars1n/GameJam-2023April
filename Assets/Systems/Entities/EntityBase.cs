@@ -14,7 +14,8 @@ namespace GameJam.Entity
         public bool IsShovable => _isShovable;
         [SerializeField] protected bool _blocksMovement = true;
         public bool BlocksMovement => _blocksMovement;
-        public bool IsCurrentlyMoving = false;
+        private bool _isCurrentlyMoving = false;
+        public bool IsCurrentlyMoving => _isCurrentlyMoving;
         [SerializeField] protected TileNode _currentTileNode = null;
         public TileNode CurrentTileNode => _currentTileNode;
         protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
@@ -28,9 +29,6 @@ namespace GameJam.Entity
         [SerializeField] protected Color _turnOverState;
         [SerializeField] protected bool _hasActionReady;
         public bool HasActionReady => _hasActionReady;
-        // [SerializeField] private bool _additionalActions;
-        // public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
-        // public Action _nextAction;
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;        
         [SerializeField] protected Color _gizmoColour;
@@ -38,10 +36,8 @@ namespace GameJam.Entity
         [SerializeReference] protected List<DialoguePieceClass> _triggersTrap;
         protected DialogueManager _dialogueManager;
         public Action OnEntitySetup;
+        public Action OnEntityStoppedMoving;
         
-        
-        // public delegate void NextActionDelegate(TileNode tileNode);
-
         protected virtual void Start()
         {
             _turnManager = _ref.TurnManager;
@@ -51,7 +47,7 @@ namespace GameJam.Entity
             if (_turnManager == null) {Debug.LogWarning($"{this} could not find reference of TurnManager.");}
         }
 
-        public void SetupEntity()
+        public virtual void SetupEntity()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _ref.EntityManager.AddEntity(this);
@@ -60,7 +56,7 @@ namespace GameJam.Entity
             OnEntitySetup?.Invoke();
         }
 
-        public void LinkToTileNode(TileNode tileNode)
+        public virtual void LinkToTileNode(TileNode tileNode)
         {
             LeaveTileNode();
             _currentTileNode = tileNode;
@@ -79,14 +75,23 @@ namespace GameJam.Entity
 
         protected void LeaveTileNode()
         {
-            if (_currentTileNode == null) 
-                {return;}
-            _currentTileNode.TryRemoveEntity(this);
-            _currentTileNode = null;
+            // if (_currentTileNode == null) 
+            // {
+            //     Debug.LogWarning($"{this} lacks a current tile to remove itself from.");
+            //     return;
+            // }
+            if (_currentTileNode.TryRemoveEntity(this))
+            {
+                if (GameMaster.Instance._jacobLogs)
+                    Debug.Log($"{this} successfully left tilenode.");
+            }
+            // ClearTileNode();
         }
 
         public void ClearTileNode()
         {
+            if (GameMaster.Instance._jacobLogs)
+                {Debug.Log($"{this} cleared it's tile node reference.");}
             _currentTileNode = null;
         }
 
@@ -152,10 +157,22 @@ namespace GameJam.Entity
             _turnManager.ActionCompleted();
         }
 
+        public void StartEntityMoving()
+        {
+            _isCurrentlyMoving = true;
+        }
+
+        public void StopEntityMoving()
+        {
+            _isCurrentlyMoving = false;
+            OnEntityStoppedMoving?.Invoke();
+        }
+
         public virtual void DoDestroy()
         {
             LeaveTileNode();
-            if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
+            StopEntityMoving();
+            if (_debugLog) { Debug.Log($"{this} is flagged for destruction.");}
 
             this.gameObject.SetActive(false);
         }

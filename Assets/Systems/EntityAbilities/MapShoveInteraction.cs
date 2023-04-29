@@ -84,7 +84,7 @@ namespace GameJam.Map
         {
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
-            entity.IsCurrentlyMoving = true;
+            entity.StartEntityMoving();
 
             Vector3 startPos = entity.transform.position;
             //calculate the final target position.
@@ -109,6 +109,7 @@ namespace GameJam.Map
             {
                 if (entity == null)
                 {
+                    Debug.LogWarning("DoShove was running on Null entity.");
                     GameMaster.Instance.TilemapInteractable = true;
                     GameMaster.Instance.RemoveEntityInMotion(entity);
                     yield break;
@@ -121,13 +122,15 @@ namespace GameJam.Map
                 float x = Mathf.Lerp(startPos.x, targetWorldPos.x, g);
                 float y = Mathf.Lerp(startPos.y, targetWorldPos.y, g);
 
-                entity.transform.position = new Vector3(x, y, 0);
+                if (entity.IsCurrentlyMoving)
+                    entity.transform.position = new Vector3(x, y, 0);
+
                 timeElapsed += Time.deltaTime;
 
                 float journey = g*distance;
                 shortenSlideDistance = .38f;
                 
-                if (journey >= j && collisionHappened == false)
+                if (journey >= j && collisionHappened == false && entity.IsCurrentlyMoving)
                 {
                     j++;
                     shoveOneTile = true;
@@ -149,6 +152,7 @@ namespace GameJam.Map
                 }
                 if (collisionHappened)
                 {
+                    entity.StopEntityMoving();
                     GameMaster.Instance.TilemapInteractable = true;
                     GameMaster.Instance.RemoveEntityInMotion(entity);
                     yield break;
@@ -158,12 +162,13 @@ namespace GameJam.Map
             }
 
             // final attempt after while loop, because lerp never actually reaches 100%
-            entity.IsCurrentlyMoving = false;
-            if (collisionHappened == false)
+            if (collisionHappened == false && entity.IsCurrentlyMoving)
             {
                 projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
-                TryShoveIntoTile(projectedTile);
+                if (entity.CurrentTileNode != null && entity.CurrentTileNode != projectedTile)
+                    { TryShoveIntoTile(projectedTile); }
             }
+            entity.StopEntityMoving();
 
             bool TryShoveIntoTile(TileNode tileToCheck)
             {

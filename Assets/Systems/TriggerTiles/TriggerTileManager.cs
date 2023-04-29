@@ -4,6 +4,7 @@ using UnityEngine;
 using GameJam.Entity;
 using GameJam.Map;
 using UnityEngine.Tilemaps;
+using GameJam.Dialogue;
 
 namespace GameJam.Map.TriggerTiles
 {
@@ -15,7 +16,8 @@ namespace GameJam.Map.TriggerTiles
         [SerializeField] protected Color _colour = Color.white;
         protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         [SerializeField] protected List<Vector3Int> _triggerLocationTiles;
-        //this list creates tiles that the entity can trigger the trap by steppin on.
+        [SerializeReference] protected List<DialoguePieceClass> _triggeredDialogue;
+        protected bool _dialogueUnread = true;
 
         protected virtual void Start()
         {
@@ -67,5 +69,14 @@ namespace GameJam.Map.TriggerTiles
             }
         }
         public abstract void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode);
+
+        protected void TryTriggerDialogue()
+        {
+            if (_triggeredDialogue != null && _triggeredDialogue.Count > 0 && _dialogueUnread)
+            {
+                _dialogueUnread = false;
+                _ref.DialogueManager.DoDialogue(_triggeredDialogue);
+            }
+        }
     }
 }

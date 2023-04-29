@@ -20,6 +20,11 @@ namespace GameJam.Entity
             _killAdjacentPlayer = GetComponent<KillAdjacentPlayer>();
         }
 
+        public override void SetupEntity()
+        {
+            base.SetupEntity();
+        }
+
         public override void RefreshAction()
         {
             base.RefreshAction();
@@ -32,11 +37,11 @@ namespace GameJam.Entity
         }     
         public override void FallInPit()
         {
+            base.FallInPit();
             if (IsCurrentlyMoving == false)
             {
                         SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.MonsterFallIntoPit);
             }
-            base.FallInPit();
             _dialogueManager.DoDialogue(_fallInPitDialogue);
         }   
         public override void TriggerTrap()
