@@ -74,6 +74,7 @@ namespace GameJam.Map.TriggerTiles
         {
             if (_triggeredDialogue != null && _triggeredDialogue.Count > 0 && _dialogueUnread)
             {
+                _dialogueUnread = false;
                 _ref.DialogueManager.DoDialogue(_triggeredDialogue);
             }
         }
