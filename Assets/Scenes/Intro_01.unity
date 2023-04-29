@@ -130,9 +130,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4151219060881573315, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].x
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4954280692556877451, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Name
       value: SceneStructure Solo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5333332994944878265, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.03
       objectReference: {fileID: 0}
     - target: {fileID: 7839092327430880680, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_RootOrder

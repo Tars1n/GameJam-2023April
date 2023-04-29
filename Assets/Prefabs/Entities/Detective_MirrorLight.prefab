@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 694517987159947115}
   - component: {fileID: 1466467849690277501}
   m_Layer: 0
-  m_Name: Detective
+  m_Name: Detective_MirrorLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

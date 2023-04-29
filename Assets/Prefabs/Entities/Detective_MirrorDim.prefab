@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3651794398176948291}
   - component: {fileID: 8037607451894567858}
   m_Layer: 0
-  m_Name: Detective_mirrored
+  m_Name: Detective_MirrorDim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
