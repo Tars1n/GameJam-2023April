@@ -13,19 +13,16 @@ namespace GameJam.Entity
 
         public override void DoDestroy()
         {
-            LeaveTileNode();
-            if (_debugLog) { Debug.Log($"Player character died.");}
-
-            this.gameObject.SetActive(false);
-            // GameMaster.Instance.ReferenceManager.LevelManager.LevelFailed();
+            base.DoDestroy();
+            Debug.Log($"Player character died.");
         }
         public override void FallInPit()
         {
+            base.FallInPit();
             if (IsCurrentlyMoving == false)
             {
                         SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.PlayerFallIntoPit);
             }
-            base.FallInPit();
             _dialogueManager.DoDialoguePlayerDies(_fallInPitDialogue);
         }
         public override void TriggerTrap()

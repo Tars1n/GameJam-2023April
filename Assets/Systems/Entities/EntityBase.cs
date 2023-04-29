@@ -79,13 +79,17 @@ namespace GameJam.Entity
                 return;
             }
             if (_currentTileNode.TryRemoveEntity(this))
-                { Debug.Log($"{_currentTileNode} successfully removed {this}"); }
-            _currentTileNode = null;
+            {
+                if (GameMaster.Instance._jacobLogs)
+                    Debug.Log($"{this} successfully left tilenode.");
+            }
+            ClearTileNode();
         }
 
         public void ClearTileNode()
         {
-            if (_debugLog) {Debug.Log($"{this} cleared it's tile node reference.");}
+            if (GameMaster.Instance._jacobLogs)
+                {Debug.Log($"{this} cleared it's tile node reference.");}
             _currentTileNode = null;
         }
 
@@ -154,7 +158,8 @@ namespace GameJam.Entity
         public virtual void DoDestroy()
         {
             LeaveTileNode();
-            if (_debugLog) { Debug.Log($"{this} is utterly destroyed.");}
+            IsCurrentlyMoving = false;
+            if (_debugLog) { Debug.Log($"{this} is flagged for destruction.");}
 
             this.gameObject.SetActive(false);
         }

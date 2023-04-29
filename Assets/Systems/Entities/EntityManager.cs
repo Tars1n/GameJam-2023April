@@ -41,7 +41,7 @@ namespace GameJam.Entity
             if (_debugLogs) { Debug.Log($"Setting up {foundEntities.Length} Entites."); }
             foreach (EntityBase entity in foundEntities)
             {
-                if (!entity.gameObject.activeInHierarchy) continue;
+                if (!entity.gameObject.activeInHierarchy) continue; //?Notice the true flag at the top, that was for including inactive entities.
                 entity.SetupEntity();
             }
         }
@@ -68,6 +68,8 @@ namespace GameJam.Entity
                 { _traps.Remove((EntityTrap)entity); }
             if (entity.GetType() == typeof(EntityLever))
                 _levers.Remove((EntityLever)entity);
+            if (_debugLogs)
+                Debug.Log($"{entity} removed from EntityManager.");
         }
 
         public void DestroyEntity(EntityBase entity)
@@ -82,6 +84,8 @@ namespace GameJam.Entity
             while (_entitiesToDestroy.Count > 0)
             {
                 EntityBase entity = _entitiesToDestroy.Dequeue();
+                if (_debugLogs)
+                    Debug.Log($"EntityManager destroyed GameObject: {entity}");
                 Destroy(entity.gameObject);
             }
         }

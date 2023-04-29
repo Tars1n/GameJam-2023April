@@ -200,10 +200,14 @@ MonoBehaviour:
     Entities: []
   _readyState: {r: 1, g: 1, b: 1, a: 1}
   _turnOverState: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
-  _hasActionReady: 1
+  _hasActionReady: 0
   _isCurrentlyProcessingTurnAction: 0
   _gizmoColour: {r: 1, g: 1, b: 1, a: 0.5254902}
+  _fallInPitDialogue: []
+  _triggersTrap: []
   _monsterBlueprint: {fileID: 0}
+  references:
+    version: 1
 --- !u!114 &1570969359
 MonoBehaviour:
   m_ObjectHideFlags: 0

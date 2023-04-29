@@ -116,7 +116,11 @@ namespace GameJam.Map
         public bool TryAddEntity(EntityBase entity)
         {
             if (Entities.Contains(entity) == false)
-                {Entities.Add(entity);}
+            {
+                Entities.Add(entity);
+                if (GameMaster.Instance._jacobLogs)
+                    Debug.Log($"Tilenode successfully added {entity}");
+            }
             if (_isPitTile)
             {
                 EntityEnteredPit(entity);
@@ -133,6 +137,8 @@ namespace GameJam.Map
         //if entity is beings shoved over pit, first stops their movement before they can be destroyed by it.
         private void EntityEnteredPit(EntityBase entity)
         {
+            if (GameMaster.Instance._jacobLogs)
+                    Debug.Log($"{entity} entered pit!");
             entity.FallInPit();
         }
 
@@ -142,11 +148,13 @@ namespace GameJam.Map
             {
                 Entities.Remove(entity);
                 Entities.TrimExcess();
-Debug.Log($"{this} successfully removed {entity}");
+                if (GameMaster.Instance._jacobLogs)
+                    Debug.Log($"{this} successfully removed {entity}");
                 return true;
             }
             Entities.TrimExcess();
-Debug.Log($"{this} failed to removed {entity}");
+            if (GameMaster.Instance._jacobLogs)
+                Debug.LogWarning($"{this} failed to removed {entity}");
             return false;
         }
 
