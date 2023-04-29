@@ -162,7 +162,8 @@ namespace GameJam.Map
             if (collisionHappened == false)
             {
                 projectedTile = _tileNodeManager.GetNodeFromCoords(finalCoord);
-                TryShoveIntoTile(projectedTile);
+                if (entity.CurrentTileNode != null && entity.CurrentTileNode != projectedTile)
+                    { TryShoveIntoTile(projectedTile); }
             }
 
             bool TryShoveIntoTile(TileNode tileToCheck)

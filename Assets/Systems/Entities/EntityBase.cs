@@ -80,7 +80,10 @@ namespace GameJam.Entity
         protected void LeaveTileNode()
         {
             if (_currentTileNode == null) 
-                {return;}
+                {
+                    Debug.LogError($"{this} lacks a current tile to remove itself from.");
+                    return;
+                }
             _currentTileNode.TryRemoveEntity(this);
             _currentTileNode = null;
         }
