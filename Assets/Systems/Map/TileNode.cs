@@ -12,7 +12,8 @@ namespace GameJam.Map
     public class TileNode
     {
         private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
-        public TileBase TileType;
+        [SerializeField] TileBase _tileType;
+        public TileBase TileType => _tileType;
         [SerializeField] private bool _isSelectable = false;
         public bool IsSelectable => _isSelectable;
         [SerializeField] private bool _isWalkable = false;
@@ -30,6 +31,12 @@ namespace GameJam.Map
         public TriggerTileManager TriggerTileManager => _triggerTileManager;
         public List<EntityBase> Entities = new List<EntityBase>();        
 
+        public void SetTileType(TileBase tileType)
+        {
+            _ref.MapManager.Map.SetTile(GridCoordinate, tileType);
+            _tileType = tileType;
+            SetTileData(_ref.TileNodeManager.DataFromTiles);
+        }
         
         public void SetTileData(Dictionary<TileBase, TileAttributes> data)
         {
@@ -50,6 +57,7 @@ namespace GameJam.Map
             _occlusionLayer = false;
             if (GameMaster.Instance._jacobLogs) Debug.Log("TileData reset.");
         }
+
 
         public bool IsWalkable(EntityBase entity)
         {
@@ -125,7 +133,7 @@ namespace GameJam.Map
             if (_isPitTile)
             {
                 EntityEnteredPit(entity);
-                return false;
+                return true;
             }
             _triggerTileManager?.EntityEnteredTrigger(entity, this);
             if (_ref.LevelManager.RecordSlimeTrails)

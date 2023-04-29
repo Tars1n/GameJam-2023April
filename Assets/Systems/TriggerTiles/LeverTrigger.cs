@@ -117,19 +117,22 @@ namespace GameJam.Map.TriggerTiles
         {
             if (tile.TileType != _pulledTileState)
             {
-                tile.TileType = _pulledTileState;
-                _mapManager.Map.SetTile(tile.GridCoordinate, _pulledTileState);
+                tile.SetTileType(_pulledTileState);
+                // tile.TileType = _pulledTileState;
+                // _mapManager.Map.SetTile(tile.GridCoordinate, _pulledTileState);
                 return;
             }
 
-            tile.TileType = _unpulledTileState;
-            _mapManager.Map.SetTile(tile.GridCoordinate, _unpulledTileState);
+            tile.SetTileType(_unpulledTileState);
+            // tile.TileType = _unpulledTileState;
+            // _mapManager.Map.SetTile(tile.GridCoordinate, _unpulledTileState);
         }
 
         private void SetToSpecificTile(TileNode tile)
         {
-            tile.TileType = _currentTileState;
-            _mapManager.Map.SetTile(tile.GridCoordinate, _currentTileState);
+            tile.SetTileType(_currentTileState);
+            // tile.TileType = _currentTileState;
+            // _mapManager.Map.SetTile(tile.GridCoordinate, _currentTileState);
         }
 
         protected override void OnDrawGizmos()

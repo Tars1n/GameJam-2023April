@@ -11,10 +11,8 @@ namespace GameJam.Entity
         public override void FallInPit()
         {
             Color tileColour = _ref.MapManager.Map.GetColor(_currentTileNode.GridCoordinate);
-            _ref.MapManager.Map.SetTile(_currentTileNode.GridCoordinate, _barrelFilledHole);
+            _currentTileNode.SetTileType(_barrelFilledHole);
             _ref.MapManager.Map.SetColor(_currentTileNode.GridCoordinate, tileColour);
-
-            _currentTileNode.SetTileData(_ref.TileNodeManager.DataFromTiles);
             _ref.EntityManager.DestroyEntity(this);
         }
     }
