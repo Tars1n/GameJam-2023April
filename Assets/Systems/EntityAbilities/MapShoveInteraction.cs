@@ -128,7 +128,7 @@ namespace GameJam.Map
                 timeElapsed += Time.deltaTime;
 
                 float journey = g*distance;
-                shortenSlideDistance = .5f;
+                shortenSlideDistance = .38f;
                 
                 if (journey >= j && collisionHappened == false && entity.IsCurrentlyMoving)
                 {

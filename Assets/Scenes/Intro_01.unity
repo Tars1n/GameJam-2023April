@@ -5303,6 +5303,10 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[176].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 1380906906330597266, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _recordSlimeTrails
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1380906906696401278, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: orthographic size
       value: 3

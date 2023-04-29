@@ -364,11 +364,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2514217488373317686, guid: ccc41106526f4ee41ad056d9649aeb1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.04
+      value: -2.02
       objectReference: {fileID: 0}
     - target: {fileID: 2514217488373317686, guid: ccc41106526f4ee41ad056d9649aeb1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.11
+      value: -2.1
       objectReference: {fileID: 0}
     - target: {fileID: 2514217488373317686, guid: ccc41106526f4ee41ad056d9649aeb1f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -546,11 +546,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2514217488373317686, guid: ccc41106526f4ee41ad056d9649aeb1f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.51
+      value: -3.47
       objectReference: {fileID: 0}
     - target: {fileID: 2514217488373317686, guid: ccc41106526f4ee41ad056d9649aeb1f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.62
+      value: -1.61
       objectReference: {fileID: 0}
     - target: {fileID: 2514217488373317686, guid: ccc41106526f4ee41ad056d9649aeb1f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -619,8 +619,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[1]._dialogueText
-      value: Yikes, this place is worse shape than I thought it was. I'll have to
-        watch my step.
+      value: 'Yikes, this place is worse shape than I thought.
+
+
+        I''ll have
+        to watch my step.'
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]._durationOfHop
@@ -628,7 +631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]._tileToHopTo.x
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]._tileToHopTo.y
@@ -1348,11 +1351,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileAssetArray.Array.data[0].m_RefCount
-      value: 45
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileAssetArray.Array.data[1].m_RefCount
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileAssetArray.Array.data[2].m_RefCount
@@ -1376,11 +1379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileColorArray.Array.data[2].m_RefCount
-      value: 41
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileColorArray.Array.data[3].m_RefCount
-      value: 45
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[10].second.m_TileIndex
@@ -1484,7 +1487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[35].second.m_TileIndex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[36].second.m_TileIndex
@@ -1736,11 +1739,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
-      value: 69
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_TileSpriteArray.Array.data[3].m_RefCount
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[100].second.m_TileIndex
@@ -1912,7 +1915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[35].second.m_AllTileFlags
-      value: 2147483649
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[36].second.m_AllTileFlags
@@ -2088,7 +2091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[35].second.m_TileColorIndex
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[36].second.m_TileColorIndex
@@ -2472,7 +2475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[35].second.m_TileSpriteIndex
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.data[36].second.m_TileSpriteIndex
@@ -2932,7 +2935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _triggeredDialogue.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _tilesToToggle.Array.data[0].x
@@ -2963,6 +2966,10 @@ PrefabInstance:
       value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
       objectReference: {fileID: 0}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _triggerLocationTiles.Array.data[0].x
       value: 1
       objectReference: {fileID: 0}
@@ -2972,11 +2979,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _triggeredDialogue.Array.data[0]._dialogueText
-      value: I'll never understood why this place was built with levers to open hidden
-        doors everywhere.
+      value: Levers and hidden doors.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._dialogueText
+      value: 'If I ever meet the architect of this nightmare.
+
+
+        I''m gonna
+        slug em!'
       objectReference: {fileID: 0}
     - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
       propertyPath: _triggeredDialogue.Array.data[0]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
+    - target: {fileID: 2924346592892355066, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._characterTalking
       value: 
       objectReference: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
     - target: {fileID: 8103536119533207666, guid: cf3c5563510f3254dac9f7f646b5baeb, type: 3}

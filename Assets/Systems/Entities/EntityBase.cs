@@ -56,7 +56,7 @@ namespace GameJam.Entity
             OnEntitySetup?.Invoke();
         }
 
-        public void LinkToTileNode(TileNode tileNode)
+        public virtual void LinkToTileNode(TileNode tileNode)
         {
             LeaveTileNode();
             _currentTileNode = tileNode;
@@ -75,17 +75,17 @@ namespace GameJam.Entity
 
         protected void LeaveTileNode()
         {
-            if (_currentTileNode == null) 
-            {
-                Debug.LogWarning($"{this} lacks a current tile to remove itself from.");
-                return;
-            }
+            // if (_currentTileNode == null) 
+            // {
+            //     Debug.LogWarning($"{this} lacks a current tile to remove itself from.");
+            //     return;
+            // }
             if (_currentTileNode.TryRemoveEntity(this))
             {
                 if (GameMaster.Instance._jacobLogs)
                     Debug.Log($"{this} successfully left tilenode.");
             }
-            ClearTileNode();
+            // ClearTileNode();
         }
 
         public void ClearTileNode()

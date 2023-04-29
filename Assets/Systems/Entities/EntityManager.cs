@@ -68,7 +68,7 @@ namespace GameJam.Entity
                 _levers.Add((EntityLever)entity);
         }
 
-        public void RemoveEntity(EntityBase entity)
+        public void RemoveEntityReference(EntityBase entity)
         {
             if (entity.GetType() == typeof(EntityCharacter))
                 { _playerCharacters.Remove((EntityCharacter)entity); }
@@ -84,7 +84,7 @@ namespace GameJam.Entity
 
         public void DestroyEntity(EntityBase entity)
         {
-            RemoveEntity(entity);
+            RemoveEntityReference(entity);
             _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();
         }

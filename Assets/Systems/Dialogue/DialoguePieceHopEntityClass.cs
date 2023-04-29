@@ -26,6 +26,11 @@ namespace GameJam.Dialogue
         private void DoHopEntity()
         {
             TileNode tileNode = _ref.TileNodeManager.GetTileFromAxial(_tileToHopTo);
+            if (tileNode == null)
+            {
+                Debug.LogError($"Dialogue is attempting to hop {_entity} out of bounds: {_tileToHopTo} \r\n Make sure coordinates are set to a valid tile!");
+                return;
+            }
 
             _ref.MapInteractionManager.HopEntityToPosFunc(_entity, tileNode, _durationOfHop, _slamAtEnd);
             _entity.OnEntityStoppedMoving += ProgressCutscene;

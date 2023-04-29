@@ -415,6 +415,7 @@ namespace GameJam.Map
         }
         public void HopEntityToPosFunc(EntityBase entity, TileNode targetTile, float duration, bool slamLanding)
         {
+            if (targetTile == null) return;
             StartCoroutine(DoHopEntityToPos(entity, targetTile, duration, slamLanding));
         }
 
