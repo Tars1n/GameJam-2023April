@@ -25,6 +25,7 @@ namespace GameJam.Dialogue
             
             dialogueManager.ChangePortrait(_characterTalking);
             dialogueManager.SetText(_dialogueText);
+            dialogueManager.WaitOnClick = true;
         }
     }
 }

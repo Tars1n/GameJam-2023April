@@ -18,6 +18,7 @@ namespace GameJam.Dialogue
         public override void DoPiece(DialogueManager dialogueManager)
         {
             DoSpawnEntity();
+            _ref.DialogueManager.WaitOnClick = true;
         }
 
         protected void DoSpawnEntity()
@@ -26,7 +27,8 @@ namespace GameJam.Dialogue
             // DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
             _entitySpawned = _ref.EntityManager.SpawnEntity(_entityPrefab, _coords);
             if (EntitySpawned != null)
-            Debug.Log($"Successfully spawned {_entitySpawned}");       
+            Debug.Log($"Successfully spawned {_entitySpawned}");
+            _ref.DialogueManager.WaitOnClick = true;
         }        
     }
 }

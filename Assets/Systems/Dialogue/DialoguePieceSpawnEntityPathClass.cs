@@ -15,6 +15,7 @@ namespace GameJam.Dialogue
         {
             DoSpawnEntity();
             SetActivities();
+            _ref.DialogueManager.WaitOnClick = true;
         }
 
         private void SetActivities()

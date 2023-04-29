@@ -30,7 +30,8 @@ namespace GameJam.Dialogue
         public Action OnContinueDialogue;        
         public Action OnDialogueComplete;
         private int _dialogueIndex; 
-        private bool _levelLost;       
+        private bool _levelLost; 
+        public bool WaitOnClick = false;      
 
         private void Start() {
             {
@@ -66,10 +67,11 @@ namespace GameJam.Dialogue
         private void Update()
         {
             if (GameMaster.Instance.InCutscene == false) return;
-            if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame))
+            if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame) && WaitOnClick)
             {
+                WaitOnClick = false;
                 Debug.Log($"continue");
-                // OnContinueDialogue?.Invoke();
+                OnContinueDialogue?.Invoke();
                 NextDialoguePiece();
             }
         }
@@ -88,7 +90,7 @@ namespace GameJam.Dialogue
 
         public void NextDialoguePiece()
         {
-            OnContinueDialogue -= NextDialoguePiece;
+            // OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
                 DialogueDoneCheckIfLevelEnd();
@@ -122,7 +124,7 @@ namespace GameJam.Dialogue
         {
             GameMaster.Instance.GameSuspended = false;
             GameMaster.Instance.InCutscene = false;
-            _dialogueInCanvas.SetActive(false);
+            TryCloseDialogueBox();
             _ref.TurnManager.BeginPlay();
 
             OnDialogueComplete?.Invoke();
@@ -141,17 +143,6 @@ namespace GameJam.Dialogue
             {
                 _levelManager.LevelFailed();
             }
-        }
-
-        private void DoDialogueText()
-        {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
-            DialoguePieceTextClass dialoguePieceTextClass = (DialoguePieceTextClass)_currentDialogue[_dialogueIndex];
-            
-            ChangePortrait(dialoguePieceTextClass);
-            _dialogueTMPText.text = dialoguePieceTextClass.DialogueTextStr;
-            _dialogueIndex++;
-            OnContinueDialogue += NextDialoguePiece;
         }
 
         public void SetText(string text)
@@ -175,18 +166,9 @@ namespace GameJam.Dialogue
             }
         }
 
-        // private void StrechPortraitScale(DialoguePieceTextClass dialoguePieceTextClass)
-        // {
-        //     RectTransform rectTransform = _characterPortrait.GetComponent<RectTransform>();
-        //     float rectXScale = rectTransform.localScale.x;
-        //     float newRectYScale = (dialoguePieceTextClass.CharacterTalking.bounds.max.y - dialoguePieceTextClass.CharacterTalking.bounds.min.y) / (dialoguePieceTextClass.CharacterTalking.bounds.max.x - dialoguePieceTextClass.CharacterTalking.bounds.min.x);
-        //     newRectYScale *= rectXScale;
-        //     rectTransform.localScale = new Vector2(rectXScale, newRectYScale);
-        // }
-
         private void OnDisable()
         {
-            OnContinueDialogue -= NextDialoguePiece;
+            // OnContinueDialogue -= NextDialoguePiece;
         }
     }
 }
