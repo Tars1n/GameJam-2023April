@@ -46,6 +46,16 @@ namespace GameJam.Entity
             }
         }
 
+        public EntityBase SpawnEntity(GameObject entity, Vector3Int coords)
+        {
+            Vector3 spawnPos = _ref.MapManager.Map.CellToWorld(coords);
+            GameObject go = Instantiate(entity, spawnPos, Quaternion.identity);
+            EntityBase eb = go.GetComponent<EntityBase>();
+            eb.SetupEntity();
+            eb.RefreshAction();
+            return eb;
+        }
+
         public void AddEntity(EntityBase entity)
         {
             if (entity.GetType() == typeof(EntityCharacter))
