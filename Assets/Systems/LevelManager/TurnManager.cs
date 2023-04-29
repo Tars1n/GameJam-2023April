@@ -43,7 +43,10 @@ namespace GameJam.Entity
             {
                 SetupNewRound();
                 GameMaster.Instance.TilemapInteractable = true;
+                return;
             }
+            GameMaster.Instance.TilemapInteractable = true;
+            TickNext();
         }
 
         private void SetupNewRound()

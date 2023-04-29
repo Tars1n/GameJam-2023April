@@ -11,5 +11,10 @@ namespace GameJam.Dialogue
         public GameObject EntityPrefab => _entityPrefab;
         [SerializeField] private Vector3 _entitySpawnWorldPos;
         public Vector3 EntitySpawnWorldPos => _entitySpawnWorldPos;
+
+        public override void DoPiece(DialogueManager dialogueManager)
+        {
+            
+        }
     }
 }

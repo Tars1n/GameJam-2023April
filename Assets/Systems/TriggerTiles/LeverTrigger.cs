@@ -70,6 +70,7 @@ namespace GameJam.Map.TriggerTiles
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
             ToggleLever();
+            TryTriggerDialogue();
         }
 
         public void ToggleLever()

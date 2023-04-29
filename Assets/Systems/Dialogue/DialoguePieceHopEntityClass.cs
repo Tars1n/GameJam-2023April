@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Entity;
+using GameJam.Map;
 
 namespace GameJam.Dialogue
 {
@@ -16,5 +17,17 @@ namespace GameJam.Dialogue
         public float DurationOfHop => _durationOfHop;
         [SerializeField] private bool _slamAtEnd;
         public bool SlamAtEnd => _slamAtEnd;
+
+        public override void DoPiece(DialogueManager dialogueManager)
+        {
+            DoHopEntity();
+        }
+
+        private void DoHopEntity()
+        {
+            TileNode tileNode = _ref.TileNodeManager.GetTileFromAxial(_tileToHopTo);
+
+            _ref.MapInteractionManager.HopEntityToPosFunc(_entity, tileNode, _durationOfHop, _slamAtEnd);
+        }
     }
 }

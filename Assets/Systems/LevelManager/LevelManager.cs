@@ -12,6 +12,7 @@ namespace GameJam.Level
     [RequireComponent(typeof(TurnManager), typeof(SceneHandler))]
     public class LevelManager : MonoBehaviour
     {
+        [SerializeField] private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] private MapManager _mapManager;
         public MapManager MapManager => _mapManager;
         private TurnManager _turnManager;
@@ -54,7 +55,8 @@ namespace GameJam.Level
         {
             Debug.Log("Activate LateStart:");
             yield return new WaitForSeconds(1f);
-            _turnManager.BeginPlay();
+            
+            _ref.DialogueManager.DoLevelStartDialogue();
         }
         public void LevelComplete()
         {

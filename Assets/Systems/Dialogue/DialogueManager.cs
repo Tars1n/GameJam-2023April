@@ -14,6 +14,7 @@ namespace GameJam.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
         [SerializeReference] private List<DialoguePieceClass> _endDialogue;
         [SerializeReference] private List<DialoguePieceClass> _currentDialogue;
@@ -26,8 +27,8 @@ namespace GameJam.Dialogue
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
         private LevelManager _levelManager;
-        public Action _continueDialogue;        
-        public Action _dialgueComplete;
+        public Action OnContinueDialogue;        
+        public Action OnDialogueComplete;
         private int _dialogueIndex; 
         private bool _levelLost;       
 
@@ -37,10 +38,19 @@ namespace GameJam.Dialogue
                 _gameMasterSingleton = GameMaster.GetSingleton();
                 _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
                 _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
-                _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
-                _currentDialogue = _startDialogue; 
-                BeginDialogue();               
+                _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;              
             }
+        }
+
+        public void DoLevelStartDialogue()
+        {
+            DoDialogue(_startDialogue);
+        }
+
+        public void DoDialogue(List<DialoguePieceClass> dialogue)
+        {
+            _currentDialogue = dialogue;
+            BeginDialogue();
         }
         public void DoEndDialogue()
         {
@@ -53,17 +63,14 @@ namespace GameJam.Dialogue
             _levelLost = true;
             BeginDialogue();
         }
-        public void DoDialogue(List<DialoguePieceClass> killDialogue)
-        {
-            _currentDialogue = killDialogue;
-            BeginDialogue();
-        }
         private void Update()
         {
+            if (GameMaster.Instance.InCutscene == false) return;
             if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame))
             {
                 Debug.Log($"continue");
-                _continueDialogue?.Invoke();
+                // OnContinueDialogue?.Invoke();
+                NextDialoguePiece();
             }
         }
         private void BeginDialogue()
@@ -72,20 +79,21 @@ namespace GameJam.Dialogue
             // if (_currentDialogue.Count == 0) Debug.Log($"current dialgue count = 0");
             // if ((_currentDialogue == null) || (_currentDialogue.Count == 0)) return;
             _dialogueIndex = 0;
-            _gameMasterSingleton.GameSuspended = true;
+            GameMaster.Instance.InCutscene = true;
+            GameMaster.Instance.GameSuspended = true;
+            GameMaster.Instance.TilemapInteractable = false;
             _dialogueInCanvas.SetActive(true);
             NextDialoguePiece();
         }
+
         private void NextDialoguePiece()
         {
-            _continueDialogue -= NextDialoguePiece;
+            OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
                 DialogueDoneCheckIfLevelEnd();
                 DialogueDoneCheckIfLevelLost();
-                _gameMasterSingleton.GameSuspended = false;
-                _dialogueInCanvas.SetActive(false);
-                _dialgueComplete?.Invoke();
+                FinishDialogue();
                 return;
             }
             if (_currentDialogue[_dialogueIndex] == null)
@@ -94,6 +102,13 @@ namespace GameJam.Dialogue
                 NextDialoguePiece();
                 return;
             }
+
+            _currentDialogue[_dialogueIndex].DoPiece(this);
+            _dialogueIndex ++;
+            return;
+
+//////////////////////////////////////
+            
             if (_currentDialogue[_dialogueIndex].GetType() == typeof(DialoguePieceTextClass))
             {
                 DoDialogueText();
@@ -115,6 +130,17 @@ namespace GameJam.Dialogue
                 return;
             }
         }
+        
+        private void FinishDialogue()
+        {
+            GameMaster.Instance.GameSuspended = false;
+            GameMaster.Instance.InCutscene = false;
+            _dialogueInCanvas.SetActive(false);
+            _ref.TurnManager.BeginPlay();
+
+            OnDialogueComplete?.Invoke();
+        }
+
         private void DialogueDoneCheckIfLevelEnd()
         {
             if (_currentDialogue == _endDialogue)
@@ -176,15 +202,27 @@ namespace GameJam.Dialogue
             ChangePortrait(dialoguePieceTextClass);
             _dialogueTMPText.text = dialoguePieceTextClass.DialogueTextStr;
             _dialogueIndex++;
-            _continueDialogue += NextDialoguePiece;
+            OnContinueDialogue += NextDialoguePiece;
         }
 
-        private void ChangePortrait(DialoguePieceTextClass dialoguePieceTextClass)
+        public void SetText(string text)
+        {
+            _dialogueTMPText.text = text;
+        }
+
+        public void ChangePortrait(DialoguePieceTextClass dialoguePieceTextClass)
         {
             if (dialoguePieceTextClass.CharacterTalking != null)
             {
                 _characterPortrait.sprite = dialoguePieceTextClass.CharacterTalking;
                 // StrechPortraitScale(dialoguePieceTextClass);
+            }
+        }
+        public void ChangePortrait(Sprite sprite)
+        {
+            if (sprite != null)
+            {
+                _characterPortrait.sprite = sprite;
             }
         }
 
@@ -199,7 +237,7 @@ namespace GameJam.Dialogue
 
         private void OnDisable()
         {
-            _continueDialogue -= NextDialoguePiece;
+            OnContinueDialogue -= NextDialoguePiece;
         }
     }
 }

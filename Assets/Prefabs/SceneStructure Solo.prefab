@@ -2174,7 +2174,10 @@ MonoBehaviour:
   _colour: {r: 0.54426897, g: 1, b: 0, a: 1}
   _triggerLocationTiles:
   - {x: -1, y: 0, z: 1}
+  _triggeredDialogue: []
   _relicsGathered: 0
+  references:
+    version: 1
 --- !u!114 &4151219060881573315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,6 +2195,9 @@ MonoBehaviour:
   _colour: {r: 0, g: 0.50668955, b: 1, a: 1}
   _triggerLocationTiles:
   - {x: 5, y: 0, z: 0}
+  _triggeredDialogue: []
+  references:
+    version: 1
 --- !u!114 &1268991185572159789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2204,7 +2210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164906cc952f04e848b2c1d60ae3825a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startDialogue: []
+  _startDialogue:
+  - id: 0
   _endDialogue: []
   _currentDialogue: []
   _dialogueInCanvas: {fileID: 1011760874754863734}
@@ -2212,6 +2219,8 @@ MonoBehaviour:
   _characterPortrait: {fileID: 457438234005975448}
   references:
     version: 1
+    00000000:
+      type: {class: DialogueBeginLevel, ns: GameJam, asm: Assembly-CSharp}
 --- !u!114 &4210269558193554612
 MonoBehaviour:
   m_ObjectHideFlags: 0

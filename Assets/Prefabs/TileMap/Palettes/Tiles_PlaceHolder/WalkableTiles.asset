@@ -16,6 +16,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 47b23a4b399afdd4ebb72bc916c4e2fd, type: 2}
   - {fileID: 11400000, guid: 8f67285bd8bc0fc43b58df35a85f964b, type: 2}
   - {fileID: 11400000, guid: 796db01ffa840e041945ea59becf2b0d, type: 2}
+  - {fileID: 11400000, guid: a6568a67778d32a49b7d045a0d680b14, type: 2}
   IsSelectable: 1
   IsWalkable: 1
   IsPitTile: 0
+  OcclusionLayer: 0
