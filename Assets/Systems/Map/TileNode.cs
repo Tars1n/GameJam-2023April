@@ -142,9 +142,11 @@ namespace GameJam.Map
             {
                 Entities.Remove(entity);
                 Entities.TrimExcess();
+Debug.Log($"{this} successfully removed {entity}");
                 return true;
             }
             Entities.TrimExcess();
+Debug.Log($"{this} failed to removed {entity}");
             return false;
         }
 

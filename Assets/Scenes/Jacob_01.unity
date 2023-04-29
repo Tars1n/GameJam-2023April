@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 530087758}
     - target: {fileID: 1545969388938536290, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _triggerLocationTiles.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1545969388938536290, guid: e6d12db5f60616d428139efb4157cb79, type: 3}
       propertyPath: _triggerLocationTiles.Array.data[0].x

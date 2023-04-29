@@ -125,7 +125,7 @@ namespace GameJam.Map
                 timeElapsed += Time.deltaTime;
 
                 float journey = g*distance;
-                shortenSlideDistance = .38f;
+                shortenSlideDistance = .5f;
                 
                 if (journey >= j && collisionHappened == false)
                 {
@@ -149,6 +149,7 @@ namespace GameJam.Map
                 }
                 if (collisionHappened)
                 {
+                    entity.IsCurrentlyMoving = false;
                     GameMaster.Instance.TilemapInteractable = true;
                     GameMaster.Instance.RemoveEntityInMotion(entity);
                     yield break;

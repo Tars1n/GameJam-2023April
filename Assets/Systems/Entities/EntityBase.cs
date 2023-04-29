@@ -28,9 +28,6 @@ namespace GameJam.Entity
         [SerializeField] protected Color _turnOverState;
         [SerializeField] protected bool _hasActionReady;
         public bool HasActionReady => _hasActionReady;
-        // [SerializeField] private bool _additionalActions;
-        // public bool AdditionalActions {get => _additionalActions; set => _additionalActions = value;}
-        // public Action _nextAction;
         [SerializeField] protected bool _isCurrentlyProcessingTurnAction = false;
         public bool IsCurrentlyProcessingTurnAction => _isCurrentlyProcessingTurnAction;        
         [SerializeField] protected Color _gizmoColour;
@@ -39,9 +36,6 @@ namespace GameJam.Entity
         protected DialogueManager _dialogueManager;
         public Action OnEntitySetup;
         
-        
-        // public delegate void NextActionDelegate(TileNode tileNode);
-
         protected virtual void Start()
         {
             _turnManager = _ref.TurnManager;
@@ -80,16 +74,18 @@ namespace GameJam.Entity
         protected void LeaveTileNode()
         {
             if (_currentTileNode == null) 
-                {
-                    Debug.LogError($"{this} lacks a current tile to remove itself from.");
-                    return;
-                }
-            _currentTileNode.TryRemoveEntity(this);
+            {
+                Debug.LogWarning($"{this} lacks a current tile to remove itself from.");
+                return;
+            }
+            if (_currentTileNode.TryRemoveEntity(this))
+                { Debug.Log($"{_currentTileNode} successfully removed {this}"); }
             _currentTileNode = null;
         }
 
         public void ClearTileNode()
         {
+            if (_debugLog) {Debug.Log($"{this} cleared it's tile node reference.");}
             _currentTileNode = null;
         }
 
