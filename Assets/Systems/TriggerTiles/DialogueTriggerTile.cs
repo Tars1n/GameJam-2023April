@@ -10,6 +10,8 @@ namespace GameJam.Map.TriggerTiles
     {
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
+            if (entityBase is EntityCharacter == false) return;
+
             if (_triggeredDialogue == null || _triggeredDialogue.Count == 0) return;
 
             _ref.DialogueManager.DoDialogue(_triggeredDialogue);

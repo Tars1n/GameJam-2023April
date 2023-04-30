@@ -2155,7 +2155,7 @@ MonoBehaviour:
   _mapManager: {fileID: 1380906906308569593}
   _audioLibrary: {fileID: 11400000, guid: 7d6485446bf547449ba54d609e056ed3, type: 2}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
-  _recordSlimeTrails: 1
+  _recordSlimeTrails: 0
   _scoreSO: {fileID: 11400000, guid: 40af083b746654f5cbd202a98cd2a64d, type: 2}
 --- !u!114 &8448380739199705572
 MonoBehaviour:
@@ -2223,6 +2223,8 @@ MonoBehaviour:
     00000000:
       type: {class: DialoguePieceHopEntityClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
       data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
         _entity: {fileID: 5333332994944878270}
         _tileToHopTo: {x: -4, y: 0, z: 0}
         _durationOfHop: 0.5

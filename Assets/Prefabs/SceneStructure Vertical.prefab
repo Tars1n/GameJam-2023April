@@ -428,7 +428,7 @@ MonoBehaviour:
   _mapManager: {fileID: 1805371981997291026}
   _audioLibrary: {fileID: 11400000, guid: 7d6485446bf547449ba54d609e056ed3, type: 2}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
-  _recordSlimeTrails: 1
+  _recordSlimeTrails: 0
   _scoreSO: {fileID: 0}
 --- !u!114 &5680795748293629978
 MonoBehaviour:
@@ -447,7 +447,10 @@ MonoBehaviour:
   _colour: {r: 0.5989195, g: 1, b: 0, a: 1}
   _triggerLocationTiles:
   - {x: -4, y: 0, z: 0}
+  _triggeredDialogue: []
   _relicsGathered: 0
+  references:
+    version: 1
 --- !u!114 &5038486035045394039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +468,9 @@ MonoBehaviour:
   _colour: {r: 0, g: 0.43347955, b: 1, a: 1}
   _triggerLocationTiles:
   - {x: 5, y: 0, z: 0}
+  _triggeredDialogue: []
+  references:
+    version: 1
 --- !u!114 &3631122234873527844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +489,7 @@ MonoBehaviour:
   _dialogueInCanvas: {fileID: 6273795774876328873}
   _dialogueTMPText: {fileID: 7690480986716762877}
   _characterPortrait: {fileID: 6864148312281636935}
+  WaitOnClick: 0
   references:
     version: 1
 --- !u!114 &2790060705114194551
