@@ -20,7 +20,10 @@ namespace GameJam.Dialogue
 
         protected virtual void DoSpawnTrap()
         {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
+            if (_customAudioClip != null)
+                SoundManager.Instance.PlaySound(_customAudioClip);
+            else
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
             // DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
             TriggerTileManager ttm = _ref.EntityManager.SpawnTriggerObject(_trapPrefab, _coords);
             if (ttm is SingleTileTrap)

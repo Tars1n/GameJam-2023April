@@ -30,15 +30,16 @@ namespace GameJam.Map.TriggerTiles
                 Debug.LogWarning($"SetupTriggerTiles did not have a reference to TileNodeManager.");
                 return;
             }
-            foreach (Vector3Int tile in _triggerLocationTiles)
+            foreach (Vector3Int tileCoord in _triggerLocationTiles)
             {
-                TileNode tileNode = _ref.TileNodeManager.GetNodeFromCoords(tile);
+                TileNode tileNode = _ref.TileNodeManager.GetNodeFromCoords(tileCoord);
                 if (tileNode == null)
                 {
-                    Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
+                    Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tileCoord}");
                     continue;
                 }
                 Tile t = (Tile)_triggerTile;
+                if (t == null) return;
                 tileNode.SetUpTrigger(this, _triggerTile, t.color);
             }
         }

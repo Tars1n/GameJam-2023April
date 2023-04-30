@@ -34,6 +34,11 @@ namespace GameJam.Map.TriggerTiles
             _relicsGathered ++;
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.GatheredRelic);
             _levelManager.ScoreSO.AddRelics(1);
+            if (_triggeredDialogue != null && _dialogueUnread)
+            {
+                _dialogueUnread = false;
+                _ref.DialogueManager.DoDialogue(_triggeredDialogue);
+            }
         }
     }
 }
