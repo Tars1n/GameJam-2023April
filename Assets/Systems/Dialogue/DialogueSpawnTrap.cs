@@ -15,7 +15,7 @@ namespace GameJam.Dialogue
         public override void DoPiece(DialogueManager dialogueManager)
         {
             DoSpawnTrap();
-            _ref.DialogueManager.NextDialoguePiece();
+            FinishPiece();
             
         }
 

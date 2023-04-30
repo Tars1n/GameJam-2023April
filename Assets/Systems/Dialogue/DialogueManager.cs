@@ -88,7 +88,7 @@ namespace GameJam.Dialogue
             NextDialoguePiece();
         }
 
-        public void NextDialoguePiece()
+        private void NextDialoguePiece()
         {
             _dialogueIndex ++;
             // OnContinueDialogue -= NextDialoguePiece;
@@ -107,6 +107,17 @@ namespace GameJam.Dialogue
 
             _currentDialogue[_dialogueIndex].DoPiece(this);
             return;
+        }
+
+        public void AutoNext(float delay)
+        {
+            StartCoroutine("DoRunNext", delay);
+        }
+
+        IEnumerator DoRunNext(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            _ref.DialogueManager.NextDialoguePiece();
         }
 
         public void TryOpenDialogueBox()
