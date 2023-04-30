@@ -60,7 +60,8 @@ namespace GameJam.Map
             Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
-        private void Update() {
+        private void Update()
+        {
             if (_gm.TilemapInteractable == false)
                 return;
             if (GameMaster.GetSingleton().GameSuspended == true)
@@ -95,7 +96,10 @@ namespace GameJam.Map
         //this is simply to make the mouse refresh for a frame
         private void DirtyMousePosition()
         {
-            _previousTileMousedOver = new Vector3Int( 0, 0, -11);
+            _previousTileMousedOver = new Vector3Int( -99, 99, -11);
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            CheckHighlightedTile(gridCoordinate);
         }
 
         private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
@@ -251,6 +255,7 @@ namespace GameJam.Map
         {
             _overlayTilemap.ClearAllTiles();
             HighlightActiveEntityTile();
+            DirtyMousePosition();
         }
 
         private void HighlightActiveEntityTile()

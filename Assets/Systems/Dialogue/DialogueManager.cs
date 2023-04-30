@@ -53,7 +53,7 @@ namespace GameJam.Dialogue
             _currentDialogue = dialogue;
             BeginDialogue();
         }
-        public void DoEndDialogue()
+        public void DoLevelCompleteDialogue()
         {
             _currentDialogue = _endDialogue;
             BeginDialogue();
@@ -130,7 +130,7 @@ namespace GameJam.Dialogue
             _dialogueInCanvas.SetActive(false);
         }
         
-        private void FinishDialogue()
+        public void FinishDialogue()
         {
             GameMaster.Instance.GameSuspended = false;
             GameMaster.Instance.InCutscene = false;

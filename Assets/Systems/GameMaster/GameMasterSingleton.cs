@@ -26,6 +26,7 @@ namespace GameJam
         public bool MultipleUniquePlayerCharacters = false; //controls and turn system changes slightly if you need to select between completely unique squad members
         public bool IsPlayerTurn => _referenceManager.TurnManager.PlayerTurn;
         public bool TilemapInteractable = false;
+        public List<string> CutscenesWatched = new List<string>();
         [SerializeField] private List<EntityBase> _entitiesInMotion = new List<EntityBase>();
         public List<EntityBase> EntitiesInMotion => _entitiesInMotion;
         private GameObject _pauseIcon; //temp bug fix thingie
