@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Entity;
 using GameJam.Level;
+using GameJam.UI;
 
 namespace GameJam.Map.TriggerTiles
 {
@@ -10,12 +11,17 @@ namespace GameJam.Map.TriggerTiles
     {
         [SerializeField] private int _relicsGathered;
         public int RelicsGathered => _relicsGathered;
+        private ScoreDisplay _scoreDisplay;
 
         private LevelManager _levelManager;
 
         private void Awake()
         {
             _levelManager = GetComponent<LevelManager>();
+        }
+        private void Start()
+        {
+            _scoreDisplay = GameMaster.Instance.ReferenceManager.ScoreDisplay;
         }
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
@@ -34,6 +40,7 @@ namespace GameJam.Map.TriggerTiles
             _relicsGathered ++;
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.GatheredRelic);
             _levelManager.ScoreSO.AddRelics(1);
+            _scoreDisplay?.DisplayScore();
         }
     }
 }
