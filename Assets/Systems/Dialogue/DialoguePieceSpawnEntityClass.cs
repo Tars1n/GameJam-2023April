@@ -21,7 +21,7 @@ namespace GameJam.Dialogue
             _ref.DialogueManager.WaitOnClick = true;
         }
 
-        protected void DoSpawnEntity()
+        protected virtual void DoSpawnEntity()
         {
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
             // DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];

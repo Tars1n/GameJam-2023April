@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Entity
 {
@@ -56,27 +57,38 @@ namespace GameJam.Entity
             return eb;
         }
 
+        public TriggerTileManager SpawnTriggerObject(GameObject triggerObject, Vector3Int coords)
+        {
+            if (triggerObject == null) return null;
+            Vector3 spawnPos = _ref.MapManager.Map.CellToWorld(coords);
+            GameObject go = Instantiate(triggerObject, spawnPos, Quaternion.identity);
+            TriggerTileManager ttm = go.GetComponent<TriggerTileManager>();
+            ttm.SetupTriggerTiles();
+            return ttm;
+        }
+
         public void AddEntity(EntityBase entity)
         {
-            if (entity.GetType() == typeof(EntityCharacter))
+            if (entity is EntityCharacter)
                 _playerCharacters.Add((EntityCharacter)entity);
-            if (entity.GetType() == typeof(EntityMonster))
+            if (entity is EntityMonster)
                 _monsters.Add((EntityMonster)entity);
-            if (entity.GetType() == typeof(EntityTrap))
+            if (entity is EntityTrap)
                 _traps.Add((EntityTrap)entity);
-            if (entity.GetType() == typeof(EntityLever))
+            if (entity is EntityLever)
                 _levers.Add((EntityLever)entity);
         }
 
         public void RemoveEntityReference(EntityBase entity)
         {
-            if (entity.GetType() == typeof(EntityCharacter))
+            if (entity == null) return;
+            if (entity is EntityCharacter)
                 { _playerCharacters.Remove((EntityCharacter)entity); }
-            if (entity.GetType() == typeof(EntityMonster))
+            if (entity is EntityMonster)
                 { _monsters.Remove((EntityMonster)entity); }
-            if (entity.GetType() == typeof(EntityTrap))
+            if (entity is EntityTrap)
                 { _traps.Remove((EntityTrap)entity); }
-            if (entity.GetType() == typeof(EntityLever))
+            if (entity is EntityLever)
                 _levers.Remove((EntityLever)entity);
             if (_debugLogs)
                 Debug.Log($"{entity} removed from EntityManager.");

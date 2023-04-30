@@ -80,7 +80,7 @@ namespace GameJam.Dialogue
             // if (_currentDialogue == null) Debug.Log($"current dialogue = null");
             // if (_currentDialogue.Count == 0) Debug.Log($"current dialgue count = 0");
             // if ((_currentDialogue == null) || (_currentDialogue.Count == 0)) return;
-            _dialogueIndex = 0;
+            _dialogueIndex = -1;
             GameMaster.Instance.InCutscene = true;
             GameMaster.Instance.GameSuspended = true;
             GameMaster.Instance.TilemapInteractable = false;
@@ -90,6 +90,7 @@ namespace GameJam.Dialogue
 
         public void NextDialoguePiece()
         {
+            _dialogueIndex ++;
             // OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
@@ -100,13 +101,11 @@ namespace GameJam.Dialogue
             }
             if (_currentDialogue[_dialogueIndex] == null)
             {
-                _dialogueIndex ++;
                 NextDialoguePiece();
                 return;
             }
 
             _currentDialogue[_dialogueIndex].DoPiece(this);
-            _dialogueIndex ++;
             return;
         }
 
