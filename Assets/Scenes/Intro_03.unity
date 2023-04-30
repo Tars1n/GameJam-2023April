@@ -877,8 +877,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[2]._audioClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._skipClick
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[3]._trapPrefab
@@ -3932,20 +3940,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggeredDialogue.Array.data[1]._audioClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._skipClick
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggeredDialogue.Array.data[2]._audioClip
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggeredDialogue.Array.data[3]._audioClip
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggeredDialogue.Array.data[4]._audioClip
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]._skipClick
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggeredDialogue.Array.data[1]._mapManager

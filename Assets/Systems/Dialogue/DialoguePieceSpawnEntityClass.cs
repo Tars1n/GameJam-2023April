@@ -15,14 +15,14 @@ namespace GameJam.Dialogue
         protected EntityBase _entitySpawned;
         public EntityBase EntitySpawned => _entitySpawned;
         [SerializeField] protected Color _colour = Color.white;
-        [SerializeField] protected MapManager _mapManager;
+        protected MapManager _mapManager;
         protected MapManager Map => _mapManager ? _mapManager : _mapManager = GameObject.Find("Tilemap").GetComponent<MapManager>();
         
 
         public override void DoPiece(DialogueManager dialogueManager)
         {
             DoSpawnEntity();
-            _ref.DialogueManager.WaitOnClick = true;
+            FinishPiece();
         }
 
         protected virtual void DoSpawnEntity()
@@ -36,7 +36,6 @@ namespace GameJam.Dialogue
             _entitySpawned = _ref.EntityManager.SpawnEntity(_entityPrefab, _coords);
             if (EntitySpawned != null)
             Debug.Log($"Successfully spawned {_entitySpawned}");
-            _ref.DialogueManager.WaitOnClick = true;
         }
 
         protected virtual void OnDrawGizmos()

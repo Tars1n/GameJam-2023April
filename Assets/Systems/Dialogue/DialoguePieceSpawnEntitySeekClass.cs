@@ -16,7 +16,7 @@ namespace GameJam.Dialogue
         {
             DoSpawnEntity();
             SetSeeking();
-            _ref.DialogueManager.WaitOnClick = true;
+            FinishPiece();
         }
         private void SetSeeking()
         {

@@ -16,6 +16,7 @@ namespace GameJam.Dialogue
         {
             DoSpawnTrap();
             _ref.DialogueManager.NextDialoguePiece();
+            
         }
 
         protected virtual void DoSpawnTrap()
@@ -34,7 +35,6 @@ namespace GameJam.Dialogue
                 return;
             }
             Debug.Log($"Successfully spawned {_trapSpawned}");
-        }
-        
+        }        
     }
 }
