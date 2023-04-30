@@ -37,16 +37,23 @@ namespace GameJam.Entity
             _entityManager.SetupAllEntities();
         }
 
-        public void BeginPlay()
+        public void ResumePlay()
+        {
+            StartCoroutine("BeginPlay");
+        }
+
+        IEnumerator BeginPlay()
         {
             if (_round == 0)
             {
                 SetupNewRound();
+                yield return new WaitForSeconds(_delayBetweenActions);
                 GameMaster.Instance.TilemapInteractable = true;
-                return;
             }
-            GameMaster.Instance.TilemapInteractable = true;
+
             TickNext();
+            yield return new WaitForSeconds(_delayBetweenActions);
+            GameMaster.Instance.TilemapInteractable = true;
         }
 
         private void SetupNewRound()

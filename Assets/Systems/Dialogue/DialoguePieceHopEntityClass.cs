@@ -39,7 +39,7 @@ namespace GameJam.Dialogue
         public void ProgressCutscene()
         {
             _entity.OnEntityStoppedMoving -= ProgressCutscene;
-            _ref.DialogueManager.NextDialoguePiece();
+            FinishPiece();
         }
     }
 }

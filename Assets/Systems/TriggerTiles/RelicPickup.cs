@@ -19,8 +19,9 @@ namespace GameJam.Map.TriggerTiles
         {
             _levelManager = GetComponent<LevelManager>();
         }
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             _scoreDisplay = GameMaster.Instance.ReferenceManager.ScoreDisplay;
         }
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
@@ -40,6 +41,11 @@ namespace GameJam.Map.TriggerTiles
             _relicsGathered ++;
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.GatheredRelic);
             _levelManager.ScoreSO.AddRelics(1);
+            if (_triggeredDialogue != null && _dialogueUnread)
+            {
+                _dialogueUnread = false;
+                _ref.DialogueManager.DoDialogue(_triggeredDialogue);
+            }
             _scoreDisplay?.DisplayScore();
         }
     }

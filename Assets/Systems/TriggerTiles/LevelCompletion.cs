@@ -42,7 +42,7 @@ namespace GameJam.Map.TriggerTiles
         {
             if (_levelComplete)
             {
-                _dialogueManager.DoEndDialogue();
+                _dialogueManager.DoLevelCompleteDialogue();
                 // _levelManager.LevelComplete();
             }
         }

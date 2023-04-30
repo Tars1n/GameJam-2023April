@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameJam.Map.TriggerTiles;
 
 namespace GameJam.Entity
 {
@@ -56,27 +57,38 @@ namespace GameJam.Entity
             return eb;
         }
 
+        public TriggerTileManager SpawnTriggerObject(GameObject triggerObject, Vector3Int coords)
+        {
+            EntityBase eb = SpawnEntity(triggerObject, coords);
+            if (eb == null) return null;
+            
+            TriggerTileManager ttm = eb.GetComponent<TriggerTileManager>();
+            ttm.SetupTriggerTiles();
+            return ttm;
+        }
+
         public void AddEntity(EntityBase entity)
         {
-            if (entity.GetType() == typeof(EntityCharacter))
+            if (entity is EntityCharacter)
                 _playerCharacters.Add((EntityCharacter)entity);
-            if (entity.GetType() == typeof(EntityMonster))
+            if (entity is EntityMonster)
                 _monsters.Add((EntityMonster)entity);
-            if (entity.GetType() == typeof(EntityTrap))
+            if (entity is EntityTrap)
                 _traps.Add((EntityTrap)entity);
-            if (entity.GetType() == typeof(EntityLever))
+            if (entity is EntityLever)
                 _levers.Add((EntityLever)entity);
         }
 
         public void RemoveEntityReference(EntityBase entity)
         {
-            if (entity.GetType() == typeof(EntityCharacter))
+            if (entity == null) return;
+            if (entity is EntityCharacter)
                 { _playerCharacters.Remove((EntityCharacter)entity); }
-            if (entity.GetType() == typeof(EntityMonster))
+            if (entity is EntityMonster)
                 { _monsters.Remove((EntityMonster)entity); }
-            if (entity.GetType() == typeof(EntityTrap))
+            if (entity is EntityTrap)
                 { _traps.Remove((EntityTrap)entity); }
-            if (entity.GetType() == typeof(EntityLever))
+            if (entity is EntityLever)
                 _levers.Remove((EntityLever)entity);
             if (_debugLogs)
                 Debug.Log($"{entity} removed from EntityManager.");
@@ -84,6 +96,11 @@ namespace GameJam.Entity
 
         public void DestroyEntity(EntityBase entity)
         {
+            if (entity == null)
+            {
+                Debug.LogWarning($"Destroy Entity called on non-entity.");
+                return;
+            }
             RemoveEntityReference(entity);
             _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();

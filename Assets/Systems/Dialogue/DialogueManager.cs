@@ -53,7 +53,7 @@ namespace GameJam.Dialogue
             _currentDialogue = dialogue;
             BeginDialogue();
         }
-        public void DoEndDialogue()
+        public void DoLevelCompleteDialogue()
         {
             _currentDialogue = _endDialogue;
             BeginDialogue();
@@ -80,7 +80,7 @@ namespace GameJam.Dialogue
             // if (_currentDialogue == null) Debug.Log($"current dialogue = null");
             // if (_currentDialogue.Count == 0) Debug.Log($"current dialgue count = 0");
             // if ((_currentDialogue == null) || (_currentDialogue.Count == 0)) return;
-            _dialogueIndex = 0;
+            _dialogueIndex = -1;
             GameMaster.Instance.InCutscene = true;
             GameMaster.Instance.GameSuspended = true;
             GameMaster.Instance.TilemapInteractable = false;
@@ -88,26 +88,36 @@ namespace GameJam.Dialogue
             NextDialoguePiece();
         }
 
-        public void NextDialoguePiece()
+        private void NextDialoguePiece()
         {
+            _dialogueIndex ++;
             // OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
+                FinishDialogue();
                 DialogueDoneCheckIfLevelEnd();
                 DialogueDoneCheckIfLevelLost();
-                FinishDialogue();
                 return;
             }
             if (_currentDialogue[_dialogueIndex] == null)
             {
-                _dialogueIndex ++;
                 NextDialoguePiece();
                 return;
             }
 
             _currentDialogue[_dialogueIndex].DoPiece(this);
-            _dialogueIndex ++;
             return;
+        }
+
+        public void AutoNext(float delay)
+        {
+            StartCoroutine("DoRunNext", delay);
+        }
+
+        IEnumerator DoRunNext(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            _ref.DialogueManager.NextDialoguePiece();
         }
 
         public void TryOpenDialogueBox()
@@ -120,12 +130,12 @@ namespace GameJam.Dialogue
             _dialogueInCanvas.SetActive(false);
         }
         
-        private void FinishDialogue()
+        public void FinishDialogue()
         {
+            TryCloseDialogueBox();
             GameMaster.Instance.GameSuspended = false;
             GameMaster.Instance.InCutscene = false;
-            TryCloseDialogueBox();
-            _ref.TurnManager.BeginPlay();
+            _ref.TurnManager.ResumePlay();
 
             OnDialogueComplete?.Invoke();
         }

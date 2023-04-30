@@ -100,9 +100,8 @@ MonoBehaviour:
   _debugLog: 1
   _isShovable: 1
   _blocksMovement: 1
-  IsCurrentlyMoving: 0
   _currentTileNode:
-    TileType: {fileID: 0}
+    _tileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
     _isPitTile: 0
@@ -129,12 +128,20 @@ MonoBehaviour:
     00000000:
       type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
       data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
         _dialogueText: I'll get to the bottom of thi-WHAAAAA!!!!
         _characterTalking: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
     00000001:
       type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
       data:
-        _dialogueText: '*tick*'
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _dialogueText: <You are entirely obliterated by otherworldly magics. You
+          could likely impress a lot of people with this fact, if only you still
+          existed...>
         _characterTalking: {fileID: 21300000, guid: a54cfd7db3cefc04baec6708a3ccd261, type: 3}
 --- !u!114 &694517987159947115
 MonoBehaviour:

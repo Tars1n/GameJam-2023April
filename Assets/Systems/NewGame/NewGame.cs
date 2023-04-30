@@ -18,5 +18,10 @@ namespace GameJam.StartScreen
             Debug.Log($"button clicked");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+
+        public void MainMenu()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }

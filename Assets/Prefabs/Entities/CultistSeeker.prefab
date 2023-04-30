@@ -100,9 +100,8 @@ MonoBehaviour:
   _debugLog: 1
   _isShovable: 1
   _blocksMovement: 1
-  IsCurrentlyMoving: 0
   _currentTileNode:
-    TileType: {fileID: 0}
+    _tileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
     _isPitTile: 0
@@ -120,11 +119,82 @@ MonoBehaviour:
   _hasActionReady: 0
   _isCurrentlyProcessingTurnAction: 0
   _gizmoColour: {r: 1, g: 1, b: 1, a: 0.5254902}
-  _fallInPitDialogue: []
-  _triggersTrap: []
+  _fallInPitDialogue:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  _triggersTrap:
+  - id: 4
+  - id: 5
+  - id: 6
+  - id: 7
   _monsterBlueprint: {fileID: 0}
   references:
     version: 1
+    00000000:
+      type: {class: DontRepeatScene, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 1
+        _waitForSeconds: 0
+        _nameOfDialogue: CultistSeekerShovedIntoPit
+    00000001:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _dialogueText: I knew I should have patched this hole last we~eek!
+        _characterTalking: {fileID: 21300000, guid: 34d2655aa0da54f40a39cc112d02e5dc, type: 3}
+    00000002:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _dialogueText: <It sounds as if the the red robed figure falls for far too
+          long before <i>something</i> deep below hungrily catches them.>
+        _characterTalking: {fileID: 21300000, guid: d5314d6299770da49b55034034c9dee2, type: 3}
+    00000003:
+      type: {class: DialogueHideTextBox, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 8300000, guid: eb2617005f57a1d4d87baea852dc9d6b, type: 3}
+        _skipClick: 1
+        _waitForSeconds: 0
+    00000004:
+      type: {class: DontRepeatScene, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 1
+        _waitForSeconds: 0
+        _nameOfDialogue: RedRobeStepsOntoTile
+    00000005:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _dialogueText: Hold still so I can shank yo--
+        _characterTalking: {fileID: 21300000, guid: 34d2655aa0da54f40a39cc112d02e5dc, type: 3}
+    00000006:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 8300000, guid: cbbc92b20f30e3441b7062db322b3dee, type: 3}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _dialogueText: <As the red robed figure moves across the red glowing sigil
+          on the floor it seems to brighten to a blinding intensity>
+        _characterTalking: {fileID: 21300000, guid: a54cfd7db3cefc04baec6708a3ccd261, type: 3}
+    00000007:
+      type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 8300000, guid: 55cfe6e5743eb064985d976361fbde48, type: 3}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _dialogueText: <In the next moment, they are completely gone. No evidence
+          of them remains except an echo of their threat followed by a haunting silence.>
+        _characterTalking: {fileID: 21300000, guid: 626a073ab91b7ff43b10d80bd13c3adf, type: 3}
 --- !u!114 &7065358791319656233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetEntity: {fileID: 0}
   _targetNode:
-    TileType: {fileID: 0}
+    _tileType: {fileID: 0}
     _isSelectable: 0
     _isWalkable: 0
     _isPitTile: 0
@@ -172,10 +242,16 @@ MonoBehaviour:
     00000000:
       type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
       data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
         _dialogueText: Stabby!
         _characterTalking: {fileID: 21300000, guid: 34d2655aa0da54f40a39cc112d02e5dc, type: 3}
     00000001:
       type: {class: DialoguePieceTextClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
       data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
         _dialogueText: Graaaahhhh!!!!
         _characterTalking: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}

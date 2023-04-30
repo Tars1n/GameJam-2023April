@@ -2019,7 +2019,7 @@ MonoBehaviour:
   _mouseHoverTileBase: {fileID: 11400000, guid: 14467a0048f3e09428da766a836fe016, type: 2}
   _walkPathTileBase: {fileID: 11400000, guid: e77a2c9cbe5d71e4da9eafecf93e2176, type: 2}
   _canMoveTileBase: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
-  _selectionTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
+  _selectionTileBase: {fileID: 11400000, guid: 6620d0824f1bf2e41a03fb55de4ce9af, type: 2}
   _monsterTelegraphTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _activeEntityTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
   _renderPathToTarget: 1
@@ -2156,7 +2156,7 @@ MonoBehaviour:
   _mapManager: {fileID: 1380906906308569593}
   _audioLibrary: {fileID: 11400000, guid: 7d6485446bf547449ba54d609e056ed3, type: 2}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
-  _recordSlimeTrails: 1
+  _recordSlimeTrails: 0
   _scoreSO: {fileID: 11400000, guid: 40af083b746654f5cbd202a98cd2a64d, type: 2}
 --- !u!114 &8448380739199705572
 MonoBehaviour:
@@ -2195,7 +2195,7 @@ MonoBehaviour:
   _triggerTile: {fileID: 11400000, guid: 9d91083f604d0fa439785afdcd0637d1, type: 2}
   _colour: {r: 0, g: 0.50668955, b: 1, a: 1}
   _triggerLocationTiles:
-  - {x: 5, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
   _triggeredDialogue: []
   references:
     version: 1
@@ -2222,7 +2222,15 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: DialogueBeginLevel, ns: GameJam, asm: Assembly-CSharp}
+      type: {class: DialoguePieceHopEntityClass, ns: GameJam.Dialogue, asm: Assembly-CSharp}
+      data:
+        _customAudioClip: {fileID: 0}
+        _skipClick: 0
+        _waitForSeconds: 0
+        _entity: {fileID: 5333332994944878270}
+        _tileToHopTo: {x: -4, y: 0, z: 0}
+        _durationOfHop: 0.5
+        _slamAtEnd: 0
 --- !u!114 &4210269558193554612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2374,7 +2382,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380906906795977957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1380906906308569595}
@@ -3010,6 +3018,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8407479944982123146, guid: 4d19f52ba8c6ec447b513fcbd370abbb, type: 3}
   m_PrefabInstance: {fileID: 4516706274400670771}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5333332994944878270 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8407479944982123149, guid: 4d19f52ba8c6ec447b513fcbd370abbb, type: 3}
+  m_PrefabInstance: {fileID: 4516706274400670771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b5a30b7f3328f41a1f9b724b0453f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7872181476147746956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3111,6 +3130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+--- !u!224 &8425172638946850659 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1861009983919239151, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+  m_PrefabInstance: {fileID: 7872181476147746956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1011760874754863734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7148871220792175354, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
@@ -3149,8 +3173,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &8425172638946850659 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1861009983919239151, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
-  m_PrefabInstance: {fileID: 7872181476147746956}
-  m_PrefabAsset: {fileID: 0}
