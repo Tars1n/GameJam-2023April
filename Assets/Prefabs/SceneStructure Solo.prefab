@@ -2226,6 +2226,7 @@ MonoBehaviour:
       data:
         _customAudioClip: {fileID: 0}
         _skipClick: 0
+        _waitForSeconds: 0
         _entity: {fileID: 5333332994944878270}
         _tileToHopTo: {x: -4, y: 0, z: 0}
         _durationOfHop: 0.5
@@ -2381,7 +2382,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380906906795977957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1380906906308569595}
@@ -3129,6 +3130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+--- !u!224 &8425172638946850659 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1861009983919239151, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+  m_PrefabInstance: {fileID: 7872181476147746956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1011760874754863734 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7148871220792175354, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
@@ -3167,8 +3173,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &8425172638946850659 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1861009983919239151, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
-  m_PrefabInstance: {fileID: 7872181476147746956}
-  m_PrefabAsset: {fileID: 0}

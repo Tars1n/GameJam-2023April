@@ -45,7 +45,7 @@ namespace GameJam.Level
         }
         private void IfFirstSceneResetScore()
         {
-            if (SceneManager.GetActiveScene().buildIndex == 0)
+            if (SceneManager.GetActiveScene().buildIndex == 1)
             {
                 GameMaster.Instance.CutscenesWatched.Clear();
                 Debug.Log("Loading first scene, resetting game score.");
