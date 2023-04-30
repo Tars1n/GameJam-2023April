@@ -7,6 +7,12 @@ namespace GameJam.StartScreen
 {
     public class NewGame : MonoBehaviour
     {
+        [SerializeField] private ScoreSO _scoreSO;
+
+        private void Start()
+        {
+            _scoreSO?.GameStartResetScore();
+        }
         public void NewGamFunc()
         {
             Debug.Log($"button clicked");
