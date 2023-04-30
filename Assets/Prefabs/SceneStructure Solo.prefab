@@ -2019,7 +2019,7 @@ MonoBehaviour:
   _mouseHoverTileBase: {fileID: 11400000, guid: 14467a0048f3e09428da766a836fe016, type: 2}
   _walkPathTileBase: {fileID: 11400000, guid: e77a2c9cbe5d71e4da9eafecf93e2176, type: 2}
   _canMoveTileBase: {fileID: 11400000, guid: edc327cd69d3f8249bdf72f371e81d71, type: 2}
-  _selectionTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
+  _selectionTileBase: {fileID: 11400000, guid: 6620d0824f1bf2e41a03fb55de4ce9af, type: 2}
   _monsterTelegraphTileBase: {fileID: 11400000, guid: d98d2fb16a802474b88ee4b8d7948a7e, type: 2}
   _activeEntityTileBase: {fileID: 11400000, guid: e71f44c037cc4c34a8216e0a9a6c2676, type: 2}
   _renderPathToTarget: 1

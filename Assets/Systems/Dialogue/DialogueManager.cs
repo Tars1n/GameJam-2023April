@@ -94,9 +94,9 @@ namespace GameJam.Dialogue
             // OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
+                FinishDialogue();
                 DialogueDoneCheckIfLevelEnd();
                 DialogueDoneCheckIfLevelLost();
-                FinishDialogue();
                 return;
             }
             if (_currentDialogue[_dialogueIndex] == null)
@@ -135,8 +135,7 @@ namespace GameJam.Dialogue
             TryCloseDialogueBox();
             GameMaster.Instance.GameSuspended = false;
             GameMaster.Instance.InCutscene = false;
-            TryCloseDialogueBox();
-            _ref.TurnManager.BeginPlay();
+            _ref.TurnManager.ResumePlay();
 
             OnDialogueComplete?.Invoke();
         }
