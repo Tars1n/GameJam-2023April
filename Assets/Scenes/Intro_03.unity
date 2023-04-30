@@ -301,6 +301,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6053360757760048529, guid: 70222d82d0e14cc43b4ee16667d92462, type: 3}
+      propertyPath: _mapManager
+      value: 
+      objectReference: {fileID: 1342567234}
+    - target: {fileID: 6053360757760048529, guid: 70222d82d0e14cc43b4ee16667d92462, type: 3}
+      propertyPath: _triggerLocationTiles.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6053360757760048529, guid: 70222d82d0e14cc43b4ee16667d92462, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6053360757760048529, guid: 70222d82d0e14cc43b4ee16667d92462, type: 3}
+      propertyPath: _triggerLocationTiles.Array.data[0].y
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 7461289205275857557, guid: 70222d82d0e14cc43b4ee16667d92462, type: 3}
       propertyPath: m_Name
       value: EZ Trap
@@ -698,6 +714,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90844a07a4d67494baab19e0c5cebaf9, type: 3}
+--- !u!114 &1342567234 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1380906906308569593, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+  m_PrefabInstance: {fileID: 1995751503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a1bb7d319d8e664897bce3cb6698aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1365979344
 PrefabInstance:
   m_ObjectHideFlags: 0

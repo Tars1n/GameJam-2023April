@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7461289205275857559}
   - component: {fileID: 3500984144548721668}
   - component: {fileID: 6053360757760048529}
+  - component: {fileID: -5028801563745897207}
   m_Layer: 0
   m_Name: EZ Trap
   m_TagString: Untagged
@@ -100,5 +101,44 @@ MonoBehaviour:
   _colour: {r: 1, g: 1, b: 1, a: 1}
   _triggerLocationTiles: []
   _triggeredDialogue: []
+  references:
+    version: 1
+--- !u!114 &-5028801563745897207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461289205275857557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57140d8f23cdd7f4d8621814b71fc7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _debugLog: 1
+  _isShovable: 0
+  _blocksMovement: 0
+  _currentTileNode:
+    _tileType: {fileID: 0}
+    _isSelectable: 0
+    _isWalkable: 0
+    _isPitTile: 0
+    _occlusionLayer: 0
+    GridCoordinate: {x: 0, y: 0, z: 0}
+    WorldPos: {x: 0, y: 0, z: 0}
+    WalkingPathDirection: {x: 0, y: 0, z: 0}
+    FlyingPathDirection: {x: 0, y: 0, z: 0}
+    WalkingPathExplored: 0
+    FlyingPathExplored: 0
+    _triggerTileManager: {fileID: 0}
+    Entities: []
+  _readyState: {r: 1, g: 1, b: 1, a: 1}
+  _turnOverState: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
+  _hasActionReady: 0
+  _isCurrentlyProcessingTurnAction: 0
+  _gizmoColour: {r: 1, g: 0.029988142, b: 0, a: 1}
+  _fallInPitDialogue: []
+  _triggersTrap: []
+  _trapBlueprint: {fileID: 0}
   references:
     version: 1

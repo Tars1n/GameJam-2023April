@@ -59,10 +59,10 @@ namespace GameJam.Entity
 
         public TriggerTileManager SpawnTriggerObject(GameObject triggerObject, Vector3Int coords)
         {
-            if (triggerObject == null) return null;
-            Vector3 spawnPos = _ref.MapManager.Map.CellToWorld(coords);
-            GameObject go = Instantiate(triggerObject, spawnPos, Quaternion.identity);
-            TriggerTileManager ttm = go.GetComponent<TriggerTileManager>();
+            EntityBase eb = SpawnEntity(triggerObject, coords);
+            if (eb == null) return null;
+            
+            TriggerTileManager ttm = eb.GetComponent<TriggerTileManager>();
             ttm.SetupTriggerTiles();
             return ttm;
         }
@@ -96,6 +96,11 @@ namespace GameJam.Entity
 
         public void DestroyEntity(EntityBase entity)
         {
+            if (entity == null)
+            {
+                Debug.LogWarning($"Destroy Entity called on non-entity.");
+                return;
+            }
             RemoveEntityReference(entity);
             _entitiesToDestroy.Enqueue(entity);
             entity.DoDestroy();

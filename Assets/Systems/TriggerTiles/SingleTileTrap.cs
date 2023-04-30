@@ -41,14 +41,13 @@ namespace GameJam.Map.TriggerTiles
 
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)
         {
-            if (entityBase != null)
-            {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.TrapActivated);
-                entityBase.TriggerTrap();
-                ClearTriggerTiles();
-                // _ref.EntityManager.DestroyEntity(entityBase); //remove entity that entered trigger tile
-                _ref.EntityManager.DestroyEntity(this?.GetComponent<EntityBase>()); //remove trap
-            }
+            if (entityBase == null || entityBase == this) return;
+            
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.TrapActivated);
+            entityBase.TriggerTrap();
+            ClearTriggerTiles();
+            // _ref.EntityManager.DestroyEntity(entityBase); //remove entity that entered trigger tile
+            _ref.EntityManager.DestroyEntity(this?.GetComponent<EntityBase>()); //remove trap
         }
 
         public override void ClearTriggerTiles()
