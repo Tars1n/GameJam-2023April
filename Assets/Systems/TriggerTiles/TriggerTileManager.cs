@@ -58,7 +58,7 @@ namespace GameJam.Map.TriggerTiles
         {
             // ClearTriggerTiles();    
         }
-        public void ClearTriggerTiles()
+        public virtual void ClearTriggerTiles()
         {
             if (_triggerLocationTiles == null || _ref.TileNodeManager == null) return;
             foreach (Vector3Int tile in _triggerLocationTiles)
