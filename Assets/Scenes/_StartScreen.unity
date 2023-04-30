@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9ad51c108704a9d9cbb5ade5729477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreSO: {fileID: 11400000, guid: 40af083b746654f5cbd202a98cd2a64d, type: 2}
 --- !u!224 &1312660690
 RectTransform:
   m_ObjectHideFlags: 0

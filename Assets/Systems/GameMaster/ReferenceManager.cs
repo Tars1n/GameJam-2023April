@@ -6,6 +6,7 @@ using GameJam.Map;
 using GameJam.Pathfinding;
 using GameJam.Level;
 using GameJam.Dialogue;
+using GameJam.UI;
 
 namespace GameJam
 {
@@ -27,6 +28,8 @@ namespace GameJam
         public EntityManager EntityManager => _entityManager;
         [SerializeField] private DialogueManager _dialogueManager;
         public DialogueManager DialogueManager => _dialogueManager;
+        [SerializeField] private ScoreDisplay _scoreDisplay;
+        public ScoreDisplay ScoreDisplay => _scoreDisplay;
         // [SerializeField] private MoveEntityAlongPath _plotPath;
         // public MoveEntityAlongPath PlotPath => _plotPath;
         
@@ -51,6 +54,7 @@ namespace GameJam
             _turnManager = _levelManager?.GetComponent<TurnManager>();
             _entityManager = _turnManager?.GetComponent<EntityManager>();
             _dialogueManager = _levelManager?.GetComponent<DialogueManager>(); //this value is stored in the inspector in levelmanager
+            _scoreDisplay = _levelManager?.GetComponent<ScoreDisplay>();
         }
 
         private void ValidateReferences()
