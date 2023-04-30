@@ -23,6 +23,7 @@ namespace GameJam.Map.TriggerTiles
         {
             _mapManager = _ref.MapManager;
         }
+        
         public virtual void SetupTriggerTiles()
         {
             if (_ref.TileNodeManager == null)

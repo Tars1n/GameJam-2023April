@@ -12,6 +12,7 @@ namespace GameJam.Dialogue
             if (GameMaster.Instance.CutscenesWatched.Contains(_nameOfDialogue))
             {
                 _ref.DialogueManager.FinishDialogue();
+                return;
             }
             GameMaster.Instance.CutscenesWatched.Add(_nameOfDialogue);
             _ref.DialogueManager.AutoNext(0);

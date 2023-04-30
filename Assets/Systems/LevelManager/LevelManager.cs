@@ -47,6 +47,7 @@ namespace GameJam.Level
         {
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
+                GameMaster.Instance.CutscenesWatched.Clear();
                 Debug.Log("Loading first scene, resetting game score.");
                 _scoreSO.GameStartResetScore();
             }

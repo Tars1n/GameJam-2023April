@@ -599,7 +599,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.size
-      value: 2
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]
@@ -610,11 +610,75 @@ PrefabInstance:
       value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]
+      value: Assembly-CSharp GameJam.Dialogue.DontRepeatScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[3]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[4]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[5]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[7]
+      value: Assembly-CSharp GameJam.Dialogue.DialogueHideTextBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[8]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]._entity
       value: 
       objectReference: {fileID: 1056507036}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[0]._skipClick
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]._slamAtEnd
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._skipClick
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[3]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[4]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[5]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[7]._skipClick
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[8]._skipClick
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
@@ -624,6 +688,35 @@ PrefabInstance:
 
         I''ll have
         to watch my step.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._dialogueText
+      value: Good thing I have an eight foot standing leap.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[3]._dialogueText
+      value: Good thing I have an eight foot standing leap.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[4]._dialogueText
+      value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[5]._dialogueText
+      value: Really makes me wonder why I didn't get into basketball instead of chasing
+        down cryptic occult mysteries.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._dialogueText
+      value: ... Probably because I talk to myself too much.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[7]._dialogueText
+      value: <The surrounding silence seems like answer enough.>
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[8]._dialogueText
+      value: <The surrounding silence seems like answer enough.>
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[0]._durationOfHop
@@ -642,9 +735,109 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._nameOfDialogue
+      value: EightFootLeap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[3]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[4]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[5]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._nameOfDialogue
+      value: EightFootLeap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[7]._waitForSeconds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[8]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[1]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[3]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[4]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[5]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[7]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[8]._customAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: d292bc3ef3dc89b41acfbfba5725c7ba, type: 3}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _startDialogue.Array.data[1]._characterTalking
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[2]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[3]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[4]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[5]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[6]._characterTalking
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[7]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: 626a073ab91b7ff43b10d80bd13c3adf, type: 3}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _startDialogue.Array.data[8]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: 626a073ab91b7ff43b10d80bd13c3adf, type: 3}
     - target: {fileID: 1380906905020436486, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 134
@@ -2886,8 +3079,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggerLocationTiles.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]
+      value: Assembly-CSharp GameJam.Dialogue.DialoguePieceTextClass
       objectReference: {fileID: 0}
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggerLocationTiles.Array.data[0].x
@@ -2904,6 +3121,110 @@ PrefabInstance:
     - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _triggerLocationTiles.Array.data[1].y
       value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]._skipClick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]._dialogueText
+      value: This may seem like your typical, harmless, solid gold vase
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._dialogueText
+      value: that just so happens to be glowing...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]._dialogueText
+      value: with some kind of otherworldly magic.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]._dialogueText
+      value: 'But if I''m right about this.
+
+
+        These are manifestations that
+        do not belong to this world.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]._dialogueText
+      value: Strange relics from somewhere beyond.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]._waitForSeconds
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._customAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 396a4aad12e25b448a90de9c00cf9061, type: 3}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]._customAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[0]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[1]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: 921b81c3d23998540b69610052e26e73, type: 3}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[2]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: 1f402a2b79d12544e9afea8b2538c065, type: 3}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[3]._characterTalking
+      value: 
+      objectReference: {fileID: 21300000, guid: aaf13849d9e73754fb9a4b4531f7c272, type: 3}
+    - target: {fileID: 8448380739199705572, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: _triggeredDialogue.Array.data[4]._characterTalking
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}

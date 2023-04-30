@@ -19,8 +19,9 @@ namespace GameJam.Map.TriggerTiles
         {
             _levelManager = GetComponent<LevelManager>();
         }
-        protected void Start()
+        protected override void Start()
         {
+            base.Start();
             _scoreDisplay = GameMaster.Instance.ReferenceManager.ScoreDisplay;
         }
         public override void EntityEnteredTrigger(EntityBase entityBase, TileNode tileNode)

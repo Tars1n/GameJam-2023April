@@ -132,6 +132,7 @@ namespace GameJam.Dialogue
         
         public void FinishDialogue()
         {
+            TryCloseDialogueBox();
             GameMaster.Instance.GameSuspended = false;
             GameMaster.Instance.InCutscene = false;
             TryCloseDialogueBox();
