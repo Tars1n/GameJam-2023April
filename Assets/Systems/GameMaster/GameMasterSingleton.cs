@@ -52,9 +52,9 @@ namespace GameJam
 
         public void EndScene()
         {
-            Initialize();
             ReferenceManager.LevelManager.transform.root.BroadcastMessage("StopAllCoroutines");
             ReferenceManager.StopAllCoroutinesEverywhere();
+            Initialize();
             ReferenceManager.TileNodeManager.DeleteAllTileNodes();
             // Destroy(_referenceManager);
             // _referenceManager = null;

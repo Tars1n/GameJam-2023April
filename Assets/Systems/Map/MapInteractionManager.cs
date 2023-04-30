@@ -196,6 +196,11 @@ namespace GameJam.Map
         public void OnTileSelected(Vector3Int gridCoordinate)
         {
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
+            if (tileNode == null)
+            {
+                Debug.LogWarning("Attempted to select a non-existent tile.");
+                return;
+            } 
             ValidateTileSelection(gridCoordinate, tileNode);
 
             if (tileNode.IsSelectable == false) 
