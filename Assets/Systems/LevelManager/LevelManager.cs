@@ -12,7 +12,7 @@ namespace GameJam.Level
     [RequireComponent(typeof(TurnManager), typeof(SceneHandler))]
     public class LevelManager : MonoBehaviour
     {
-        [SerializeField] private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
+        private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] private MapManager _mapManager;
         public MapManager MapManager => _mapManager;
         private TurnManager _turnManager;
