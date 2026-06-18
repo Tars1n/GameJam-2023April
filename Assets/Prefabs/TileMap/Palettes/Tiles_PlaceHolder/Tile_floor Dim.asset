@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tile_floor Dim
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 994915453846524514, guid: 9d2ca56e9df1de24c99d6bb99e17767f, type: 3}
-  m_Color: {r: 0.38236567, g: 0.34669814, b: 0.46226418, a: 1}
+  m_Color: {r: 0.65882355, g: 0.64705884, b: 0.7176471, a: 1}
   m_Transform:
     e00: 1
     e01: 0

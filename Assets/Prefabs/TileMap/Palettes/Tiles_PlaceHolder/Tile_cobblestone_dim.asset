@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tile_cobblestone_dim
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 1980324616919270496, guid: 0dabc51dbe375bc4089899cb770180ba, type: 3}
-  m_Color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
+  m_Color: {r: 0.6565422, g: 0.64595944, b: 0.7169812, a: 1}
   m_Transform:
     e00: 1
     e01: 0
