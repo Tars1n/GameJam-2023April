@@ -45,7 +45,7 @@ namespace GameJam.Map
 
         public void SetupTriggerTiles()
         {
-            TriggerTileManager[] foundTriggerTiles = FindObjectsOfType<TriggerTileManager>();
+            TriggerTileManager[] foundTriggerTiles = FindObjectsByType<TriggerTileManager>();
             if (_debugLogs) { Debug.Log($"Setting up {foundTriggerTiles.Length} TriggerTileManagers."); }
             foreach (TriggerTileManager triggerTiles in foundTriggerTiles)
             {
