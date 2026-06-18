@@ -16,6 +16,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0e9e36c07a8d5a4c903efa59f8fbddd, type: 2}
   - {fileID: 11400000, guid: 3d2ec167154bee74780ace5b5218a779, type: 2}
   - {fileID: 11400000, guid: dcd9e598597c15b4d9351f0928e95012, type: 2}
+  - {fileID: 11400000, guid: 6806c56229939f44680e293abbd39be1, type: 2}
+  - {fileID: 11400000, guid: 12582850d6ed83843ba48c48637ca546, type: 2}
+  - {fileID: 11400000, guid: af30fef753c428a40868ec021b998a47, type: 2}
+  - {fileID: 11400000, guid: 23a654ecf3a4f4946a03c854deba0555, type: 2}
+  - {fileID: 11400000, guid: 6b2a424bbbecd6b4d844e1be65f65d5e, type: 2}
+  - {fileID: 11400000, guid: 9441a70c1374ff749b95973505c1e8ad, type: 2}
+  - {fileID: 11400000, guid: cd10f048ad6058c48a2d488cfa87369b, type: 2}
+  - {fileID: 11400000, guid: 2b5d134c971e78d478ea782450d6add9, type: 2}
+  - {fileID: 11400000, guid: c63e20b81e3aad74e814f14636e39aff, type: 2}
   IsSelectable: 0
   IsWalkable: 0
   IsPitTile: 0
