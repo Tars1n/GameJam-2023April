@@ -36,7 +36,7 @@ namespace GameJam
         
         private void Awake()
         {
-            _levelManager = FindObjectOfType<LevelManager>();
+            _levelManager = FindAnyObjectByType<LevelManager>();
             if (_levelManager == null)
             {   
                 Debug.LogError("ReferenceManager failed to Find LevelManager.");
