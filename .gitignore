@@ -26,6 +26,13 @@
 # Visual Studio cache directory
 .vs/
 
+# mac folder stuff
+.DS_Store
+
+# Visual studio code XML organization
+*.sln
+*.slnx
+
 # Gradle cache directory
 .gradle/
 
