@@ -937,6 +937,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
+      propertyPath: inputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 78302ce10820a416cab304e0d1fe7598, type: 3}
+    - target: {fileID: 1268991185572159789, guid: 5d32e485e1d55874fb4ee6e52e6dfe28, type: 3}
       propertyPath: _endDialogue.Array.size
       value: 3
       objectReference: {fileID: 0}
