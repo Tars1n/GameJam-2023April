@@ -15,8 +15,10 @@ namespace GameJam.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
-
+        //Action Map Assets:
         public InputActionAsset inputActionAsset;
+        private InputAction m_continueDialogue;
+
         private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
         [SerializeReference] private List<DialoguePieceClass> _endDialogue;
@@ -36,6 +38,18 @@ namespace GameJam.Dialogue
         private bool _levelLost;
         public bool WaitOnClick = false;
 
+        private void OnEnable()
+        {
+            InputActions.FindActionMap("Dialogue").Enable();
+        }
+        private void OnDisable()
+        {
+            InputActions.FindActionMap("Dialogue").Disable();
+        }
+        private void Awake()
+        {
+            m_continueDialogue = InputSystem.actions.FindAction("Continue");
+        }
         private void Start()
         {
             {
