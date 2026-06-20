@@ -40,11 +40,11 @@ namespace GameJam.Dialogue
 
         private void OnEnable()
         {
-            InputActions.FindActionMap("Dialogue").Enable();
+            inputActionAsset.FindActionMap("Dialogue").Enable();
         }
         private void OnDisable()
         {
-            InputActions.FindActionMap("Dialogue").Disable();
+            inputActionAsset.FindActionMap("Dialogue").Disable();
         }
         private void Awake()
         {
@@ -85,7 +85,7 @@ namespace GameJam.Dialogue
         private void Update()
         {
             if (GameMaster.Instance.InCutscene == false) return;
-            if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame) && WaitOnClick)
+            if ((_gameMasterSingleton.GameSuspended) && WaitOnClick)
             {
                 WaitOnClick = false;
                 Debug.Log($"continue");
@@ -194,9 +194,5 @@ namespace GameJam.Dialogue
             }
         }
 
-        private void OnDisable()
-        {
-            // OnContinueDialogue -= NextDialoguePiece;
-        }
     }
 }
