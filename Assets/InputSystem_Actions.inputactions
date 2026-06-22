@@ -959,22 +959,22 @@
                 },
                 {
                     "name": "",
-                    "id": "f55ce238-59eb-4edf-9ae2-5ef203b3dcf2",
-                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "id": "320f5e1c-8b68-401d-ad22-fc8027dd883a",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Touch",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4ced86c7-db7e-484b-ba45-5b8f6471cf52",
-                    "path": "<Mouse>/leftButton",
+                    "id": "f55ce238-59eb-4edf-9ae2-5ef203b3dcf2",
+                    "path": "<Touchscreen>/primaryTouch/tap",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Touch",
                     "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
