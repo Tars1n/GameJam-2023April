@@ -9,7 +9,7 @@ using UnityEngine.UI;
 using GameJam.Map;
 using GameJam.Entity.Brain;
 using GameJam.Level;
-using UnityEngine.InputSystem;
+using System.Diagnostics;
 
 namespace GameJam.Dialogue
 {
@@ -85,10 +85,10 @@ namespace GameJam.Dialogue
         private void Update()
         {
             if (GameMaster.Instance.InCutscene == false) return;
-            if ((_gameMasterSingleton.GameSuspended) && WaitOnClick)
+            if ((_gameMasterSingleton.GameSuspended) && m_continueDialogue.WasPressedThisFrame() && WaitOnClick)
             {
                 WaitOnClick = false;
-                Debug.Log($"continue");
+                UnityEngine.Debug.Log($"continue");
                 OnContinueDialogue?.Invoke();
                 NextDialoguePiece();
             }
