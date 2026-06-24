@@ -79,7 +79,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Touch_Hold",
+                    "name": "Touch_Pos",
                     "type": "Value",
                     "id": "3023c08d-9c9c-4b24-9b44-e1be32f2b58c",
                     "expectedControlType": "Vector2",
@@ -104,6 +104,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Interact_Map",
+                    "type": "Button",
+                    "id": "35ebc648-c904-4760-a3ee-e7cdd5ba1540",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -367,7 +376,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Touch",
-                    "action": "Touch_Hold",
+                    "action": "Touch_Pos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -401,6 +410,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Mouse_Pos",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "120162d9-307a-4f57-97f9-d115bd01f29d",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
+                    "action": "Interact_Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "996969f5-6e24-4e5e-b98b-c558c76e8161",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact_Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
