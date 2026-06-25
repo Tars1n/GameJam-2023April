@@ -14,7 +14,7 @@ namespace GameJam.Map
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
     {
-        public GameMouseInput GameMouseInput;
+        private GameMouseInput gameMouseInput;
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -46,6 +46,7 @@ namespace GameJam.Map
 
         public void Initialize(MapManager mapManager)
         {
+            gameMouseInput = GetComponent<gameMouseInput>();
             _gm = GameMaster.Instance;
             _mapManager = GetComponent<MapManager>();
             _tileNodeManager = GetComponent<TileNodeManager>();
@@ -73,7 +74,7 @@ namespace GameJam.Map
             }
 
             // Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            UnityEngine.Vector2 mousePosition = GameMouseInput.getMousePos();
+            UnityEngine.Vector2 mousePosition = gameMouseInput.getMousePos();
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
 
             CheckHighlightedTile(gridCoordinate);
