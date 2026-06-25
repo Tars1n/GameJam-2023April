@@ -64,6 +64,9 @@ namespace GameJam.Map
             UnityEngine.Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
+        /**
+check for inputs to hilight tiles and move the character.
+        **/
         private void Update()
         {
             if (_gm.TilemapInteractable == false)
