@@ -83,7 +83,12 @@ check for inputs to hilight tiles and move the character.
             {
                 if (gameInput != null)
                 {
-                    nullableGridCoordinate = gameInput.GetInputPosForHilight();
+                    //if the value returned from the array is not null set it and break.
+                    if (gameInput.GetInputPosForHilight() != null)
+                    {
+                        nullableGridCoordinate = gameInput.GetInputPosForHilight();
+                        break;
+                    }
                 }
             }
             ;
