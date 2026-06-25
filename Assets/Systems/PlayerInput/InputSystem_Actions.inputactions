@@ -106,9 +106,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interact_Map",
+                    "name": "Mouse_Click",
                     "type": "Button",
                     "id": "35ebc648-c904-4760-a3ee-e7cdd5ba1540",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Touch_Press",
+                    "type": "Button",
+                    "id": "f9dce6a3-bf0a-48bf-9b40-5bb751e91b5d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -415,23 +424,23 @@
                 },
                 {
                     "name": "",
-                    "id": "120162d9-307a-4f57-97f9-d115bd01f29d",
-                    "path": "<Touchscreen>/Press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Touch",
-                    "action": "Interact_Map",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "996969f5-6e24-4e5e-b98b-c558c76e8161",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Interact_Map",
+                    "action": "Mouse_Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51c8440f-565c-474c-8cde-59686486a408",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Touch",
+                    "action": "Touch_Press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
