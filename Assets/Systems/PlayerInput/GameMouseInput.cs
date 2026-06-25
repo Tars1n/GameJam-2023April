@@ -10,6 +10,7 @@ namespace GameJam.PlayerInput
     @Author: Luke Johson
     Uses the Input system to get the mouse pos and if the left mouse button is clicked.
     Does not use an update  method, it is called by other scripts when the mouse info is needed.
+    functions return either null or the tile coordinates.
     **/
     public class GameMouseInput : GameInput
     {
