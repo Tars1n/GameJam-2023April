@@ -41,16 +41,33 @@ namespace GameJam.PlayerInput
         **/
         public override Vector3Int? GetInputPosForHilight()
         {
-            UnityEngine.Debug.Log($"in touch hold");
+            //if touch is pressed
             if (mTouchPressAction.IsPressed())
             {
-                UnityEngine.Debug.Log($"touch started");
+                //get the raw touch pos
+                Vector2 rawTouchPos = mTouchPosAction.ReadValue<Vector2>();
+                //convert to screen pos
+                Vector2 touchPos = Camera.main.ScreenToWorldPoint(rawTouchPos);
+                //get the gird coord
+                Vector3Int gridCoordinate = _map.WorldToCell(touchPos);
+                return gridCoordinate;
             }
             return null;
         }
 
         public override Vector3Int? GetInputBoolForMove()
         {
+            //if touch was released this frame
+            if (mTouchPressAction.WasReleasedThisFrame())
+            {
+                //get the raw touch pos
+                Vector2 rawTouchPos = mTouchPosAction.ReadValue<Vector2>();
+                //convert to screen pos
+                Vector2 touchPos = Camera.main.ScreenToWorldPoint(rawTouchPos);
+                //get the gird coord
+                Vector3Int gridCoordinate = _map.WorldToCell(touchPos);
+                return gridCoordinate;
+            }
             return null;
         }
     }
