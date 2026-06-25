@@ -15,7 +15,7 @@ namespace GameJam.Map
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
     {
-        private GameMouseInput gameMouseInput;
+        public IGameInput[] GameInputs;
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -47,7 +47,6 @@ namespace GameJam.Map
 
         public void Initialize(MapManager mapManager)
         {
-            gameMouseInput = GetComponent<GameMouseInput>();
             _gm = GameMaster.Instance;
             _mapManager = GetComponent<MapManager>();
             _tileNodeManager = GetComponent<TileNodeManager>();
@@ -79,28 +78,60 @@ check for inputs to hilight tiles and move the character.
             //get mouse pos from class that useses input system.
             // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.GetInputPosForHilight());
             // Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
-            Vector3Int gridCoordinate = gameMouseInput.GetInputPosForHilight();
-
-            CheckHighlightedTile(gridCoordinate);
-
-            if (!GameMaster.Instance.IsPlayerTurn)
-            { return; }
-
-            //try to select appropriate player character depending on mouse position
-            TrySelectingMirroredPlayerCharacter(gridCoordinate);
-
-            //DrawPathFromActiveEntityToMouse();
-
-            //get mouse click from class that uses input system.
-            if (gameMouseInput.GetInputBoolForMove() != null)
-
+            Vector3Int? nullableGridCoordinate = null;
+            foreach (IGameInput gameInput in GameInputs)
             {
-                TileBase clickedTile = _map.GetTile(gridCoordinate);
-                if (clickedTile == null) { return; }
-
-                OnTileSelected(gridCoordinate);
+                if (gameInput != null)
+                {
+                    nullableGridCoordinate = gameInput.GetInputPosForHilight();
+                }
             }
-            _previousTileMousedOver = gridCoordinate;
+            ;
+            //grid coordinate is not null so check to hillight a tile
+            if (nullableGridCoordinate != null)
+            {
+                Vector3Int gridCoordinate = nullableGridCoordinate.Value;
+
+
+                CheckHighlightedTile(gridCoordinate);
+
+                if (!GameMaster.Instance.IsPlayerTurn)
+                { return; }
+
+                //try to select appropriate player character depending on mouse position
+                TrySelectingMirroredPlayerCharacter(gridCoordinate);
+
+                //DrawPathFromActiveEntityToMouse();
+            }
+            nullableGridCoordinate = null;
+            //get mouse click from class that uses input system.
+            foreach (IGameInput gameInput in GameInputs)
+            {
+
+                //if move input was clicked break from loop
+                if (gameInput.GetInputBoolForMove() != null)
+                {
+                    nullableGridCoordinate = gameInput.GetInputBoolForMove();
+                    break;
+                }
+                //if mmove input was not clicked continue loop
+                else
+                {
+                    continue;
+                }
+            }
+            if (nullableGridCoordinate != null)
+            {
+                Vector3Int gridCoordinate = nullableGridCoordinate.Value;
+
+                {
+                    TileBase clickedTile = _map.GetTile(gridCoordinate);
+                    if (clickedTile == null) { return; }
+
+                    OnTileSelected(gridCoordinate);
+                }
+                _previousTileMousedOver = gridCoordinate;
+            }
         }
 
         //this is simply to make the mouse refresh for a frame
