@@ -73,8 +73,7 @@ namespace GameJam.Map
                 // RefreshOverlayMap();
                 return;
             }
-
-            // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            //get mouse pos from class that useses input system.
             UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.getMousePos());
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
 
@@ -88,7 +87,7 @@ namespace GameJam.Map
 
             //DrawPathFromActiveEntityToMouse();
 
-            // if (Mouse.current.leftButton.wasPressedThisFrame)
+            //get mouse click from class that uses input system.
             if (gameMouseInput.getMouseClick())
 
             {
