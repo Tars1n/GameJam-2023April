@@ -8,6 +8,7 @@ using GameJam.Entity;
 using GameJam.Entity.Abilities;
 using GameJam.PlayerInput;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace GameJam.Map
 {
@@ -60,7 +61,7 @@ namespace GameJam.Map
             _mouseMap = _mapManager.MouseInteractionTilemap;
             _turnManager = _gm.ReferenceManager.TurnManager;
             _turnManager.OnPlayerTurnBegins += DirtyMousePosition;
-            Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
+            UnityEngine.Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
         private void Update()
@@ -73,8 +74,8 @@ namespace GameJam.Map
                 return;
             }
 
-            // Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            UnityEngine.Vector2 mousePosition = gameMouseInput.getMousePos();
+            // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.getMousePos());
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
 
             CheckHighlightedTile(gridCoordinate);
@@ -87,7 +88,9 @@ namespace GameJam.Map
 
             //DrawPathFromActiveEntityToMouse();
 
-            if (Mouse.current.leftButton.wasPressedThisFrame)
+            // if (Mouse.current.leftButton.wasPressedThisFrame)
+            if (gameMouseInput.getMouseClick())
+
             {
                 TileBase clickedTile = _map.GetTile(gridCoordinate);
                 if (clickedTile == null) { return; }
@@ -202,7 +205,7 @@ namespace GameJam.Map
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
             if (tileNode == null)
             {
-                Debug.LogWarning("Attempted to select a non-existent tile.");
+                UnityEngine.Debug.LogWarning("Attempted to select a non-existent tile.");
                 return;
             }
             ValidateTileSelection(gridCoordinate, tileNode);
@@ -224,23 +227,23 @@ namespace GameJam.Map
 
         private void ValidateTileSelection(Vector3Int gridCoordinate, TileNode tileNode)
         {
-            if (tileNode == null) { Debug.LogError($"Selected TileNode is null, this should not be possible."); return; }
-            if (gridCoordinate != tileNode.GridCoordinate) { Debug.LogError($"Something went wrong: Somehow selected TileNode {tileNode} does not match Grid Coordinates."); }
+            if (tileNode == null) { UnityEngine.Debug.LogError($"Selected TileNode is null, this should not be possible."); return; }
+            if (gridCoordinate != tileNode.GridCoordinate) { UnityEngine.Debug.LogError($"Something went wrong: Somehow selected TileNode {tileNode} does not match Grid Coordinates."); }
 
             if (_debugLogs)
             {
                 Vector3Int indexPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridCoordinate);
-                Debug.Log($"{tileNode.TileType}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}. Entity Count: {tileNode.Entities.Count}.");
+                UnityEngine.Debug.Log($"{tileNode.TileType}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}. Entity Count: {tileNode.Entities.Count}.");
                 if (tileNode.Entities.Count > 0)
                 {
                     foreach (EntityBase entity in tileNode.Entities)
                     {
-                        Debug.Log($"  - {entity}");
+                        UnityEngine.Debug.Log($"  - {entity}");
                     }
                 }
                 // TileNode tile = GameMaster.Instance.ActiveEntity?.CurrentTileNode;
                 // if (tile != null)
-                // Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
+                // UnityEngine.Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
             }
         }
 
