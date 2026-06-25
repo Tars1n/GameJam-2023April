@@ -5,14 +5,16 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
 using GameJam.Entity;
-// using GameJam.PlayerInput;
 using GameJam.Entity.Abilities;
+using GameJam.PlayerInput;
+using System.Numerics;
 
 namespace GameJam.Map
 {
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
     {
+        public GameMouseInput GameMouseInput;
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -70,7 +72,8 @@ namespace GameJam.Map
                 return;
             }
 
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            // Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            UnityEngine.Vector2 mousePosition = GameMouseInput.getMousePos();
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
 
             CheckHighlightedTile(gridCoordinate);
@@ -97,7 +100,7 @@ namespace GameJam.Map
         private void DirtyMousePosition()
         {
             _previousTileMousedOver = new Vector3Int(-99, 99, -11);
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
             CheckHighlightedTile(gridCoordinate);
         }
@@ -345,14 +348,14 @@ namespace GameJam.Map
         private bool CheckIfJumpNotBlocked(EntityBase entity, TileNode tile, int range)
         {
             bool result = false;
-            Vector3 startPos = entity.GetAxialPos();
-            Vector3 landingPos = _mapManager.CastOddRowToAxial(tile.GridCoordinate);
+            UnityEngine.Vector3 startPos = entity.GetAxialPos();
+            UnityEngine.Vector3 landingPos = _mapManager.CastOddRowToAxial(tile.GridCoordinate);
 
-            Vector3 difference = landingPos - startPos;
+            UnityEngine.Vector3 difference = landingPos - startPos;
             difference /= range;
             if (difference.x % 1 == 0 && difference.y % 1 == 0 && difference.z % 1 == 0)
             {   //Has no divergent tiles
-                Vector3 tileBetween = startPos + difference;
+                UnityEngine.Vector3 tileBetween = startPos + difference;
                 Vector3Int tileAxial = new Vector3Int((int)tileBetween.x, (int)tileBetween.y, (int)tileBetween.z);
                 return _tileNodeManager.GetTileFromAxial(tileAxial).IsSelectable;
             }
@@ -374,32 +377,32 @@ namespace GameJam.Map
             //up right: 0, 1, -1
             Vector3Int ur = new Vector3Int((int)startPos.x, (int)startPos.y + 1, (int)startPos.z - 1);
             TileNode upRight = _tileNodeManager.GetTileFromAxial(ur);
-            if (difference == new Vector3(-0.5f, 1, -0.5f))
+            if (difference == new UnityEngine.Vector3(-0.5f, 1, -0.5f))
             {   //jumping up
                 if (upLeft != null && upLeft.IsSelectable) { result = true; }
                 if (upRight != null && upRight.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(-1f, 0.5f, 0.5f))
+            if (difference == new UnityEngine.Vector3(-1f, 0.5f, 0.5f))
             {   //jumping up left
                 if (upLeft != null && upLeft.IsSelectable) { result = true; }
                 if (left != null && left.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(-0.5f, -0.5f, 1))
+            if (difference == new UnityEngine.Vector3(-0.5f, -0.5f, 1))
             {   //jumping down left
                 if (left != null && left.IsSelectable) { result = true; }
                 if (downLeft != null && downLeft.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(0.5f, -1, 0.5f))
+            if (difference == new UnityEngine.Vector3(0.5f, -1, 0.5f))
             {   //jumping down
                 if (downLeft != null && downLeft.IsSelectable) { result = true; }
                 if (downRight != null && downRight.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(1f, -0.5f, -0.5f))
+            if (difference == new UnityEngine.Vector3(1f, -0.5f, -0.5f))
             {   //jumping down right
                 if (downRight != null && downRight.IsSelectable) { result = true; }
                 if (right != null && right.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(0.5f, 0.5f, -1f))
+            if (difference == new UnityEngine.Vector3(0.5f, 0.5f, -1f))
             {   //jumping up right
                 if (right != null && right.IsSelectable) { result = true; }
                 if (upRight != null && upRight.IsSelectable) { result = true; }
@@ -414,7 +417,7 @@ namespace GameJam.Map
             bool slamLanding = false;
             if (entity?.CurrentTileNode == null || targetTile == null)
             { return; }
-            Vector3 position = targetTile.WorldPos;
+            UnityEngine.Vector3 position = targetTile.WorldPos;
 
             if (range > 1)
             { slamLanding = true; }
@@ -432,7 +435,7 @@ namespace GameJam.Map
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
         {
             SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityHop);
-            Vector3 targetPosition = targetTile.WorldPos;
+            UnityEngine.Vector3 targetPosition = targetTile.WorldPos;
             if (entity == null) { yield break; }
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
@@ -440,7 +443,7 @@ namespace GameJam.Map
             entity.RenderOnLayer(1);
 
             float timeElapsed = 0;
-            Vector3 startPos = entity.transform.position;
+            UnityEngine.Vector3 startPos = entity.transform.position;
             while (timeElapsed < duration)
             {
                 if (entity == null)
@@ -462,7 +465,7 @@ namespace GameJam.Map
                 float land = Mathf.Lerp(hopHeight, targetPosition.y, g);
                 float y = Mathf.Lerp(launch, land, t);
 
-                entity.transform.position = new Vector3(x, y, 0);
+                entity.transform.position = new UnityEngine.Vector3(x, y, 0);
                 timeElapsed += Time.deltaTime;
 
                 yield return null;
