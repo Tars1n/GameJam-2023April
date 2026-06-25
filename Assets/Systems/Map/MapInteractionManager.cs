@@ -77,8 +77,9 @@ check for inputs to hilight tiles and move the character.
                 return;
             }
             //get mouse pos from class that useses input system.
-            UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.GetInputPosForHilight());
-            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.GetInputPosForHilight());
+            // Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            Vector3Int gridCoordinate = gameMouseInput.GetInputPosForHilight();
 
             CheckHighlightedTile(gridCoordinate);
 
@@ -91,7 +92,7 @@ check for inputs to hilight tiles and move the character.
             //DrawPathFromActiveEntityToMouse();
 
             //get mouse click from class that uses input system.
-            if (gameMouseInput.GetInputBoolForMove())
+            if (gameMouseInput.GetInputBoolForMove() != null)
 
             {
                 TileBase clickedTile = _map.GetTile(gridCoordinate);

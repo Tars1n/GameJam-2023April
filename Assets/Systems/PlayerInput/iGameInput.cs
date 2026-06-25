@@ -1,7 +1,7 @@
 using UnityEngine;
 public interface IGameInput
 {
-    public Vector2 GetInputPosForHilight();
+    public Vector3Int GetInputPosForHilight();
 
-    public bool GetInputBoolForMove();
+    public Vector3Int? GetInputBoolForMove();
 }

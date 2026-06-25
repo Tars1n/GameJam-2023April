@@ -1,6 +1,8 @@
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using GameJam.Map;
+using UnityEngine.Tilemaps;
 
 namespace GameJam.PlayerInput
 {
@@ -15,7 +17,9 @@ namespace GameJam.PlayerInput
         public InputActionAsset InputAsset;
         private InputAction mMousePosAction;
         private InputAction mMouseClickAction;
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        private MapManager _mapManager;
+        private Tilemap _map;
+
 
         void OnEnable()
         {
@@ -29,14 +33,40 @@ namespace GameJam.PlayerInput
         {
             mMousePosAction = InputSystem.actions.FindAction("Mouse_Pos");
             mMouseClickAction = InputSystem.actions.FindAction("Mouse_Click");
+            _mapManager = GetComponent<MapManager>();
+            _map = _mapManager.Map;
         }
-        public UnityEngine.Vector2 GetInputPosForHilight()
+        /**
+        return the tile the mouse is over.
+        **/
+        public Vector3Int GetInputPosForHilight()
         {
-            return mMousePosAction.ReadValue<UnityEngine.Vector2>();
+            //get pos of mouse
+            UnityEngine.Vector2 mousePosition = mMousePosAction.ReadValue<UnityEngine.Vector2>();
+            //convert to game vector
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            //convert to tile pos
+            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            return gridCoordinate;
         }
-        public bool GetInputBoolForMove()
+        /**
+        if mouse pressed this frame, return the tile the mouse is over.
+        **/
+        public Vector3Int? GetInputBoolForMove()
         {
-            return mMouseClickAction.WasPressedThisFrame();
+            //mouse was pressed so return tile
+            if (mMouseClickAction.WasPressedThisFrame())
+            {
+                //get pos of mouse
+                UnityEngine.Vector2 mousePosition = mMousePosAction.ReadValue<UnityEngine.Vector2>();
+                //convert to game vector
+                mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+                //convert to tile pos
+                Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+                return gridCoordinate;
+            }
+            //mouse was not pressed so return null
+            return null;
         }
     }
 }
