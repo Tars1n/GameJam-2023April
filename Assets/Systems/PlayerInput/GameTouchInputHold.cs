@@ -41,9 +41,10 @@ namespace GameJam.PlayerInput
         **/
         public override Vector3Int? GetInputPosForHilight()
         {
+            UnityEngine.Debug.Log($"in touch hold");
             if (mTouchPressAction.IsPressed())
             {
-                UnityEngine.Debug.Log("touch started");
+                UnityEngine.Debug.Log($"touch started");
             }
             return null;
         }

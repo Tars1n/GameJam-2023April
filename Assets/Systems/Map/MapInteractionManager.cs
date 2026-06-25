@@ -15,6 +15,8 @@ namespace GameJam.Map
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
     {
+        //GameInputs is the array of game inputs like mouse and touch double or touch hold. Note mouse must be last in this array
+        //because it always returns a value for the hilight.
         [SerializeField] private GameInput[] GameInputs;
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
