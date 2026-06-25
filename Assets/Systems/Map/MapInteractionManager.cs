@@ -46,7 +46,7 @@ namespace GameJam.Map
 
         public void Initialize(MapManager mapManager)
         {
-            gameMouseInput = GetComponent<gameMouseInput>();
+            gameMouseInput = GetComponent<GameMouseInput>();
             _gm = GameMaster.Instance;
             _mapManager = GetComponent<MapManager>();
             _tileNodeManager = GetComponent<TileNodeManager>();
