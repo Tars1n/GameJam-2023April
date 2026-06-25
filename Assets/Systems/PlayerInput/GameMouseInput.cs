@@ -11,7 +11,7 @@ namespace GameJam.PlayerInput
     Uses the Input system to get the mouse pos and if the left mouse button is clicked.
     Does not use an update  method, it is called by other scripts when the mouse info is needed.
     **/
-    public class GameMouseInput : MonoBehaviour, IGameInput
+    public class GameMouseInput : GameInput
     {
 
         public InputActionAsset InputAsset;
@@ -39,7 +39,7 @@ namespace GameJam.PlayerInput
         /**
         return the tile the mouse is over.
         **/
-        public Vector3Int GetInputPosForHilight()
+        public override Vector3Int? GetInputPosForHilight()
         {
             //get pos of mouse
             UnityEngine.Vector2 mousePosition = mMousePosAction.ReadValue<UnityEngine.Vector2>();
@@ -52,7 +52,7 @@ namespace GameJam.PlayerInput
         /**
         if mouse pressed this frame, return the tile the mouse is over.
         **/
-        public Vector3Int? GetInputBoolForMove()
+        public override Vector3Int? GetInputBoolForMove()
         {
             //mouse was pressed so return tile
             if (mMouseClickAction.WasPressedThisFrame())

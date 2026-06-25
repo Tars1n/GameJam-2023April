@@ -15,7 +15,7 @@ namespace GameJam.Map
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
     {
-        public IGameInput[] GameInputs;
+        [SerializeField] private GameInput[] GameInputs;
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -79,7 +79,7 @@ check for inputs to hilight tiles and move the character.
             // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.GetInputPosForHilight());
             // Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
             Vector3Int? nullableGridCoordinate = null;
-            foreach (IGameInput gameInput in GameInputs)
+            foreach (GameInput gameInput in GameInputs)
             {
                 if (gameInput != null)
                 {
@@ -105,9 +105,8 @@ check for inputs to hilight tiles and move the character.
             }
             nullableGridCoordinate = null;
             //get mouse click from class that uses input system.
-            foreach (IGameInput gameInput in GameInputs)
+            foreach (GameInput gameInput in GameInputs)
             {
-
                 //if move input was clicked break from loop
                 if (gameInput.GetInputBoolForMove() != null)
                 {
