@@ -56,5 +56,16 @@ namespace GameJam
             }
             _effectsSource.PlayOneShot(clip);
         }
+        
+        public void SetMusicTrack(AudioClip track)
+        {
+            if (track == null)
+            {
+                Debug.LogWarning("PlaySound was called with a null AudioClip.");
+                return;
+            }
+            _musicSource.PlayOneShot(track);
+            _musicSource.loop = true;
+        }
     }
 }
