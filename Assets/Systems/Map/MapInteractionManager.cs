@@ -89,6 +89,7 @@ check for inputs to hilight tiles and move the character.
                     if (gameInput.GetInputPosForHilight() != null)
                     {
                         nullableGridCoordinate = gameInput.GetInputPosForHilight();
+                        UnityEngine.Debug.Log("grid coord " + nullableGridCoordinate.ToString());
                         break;
                     }
                 }
