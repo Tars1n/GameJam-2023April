@@ -198,6 +198,8 @@ GameObject:
   - component: {fileID: 2819779886868964727}
   - component: {fileID: 2819779886868964726}
   - component: {fileID: 2819779886868964489}
+  - component: {fileID: 3151826633291821995}
+  - component: {fileID: 4594305513083570357}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -316,6 +318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d233bc898814b8446b5ec5aecc5af121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameInputs:
+  - {fileID: 3151826633291821995}
+  - {fileID: 4594305513083570357}
   _debugLogs: 0
   _mouseHoverTileBase: {fileID: 11400000, guid: 14467a0048f3e09428da766a836fe016, type: 2}
   _walkPathTileBase: {fileID: 11400000, guid: e77a2c9cbe5d71e4da9eafecf93e2176, type: 2}
@@ -370,6 +375,32 @@ MonoBehaviour:
   _mirrorY: 1
   _entityTop: {fileID: 6020328266290781499}
   _entityBottom: {fileID: 2819779886985963282}
+--- !u!114 &3151826633291821995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819779886868964734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5599b3d8c8e2d4b17abe8647e4801d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameJam.PlayerInput.GameTouchInputHold
+  InputAsset: {fileID: 0}
+--- !u!114 &4594305513083570357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819779886868964734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0217b611b8ef94bd5852dd312fea47eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameJam.PlayerInput.GameMouseInput
+  InputAsset: {fileID: 0}
 --- !u!1 &2819779887117564292
 GameObject:
   m_ObjectHideFlags: 0
