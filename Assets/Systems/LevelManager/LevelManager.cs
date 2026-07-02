@@ -19,6 +19,9 @@ namespace GameJam.Level
         public TurnManager TurnManager => _turnManager;
         [SerializeField] private AudioLibrary _audioLibrary;
         public AudioLibrary AudioLibrary => _audioLibrary;
+        [SerializeField] private MusicLibrary _musicLibrary;
+        public MusicLibrary MusicLibrary => _musicLibrary;
+        public AudioClip levelMusic;
         [SerializeField] private GameObject _slimeDrop;
         public GameObject SlimeDrop => _slimeDrop;
         [SerializeField] private bool _recordSlimeTrails;
@@ -41,6 +44,7 @@ namespace GameJam.Level
             _turnManager.Initialize();
             _mapManager.SetupTriggerTiles();
             IfFirstSceneResetScore();
+            SoundManager.Instance.TryMusicTrack(levelMusic);
             StartCoroutine(LateStart());
         }
         private void IfFirstSceneResetScore()

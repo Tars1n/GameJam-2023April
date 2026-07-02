@@ -8,7 +8,9 @@ namespace GameJam
     {
         public static SoundManager Instance;
         private AudioLibrary _audioLib;
+        private MusicLibrary _musicLib;
         public AudioLibrary Lib => _audioLib;
+        public MusicLibrary MusicLib => _musicLib;
         [SerializeField] private AudioSource _musicSource, _effectsSource;
 
         private void Awake() {
@@ -18,6 +20,7 @@ namespace GameJam
                 CreateAudioSources();
                 FindAudioLibrary();
                 DontDestroyOnLoad(gameObject);
+                Debug.Log("Sound Manager Instanced");
             }
             else
             {
@@ -31,6 +34,7 @@ namespace GameJam
             go.name = "Music Source";
             go.transform.SetParent(transform);
             _musicSource = go.AddComponent<AudioSource>();
+            _musicSource.loop = true;
 
             go = new GameObject();
             go.name = "Effect Source";
@@ -45,6 +49,11 @@ namespace GameJam
             {
                 Debug.LogWarning("No AudioLibrary asset found on LevelManager.");
             }
+            _musicLib = GameMaster.Instance.ReferenceManager.LevelManager.MusicLibrary;
+            if (_musicLib == null)
+            {
+                Debug.LogWarning("No MusicLibrary asset found on LevelManager");
+            }
         }
 
         public void PlaySound(AudioClip clip)
@@ -55,6 +64,17 @@ namespace GameJam
                 return;
             }
             _effectsSource.PlayOneShot(clip);
+        }
+
+        public void TryMusicTrack(AudioClip track)
+        {
+            if (track == null)
+            {
+                Debug.LogWarning("PlaySound was called with a null AudioClip.");
+                return;
+            }
+            if (track == _musicSource.isPlaying) return;
+            SetMusicTrack(track);
         }
         
         public void SetMusicTrack(AudioClip track)

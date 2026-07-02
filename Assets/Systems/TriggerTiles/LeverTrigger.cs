@@ -46,7 +46,7 @@ namespace GameJam.Map.TriggerTiles
                 if (tileNode == null)
                 {
                     Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tile}");
-                    continue;
+                    break;
                 }
                 tileNode.SetUpTrigger(this, _triggerTile, _colour);
             }

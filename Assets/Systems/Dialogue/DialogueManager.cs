@@ -70,7 +70,7 @@ namespace GameJam.Dialogue
             if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame) && WaitOnClick)
             {
                 WaitOnClick = false;
-                Debug.Log($"continue");
+                //Debug.Log($"continue");
                 OnContinueDialogue?.Invoke();
                 NextDialoguePiece();
             }
