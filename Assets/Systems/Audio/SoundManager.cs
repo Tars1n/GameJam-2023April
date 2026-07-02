@@ -11,6 +11,7 @@ namespace GameJam
         private MusicLibrary _musicLib;
         public AudioLibrary Lib => _audioLib;
         public MusicLibrary MusicLib => _musicLib;
+        private AudioClip _currentBGM;
         [SerializeField] private AudioSource _musicSource, _effectsSource;
 
         private void Awake() {
@@ -73,7 +74,11 @@ namespace GameJam
                 Debug.LogWarning("PlaySound was called with a null AudioClip.");
                 return;
             }
-            if (track == _musicSource.isPlaying) return;
+            if (track == _currentBGM)
+            {
+                //MusicSource is already playing the current song, let it continue.
+                return;
+            }
             SetMusicTrack(track);
         }
         
@@ -85,7 +90,7 @@ namespace GameJam
                 return;
             }
             _musicSource.PlayOneShot(track);
-            _musicSource.loop = true;
+            _currentBGM = track;
         }
     }
 }
