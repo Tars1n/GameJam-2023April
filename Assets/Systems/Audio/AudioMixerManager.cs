@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
 namespace GameJam
@@ -9,6 +10,27 @@ namespace GameJam
     public class AudioMixerManager : MonoBehaviour
     {
         [SerializeField] private AudioMixer audioMixer;
+        public Slider mainVolumeSlider;
+        [SerializeField] private Slider musicVolumeSlider;
+        [SerializeField] private Slider SFXVolumeSlider;
+
+        void Awake()
+        {
+            if (audioMixer == null)
+            {
+                Debug.Log("AudioMixerManager does not have AudioMixer plugged in");
+                return;
+            }
+            AdjustLevels();
+
+        }
+
+        public void AdjustLevels()
+        {
+            SetMasterVolume(mainVolumeSlider.value);
+            SetMusicVolume(musicVolumeSlider.value);
+            SetSoundFXVolume(SFXVolumeSlider.value);
+        }
 
         public void SetMasterVolume(float level)
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace GameJam
 {
@@ -12,6 +13,8 @@ namespace GameJam
         public AudioLibrary Lib => _audioLib;
         public MusicLibrary MusicLib => _musicLib;
         private AudioClip _currentBGM;
+        private AudioMixerManager _audioMixerManager;
+
         [SerializeField] private AudioSource _musicSource, _effectsSource;
 
         private void Awake() {
@@ -19,7 +22,14 @@ namespace GameJam
             {
                 Instance = this;
                 CreateAudioSources();
+                CreateMixerManager();
                 FindAudioLibrary();
+                _audioMixerManager = FindAnyObjectByType<AudioMixerManager>();
+                if (_audioMixerManager == null)
+                {
+                    Debug.Log("Could not find AudioMixerManager");
+                    return;
+                }
                 DontDestroyOnLoad(gameObject);
                 Debug.Log("Sound Manager Instanced");
             }
@@ -35,6 +45,7 @@ namespace GameJam
             go.name = "Music Source";
             go.transform.SetParent(transform);
             _musicSource = go.AddComponent<AudioSource>();
+            //_musicSource.outputAudioMixerGroup = _audioMixerManager.GetComponent<AudioMixer>().FindMatchingGroups("Music")[1];
             _musicSource.loop = true;
 
             go = new GameObject();
@@ -42,6 +53,11 @@ namespace GameJam
             go.transform.SetParent(transform);
             _effectsSource = go.AddComponent<AudioSource>();
         } 
+
+        private void CreateMixerManager()
+        {
+            _audioMixerManager = gameObject.AddComponent<AudioMixerManager>();
+        }
 
         private void FindAudioLibrary()
         {
@@ -71,7 +87,7 @@ namespace GameJam
         {
             if (track == null)
             {
-                Debug.LogWarning("PlaySound was called with a null AudioClip.");
+                Debug.LogWarning("TryMusicTrack was called with a null AudioClip.");
                 return;
             }
             if (track == _currentBGM)

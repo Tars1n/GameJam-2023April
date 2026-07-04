@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0451bf8b12652468e7bcd1ce4a95b9, type: 3}
   m_Name: MusicLibrary
   m_EditorClassIdentifier: Assembly-CSharp::GameJam.MusicLibrary
-  BGM01: {fileID: 0}
-  BGM02: {fileID: 0}
+  BGM01: {fileID: 8300000, guid: 6fc5e5b44d8617647bcfdbf1f355541c, type: 3}
+  BGM02: {fileID: 8300000, guid: 0f607af25112cbd4599e39f0763fd970, type: 3}

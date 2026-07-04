@@ -2597,6 +2597,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapManager: {fileID: 1380906906308569593}
   _audioLibrary: {fileID: 11400000, guid: 7d6485446bf547449ba54d609e056ed3, type: 2}
+  _musicLibrary: {fileID: 11400000, guid: 296a5039b4f77104880752b6ad00bcf0, type: 2}
+  levelMusic: {fileID: 8300000, guid: 6fc5e5b44d8617647bcfdbf1f355541c, type: 3}
   _slimeDrop: {fileID: 1605273675298768197, guid: ba826214b8aa4544881729f4d7601775, type: 3}
   _recordSlimeTrails: 0
   _scoreSO: {fileID: 11400000, guid: 40af083b746654f5cbd202a98cd2a64d, type: 2}
@@ -3768,6 +3770,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7839092327430880680}
     m_Modifications:
+    - target: {fileID: 622525124276455452, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 640477287086322352, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 640477287086322352, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1861009983919239139, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -3856,6 +3870,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3780110586618444296, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780110586618444296, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5261911264626258490, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -3870,6 +3892,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148871220792175354, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339380836714700470, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339380836714700470, guid: 8d14e8b3f66464d2399f724f83665089, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

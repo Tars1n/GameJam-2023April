@@ -6,6 +6,7 @@ using GameJam.Entity;
 using GameJam.Level.Scene;
 using UnityEngine.SceneManagement;
 using GameJam.Dialogue;
+using UnityEngine.Audio;
 
 namespace GameJam.Level
 {
@@ -17,6 +18,7 @@ namespace GameJam.Level
         public MapManager MapManager => _mapManager;
         private TurnManager _turnManager;
         public TurnManager TurnManager => _turnManager;
+        private AudioMixer _audioMixer;
         [SerializeField] private AudioLibrary _audioLibrary;
         public AudioLibrary AudioLibrary => _audioLibrary;
         [SerializeField] private MusicLibrary _musicLibrary;
@@ -44,7 +46,7 @@ namespace GameJam.Level
             _turnManager.Initialize();
             _mapManager.SetupTriggerTiles();
             IfFirstSceneResetScore();
-            SoundManager.Instance.TryMusicTrack(levelMusic);
+            SoundManager.Instance.TryMusicTrack(levelMusic); //do nothing if already playing current song or empty
             StartCoroutine(LateStart());
         }
         private void IfFirstSceneResetScore()
