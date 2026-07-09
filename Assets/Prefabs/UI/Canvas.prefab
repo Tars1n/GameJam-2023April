@@ -161,7 +161,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.469
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.138
+  m_Value: 0.15
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.621
+  m_Value: 0.618
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1747,9 +1747,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameJam.AudioMixerManager
   audioMixer: {fileID: 24100000, guid: 22f8e6a41dcb75e41aa77f0fdeb3395d, type: 2}
-  mainVolumeSlider: {fileID: 0}
-  musicVolumeSlider: {fileID: 0}
-  SFXVolumeSlider: {fileID: 0}
+  mainVolumeSlider: {fileID: 203992828852755295}
+  musicVolumeSlider: {fileID: 5329638749421340614}
+  SFXVolumeSlider: {fileID: 4903300294895934305}
 --- !u!1 &7148871220792175354
 GameObject:
   m_ObjectHideFlags: 0

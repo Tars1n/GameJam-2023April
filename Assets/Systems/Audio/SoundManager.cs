@@ -124,7 +124,8 @@ namespace GameJam
                 Debug.LogWarning("PlaySound was called with a null AudioClip.");
                 return;
             }
-            _musicSource.PlayOneShot(track);
+            _musicSource.clip = track;
+            _musicSource.Play();
             _currentBGM = track;
         }
     }
