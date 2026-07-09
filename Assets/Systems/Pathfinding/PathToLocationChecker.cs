@@ -1,11 +1,26 @@
 using UnityEngine;
+using GameJam.Map
 
 namespace GameJam
 {
+    /**
+    PathToLocationChecker.cs
+    @Author: Luke Johnson
+    Checks if the path to from one tile to another is free for movement. Can also be used to get the 
+    distance between tiles, and find the tiles between two tiles.
+    Current design is using the coordinate with offsets the game origionally was built with.
+    */
     public class PathToLocationChecker : MonoBehaviour
     {
         //TileNodeManager - contaions the tile nodes relative to the map coordinates.
 
+        private TileNodeManager tileNodeManager;
+
+        private void Awake() {
+            this.tileNodeManager = new GetComponent<TileNodeManager>();
+        }
+
+        
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -33,10 +48,26 @@ namespace GameJam
         /**
         public IsDestinationInRange
         check if the destination location is in range of the the player entitie's movement range.
+        Does this by getting the x and y distance, then if the y distance is greater than the x distance, 
+        uses the following forumla:
+        dist = ( x + y ) / 2
         @Parm: entityLocation: the tile location the entity is currently in in vector3int.
         @Parm: destinationLocation - the tile location the entity wants to move to.
         @Parm: maxMovement - the maximum movement the entity can move.
         @Return: boolen - true if the entities destination is within range.
+        */
+
+        /**
+        public GetDistance
+        returns the distance from one tile to another.
+        if using the 2d offset coordinate system, 
+        Does this by getting the x and y distance, then if the y distance is greater than the x distance, 
+        uses the following forumla:
+        dist = ( x + y ) / 2
+        else dist = x
+        @Parm: vector3Int: locationFrom - the coordinate location of the source.
+        @Parm: vector3Int: locationTo - the coordinate location of the destination.
+        @Return: int - the distance
         */
 
         /**
