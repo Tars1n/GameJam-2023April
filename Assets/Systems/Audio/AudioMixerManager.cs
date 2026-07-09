@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UIElements;
@@ -10,7 +12,7 @@ namespace GameJam
     public class AudioMixerManager : MonoBehaviour
     {
         [SerializeField] private AudioMixer audioMixer;
-        public Slider mainVolumeSlider;
+        [SerializeField] private Slider mainVolumeSlider;
         [SerializeField] private Slider musicVolumeSlider;
         [SerializeField] private Slider SFXVolumeSlider;
 
@@ -21,8 +23,51 @@ namespace GameJam
                 Debug.Log("AudioMixerManager does not have AudioMixer plugged in");
                 return;
             }
-            AdjustLevels();
+            //AdjustLevels();
 
+        }
+
+        public void SetupMusicMixer(AudioSource _musicSource)
+        {
+            if (_musicSource == null)
+            {
+                Debug.Log("AudioMixerManager did not receive valid music source");
+                return;
+            }
+            
+            SetupMixer(_musicSource, "Music");  
+            
+            _musicSource.loop = true;
+            SetMusicVolume(musicVolumeSlider.value);
+
+            Debug.Log("Music Source mixer completed setup.");
+        }
+
+        public void SetupSFXMixer(AudioSource _SFXSource)
+        {
+            if (_SFXSource == null)
+            {
+                Debug.Log("AudioMixerManager did not receive valid SFX source");
+                return;
+            }
+            
+            SetupMixer(_SFXSource, "SoundFX");            
+            SetSoundFXVolume(SFXVolumeSlider.value);
+
+        }
+
+        private void SetupMixer (AudioSource _audioSource, string _mixerName)
+        {
+            AudioMixerGroup[] matchingGroups = audioMixer.FindMatchingGroups(_mixerName);
+            if (matchingGroups.Length > 0 )
+            {
+                _audioSource.outputAudioMixerGroup = matchingGroups[0];
+                Debug.Log($"{_audioSource} set up with {_mixerName} mixer.");
+            }
+            else
+            {
+                Debug.Log($"Could not find valid {_mixerName} mixer for {_audioSource}");
+            }
         }
 
         public void AdjustLevels()

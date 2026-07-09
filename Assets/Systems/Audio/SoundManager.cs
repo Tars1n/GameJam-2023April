@@ -13,7 +13,7 @@ namespace GameJam
         public AudioLibrary Lib => _audioLib;
         public MusicLibrary MusicLib => _musicLib;
         private AudioClip _currentBGM;
-        private AudioMixerManager _audioMixerManager;
+        [SerializeField] private AudioMixerManager _audioMixerManager;
 
         [SerializeField] private AudioSource _musicSource, _effectsSource;
 
@@ -22,14 +22,9 @@ namespace GameJam
             {
                 Instance = this;
                 CreateAudioSources();
-                CreateMixerManager();
+                SetupMixers();
                 FindAudioLibrary();
-                _audioMixerManager = FindAnyObjectByType<AudioMixerManager>();
-                if (_audioMixerManager == null)
-                {
-                    Debug.Log("Could not find AudioMixerManager");
-                    return;
-                }
+                
                 DontDestroyOnLoad(gameObject);
                 Debug.Log("Sound Manager Instanced");
             }
@@ -45,8 +40,7 @@ namespace GameJam
             go.name = "Music Source";
             go.transform.SetParent(transform);
             _musicSource = go.AddComponent<AudioSource>();
-            //_musicSource.outputAudioMixerGroup = _audioMixerManager.GetComponent<AudioMixer>().FindMatchingGroups("Music")[1];
-            _musicSource.loop = true;
+            
 
             go = new GameObject();
             go.name = "Effect Source";
@@ -54,9 +48,23 @@ namespace GameJam
             _effectsSource = go.AddComponent<AudioSource>();
         } 
 
-        private void CreateMixerManager()
+        private void SetupMixers()
         {
-            _audioMixerManager = gameObject.AddComponent<AudioMixerManager>();
+            _audioMixerManager = FindAnyObjectByType<AudioMixerManager>();
+            if (_audioMixerManager == null)
+            {
+                Debug.Log("Could not find AudioMixerManager");
+                return;
+            }
+            else
+            {
+                Debug.Log($"setting up {_audioMixerManager.name}");
+            }
+
+            _audioMixerManager.SetupMusicMixer(_musicSource);
+            _audioMixerManager.SetupSFXMixer(_effectsSource);
+
+            
         }
 
         private void FindAudioLibrary()
