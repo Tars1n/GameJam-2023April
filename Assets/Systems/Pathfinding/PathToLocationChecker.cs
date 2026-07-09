@@ -39,8 +39,8 @@ namespace GameJam
         Check if the destination tile is empty, and the direct tiles along the path can be moved along.
         does this by getting an array of all tiles along the path, and checks them as well as the
         destionation tile to see if they do not contaion an obstacle blocking movement.
-        @Param: entityLocation - the tile location the entity is currently in in vector3int.
-        @Parm: destinationLocation - the tile location this is checking he path to.
+        @Param: vector3Int: entityLocation - the tile location the entity is currently in in vector3int.
+        @Parm: vector3Int, destinationLocation - the tile location this is checking he path to.
         @Return: boolean - true if the entity can move to the destination.
         */
         
@@ -51,8 +51,8 @@ namespace GameJam
         Does this by getting the x and y distance, then if the y distance is greater than the x distance, 
         uses the following forumla:
         dist = ( x + y ) / 2
-        @Parm: entityLocation: the tile location the entity is currently in in vector3int.
-        @Parm: destinationLocation - the tile location the entity wants to move to.
+        @Parm: vector3Int, entityLocation: the tile location the entity is currently in in vector3int.
+        @Parm: vector3Int, destinationLocation - the tile location the entity wants to move to.
         @Parm: maxMovement - the maximum movement the entity can move.
         @Return: boolen - true if the entities destination is within range.
         */
@@ -77,8 +77,8 @@ namespace GameJam
         then divides the distance by x and y to find the ratio of movement for one step. then
         iterates each step a number of times of the distance, and each time finds the next tile 
         by using the move ratio and adds that next tile to the array to return.
-        @Parm: entityLocation: the tile location the entity is currently in in vector3int.
-        @Parm: destinationLocation: the tile location the entity wants to move to.
+        @Parm: vector3Int, entityLocation: the tile location the entity is currently in in vector3int.
+        @Parm: vector3Int, destinationLocation: the tile location the entity wants to move to.
         @Return: vector3Int[] - array of tile locations along path.
         */
 
