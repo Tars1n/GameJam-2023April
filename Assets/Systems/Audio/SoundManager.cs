@@ -11,8 +11,8 @@ namespace GameJam
         public static SoundManager Instance;
         private AudioLibrary _audioLib;
         private MusicLibrary _musicLib;
-        public AudioLibrary Lib => _audioLib;
-        public MusicLibrary MusicLib => _musicLib;
+        public AudioLibrary Lib => _audioLib ? _audioLib : null;
+        public MusicLibrary MusicLib => _musicLib ? _musicLib : null;
         private AudioClip _currentBGM;
         [SerializeField] private AudioMixerManager _audioMixerManager;
 
@@ -25,6 +25,7 @@ namespace GameJam
                 CreateAudioSources();
                 SetupMixers();
                 FindAudioLibrary();
+                _audioMixerManager.AdjustLevels();
                 
                 DontDestroyOnLoad(gameObject);
                 Debug.Log("Sound Manager Instanced");
@@ -41,6 +42,7 @@ namespace GameJam
             go.name = "Music Source";
             go.transform.SetParent(transform);
             _musicSource = go.AddComponent<AudioSource>();
+            _musicSource.loop = true;
             
 
             go = new GameObject();
@@ -62,7 +64,7 @@ namespace GameJam
                 Debug.Log($"setting up {_audioMixerManager.name}");
             }
 
-            //_audioMixerManager.SetupMusicMixer(_musicSource);
+            _audioMixerManager.SetupMusicMixer(_musicSource);
             _audioMixerManager.SetupSFXMixer(_effectsSource);
 
             
@@ -75,10 +77,18 @@ namespace GameJam
             {
                 Debug.LogWarning("No AudioLibrary asset found on LevelManager.");
             }
+            else
+            {
+                Debug.Log("SoundManager is using current LevelManger AudioLibrary.");
+            }
             _musicLib = GameMaster.Instance.ReferenceManager.LevelManager.MusicLibrary;
             if (_musicLib == null)
             {
                 Debug.LogWarning("No MusicLibrary asset found on LevelManager");
+            }
+            else
+            {
+                Debug.Log("SoundManager is using current LevelManger MusicLibrary.");
             }
         }
 

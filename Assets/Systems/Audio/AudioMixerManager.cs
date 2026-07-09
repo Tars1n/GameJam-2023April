@@ -4,8 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UIElements;
-using UnityEngine.UIElements.Experimental;
+using UnityEngine.UI;
 
 namespace GameJam.Audio
 {
@@ -16,6 +15,10 @@ namespace GameJam.Audio
         [SerializeField] private Slider musicVolumeSlider;
         [SerializeField] private Slider SFXVolumeSlider;
 
+        const string MIXER_MASTER = "masterVolume";
+        const string MIXER_MUSIC = "musicVolume";
+        const string MIXER_SFX = "soundFXVolume";
+
         void Awake()
         {
             if (audioMixer == null)
@@ -23,8 +26,10 @@ namespace GameJam.Audio
                 Debug.Log("AudioMixerManager does not have AudioMixer plugged in");
                 return;
             }
-            //AdjustLevels();
-
+            if (mainVolumeSlider == null || musicVolumeSlider == null || SFXVolumeSlider == null)
+            {
+                Debug.Log("AudioMixerManager sliders not set.");
+            }
         }
 
         public void SetupMusicMixer(AudioSource _musicSource)
@@ -38,8 +43,6 @@ namespace GameJam.Audio
             SetupMixer(_musicSource, "Music");  
             
             _musicSource.loop = true;
-            SetMusicVolume(musicVolumeSlider.value);
-
             Debug.Log("Music Source mixer completed setup.");
         }
 
@@ -52,8 +55,6 @@ namespace GameJam.Audio
             }
             
             SetupMixer(_SFXSource, "SoundFX");            
-            SetSoundFXVolume(SFXVolumeSlider.value);
-
             Debug.Log("SFX Source mixer completed setup.");
 
         }
@@ -82,30 +83,29 @@ namespace GameJam.Audio
         public void SetMasterVolume(float level)
         {
             float value = ConvertDecibelValue(level);
-            audioMixer.SetFloat("masterVolume", value);
-        }
-
-        public void SetSoundFXVolume(float level)
-        {
-            float value = ConvertDecibelValue(level);
-            audioMixer.SetFloat("soundFXVolume", value);
+            audioMixer.SetFloat(MIXER_MASTER, value);
         }
 
         public void SetMusicVolume(float level)
         {
             float value = ConvertDecibelValue(level);
-            audioMixer.SetFloat("musicVolume", value);
+            audioMixer.SetFloat(MIXER_MUSIC, value);
+        }
+
+        public void SetSoundFXVolume(float level)
+        {
+            float value = ConvertDecibelValue(level);
+            audioMixer.SetFloat(MIXER_SFX, value);
         }
 
         private float ConvertDecibelValue(float level)
         {
-            if (level <-80 || level > 0)
-            {
-                Debug.Log("Attempting to set AudioMixer outside of -80 to 0 dB mix range, defaulting to -80 dB (muted).");
-                level = -80;
-            }
+            float val = Mathf.Clamp(level, 0.0001f, 1f);
+            val = Mathf.Log10(val) * 20;
+            Debug.Log($"Volume set to {val}.");
+           
             //AudioMixer is using decibel grading, -80 min value to 0 max value. This converts from a linear value to a logrithmic one.
-            return Mathf.Log10(level) * 20f;
+            return val;
         }
     }
 }
