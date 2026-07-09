@@ -11,7 +11,7 @@ namespace GameJam.Map.TriggerTiles
         {
             if (entityBase != null)
             {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.TrapActivated);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.TrapActivated);
                 entityBase.TriggerTrap();
                 ClearTriggerTiles();
                 // _ref.EntityManager.DestroyEntity(entityBase); //remove entity that entered trigger tile

@@ -24,7 +24,7 @@ namespace GameJam.Dialogue
             if (_customAudioClip != null)
                 SoundManager.Instance.PlaySound(_customAudioClip);
             else
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.DialogueSting);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.DialogueSting);
             
             dialogueManager.ChangePortrait(_characterTalking);
             dialogueManager.SetText(_dialogueText);

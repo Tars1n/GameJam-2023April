@@ -80,8 +80,8 @@ namespace GameJam.Map.TriggerTiles
             ActivatedThisTurn = true;
             _leverPulled = !_leverPulled;
             _animator?.SetBool("LeverPulled", _leverPulled);
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.LeverToggled);
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.TilesAltered);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.LeverToggled);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.TilesAltered);
 
             if (_leverPulled)
                 { _currentTileState = _pulledTileState; }

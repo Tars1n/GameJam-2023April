@@ -103,7 +103,7 @@ namespace GameJam.Map
             float shortenSlideDistance = 0.1f;
             bool shoveOneTile = false;
             
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.StartShove);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.StartShove);
 
             while (timeElapsed < _slideSpeed)
             {
@@ -141,7 +141,7 @@ namespace GameJam.Map
                     if (projectedTile == null) {continue;}
                     if (projectedTile.IsWalkable(entity))
                     {
-                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.Sliding);
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.Sliding);
                         shortenSlideDistance = 0.1f;
                     }
                 }
@@ -177,7 +177,7 @@ namespace GameJam.Map
                     entity.LinkToTileNode(currentTile);
                     collisionHappened = true;
                     currentTile.CollidedWith();
-                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.Collision);
+                    SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.Collision);
                     return false;
                 }
                 if (tileToCheck.IsWalkable(entity))
@@ -193,7 +193,7 @@ namespace GameJam.Map
                 collisionHappened = true;
                 currentTile.CollidedWith();
                 tileToCheck.CollidedWith();
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.Collision);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.Collision);
                 return false;
             }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using GameJam.Audio;
 
 namespace GameJam
 {
@@ -61,7 +62,7 @@ namespace GameJam
                 Debug.Log($"setting up {_audioMixerManager.name}");
             }
 
-            _audioMixerManager.SetupMusicMixer(_musicSource);
+            //_audioMixerManager.SetupMusicMixer(_musicSource);
             _audioMixerManager.SetupSFXMixer(_effectsSource);
 
             

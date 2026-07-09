@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 
-namespace GameJam
+namespace GameJam.Audio
 {
     public class AudioMixerManager : MonoBehaviour
     {
@@ -31,7 +31,7 @@ namespace GameJam
         {
             if (_musicSource == null)
             {
-                Debug.Log("AudioMixerManager did not receive valid music source");
+                Debug.Log("AudioMixerManager did not receive valid music Audio Source");
                 return;
             }
             
@@ -47,12 +47,14 @@ namespace GameJam
         {
             if (_SFXSource == null)
             {
-                Debug.Log("AudioMixerManager did not receive valid SFX source");
+                Debug.Log("AudioMixerManager did not receive valid SFX Audio Source");
                 return;
             }
             
             SetupMixer(_SFXSource, "SoundFX");            
             SetSoundFXVolume(SFXVolumeSlider.value);
+
+            Debug.Log("SFX Source mixer completed setup.");
 
         }
 

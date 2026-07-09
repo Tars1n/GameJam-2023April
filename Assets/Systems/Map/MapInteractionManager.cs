@@ -431,7 +431,7 @@ namespace GameJam.Map
 
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
         {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityHop);
+            // SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityHop);
             Vector3 targetPosition = targetTile.WorldPos;
             if (entity == null) { yield break; }
             GameMaster.Instance.TilemapInteractable = false;
@@ -479,7 +479,7 @@ namespace GameJam.Map
                 entity.GetComponent<JumpAndShove>()?.ActivateJumpPushback();
             }
 
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityLanding);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.EntityLanding);
             entity.ActionCompleted();
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);
