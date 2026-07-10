@@ -24,7 +24,7 @@ namespace GameJam
                 Instance = this;
                 CreateAudioSources();
                 SetupMixers();
-                FindAudioLibrary();
+                RefreshAudioLibrary();
                 _audioMixerManager.AdjustLevels();
                 
                 DontDestroyOnLoad(gameObject);
@@ -70,12 +70,12 @@ namespace GameJam
             
         }
 
-        private void FindAudioLibrary()
+        public void RefreshAudioLibrary()
         {
             _audioLib = GameMaster.Instance.ReferenceManager.LevelManager.AudioLibrary;
             if (_audioLib == null)
             {
-                Debug.LogWarning("No AudioLibrary asset found on LevelManager.");
+                Debug.LogWarning("No new AudioLibrary asset found on current LevelManager.");
             }
             else
             {
@@ -84,7 +84,7 @@ namespace GameJam
             _musicLib = GameMaster.Instance.ReferenceManager.LevelManager.MusicLibrary;
             if (_musicLib == null)
             {
-                Debug.LogWarning("No MusicLibrary asset found on LevelManager");
+                Debug.LogWarning("No new MusicLibrary asset found on current LevelManager");
             }
             else
             {
@@ -106,7 +106,7 @@ namespace GameJam
         {
             if (track == null)
             {
-                Debug.LogWarning("TryMusicTrack was called with a null AudioClip.");
+                Debug.Log("TryMusicTrack was called with a null AudioClip.");
                 return;
             }
             if (track == _currentBGM)

@@ -8,8 +8,8 @@ namespace GameJam.Dialogue
     {
         public override void DoPiece(DialogueManager dialogueManager)
         {
-            if (_customAudioClip != null)
-                SoundManager.Instance.PlaySound(_customAudioClip);
+            PlayAudio();
+            
             dialogueManager.TryCloseDialogueBox();
             FinishPiece();
         }

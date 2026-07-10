@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameJam.Map.TriggerTiles;
+using UnityEngine.LowLevel;
 
 namespace GameJam.Dialogue
 {
@@ -21,10 +22,11 @@ namespace GameJam.Dialogue
 
         protected virtual void DoSpawnTrap()
         {
-            if (_customAudioClip != null)
-                SoundManager.Instance.PlaySound(_customAudioClip);
-            else
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.EntityRevealed);
+            if (_customAudioClip == null)
+                _customAudioClip = SoundManager.Instance.Lib?.EntityRevealed;
+            
+            PlayAudio();
+            
             // DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
             TriggerTileManager ttm = _ref.EntityManager.SpawnTriggerObject(_trapPrefab, _coords);
             if (ttm is SingleTileTrap)

@@ -42,9 +42,10 @@ namespace GameJam.Level
         {
             Debug.Log("Setting up Level.");
             GameMaster.Instance.Initialize();
-            _mapManager.SetupMap();
-            _turnManager.Initialize();
-            _mapManager.SetupTriggerTiles();
+            SoundManager.Instance.RefreshAudioLibrary();
+            _mapManager?.SetupMap();
+            _turnManager?.Initialize();
+            _mapManager?.SetupTriggerTiles();
             IfFirstSceneResetScore();
             SoundManager.Instance.TryMusicTrack(levelMusic); //do nothing if already playing current song or empty
             StartCoroutine(LateStart());
@@ -63,7 +64,7 @@ namespace GameJam.Level
             Debug.Log("Activate LateStart:");
             yield return new WaitForSeconds(1f);
             
-            _ref.DialogueManager.DoLevelStartDialogue();
+            _ref.DialogueManager?.DoLevelStartDialogue();
         }
         public void LevelComplete()
         {
