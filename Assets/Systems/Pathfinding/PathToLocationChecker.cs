@@ -1,5 +1,5 @@
 using UnityEngine;
-using GameJam.Map
+using GameJam.Map;
 
 namespace GameJam
 {
@@ -17,7 +17,7 @@ namespace GameJam
         private TileNodeManager tileNodeManager;
 
         private void Awake() {
-            this.tileNodeManager = new GetComponent<TileNodeManager>();
+            this.tileNodeManager = GetComponent<TileNodeManager>();
         }
 
         
@@ -34,7 +34,7 @@ namespace GameJam
         }
 
         /**
-        public CanMoveToDestination:
+        public CheckCanMoveToDestination:
         check if the diret path to the location is clear. Will be used by the player entity.
         Check if the destination tile is empty, and the direct tiles along the path can be moved along.
         does this by getting an array of all tiles along the path, and checks them as well as the
