@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5599b3d8c8e2d4b17abe8647e4801d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameJam.PlayerInput.GameTouchInputHold
-  InputAsset: {fileID: 0}
+  InputAsset: {fileID: -944628639613478452, guid: 78302ce10820a416cab304e0d1fe7598, type: 3}
 --- !u!114 &4594305513083570357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0217b611b8ef94bd5852dd312fea47eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameJam.PlayerInput.GameMouseInput
-  InputAsset: {fileID: 0}
+  InputAsset: {fileID: -944628639613478452, guid: 78302ce10820a416cab304e0d1fe7598, type: 3}
 --- !u!1 &2819779887117564292
 GameObject:
   m_ObjectHideFlags: 0

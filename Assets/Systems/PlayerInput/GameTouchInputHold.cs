@@ -50,7 +50,7 @@ namespace GameJam.PlayerInput
                 Vector2 touchPos = Camera.main.ScreenToWorldPoint(rawTouchPos);
                 //get the gird coord
                 Vector3Int gridCoordinate = _map.WorldToCell(touchPos);
-                // UnityEngine.Debug.Log($"grid coord " + gridCoordinate);
+                UnityEngine.Debug.Log($"grid coord in touch hold: " + gridCoordinate);
                 return gridCoordinate;
             }
             return null;

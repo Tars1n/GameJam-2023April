@@ -47,6 +47,8 @@ namespace GameJam.PlayerInput
             mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
             //convert to tile pos
             Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            //debug:
+            // UnityEngine.Debug.Log("in game mouse input, grid coord mouse over: " + gridCoordinate);
             return gridCoordinate;
         }
         /**

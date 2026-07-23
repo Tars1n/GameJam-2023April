@@ -62,7 +62,7 @@ namespace GameJam.Map
             _mouseMap = _mapManager.MouseInteractionTilemap;
             _turnManager = _gm.ReferenceManager.TurnManager;
             _turnManager.OnPlayerTurnBegins += DirtyMousePosition;
-            UnityEngine.Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
+            // UnityEngine.Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
         /**
@@ -89,12 +89,13 @@ check for inputs to hilight tiles and move the character.
                     if (gameInput.GetInputPosForHilight() != null)
                     {
                         nullableGridCoordinate = gameInput.GetInputPosForHilight();
-                        UnityEngine.Debug.Log("grid coord " + nullableGridCoordinate.ToString());
+                        // UnityEngine.Debug.Log("in Map interaction manager update gameInputs loop, gameInput: " + gameInput.ToString());
                         break;
                     }
                 }
             }
             ;
+            // UnityEngine.Debug.Log("grid coord " + nullableGridCoordinate.ToString());
             //grid coordinate is not null so check to hillight a tile
             if (nullableGridCoordinate != null)
             {
@@ -142,12 +143,14 @@ check for inputs to hilight tiles and move the character.
         }
 
         //this is simply to make the mouse refresh for a frame
+        //I don't know why I have it or if i need it.
         private void DirtyMousePosition()
         {
-            _previousTileMousedOver = new Vector3Int(-99, 99, -11);
-            UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
-            CheckHighlightedTile(gridCoordinate);
+            // _previousTileMousedOver = new Vector3Int(-99, 99, -11);
+            // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            // Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            // //calls to this was messing with hilight tile with touch inputs.
+            // CheckHighlightedTile(gridCoordinate);
         }
 
         private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
@@ -159,7 +162,10 @@ check for inputs to hilight tiles and move the character.
         public void CheckHighlightedTile(Vector3Int gridCoordinate)
         {
             if (_previousTileMousedOver == gridCoordinate)
-            { return; }
+            { 
+                // UnityEngine.Debug.Log("in check hilighted tile, previous tile moused over == gird coordinate: " + gridCoordinate);
+                return; }
+                // UnityEngine.Debug.Log("in check hilighted tile, hilight mouse over tile: " + gridCoordinate);
             _mouseMap.ClearAllTiles();
             HighlightMouseOverTile(gridCoordinate);
         }
@@ -308,7 +314,8 @@ check for inputs to hilight tiles and move the character.
         {
             _overlayTilemap.ClearAllTiles();
             HighlightActiveEntityTile();
-            DirtyMousePosition();
+            //calls to this was messing up the hilight node with touch inputs, I don't completely know why, or what it's doing.
+            // DirtyMousePosition();
         }
 
         private void HighlightActiveEntityTile()
