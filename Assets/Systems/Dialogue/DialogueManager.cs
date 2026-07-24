@@ -9,11 +9,16 @@ using UnityEngine.UI;
 using GameJam.Map;
 using GameJam.Entity.Brain;
 using GameJam.Level;
+using System.Diagnostics;
 
 namespace GameJam.Dialogue
 {
     public class DialogueManager : MonoBehaviour
     {
+        //Action Map Assets:
+        public InputActionAsset inputActionAsset;
+        private InputAction m_continueDialogue;
+
         private ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeReference] private List<DialoguePieceClass> _startDialogue;
         [SerializeReference] private List<DialoguePieceClass> _endDialogue;
@@ -27,19 +32,32 @@ namespace GameJam.Dialogue
         private MapInteractionManager _mapInteractionManager;
         private TileNodeManager _tileNodeManager;
         private LevelManager _levelManager;
-        public Action OnContinueDialogue;        
+        public Action OnContinueDialogue;
         public Action OnDialogueComplete;
-        private int _dialogueIndex; 
-        private bool _levelLost; 
-        public bool WaitOnClick = false;      
+        private int _dialogueIndex;
+        private bool _levelLost;
+        public bool WaitOnClick = false;
 
-        private void Start() {
+        private void OnEnable()
+        {
+            inputActionAsset.FindActionMap("Dialogue").Enable();
+        }
+        private void OnDisable()
+        {
+            inputActionAsset.FindActionMap("Dialogue").Disable();
+        }
+        private void Awake()
+        {
+            m_continueDialogue = InputSystem.actions.FindAction("Continue");
+        }
+        private void Start()
+        {
             {
                 _entityManager = GameMaster.Instance.ReferenceManager.EntityManager;
                 _gameMasterSingleton = GameMaster.GetSingleton();
                 _mapInteractionManager = GameMaster.Instance.ReferenceManager.MapInteractionManager;
                 _tileNodeManager = GameMaster.Instance.ReferenceManager.TileNodeManager;
-                _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;              
+                _levelManager = GameMaster.Instance.ReferenceManager.LevelManager;
             }
         }
 
@@ -67,7 +85,7 @@ namespace GameJam.Dialogue
         private void Update()
         {
             if (GameMaster.Instance.InCutscene == false) return;
-            if ((_gameMasterSingleton.GameSuspended) && (Mouse.current.leftButton.wasPressedThisFrame) && WaitOnClick)
+            if ((_gameMasterSingleton.GameSuspended) && m_continueDialogue.WasPressedThisFrame() && WaitOnClick)
             {
                 WaitOnClick = false;
                 //Debug.Log($"continue");
@@ -84,13 +102,13 @@ namespace GameJam.Dialogue
             GameMaster.Instance.InCutscene = true;
             GameMaster.Instance.GameSuspended = true;
             GameMaster.Instance.TilemapInteractable = false;
-            
+
             NextDialoguePiece();
         }
 
         private void NextDialoguePiece()
         {
-            _dialogueIndex ++;
+            _dialogueIndex++;
             // OnContinueDialogue -= NextDialoguePiece;
             if (_dialogueIndex >= _currentDialogue.Count)
             {
@@ -129,7 +147,7 @@ namespace GameJam.Dialogue
         {
             _dialogueInCanvas.SetActive(false);
         }
-        
+
         public void FinishDialogue()
         {
             TryCloseDialogueBox();
@@ -176,9 +194,5 @@ namespace GameJam.Dialogue
             }
         }
 
-        private void OnDisable()
-        {
-            // OnContinueDialogue -= NextDialoguePiece;
-        }
     }
 }

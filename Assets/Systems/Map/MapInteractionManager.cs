@@ -5,14 +5,19 @@ using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 using GameJam.Pathfinding;
 using GameJam.Entity;
-using GameJam.PlayerInput;
 using GameJam.Entity.Abilities;
+using GameJam.PlayerInput;
+using System.Numerics;
+using System.Diagnostics;
 
 namespace GameJam.Map
 {
     [RequireComponent(typeof(PathfindingManager), typeof(MoveEntityAlongPath), typeof(MirrorManager))]
     public class MapInteractionManager : MonoBehaviour
-    {        
+    {
+        //GameInputs is the array of game inputs like mouse and touch double or touch hold. Note mouse must be last in this array
+        //because it always returns a value for the hilight.
+        [SerializeField] private GameInput[] GameInputs;
         private GameMasterSingleton _gm;
         [SerializeField] private bool _debugLogs = true;
         private MapManager _mapManager;
@@ -57,9 +62,12 @@ namespace GameJam.Map
             _mouseMap = _mapManager.MouseInteractionTilemap;
             _turnManager = _gm.ReferenceManager.TurnManager;
             _turnManager.OnPlayerTurnBegins += DirtyMousePosition;
-            Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
+            // UnityEngine.Debug.Log($"MapInteractionManager Inittialized to {_mapManager}.");
         }
 
+        /**
+check for inputs to hilight tiles and move the character.
+        **/
         private void Update()
         {
             if (_gm.TilemapInteractable == false)
@@ -69,49 +77,95 @@ namespace GameJam.Map
                 // RefreshOverlayMap();
                 return;
             }
+            //get mouse pos from class that useses input system.
+            // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(gameMouseInput.GetInputPosForHilight());
+            // Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            Vector3Int? nullableGridCoordinate = null;
+            foreach (GameInput gameInput in GameInputs)
+            {
+                if (gameInput != null)
+                {
+                    //if the value returned from the array is not null set it and break.
+                    if (gameInput.GetInputPosForHilight() != null)
+                    {
+                        nullableGridCoordinate = gameInput.GetInputPosForHilight();
+                        // UnityEngine.Debug.Log("in Map interaction manager update gameInputs loop, gameInput: " + gameInput.ToString());
+                        break;
+                    }
+                }
+            }
+            ;
+            // UnityEngine.Debug.Log("grid coord " + nullableGridCoordinate.ToString());
+            //grid coordinate is not null so check to hillight a tile
+            if (nullableGridCoordinate != null)
+            {
+                Vector3Int gridCoordinate = nullableGridCoordinate.Value;
 
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
 
-            CheckHighlightedTile(gridCoordinate);
+                CheckHighlightedTile(gridCoordinate);
 
-            if (!GameMaster.Instance.IsPlayerTurn)
+                if (!GameMaster.Instance.IsPlayerTurn)
                 { return; }
 
-            //try to select appropriate player character depending on mouse position
-            TrySelectingMirroredPlayerCharacter(gridCoordinate);
-            
-            //DrawPathFromActiveEntityToMouse();
+                //try to select appropriate player character depending on mouse position
+                TrySelectingMirroredPlayerCharacter(gridCoordinate);
 
-            if (Mouse.current.leftButton.wasPressedThisFrame)
-            {
-                TileBase clickedTile = _map.GetTile(gridCoordinate);
-                if (clickedTile == null) {return;}
-
-                OnTileSelected(gridCoordinate);
+                //DrawPathFromActiveEntityToMouse();
             }
-            _previousTileMousedOver = gridCoordinate;
+            nullableGridCoordinate = null;
+            //get mouse click from class that uses input system.
+            foreach (GameInput gameInput in GameInputs)
+            {
+                //if move input was clicked break from loop
+                if (gameInput.GetInputBoolForMove() != null)
+                {
+                    nullableGridCoordinate = gameInput.GetInputBoolForMove();
+                    break;
+                }
+                //if mmove input was not clicked continue loop
+                else
+                {
+                    continue;
+                }
+            }
+            if (nullableGridCoordinate != null)
+            {
+                Vector3Int gridCoordinate = nullableGridCoordinate.Value;
+
+                {
+                    TileBase clickedTile = _map.GetTile(gridCoordinate);
+                    if (clickedTile == null) { return; }
+
+                    OnTileSelected(gridCoordinate);
+                }
+                _previousTileMousedOver = gridCoordinate;
+            }
         }
 
         //this is simply to make the mouse refresh for a frame
+        //I don't know why I have it or if i need it.
         private void DirtyMousePosition()
         {
-            _previousTileMousedOver = new Vector3Int( -99, 99, -11);
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
-            CheckHighlightedTile(gridCoordinate);
+            // _previousTileMousedOver = new Vector3Int(-99, 99, -11);
+            // UnityEngine.Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            // Vector3Int gridCoordinate = _map.WorldToCell(mousePosition);
+            // //calls to this was messing with hilight tile with touch inputs.
+            // CheckHighlightedTile(gridCoordinate);
         }
 
         private void TrySelectingMirroredPlayerCharacter(Vector3Int mouseCoordinate)
         {
-            if (GameMaster.Instance.MultipleUniquePlayerCharacters) {return;}
+            if (GameMaster.Instance.MultipleUniquePlayerCharacters) { return; }
             _mirrorManager.SelectActivePlayer(mouseCoordinate);
         }
-        
+
         public void CheckHighlightedTile(Vector3Int gridCoordinate)
         {
-            if (_previousTileMousedOver == gridCoordinate) 
-                { return; }
+            if (_previousTileMousedOver == gridCoordinate)
+            { 
+                // UnityEngine.Debug.Log("in check hilighted tile, previous tile moused over == gird coordinate: " + gridCoordinate);
+                return; }
+                // UnityEngine.Debug.Log("in check hilighted tile, hilight mouse over tile: " + gridCoordinate);
             _mouseMap.ClearAllTiles();
             HighlightMouseOverTile(gridCoordinate);
         }
@@ -120,35 +174,35 @@ namespace GameJam.Map
         {
             TileNode tile = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
             if (tile == null)
-                { return; }
+            { return; }
 
             if (tile.IsSelectable == false)
-                { return; }
-            
+            { return; }
+
             _mouseMap.SetTile(gridCoordinate, _mouseHoverTileBase);
             RenderPlayerActionTile(null, tile);
             _mirrorManager.RenderMirroredSelection(_gm.ActiveEntity, tile);
-            
+
         }
 
         public void RenderPlayerActionTile(EntityBase entity, TileNode tile)
         {
             if (entity == null)
-                { entity = GameMaster.Instance.ActiveEntity; }
+            { entity = GameMaster.Instance.ActiveEntity; }
             if (!GameMaster.Instance.IsPlayerTurn || entity == null || entity?.CurrentTileNode == null || tile == null)
-                { return; }
+            { return; }
             //check range from active EntityCharacter
             int range = _mapManager.CalculateRange(tile.GridCoordinate, entity.CurrentTileNode.GridCoordinate);
-            if ( range == 1)
+            if (range == 1)
             {
                 if (tile.IsWalkable(entity))
                 {
-                     _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase); 
+                    _mouseMap.SetTile(tile.GridCoordinate, _canMoveTileBase);
                     return;
                 }
                 _shoveInteraction.TryRenderShoveHilight(entity.CurrentTileNode, tile);
             }
-            if ( range == 2)
+            if (range == 2)
             {
                 if (CheckIfJumpNotBlocked(entity, tile, range) == false)
                     return;
@@ -163,14 +217,14 @@ namespace GameJam.Map
         {
             Entity.EntityBase activeEntity = GameMaster.Instance.ActiveEntity;
             if (activeEntity == null)
-                { return; }
+            { return; }
             Vector3Int startCoord = activeEntity.CurrentTileNode.GridCoordinate;
             if (startCoord == _previousTileMousedOver)
-                { return; }
-            
+            { return; }
+
             List<TileNode> pathList = GetPathList(_previousTileMousedOver, activeEntity.CurrentTileNode.GridCoordinate);
             RenderPathTiles(pathList);
-            
+
             HighlightActiveEntityTile();
         }
 
@@ -184,11 +238,11 @@ namespace GameJam.Map
         private void RenderPathTiles(List<TileNode> pathList)
         {
             if (_renderPathToTarget == false)
-                { return; }
+            { return; }
 
             foreach (TileNode node in pathList)
             {
-                if (node == null) {return;}
+                if (node == null) { return; }
                 _mouseMap.SetTile(node.GridCoordinate, _walkPathTileBase);
             }
         }
@@ -198,13 +252,13 @@ namespace GameJam.Map
             TileNode tileNode = _tileNodeManager.GetNodeFromCoords(gridCoordinate);
             if (tileNode == null)
             {
-                Debug.LogWarning("Attempted to select a non-existent tile.");
+                UnityEngine.Debug.LogWarning("Attempted to select a non-existent tile.");
                 return;
-            } 
+            }
             ValidateTileSelection(gridCoordinate, tileNode);
 
-            if (tileNode.IsSelectable == false) 
-                { return; }
+            if (tileNode.IsSelectable == false)
+            { return; }
             if (SelectedPlayerCharacter(tileNode))
             {
                 RefreshOverlayMap();
@@ -215,28 +269,28 @@ namespace GameJam.Map
             {   //if player successfully causes selected character to take action, force mirrored entity to also act.
                 _mirrorManager.TryMirrorEntityAction(entity, tileNode);
             }
-            RefreshOverlayMap();            
+            RefreshOverlayMap();
         }
 
         private void ValidateTileSelection(Vector3Int gridCoordinate, TileNode tileNode)
         {
-            if (tileNode == null) { Debug.LogError($"Selected TileNode is null, this should not be possible."); return;}
-            if (gridCoordinate != tileNode.GridCoordinate) {Debug.LogError($"Something went wrong: Somehow selected TileNode {tileNode} does not match Grid Coordinates.");}
-            
+            if (tileNode == null) { UnityEngine.Debug.LogError($"Selected TileNode is null, this should not be possible."); return; }
+            if (gridCoordinate != tileNode.GridCoordinate) { UnityEngine.Debug.LogError($"Something went wrong: Somehow selected TileNode {tileNode} does not match Grid Coordinates."); }
+
             if (_debugLogs)
             {
                 Vector3Int indexPos = _tileNodeManager.ConvertCoordsToArrayIndex(gridCoordinate);
-                Debug.Log($"{tileNode.TileType}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}. Entity Count: {tileNode.Entities.Count}.");
+                UnityEngine.Debug.Log($"{tileNode.TileType}: Clicked on grid pos {gridCoordinate}. Array position {indexPos}. Entity Count: {tileNode.Entities.Count}.");
                 if (tileNode.Entities.Count > 0)
-                {   
+                {
                     foreach (EntityBase entity in tileNode.Entities)
                     {
-                        Debug.Log($"  - {entity}");
+                        UnityEngine.Debug.Log($"  - {entity}");
                     }
                 }
                 // TileNode tile = GameMaster.Instance.ActiveEntity?.CurrentTileNode;
                 // if (tile != null)
-                // Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
+                // UnityEngine.Debug.Log($"Tile is {_mapManager.CalculateRange(tile.GridCoordinate, gridCoordinate)} range from the Active Entity.");
             }
         }
 
@@ -246,13 +300,13 @@ namespace GameJam.Map
             if (_gm.IsPlayerTurn == false || _gm.MultipleUniquePlayerCharacters == false) //used to include _gm.MultipleUniquePlayerCharacters == false, before mirror selection
                 return false;
 
-            
+
             EntityCharacter playerCharacter = tileNode?.GetPlayerCharacter();
             if (playerCharacter != null)
             {
                 _gm.SetActiveEntity(playerCharacter);
                 return true;
-            }  
+            }
 
             return result;
         }
@@ -260,7 +314,8 @@ namespace GameJam.Map
         {
             _overlayTilemap.ClearAllTiles();
             HighlightActiveEntityTile();
-            DirtyMousePosition();
+            //calls to this was messing up the hilight node with touch inputs, I don't completely know why, or what it's doing.
+            // DirtyMousePosition();
         }
 
         private void HighlightActiveEntityTile()
@@ -276,16 +331,16 @@ namespace GameJam.Map
         public bool TryToTakeAction(EntityBase entity, TileNode tile)
         {
             if (entity == null)
-                { entity = GameMaster.Instance.ActiveEntity; }
+            { entity = GameMaster.Instance.ActiveEntity; }
             if (entity == null || !entity.HasActionReady)
-                { return false; }
+            { return false; }
             if (tile == null)
             {   //Invalid tile cast for mirror char, end their turn.
                 HopEntity(entity, entity?.CurrentTileNode, 0);
                 return true;
             }
             if (CanShoveTile(entity, tile))
-            {                
+            {
                 _shoveInteraction.ShoveThisTile(entity.CurrentTileNode, tile, 2);
                 entity.ActionCompleted();
                 return true;
@@ -303,7 +358,7 @@ namespace GameJam.Map
             if (CanMoveToTile(entity, tile, 2))
             {                //jump and shove
                 HopEntity(entity, tile, 2);
-                return true;                
+                return true;
             }
             if (CanMoveToTile(entity, tile, 2) == false)
                 return false;
@@ -332,10 +387,10 @@ namespace GameJam.Map
         public bool CanMoveToTile(EntityBase entity, TileNode tile, int range)
         {
             if (tile == null || tile?.IsWalkable(entity) == false)
-                { return false; }
+            { return false; }
             Vector3Int entityPos = entity.CurrentTileNode.GridCoordinate;
             if (_mapManager.CalculateRange(entityPos, tile.GridCoordinate) > range)
-                { return false; }
+            { return false; }
             if (range == 2)
                 return CheckIfJumpNotBlocked(entity, tile, range);
 
@@ -345,61 +400,61 @@ namespace GameJam.Map
         private bool CheckIfJumpNotBlocked(EntityBase entity, TileNode tile, int range)
         {
             bool result = false;
-            Vector3 startPos = entity.GetAxialPos();
-            Vector3 landingPos = _mapManager.CastOddRowToAxial(tile.GridCoordinate);
+            UnityEngine.Vector3 startPos = entity.GetAxialPos();
+            UnityEngine.Vector3 landingPos = _mapManager.CastOddRowToAxial(tile.GridCoordinate);
 
-            Vector3 difference = landingPos - startPos;
+            UnityEngine.Vector3 difference = landingPos - startPos;
             difference /= range;
             if (difference.x % 1 == 0 && difference.y % 1 == 0 && difference.z % 1 == 0)
             {   //Has no divergent tiles
-                Vector3 tileBetween = startPos + difference;
+                UnityEngine.Vector3 tileBetween = startPos + difference;
                 Vector3Int tileAxial = new Vector3Int((int)tileBetween.x, (int)tileBetween.y, (int)tileBetween.z);
                 return _tileNodeManager.GetTileFromAxial(tileAxial).IsSelectable;
             }
             //Up left: -1, 1, 0
-            Vector3Int ul = new Vector3Int((int)startPos.x-1, (int)startPos.y+1, (int)startPos.z);
+            Vector3Int ul = new Vector3Int((int)startPos.x - 1, (int)startPos.y + 1, (int)startPos.z);
             TileNode upLeft = _tileNodeManager.GetTileFromAxial(ul);
             //left: -1, 0, 1
-            Vector3Int l = new Vector3Int((int)startPos.x-1, (int)startPos.y, (int)startPos.z+1);
+            Vector3Int l = new Vector3Int((int)startPos.x - 1, (int)startPos.y, (int)startPos.z + 1);
             TileNode left = _tileNodeManager.GetTileFromAxial(l);
             //down left: 0, -1, 1
-            Vector3Int dl = new Vector3Int((int)startPos.x, (int)startPos.y-1, (int)startPos.z+1);
+            Vector3Int dl = new Vector3Int((int)startPos.x, (int)startPos.y - 1, (int)startPos.z + 1);
             TileNode downLeft = _tileNodeManager.GetTileFromAxial(dl);
             //down right: 1, -1, 0
-            Vector3Int dr = new Vector3Int((int)startPos.x+1, (int)startPos.y-1, (int)startPos.z);
+            Vector3Int dr = new Vector3Int((int)startPos.x + 1, (int)startPos.y - 1, (int)startPos.z);
             TileNode downRight = _tileNodeManager.GetTileFromAxial(dr);
             //right: 1, 0, -1
-            Vector3Int r = new Vector3Int((int)startPos.x+1, (int)startPos.y, (int)startPos.z-1);
+            Vector3Int r = new Vector3Int((int)startPos.x + 1, (int)startPos.y, (int)startPos.z - 1);
             TileNode right = _tileNodeManager.GetTileFromAxial(r);
             //up right: 0, 1, -1
-            Vector3Int ur = new Vector3Int((int)startPos.x, (int)startPos.y+1, (int)startPos.z-1);
+            Vector3Int ur = new Vector3Int((int)startPos.x, (int)startPos.y + 1, (int)startPos.z - 1);
             TileNode upRight = _tileNodeManager.GetTileFromAxial(ur);
-            if (difference == new Vector3(-0.5f, 1, -0.5f))
+            if (difference == new UnityEngine.Vector3(-0.5f, 1, -0.5f))
             {   //jumping up
                 if (upLeft != null && upLeft.IsSelectable) { result = true; }
                 if (upRight != null && upRight.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(-1f, 0.5f, 0.5f))
+            if (difference == new UnityEngine.Vector3(-1f, 0.5f, 0.5f))
             {   //jumping up left
                 if (upLeft != null && upLeft.IsSelectable) { result = true; }
                 if (left != null && left.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(-0.5f, -0.5f, 1))
+            if (difference == new UnityEngine.Vector3(-0.5f, -0.5f, 1))
             {   //jumping down left
                 if (left != null && left.IsSelectable) { result = true; }
                 if (downLeft != null && downLeft.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(0.5f, -1, 0.5f))
+            if (difference == new UnityEngine.Vector3(0.5f, -1, 0.5f))
             {   //jumping down
                 if (downLeft != null && downLeft.IsSelectable) { result = true; }
                 if (downRight != null && downRight.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(1f, -0.5f, -0.5f))
+            if (difference == new UnityEngine.Vector3(1f, -0.5f, -0.5f))
             {   //jumping down right
                 if (downRight != null && downRight.IsSelectable) { result = true; }
                 if (right != null && right.IsSelectable) { result = true; }
             }
-            if (difference == new Vector3(0.5f, 0.5f, -1f))
+            if (difference == new UnityEngine.Vector3(0.5f, 0.5f, -1f))
             {   //jumping up right
                 if (right != null && right.IsSelectable) { result = true; }
                 if (upRight != null && upRight.IsSelectable) { result = true; }
@@ -413,13 +468,13 @@ namespace GameJam.Map
             float speed = _slideSpeed;
             bool slamLanding = false;
             if (entity?.CurrentTileNode == null || targetTile == null)
-                { return; }
-            Vector3 position = targetTile.WorldPos;
+            { return; }
+            UnityEngine.Vector3 position = targetTile.WorldPos;
 
             if (range > 1)
-                { slamLanding = true; }
+            { slamLanding = true; }
             if (range == 0)
-                { speed = 0.25f; }
+            { speed = 0.25f; }
 
             HopEntityToPosFunc(entity, targetTile, speed, slamLanding);
         }
@@ -432,7 +487,7 @@ namespace GameJam.Map
         IEnumerator DoHopEntityToPos(EntityBase entity, TileNode targetTile, float duration, bool slamAtEnd)
         {
             // SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityHop);
-            Vector3 targetPosition = targetTile.WorldPos;
+            UnityEngine.Vector3 targetPosition = targetTile.WorldPos;
             if (entity == null) { yield break; }
             GameMaster.Instance.TilemapInteractable = false;
             GameMaster.Instance.AddEntityInMotion(entity);
@@ -440,7 +495,7 @@ namespace GameJam.Map
             entity.RenderOnLayer(1);
 
             float timeElapsed = 0;
-            Vector3 startPos = entity.transform.position;
+            UnityEngine.Vector3 startPos = entity.transform.position;
             while (timeElapsed < duration)
             {
                 if (entity == null)
@@ -451,9 +506,9 @@ namespace GameJam.Map
                 }
 
                 float t = timeElapsed / duration;
-                t = t * t * (3f - 2f *t);
-                float g = timeElapsed/duration;
-                g = 1 - ((1 - g)*(1 - g));
+                t = t * t * (3f - 2f * t);
+                float g = timeElapsed / duration;
+                g = 1 - ((1 - g) * (1 - g));
 
 
                 float x = Mathf.Lerp(startPos.x, targetPosition.x, g);
@@ -462,12 +517,12 @@ namespace GameJam.Map
                 float land = Mathf.Lerp(hopHeight, targetPosition.y, g);
                 float y = Mathf.Lerp(launch, land, t);
 
-                entity.transform.position = new Vector3(x, y, 0);
+                entity.transform.position = new UnityEngine.Vector3(x, y, 0);
                 timeElapsed += Time.deltaTime;
 
                 yield return null;
             }
-            
+
             entity.transform.position = targetPosition;
             entity.StopEntityMoving();
             entity.LinkToTileNode(null);
@@ -484,7 +539,7 @@ namespace GameJam.Map
             GameMaster.Instance.TilemapInteractable = true;
             GameMaster.Instance.RemoveEntityInMotion(entity);
         }
-        
+
         public void RenderTriggerHilight(Vector3Int tileCoords, TileBase triggerTileHilight, Color colour)
         {
             if (_triggerTileMap == null) { return; }
@@ -504,5 +559,5 @@ namespace GameJam.Map
             _turnManager.OnPlayerTurnBegins -= DirtyMousePosition;
         }
     }
-    
+
 }

@@ -2209,6 +2209,8 @@ GameObject:
   - component: {fileID: 1380906906308569599}
   - component: {fileID: 1380906906308569598}
   - component: {fileID: 1380906906308569089}
+  - component: {fileID: 7359338413911371431}
+  - component: {fileID: 6492172752281306237}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -2327,6 +2329,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d233bc898814b8446b5ec5aecc5af121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameInputs:
+  - {fileID: 6492172752281306237}
+  - {fileID: 7359338413911371431}
   _debugLogs: 0
   _mouseHoverTileBase: {fileID: 11400000, guid: 14467a0048f3e09428da766a836fe016, type: 2}
   _walkPathTileBase: {fileID: 11400000, guid: e77a2c9cbe5d71e4da9eafecf93e2176, type: 2}
@@ -2381,6 +2386,32 @@ MonoBehaviour:
   _mirrorY: 0
   _entityTop: {fileID: 0}
   _entityBottom: {fileID: 0}
+--- !u!114 &7359338413911371431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380906906308569590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0217b611b8ef94bd5852dd312fea47eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameJam.PlayerInput.GameMouseInput
+  InputAsset: {fileID: -944628639613478452, guid: 78302ce10820a416cab304e0d1fe7598, type: 3}
+--- !u!114 &6492172752281306237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380906906308569590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5599b3d8c8e2d4b17abe8647e4801d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameJam.PlayerInput.GameTouchInputHold
+  InputAsset: {fileID: -944628639613478452, guid: 78302ce10820a416cab304e0d1fe7598, type: 3}
 --- !u!1 &1380906906330597267
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,6 +2559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164906cc952f04e848b2c1d60ae3825a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputActionAsset: {fileID: -944628639613478452, guid: 78302ce10820a416cab304e0d1fe7598, type: 3}
   _startDialogue:
   - rid: 0
   _endDialogue: []
