@@ -27,10 +27,7 @@ namespace GameJam.Dialogue
 
         protected virtual void DoSpawnEntity()
         {
-            if (_customAudioClip != null)
-                SoundManager.Instance.PlaySound(_customAudioClip);
-            else
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.EntityRevealed);
+            PlayAudio();
 
             // DialoguePieceSpawnEntityClass dialogueSpawnEntity = (DialoguePieceSpawnEntityClass)_currentDialogue[_dialogueIndex];
             _entitySpawned = _ref.EntityManager.SpawnEntity(_entityPrefab, _coords);

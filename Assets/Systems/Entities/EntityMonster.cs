@@ -40,7 +40,7 @@ namespace GameJam.Entity
             base.FallInPit();
             if (IsCurrentlyMoving == false)
             {
-                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.MonsterFallIntoPit);
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.MonsterFallIntoPit);
             }
             _dialogueManager.DoDialogue(_fallInPitDialogue);
         }   

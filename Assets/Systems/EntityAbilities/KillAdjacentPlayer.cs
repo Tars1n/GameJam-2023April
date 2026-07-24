@@ -47,7 +47,7 @@ namespace GameJam.Entity
             }
             if (targetToKill != null)
             {
-                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.CultistAttackedPlayer);
+                SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.CultistAttackedPlayer);
                 _dialgueManager.DoDialoguePlayerDies(_killDialogue);
                 _entityManager.DestroyEntity(targetToKill);
             }

@@ -21,7 +21,7 @@ namespace GameJam.Entity
             base.FallInPit();
             if (IsCurrentlyMoving == false)
             {
-                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.PlayerFallIntoPit);
+                        SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.PlayerFallIntoPit);
             }
             _dialogueManager.DoDialoguePlayerDies(_fallInPitDialogue);
         }

@@ -6,6 +6,7 @@ using GameJam.Entity;
 using GameJam.Level.Scene;
 using UnityEngine.SceneManagement;
 using GameJam.Dialogue;
+using UnityEngine.Audio;
 
 namespace GameJam.Level
 {
@@ -17,8 +18,12 @@ namespace GameJam.Level
         public MapManager MapManager => _mapManager;
         private TurnManager _turnManager;
         public TurnManager TurnManager => _turnManager;
+        private AudioMixer _audioMixer;
         [SerializeField] private AudioLibrary _audioLibrary;
         public AudioLibrary AudioLibrary => _audioLibrary;
+        [SerializeField] private MusicLibrary _musicLibrary;
+        public MusicLibrary MusicLibrary => _musicLibrary;
+        public AudioClip levelMusic;
         [SerializeField] private GameObject _slimeDrop;
         public GameObject SlimeDrop => _slimeDrop;
         [SerializeField] private bool _recordSlimeTrails;
@@ -37,10 +42,12 @@ namespace GameJam.Level
         {
             Debug.Log("Setting up Level.");
             GameMaster.Instance.Initialize();
-            _mapManager.SetupMap();
-            _turnManager.Initialize();
-            _mapManager.SetupTriggerTiles();
+            SoundManager.Instance.RefreshAudioLibrary();
+            _mapManager?.SetupMap();
+            _turnManager?.Initialize();
+            _mapManager?.SetupTriggerTiles();
             IfFirstSceneResetScore();
+            SoundManager.Instance.TryMusicTrack(levelMusic); //do nothing if already playing current song or empty
             StartCoroutine(LateStart());
         }
         private void IfFirstSceneResetScore()
@@ -57,18 +64,18 @@ namespace GameJam.Level
             Debug.Log("Activate LateStart:");
             yield return new WaitForSeconds(1f);
             
-            _ref.DialogueManager.DoLevelStartDialogue();
+            _ref.DialogueManager?.DoLevelStartDialogue();
         }
         public void LevelComplete()
         {
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.NextLevel);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.NextLevel);
             _scoreSO.LevelCompleteSetScore();
             _sceneHandler.LoadNextLevel();
         }
         public void LevelFailed()
         {
             _scoreSO.RestartLevelScore();
-            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib.FailedLevel);
+            SoundManager.Instance.PlaySound(SoundManager.Instance.Lib?.FailedLevel);
             _sceneHandler.RestartLevel();
         }
         
