@@ -37,7 +37,16 @@ namespace GameJam.Map.TriggerTiles
                 if (tileNode == null)
                 {
                     Debug.LogWarning($"Attempting to set TriggerTile out of bounds: {tileCoord}");
-                    continue;
+                    break;
+                }
+                if (_triggerTile == null)
+                {
+                    Debug.Log("No trigger tile found.");
+                    return;
+                }
+                else
+                {
+                    Debug.Log("trigger tile found.");
                 }
                 Tile t = (Tile)_triggerTile;
                 if (t == null) return;

@@ -88,7 +88,7 @@ namespace GameJam.Dialogue
             if ((_gameMasterSingleton.GameSuspended) && m_continueDialogue.WasPressedThisFrame() && WaitOnClick)
             {
                 WaitOnClick = false;
-                UnityEngine.Debug.Log($"continue");
+                //Debug.Log($"continue");
                 OnContinueDialogue?.Invoke();
                 NextDialoguePiece();
             }

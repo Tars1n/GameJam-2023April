@@ -10,10 +10,19 @@ namespace GameJam.Dialogue
     {
         protected ReferenceManager _ref => GameMaster.Instance.ReferenceManager;
         [SerializeField] protected AudioClip _customAudioClip;
+        [SerializeField] protected AudioClip _changeMusicTrack;
         [SerializeField] protected bool _skipClick;
         [ShowIf("_skipClick"), SerializeField] protected float _waitForSeconds = 0f;
 
         public abstract void DoPiece(DialogueManager dialogueManager);
+
+        protected virtual void PlayAudio()
+        {
+            if (_customAudioClip != null)
+                SoundManager.Instance.PlaySound(_customAudioClip);
+            if (_changeMusicTrack != null)
+                SoundManager.Instance.TryMusicTrack(_changeMusicTrack);
+        }
 
         protected virtual void FinishPiece()
         {

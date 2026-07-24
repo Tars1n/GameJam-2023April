@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using GameJam.Audio;
 
 namespace GameJam
 {
@@ -8,7 +10,12 @@ namespace GameJam
     {
         public static SoundManager Instance;
         private AudioLibrary _audioLib;
-        public AudioLibrary Lib => _audioLib;
+        private MusicLibrary _musicLib;
+        public AudioLibrary Lib => _audioLib ? _audioLib : null;
+        public MusicLibrary MusicLib => _musicLib ? _musicLib : null;
+        private AudioClip _currentBGM;
+        [SerializeField] private AudioMixerManager _audioMixerManager;
+
         [SerializeField] private AudioSource _musicSource, _effectsSource;
 
         private void Awake() {
@@ -16,8 +23,12 @@ namespace GameJam
             {
                 Instance = this;
                 CreateAudioSources();
-                FindAudioLibrary();
+                SetupMixers();
+                RefreshAudioLibrary();
+                _audioMixerManager.AdjustLevels();
+                
                 DontDestroyOnLoad(gameObject);
+                Debug.Log("Sound Manager Instanced");
             }
             else
             {
@@ -31,6 +42,8 @@ namespace GameJam
             go.name = "Music Source";
             go.transform.SetParent(transform);
             _musicSource = go.AddComponent<AudioSource>();
+            _musicSource.loop = true;
+            
 
             go = new GameObject();
             go.name = "Effect Source";
@@ -38,12 +51,44 @@ namespace GameJam
             _effectsSource = go.AddComponent<AudioSource>();
         } 
 
-        private void FindAudioLibrary()
+        private void SetupMixers()
+        {
+            _audioMixerManager = FindAnyObjectByType<AudioMixerManager>();
+            if (_audioMixerManager == null)
+            {
+                Debug.Log("Could not find AudioMixerManager");
+                return;
+            }
+            else
+            {
+                Debug.Log($"setting up {_audioMixerManager.name}");
+            }
+
+            _audioMixerManager.SetupMusicMixer(_musicSource);
+            _audioMixerManager.SetupSFXMixer(_effectsSource);
+
+            
+        }
+
+        public void RefreshAudioLibrary()
         {
             _audioLib = GameMaster.Instance.ReferenceManager.LevelManager.AudioLibrary;
             if (_audioLib == null)
             {
-                Debug.LogWarning("No AudioLibrary asset found on LevelManager.");
+                Debug.LogWarning("No new AudioLibrary asset found on current LevelManager.");
+            }
+            else
+            {
+                Debug.Log("SoundManager is using current LevelManger AudioLibrary.");
+            }
+            _musicLib = GameMaster.Instance.ReferenceManager.LevelManager.MusicLibrary;
+            if (_musicLib == null)
+            {
+                Debug.LogWarning("No new MusicLibrary asset found on current LevelManager");
+            }
+            else
+            {
+                Debug.Log("SoundManager is using current LevelManger MusicLibrary.");
             }
         }
 
@@ -55,6 +100,33 @@ namespace GameJam
                 return;
             }
             _effectsSource.PlayOneShot(clip);
+        }
+
+        public void TryMusicTrack(AudioClip track)
+        {
+            if (track == null)
+            {
+                Debug.Log("TryMusicTrack was called with a null AudioClip.");
+                return;
+            }
+            if (track == _currentBGM)
+            {
+                //MusicSource is already playing the current song, let it continue.
+                return;
+            }
+            SetMusicTrack(track);
+        }
+        
+        public void SetMusicTrack(AudioClip track)
+        {
+            if (track == null)
+            {
+                Debug.LogWarning("PlaySound was called with a null AudioClip.");
+                return;
+            }
+            _musicSource.clip = track;
+            _musicSource.Play();
+            _currentBGM = track;
         }
     }
 }

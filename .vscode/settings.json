@@ -52,5 +52,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "GameJam-2023April.slnx"
+    "dotnet.defaultSolution": "GameJam-2023April.slnx",
+    "dotnet.preferCSharpExtension": true
 }
